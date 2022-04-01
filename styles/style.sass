@@ -1,3 +1,31 @@
 
 // daca scriu _menu, nu il compileaza, dar pot pune "./menu.sass" la import :)) sau mai scurt "menu.sass", sau mai scurt "menu"    
+@import "reset"
+
+$unit: 40px
+
+html
+    font-family: 'Roboto', sans-serif
+    font-size: 18px
+    font-weight: 500
+
+body
+    background: gray
+    height: 100vh
+
+.page-container
+    height: 100%
+    display: flex
+    flex-direction: column
+
+    .content-container
+        flex-grow: 1
+        padding: $unit 4 * $unit
+        width: 100%
+
+        .content
+            background: green
+            height: 100%
+            width: 100%
+
 @import "menu"
