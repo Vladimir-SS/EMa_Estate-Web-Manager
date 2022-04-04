@@ -1,0 +1,22 @@
+.splited {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 40px;
+  height: 100%;
+}
+
+.splited > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.splited .search {
+  background: green;
+}
+
+.splited .map {
+  border-radius: 20px;
+  background: red;
+}

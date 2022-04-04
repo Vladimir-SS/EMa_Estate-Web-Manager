@@ -1,16 +1,16 @@
 
 // daca scriu _menu, nu il compileaza, dar pot pune "./menu.sass" la import :)) sau mai scurt "menu.sass", sau mai scurt "menu"    
 @import "reset"
-
-$unit: 40px
+@import "sass-variables"
+@import "css-variables"
 
 html
     font-family: 'Roboto', sans-serif
-    font-size: 18px
+    font-size: $font-size
     font-weight: 500
 
 body
-    background: gray
+    background: var(--background-secondary)
     height: 100vh
 
 .page-container
@@ -24,7 +24,7 @@ body
         width: 100%
 
         .content
-            background: green
+            background: var(--background-primary)
             height: 100%
             width: 100%
 
