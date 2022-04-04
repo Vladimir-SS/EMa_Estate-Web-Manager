@@ -12,6 +12,81 @@
     .search
         background: green
 
+        $unit: $unit/2
+
+        .item
+            background: white
+            display: flex
+            border-radius: $border-radius
+
+            .image
+                margin: 0 $unit 0 $unit
+                width: $unit*10
+
+                img
+                    height: 100%
+                    width: 100%
+                    border-radius: $border-radius
+                    margin-top: $unit
+
+            .info
+                display: grid
+                padding: $font-size
+                color: black
+
+                .info-text
+                    display: flex
+
+                    .description
+
+                        p
+                            padding-bottom: $unit/2
+
+                        .info-street
+                            color: LightGray
+
+                    .estate-type
+                        background: cyan
+                        border-radius: $border-radius
+                        padding: $font-size/2 $unit/2
+
+                        color: var(--interactive-accent)
+                .icons
+                    display: flex
+
+                    .static-icons
+                        display: flex
+                        gap: $unit
+                        padding-top: $unit/2
+                        border-top: 1px
+                        border-style: solid
+                        border-color: gray
+
+                        .icon-text
+                            display: flex
+                            align-items: baseline
+                            height: $font-size
+                            margin-right: $unit
+
+                            img
+                                margin-right: $unit/2
+                                height: 100%
+
+                            &:nth-child(2)
+                                margin-left: auto
+
+                    .save
+                        padding-left: $unit/2
+
+                        img
+                            stroke: cyan
+
+                    .save.was-saved
+
+                        img
+                            stroke: var(--interactive-accent)
+                            fill: var(--interactive-accent)
+
     .map
         border-radius: $border-radius
         background: red

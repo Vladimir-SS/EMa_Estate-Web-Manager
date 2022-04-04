@@ -16,7 +16,106 @@
   background: green;
 }
 
+.splited .search .item {
+  background: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 20px;
+}
+
+.splited .search .item .image {
+  margin: 0 20px 0 20px;
+  width: 200px;
+}
+
+.splited .search .item .image img {
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.splited .search .item .info {
+  display: -ms-grid;
+  display: grid;
+  padding: 16px;
+  color: black;
+}
+
+.splited .search .item .info .info-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.splited .search .item .info .info-text .description p {
+  padding-bottom: 10px;
+}
+
+.splited .search .item .info .info-text .description .info-street {
+  color: LightGray;
+}
+
+.splited .search .item .info .info-text .estate-type {
+  background: cyan;
+  border-radius: 20px;
+  padding: 8px 10px;
+  color: var(--interactive-accent);
+}
+
+.splited .search .item .info .icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.splited .search .item .info .icons .static-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  padding-top: 10px;
+  border-top: 1px;
+  border-style: solid;
+  border-color: gray;
+}
+
+.splited .search .item .info .icons .static-icons .icon-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  height: 16px;
+  margin-right: 20px;
+}
+
+.splited .search .item .info .icons .static-icons .icon-text img {
+  margin-right: 10px;
+  height: 100%;
+}
+
+.splited .search .item .info .icons .static-icons .icon-text:nth-child(2) {
+  margin-left: auto;
+}
+
+.splited .search .item .info .icons .save {
+  padding-left: 10px;
+}
+
+.splited .search .item .info .icons .save img {
+  stroke: cyan;
+}
+
+.splited .search .item .info .icons .save.was-saved img {
+  stroke: var(--interactive-accent);
+  fill: var(--interactive-accent);
+}
+
 .splited .map {
   border-radius: 20px;
   background: red;
 }
+/*# sourceMappingURL=style.css.map */
