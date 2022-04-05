@@ -22,24 +22,24 @@
   display: -ms-flexbox;
   display: flex;
   border-radius: 20px;
+  height: 177px;
 }
 
 .splited .search .item .image {
-  margin: 0 20px 0 20px;
-  width: 200px;
+  height: 100%;
 }
 
 .splited .search .item .image img {
   height: 100%;
-  width: 100%;
   border-radius: 20px;
   margin-top: 20px;
+  margin-left: 20px;
 }
 
 .splited .search .item .info {
   display: -ms-grid;
   display: grid;
-  padding: 16px;
+  padding: 20px;
   color: black;
 }
 
@@ -47,19 +47,24 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .splited .search .item .info .info-text .description p {
   padding-bottom: 10px;
 }
 
-.splited .search .item .info .info-text .description .info-street {
-  color: LightGray;
+.splited .search .item .info .info-text .description .street {
+  color: gray;
 }
 
-.splited .search .item .info .info-text .estate-type {
-  background: cyan;
+.splited .search .item .info .estate-type {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border-radius: 20px;
+  border: 1px solid var(--interactive-accent);
   padding: 8px 10px;
   color: var(--interactive-accent);
 }
@@ -85,15 +90,11 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
+  gap: 10px;
   height: 16px;
-  margin-right: 20px;
 }
 
 .splited .search .item .info .icons .static-icons .icon-text img {
-  margin-right: 10px;
   height: 100%;
 }
 
@@ -102,14 +103,18 @@
 }
 
 .splited .search .item .info .icons .save {
-  padding-left: 10px;
+  margin-left: auto;
 }
 
-.splited .search .item .info .icons .save img {
-  stroke: cyan;
+.splited .search .item .info .icons .save svg {
+  height: 26px;
 }
 
-.splited .search .item .info .icons .save.was-saved img {
+.splited .search .item .info .icons .save svg path {
+  stroke: black;
+}
+
+.splited .search .item .info .icons .save.was-saved svg path {
   stroke: var(--interactive-accent);
   fill: var(--interactive-accent);
 }
@@ -118,4 +123,3 @@
   border-radius: 20px;
   background: red;
 }
-/*# sourceMappingURL=style.css.map */

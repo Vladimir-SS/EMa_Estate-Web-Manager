@@ -1,20 +1,19 @@
 <div class="item">
-    <div class="image"> <img src="img/appartmen1.jpg" alt="Apartmen1"> </div>
+    <div class="image"> <img src="img/appartmen1-squared.jpg" alt="Apartmen1"> </div>
     <!-- /.image -->
     <div class="info">
 
         <div class="info-text">
 
             <div class="description">
-                <p>230 000 RON</p>
-                <p>Title tempus imperdiet nulla malesuada pellentesque elit eget</p>
-                <p class="info-street">Strada Canta nr.45</p>
+                <p class="price">230 000 RON</p>
+                <p class="title">Title tempus imperdiet nulla malesuada pellentesque elit eget</p>
+                <p class="street">Strada Canta nr.45</p>
             </div>
             <!-- /.description -->
 
-            <div>
-                <p class="estate-type">Apartament</p>
-            </div>
+
+            <p class="estate-type">Apartament</p>
             <!-- /.estate-type -->
         </div>
         <!-- /.info-text -->
@@ -46,7 +45,7 @@
             </div>
 
             <div class="save">
-                <img src="svg/save.svg" alt="Save">
+                <?php include "svg/save.svg"?>
             </div>
             <!-- /.save -->
 

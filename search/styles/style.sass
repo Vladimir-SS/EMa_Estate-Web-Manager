@@ -12,45 +12,46 @@
     .search
         background: green
 
-        $unit: $unit/2
-
         .item
+            $unit: $unit/2
+
             background: white
             display: flex
             border-radius: $border-radius
+            height: 177px //!! change this hard coded value
 
             .image
-                margin: 0 $unit 0 $unit
-                width: $unit*10
-
+                height: 100%
                 img
                     height: 100%
-                    width: 100%
                     border-radius: $border-radius
                     margin-top: $unit
+                    margin-left: $unit
 
             .info
                 display: grid
-                padding: $font-size
+                padding: $unit
                 color: black
 
                 .info-text
                     display: flex
-
+                    align-items: flex-start
                     .description
 
                         p
                             padding-bottom: $unit/2
 
-                        .info-street
-                            color: LightGray
+                        .street
+                            color: gray
 
-                    .estate-type
-                        background: cyan
-                        border-radius: $border-radius
-                        padding: $font-size/2 $unit/2
+                .estate-type
+                    box-sizing: border-box
+                    border-radius: $border-radius
+                    border: 1px solid var(--interactive-accent)
+                    padding: $font-size/2 $unit/2
 
-                        color: var(--interactive-accent)
+                    color: var(--interactive-accent)
+
                 .icons
                     display: flex
 
@@ -60,30 +61,31 @@
                         padding-top: $unit/2
                         border-top: 1px
                         border-style: solid
-                        border-color: gray
+                        border-color: gray //!!change with text muted
 
                         .icon-text
                             display: flex
-                            align-items: baseline
+                            gap: $unit/2
                             height: $font-size
-                            margin-right: $unit
 
                             img
-                                margin-right: $unit/2
                                 height: 100%
 
                             &:nth-child(2)
                                 margin-left: auto
 
                     .save
-                        padding-left: $unit/2
+                        margin-left: auto
 
-                        img
-                            stroke: cyan
+                        svg
+                            height: $unit/2 + $font-size
+
+                            path
+                                stroke: black //!!change with text color
 
                     .save.was-saved
 
-                        img
+                        svg path
                             stroke: var(--interactive-accent)
                             fill: var(--interactive-accent)
 
