@@ -1,7 +1,6 @@
 <div class="splited">
     <div class="search">
-        <div class="item">zzz</div>
-        <!-- /.item -->
+        <?php include "item.php" ?>
     </div>
     <!-- /.search -->
     <div class="map">

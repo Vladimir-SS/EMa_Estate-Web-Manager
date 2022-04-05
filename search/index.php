@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ro">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,18 +13,20 @@
     <link rel="stylesheet" href="../shared/styles/page.css">
     <link rel="stylesheet" href="styles/style.css">
 </head>
+
 <body>
     <div class="page-container">
         <?php include_once "../shared/menu.html"; ?>
 
         <div class="content-container">
             <div class="content">
-                <?php include_once "content.html" ?>
+                <?php include_once "content.php" ?>
             </div>
         </div>
         <!-- /.page -->
     </div>
     <!-- /.page-container -->
-    
+
 </body>
+
 </html>
