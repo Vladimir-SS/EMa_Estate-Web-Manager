@@ -12,17 +12,15 @@
           flex: 1;
 }
 
-.splited .search {
-  background: green;
-}
-
 .splited .search .item {
   background: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   border-radius: 20px;
-  height: 177px;
+  height: 164px;
+  -webkit-box-shadow: 0px 18px 80px rgba(0, 0, 0, 0.07), 0px 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0px 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0px 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0px 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0px 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
+          box-shadow: 0px 18px 80px rgba(0, 0, 0, 0.07), 0px 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0px 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0px 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0px 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0px 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
 }
 
 .splited .search .item .image {
@@ -40,6 +38,7 @@
   display: -ms-grid;
   display: grid;
   padding: 20px;
+  width: 100%;
   color: black;
 }
 
@@ -73,24 +72,28 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 40px;
 }
 
 .splited .search .item .info .icons .static-icons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 20px;
+  gap: 40px;
   padding-top: 10px;
   border-top: 1px;
   border-style: solid;
   border-color: gray;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .splited .search .item .info .icons .static-icons .icon-text {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 10px;
+  gap: 20px;
   height: 16px;
 }
 

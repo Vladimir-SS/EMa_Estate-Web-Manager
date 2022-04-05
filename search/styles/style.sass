@@ -10,15 +10,14 @@
         flex: 1
 
     .search
-        background: green
 
         .item
             $unit: $unit/2
-
             background: white
             display: flex
             border-radius: $border-radius
-            height: 177px //!! change this hard coded value
+            height: 5 * $unit + 4 * $font-size
+            @include box-shadow
 
             .image
                 height: 100%
@@ -31,11 +30,13 @@
             .info
                 display: grid
                 padding: $unit
+                width: 100%
                 color: black
 
                 .info-text
                     display: flex
                     align-items: flex-start
+
                     .description
 
                         p
@@ -49,23 +50,24 @@
                     border-radius: $border-radius
                     border: 1px solid var(--interactive-accent)
                     padding: $font-size/2 $unit/2
-
                     color: var(--interactive-accent)
 
                 .icons
                     display: flex
+                    gap: 2 * $unit
 
                     .static-icons
                         display: flex
-                        gap: $unit
+                        gap: 2 * $unit
                         padding-top: $unit/2
                         border-top: 1px
                         border-style: solid
                         border-color: gray //!!change with text muted
+                        flex: 1
 
                         .icon-text
                             display: flex
-                            gap: $unit/2
+                            gap: $unit
                             height: $font-size
 
                             img

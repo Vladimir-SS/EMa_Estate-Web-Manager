@@ -18,7 +18,7 @@
     <div class="page-container">
         <?php include_once "../shared/menu.html"; ?>
 
-        <div class="content-container">
+        <div class="content-container responsive-container">
             <div class="content">
                 <?php include_once "content.php" ?>
             </div>
