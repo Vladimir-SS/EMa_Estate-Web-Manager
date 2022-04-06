@@ -1,96 +1,88 @@
-@import "../../shared/styles/_sass-variables"
+$unit: $unit/2
 
 .splited
     display: flex
     gap: $unit
-
     height: 100%
 
-    > *
-        flex: 1
+.side--map
+    border-radius: $border-radius
+    background: red
 
-    .search
+.item
+    background: white
+    display: flex
+    border-radius: $border-radius
+    height: 5 * $unit + 4 * $font-size
+    @include box-shadow
 
-        .item
-            $unit: $unit/2
-            background: white
-            display: flex
-            border-radius: $border-radius
-            height: 5 * $unit + 4 * $font-size
-            @include box-shadow
-
-            .image
-                height: 100%
-                img
-                    height: 100%
-                    border-radius: $border-radius
-                    margin-top: $unit
-                    margin-left: $unit
-
-            .info
-                display: grid
-                padding: $unit
-                width: 100%
-                color: black
-
-                .info-text
-                    display: flex
-                    align-items: flex-start
-
-                    .description
-
-                        p
-                            padding-bottom: $unit/2
-
-                        .street
-                            color: gray
-
-                .estate-type
-                    box-sizing: border-box
-                    border-radius: $border-radius
-                    border: 1px solid var(--interactive-accent)
-                    padding: $font-size/2 $unit/2
-                    color: var(--interactive-accent)
-
-                .icons
-                    display: flex
-                    gap: 2 * $unit
-
-                    .static-icons
-                        display: flex
-                        gap: 2 * $unit
-                        padding-top: $unit/2
-                        border-top: 1px
-                        border-style: solid
-                        border-color: gray //!!change with text muted
-                        flex: 1
-
-                        .icon-text
-                            display: flex
-                            gap: $unit
-                            height: $font-size
-
-                            img
-                                height: 100%
-
-                            &:nth-child(2)
-                                margin-left: auto
-
-                    .save
-                        margin-left: auto
-
-                        svg
-                            height: $unit/2 + $font-size
-
-                            path
-                                stroke: black //!!change with text color
-
-                    .save.was-saved
-
-                        svg path
-                            stroke: var(--interactive-accent)
-                            fill: var(--interactive-accent)
-
-    .map
+.item__image
+    height: 100%
+    img
+        height: 100%
         border-radius: $border-radius
-        background: red
+        margin-top: $unit
+        margin-left: $unit
+
+.item__info
+    display: grid
+    padding: $unit
+    width: 100%
+    color: black
+
+.item__info__text
+    display: flex
+    align-items: flex-start
+
+.item__info__text__description
+
+    p
+        padding-bottom: $unit/2
+
+    .street
+        color: gray
+
+.item__info__text__estate-type
+    box-sizing: border-box
+    border-radius: $border-radius
+    margin-left: $unit*3
+    border: 1px solid var(--interactive-accent)
+    padding: $font-size/2 $unit/2
+    color: var(--interactive-accent)
+
+.item__info__icons
+    display: flex
+    gap: 2 * $unit
+
+.item__info__icons__basic
+    display: flex
+    gap: 2 * $unit
+    padding-top: $unit/2
+    border-top: 1px
+    border-style: solid
+    border-color: gray //!!change with text muted
+
+    .icon-text
+        display: flex
+        gap: $unit
+        height: $font-size
+
+        img
+            height: 100%
+
+        &:nth-child(2)
+            margin-left: auto
+
+.item__info__icons__save
+    margin-left: auto
+
+    svg
+        height: $unit/2 + $font-size
+
+        path
+            stroke: black //!!change with text color
+
+.item__info__icons__save--is-saved
+    svg path
+        stroke: var(--interactive-accent)
+        fill: var(--interactive-accent)

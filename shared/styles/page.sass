@@ -1,8 +1,8 @@
 
 // daca scriu _menu, nu il compileaza, dar pot pune "./menu.sass" la import :)) sau mai scurt "menu.sass", sau mai scurt "menu"    
 @import "reset"
-@import "sass-variables"
-@import "css-variables"
+@import "config"
+@import "mixins"
 
 html
     font-family: 'Roboto', sans-serif
@@ -12,6 +12,9 @@ html
 body
     background: var(--background-secondary)
     height: 100vh
+
+.flex-1
+    flex: 1
 
 .responsive-container
     max-width: 90vw
@@ -32,3 +35,4 @@ body
             width: 100%
 
 @import "menu"
+@import "../../search/styles/style"

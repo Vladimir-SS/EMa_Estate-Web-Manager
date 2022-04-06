@@ -1,25 +1,25 @@
 <div class="item">
-    <div class="image"> <img src="img/appartmen1-squared.jpg" alt="Apartmen1"> </div>
-    <!-- /.image -->
-    <div class="info">
+    <div class="item__image"> <img src="img/appartmen1-squared.jpg" alt="Apartmen1"> </div>
+    <!-- /.item__image -->
+    <div class="item__info">
 
-        <div class="info-text">
+        <div class="item__info__text">
 
-            <div class="description">
+            <div class="item__info__text__description">
                 <p class="price">230 000 RON</p>
                 <p class="title">Title tempus imperdiet nulla malesuada pellentesque elit eget</p>
                 <p class="street">Strada Canta nr.45</p>
             </div>
-            <!-- /.description -->
+            <!-- /.item__info__text__description -->
 
 
-            <p class="estate-type">Apartament</p>
-            <!-- /.estate-type -->
+            <p class="item__info__text__estate-type">Apartament</p>
+            <!-- /.item__info__text__estate-type -->
         </div>
-        <!-- /.info-text -->
-        <div class="icons">
+        <!-- /.item__info__text -->
+        <div class="item__info__icons">
 
-            <div class="static-icons">
+            <div class="item__info__icons__basic">
 
                 <div class="icon-text">
                     <img src="svg/space.svg" alt="Space">
@@ -43,16 +43,16 @@
                 </div>
                 <!-- /.icon-text -->
             </div>
-
-            <div class="save">
-                <?php include "svg/save.svg"?>
+            <!-- /.item__info__icons__basic -->
+            <div class="item__info__icons__save">
+                <?php include "svg/save.svg" ?>
             </div>
-            <!-- /.save -->
+            <!-- /.item__info__icons__save -->
 
         </div>
-        <!-- /.icons -->
+        <!-- /.item__info__icons -->
 
     </div>
-    <!-- /.info -->
+    <!-- /.item__info -->
 </div>
 <!-- /.item -->
