@@ -265,4 +265,113 @@ body {
   stroke: var(--interactive-accent);
   fill: var(--interactive-accent);
 }
+
+.container {
+  padding: 30px;
+  background: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px 58% 0 8%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
+          box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
+}
+
+.conn-heading {
+  font-size: 22px;
+}
+
+.fast-conn-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  margin: 0 60px 0 10px;
+}
+
+.btn {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 20px;
+  border: 0;
+  margin: 10px 0;
+  padding: 8px 100px 10px 0;
+  font-size: 16px;
+  background-color: #086788;
+  color: white;
+  cursor: pointer;
+}
+
+.btn img {
+  margin: 0 5px 0 5px;
+  width: 16px;
+  height: 16px;
+}
+
+.btn--gmail {
+  background-color: #EA4335;
+}
+
+.btn--facebook {
+  background-color: #45619D;
+}
+
+.container__form {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  margin: 0 60px 0 20px;
+}
+
+.container__form p {
+  margin: 20px 0;
+}
+
+.input-box {
+  position: relative;
+}
+
+.input-box img {
+  position: absolute;
+  padding: 16px;
+}
+
+.input-box__input {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 0;
+  border-radius: 20px;
+  margin: 10px 0;
+  padding: 8px 160px 10px 50px;
+  font-size: 16px;
+  background-color: #F5F6F8;
+}
+
+.input-box__input:focus {
+  outline: none;
+}
+
+.input-box__input--pwd {
+  background-color: #086788;
+  color: white;
+}
+
+.hlink {
+  color: #086788;
+}
 /*# sourceMappingURL=page.css.map */
