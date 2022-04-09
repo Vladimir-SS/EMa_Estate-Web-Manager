@@ -118,6 +118,8 @@ input:-webkit-autofill {
   --background-secondary: #f2f3f5;
   --background-secondary-alt: #e3e5e8;
   --interactive-accent: #086788;
+  --text-normal: #000000;
+  --text-faint: #6B6B6B;
 }
 
 html {
@@ -142,6 +144,7 @@ h2 {
 }
 
 .responsive-container {
+  max-height: 90vh;
   max-width: 90vw;
   margin: 0 auto;
   width: 1600px;
@@ -177,3 +180,4 @@ h2 {
   -webkit-box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
           box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
 }
+/*# sourceMappingURL=page.css.map */

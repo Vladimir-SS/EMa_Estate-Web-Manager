@@ -21,24 +21,21 @@
         <div class="content-container responsive-container">
             <div class="content">
 
-                <div class="content__box  content__box--login">
+                <div class="content__box content__box--login">
 
-                    <div class="fast-conn-buttons">
+                    <h2>Conectează-te</h2>
+                    <button class="icon-field icon-field--gmail icon-field--social" type="conn-gmail">
+                        <?php include "svg/gmail.svg" ?>
+                        Conectează-te cu contul tău Google
+                    </button>
+                    <!-- /.icon-field icon-field--gmail icon-field--social -->
 
-                        <h2 class="conn-heading">Conectează-te</h2>
-                        <button class="icon-field icon-field--gmail icon-field--social" >
-                            <?php include "svg/gmail.svg" ?>
-                            Conectează-te cu contul tau Google
-                        </button>
-                        <!-- /.btn btn--gmail -->
+                    <button class="icon-field icon-field--facebook icon-field--social" type="conn-facebook">
+                        <?php include "svg/facebook.svg" ?>
+                        Conectează-te cu contul tău Facebook
+                    </button>
+                    <!-- /.icon-field icon-field--facebook icon-field--social -->
 
-                        <button class="icon-field icon-field--facebook icon-field--social" type="conn-facebook">
-                            <?php include "svg/facebook.svg" ?>
-                            Conectează-te cu contul tau Facebook
-                        </button>
-                        <!-- /.btn btn--gmail -->
-                    </div>
-                    <!-- /.fast--conn-buttons -->
                     <form class="content__box__form" action="action_login.php" method="get">
 
                         <p>Completeaza campurile de mai jos pentru a te conecta.</p>
@@ -46,35 +43,38 @@
                             <?php include "svg/person.svg" ?>
                             <input class="input-box__input" type="text" placeholder="E-mail sau Telefon" name="mail-or-phone" required>
                         </div>
-                        <!-- /.input-box -->
+                        <!-- /.icon-field input-box -->
 
-                        <div class="icon-field input-box ">
+                        <div class="icon-field input-box">
                             <?php include "svg/pass.svg" ?>
                             <input class="input-box__input input-box__input--pwd" type="password" placeholder="Introdu parola" name="psw" required>
                         </div>
-                        <!-- /.input-box -->
+                        <!-- /.icon-field input-box -->
 
-                        <p> <a class="hlink" href="#">Forgot password?</a></p>
+                        <p> <a class="hlink" href="#">Ați uitat parola?</a></p>
 
-                        <p>Nu ai cont? <a class="hlink" href="../login-register/register.php"> Creează-ți cont</a></p>
-                        <p>Prin actiunea de conectare esti de acord cu
-                            <a class="hlink" href="#">Termenii si Conditiile</a>, cat si
+                        <p>Nu ai cont?
+                            <a class="hlink" href="../login-register/register.php"> Creează-ți cont</a>
+                        </p>
+
+                        <p class="term-and-cond__paragraph">Prin actiunea de conectare esti de acord cu
+                            <a class="hlink" href="#">Termenii și Condițiile</a>, cât și
                             <a class="hlink" href="#">Politica de confidentialitate</a>
                         </p>
 
-                        <button class="icon-field submit">
+                        <button class="icon-field submit" type="submit">
                             <?php include "svg/conn-arr.svg" ?>
-                            <p>Conectare</p>
+                            Conectare
                         </button>
-                        <!-- /.btn -->
+                        <!-- /.icon-field submit -->
 
 
                     </form>
-                    <!-- /.container__form -->
+                    <!-- /.content__box__form -->
                 </div>
-                <!-- /.container -->
-
+                <!-- /.content__box content__box--login -->
             </div>
+            <!-- /.content -->
         </div>
         <!-- /.page -->
     </div>

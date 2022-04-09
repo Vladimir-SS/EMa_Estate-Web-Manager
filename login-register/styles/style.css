@@ -3,6 +3,14 @@
   max-width: 600px;
 }
 
+.content__box--login h2 {
+  margin-bottom: 20px;
+}
+
+.content__box--login p {
+  margin-bottom: 20px;
+}
+
 .content__box .icon-field {
   padding: 0 20px;
   border: 0;
@@ -14,6 +22,7 @@
       -ms-flex-align: center;
           align-items: center;
   border-radius: 20px;
+  margin-bottom: 20px;
 }
 
 .content__box .icon-field svg {
@@ -29,13 +38,16 @@
 }
 
 .content__box .icon-field--social {
-  color: white;
+  width: 100%;
+  color: var(--background-primary);
   cursor: pointer;
 }
 
 .content__box .submit {
   color: var(--background-primary);
   background: var(--interactive-accent);
+  cursor: pointer;
+  width: auto;
 }
 
 .content__box .submit path {
@@ -47,23 +59,23 @@
 }
 
 .content__box__form .input-box input {
-  color: black;
+  color: var(--text-normal);
 }
 
 .content__box__form .input-box input::-webkit-input-placeholder {
-  color: gray;
+  color: var(--text-faint);
 }
 
 .content__box__form .input-box input:-ms-input-placeholder {
-  color: gray;
+  color: var(--text-faint);
 }
 
 .content__box__form .input-box input::-ms-input-placeholder {
-  color: gray;
+  color: var(--text-faint);
 }
 
 .content__box__form .input-box input::placeholder {
-  color: gray;
+  color: var(--text-faint);
 }
 
 .content__box__form .input-box path {
@@ -97,3 +109,23 @@
 .content__box__form .input-box:focus-within path {
   fill: var(--background-primary);
 }
+
+.hlink {
+  color: var(--interactive-accent);
+}
+
+.term-and-cond {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.term-and-cond svg {
+  margin-right: 10px;
+}
+
+.term-and-cond__paragraph {
+  line-height: 1.5;
+}
+/*# sourceMappingURL=style.css.map */

@@ -5,6 +5,10 @@ $unit: $unit /2
 .content__box--login
     padding: $unit * 3
     max-width: 600px
+    h2
+        margin-bottom: $unit
+    p
+        margin-bottom: $unit
 
 .content__box
     .icon-field
@@ -15,6 +19,7 @@ $unit: $unit /2
         height: 2*$unit
         align-items: center
         border-radius: $border-radius
+        margin-bottom: $unit
 
         svg
             margin-right: $unit/2
@@ -26,12 +31,15 @@ $unit: $unit /2
         background-color: #45619D
 
     .icon-field--social
-        color: white
+        width: 100%
+        color: var(--background-primary)
         cursor: pointer
 
     .submit
         color: var(--background-primary)
         background: var(--interactive-accent)
+        cursor: pointer
+        width: auto
 
         path
             fill: var(--background-primary)
@@ -41,10 +49,10 @@ $unit: $unit /2
             background: var(--background-secondary)
 
             input
-                color: black
+                color: var(--text-normal)
 
                 &::placeholder
-                    color: gray
+                    color: var(--text-faint)
 
             path
                 fill: gray
@@ -60,53 +68,14 @@ $unit: $unit /2
 
                 path
                     fill: var(--background-primary)
+.hlink
+    color: var(--interactive-accent)
 
-// .conn-heading
-//     font-size: $font-size+6px
+.term-and-cond
+    display: flex
+    margin-bottom: $unit
+    svg
+        margin-right: $unit/2
 
-// .fast-conn-buttons
-//     display: flex
-//     flex-direction: column
-//     align-items: stretch
-//     margin: 0 $unit*6 0 $unit
-
-// .btn
-//     box-sizing: border-box
-//     border-radius: $border-radius
-//     border: 0
-//     margin: $unit 0
-//     padding: $font-size/2 $unit*10 $unit 0
-//     font-size: $font-size
-//     background-color: #086788
-//     color: white
-//     cursor: pointer
-//     img
-//         margin: 0 $unit/2 0 $unit/2
-//         width: $font-size
-//         height: $font-size
-
-// .input-box
-//     position: relative
-
-//     img
-//         position: absolute
-//         padding: $font-size
-
-// .input-box__input
-//     box-sizing: border-box
-//     border: 0
-//     border-radius: $border-radius
-//     margin: $unit 0
-//     padding: $font-size/2 $unit*16 $unit $unit*5
-//     font-size: $font-size
-//     background-color: #F5F6F8
-
-// .input-box__input:focus
-//     outline: none
-
-// .input-box__input--pwd
-//     background-color: #086788
-//     color: white
-
-// .hlink
-//     color: #086788
+.term-and-cond__paragraph
+    line-height: 1.5

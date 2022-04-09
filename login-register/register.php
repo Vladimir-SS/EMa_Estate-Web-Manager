@@ -9,8 +9,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../shared/styles/page.css">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
@@ -20,72 +21,78 @@
         <div class="content-container responsive-container">
             <div class="content">
 
-                <div class="container">
+                <div class="content__box content__box--login">
 
-                    <div class="fast-conn-buttons">
+                    <h2>Creează-ți cont</h2>
+                    <button class="icon-field icon-field--gmail icon-field--social" type="conn-gmail">
+                        <?php include "svg/gmail.svg" ?>
+                        Conectează-te cu contul tău Google
+                    </button>
+                    <!-- /.icon-field icon-field--gmail icon-field--social -->
 
-                        <p class="conn-heading">Creeaza-ti cont</p>
-                        <button class="btn btn--gmail" type="conn-gmail">
-                            <img src="svg/gmail.svg" alt="Gmail icon">
-                            Conecteaza-te cu contul tau Google
-                        </button>
-                        <!-- /.btn btn--gmail -->
+                    <button class="icon-field icon-field--facebook icon-field--social" type="conn-facebook">
+                        <?php include "svg/facebook.svg" ?>
+                        Conectează-te cu contul tău Facebook
+                    </button>
+                    <!-- /.icon-field icon-field--facebook icon-field--social -->
 
-                        <button class="btn btn--facebook" type="conn-facebook">
-                            <img src="svg/facebook.svg" alt="Facebook icon">
-                            Conecteaza-te cu contul tau Facebook
-                        </button>
-                        <!-- /.btn btn--gmail -->
-                    </div>
-                    <!-- /.fast--conn-buttons -->
-                    <form class="container__form" action="action_login.php" method="get">
+                    <form class="content__box__form" action="action_register.php" method="get">
 
-                        <p>Completeaza campurile de mai jos pentru a te inregistra.</p>
-                        <div class="input-box">
-                            <img src="svg/person.svg" alt="Person icon">
+                        <p>Completează câmpurile de mai jos pentru a te înregistra.</p>
+                        <div class="icon-field input-box">
+                            <?php include "svg/person.svg" ?>
                             <input class="input-box__input" type="text" placeholder="Nume si prenume" name="flname" required>
                         </div>
-                        <!-- /.input-box -->
+                        <!-- /.icon-field input-box -->
 
-                        <div class="input-box">
-                            <img src="svg/phone.svg" alt="Phone icon">
+                        <div class="icon-field input-box">
+                            <?php include "svg/phone.svg" ?>
                             <input class="input-box__input" type="tel" placeholder="Telefon" name="phone" required>
                         </div>
-                        <!-- /.input-box -->
+                        <!-- /.icon-field input-box -->
 
-                        <div class="input-box">
-                            <img src="svg/mail.svg" alt="Mail icon">
+                        <div class="icon-field input-box">
+                            <?php include "svg/mail.svg" ?>
                             <input class="input-box__input" type="email" placeholder="E-mail" name="email" required>
                         </div>
-                        <!-- /.input-box -->
+                        <!-- /.icon-field input-box -->
 
-                        <div class="input-box">
-                            <img src="svg/pass.svg" alt="Lock icon">
+                        <div class="icon-field input-box">
+                            <?php include "svg/pass.svg" ?>
                             <input class="input-box__input input-box__input--pwd" type="password" placeholder="Introdu parola" name="psw" required>
                         </div>
-                        <!-- /.input-box -->
+                        <!-- /.icon-field input-box -->
 
-                        <div class="input-box">
-                            <img src="svg/pass.svg" alt="Lock icon">
-                            <input class="input-box__input input-box__input--pwd" type="password" placeholder="Confirma parola" name="psw" required>
+                        <div class="icon-field input-box">
+                            <?php include "svg/pass.svg" ?>
+                            <input class="input-box__input input-box__input--pwd" type="password" placeholder="Confirmă parola" name="psw" required>
                         </div>
-                        <!-- /.input-box -->
+                        <!-- /.icon-field input-box -->
 
-                        <p>Ai deja cont? <a class="hlink" href="../login-register/login.php"> Conecteaza-te</a></p>
+                        <p>Ai deja cont?
+                            <a class="hlink" href="../login-register/login.php"> Conectează-te</a>
+                        </p>
 
-                        <button class="btn" type="create">
-                            <img src="svg/conn-arr.svg" alt="Connect arrow icon">
-                            Creeaza-ti contul
+                        <div class="term-and-cond">
+                            <?php include "svg/cbox-checked.svg" ?>
+                            <p class="term-and-cond__paragraph">Sunt de acord cu
+                                <a class="hlink" href="#">Termenii și Condițiile</a>, cât și <br> <a class="hlink" href="#">Politica de confidenţialitate</a>
+                            </p>
+                        </div>
+
+
+                        <button class="icon-field submit" type="submit">
+                            <?php include "svg/conn-arr.svg" ?>
+                            Creează-ți contul
                         </button>
-                        <!-- /.btn -->
-
+                        <!-- /.icon-field submit -->
 
                     </form>
-                    <!-- /.container__form -->
+                    <!-- /.content__box__form -->
                 </div>
-                <!-- /.container -->
-
+                <!-- /.content__box content__box--login -->
             </div>
+            <!-- /.content -->
         </div>
         <!-- /.page -->
     </div>
