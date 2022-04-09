@@ -1,75 +1,112 @@
+@import "../../shared/styles/config"
+@import "../../shared/styles/mixins"
 $unit: $unit /2
 
-.container
-    padding: $unit*3
-    background: white
-    display: flex
-    margin: $unit 58% 0 8%
-    flex-direction: column
-    border-radius: $border-radius
-    @include box-shadow
+.content__box--login
+    padding: $unit * 3
+    max-width: 600px
 
-.conn-heading
-    font-size: $font-size+6px
+.content__box
+    .icon-field
+        padding: 0 $border-radius
+        border: 0
 
-.fast-conn-buttons
-    display: flex
-    flex-direction: column
-    align-items: stretch
-    margin: 0 $unit*6 0 $unit
+        display: flex
+        height: 2*$unit
+        align-items: center
+        border-radius: $border-radius
 
-.btn
-    box-sizing: border-box
-    border-radius: $border-radius
-    border: 0
-    margin: $unit 0
-    padding: $font-size/2 $unit*10 $unit 0
-    font-size: $font-size
-    background-color: #086788
-    color: white
-    cursor: pointer
-    img
-        margin: 0 $unit/2 0 $unit/2
-        width: $font-size
-        height: $font-size
+        svg
+            margin-right: $unit/2
 
-.btn--gmail
-    background-color: #EA4335
+    .icon-field--gmail
+        background-color: #EA4335
 
-.btn--facebook
-    background-color: #45619D
+    .icon-field--facebook
+        background-color: #45619D
 
-.container__form
-    flex-direction: column
-    align-items: stretch
-    margin: 0 $unit*6 0 $unit*2
-    p
-        margin: $unit*2 0
+    .icon-field--social
+        color: white
+        cursor: pointer
 
-.input-box
-    position: relative
+    .submit
+        color: var(--background-primary)
+        background: var(--interactive-accent)
 
-    img
-        position: absolute
-        padding: $font-size
+        path
+            fill: var(--background-primary)
 
-.input-box__input
-    box-sizing: border-box
-    border: 0
-    border-radius: $border-radius
-    margin: $unit 0
-    padding: $font-size/2 $unit*16 $unit $unit*5
-    font-size: $font-size
-    background-color: #F5F6F8
+    &__form
+        .input-box
+            background: var(--background-secondary)
 
-.input-box__input:focus
-    outline: none
+            input
+                color: black
 
-.input-box__input--pwd
-    background-color: #086788
-    color: white
+                &::placeholder
+                    color: gray
 
-.hlink
-    color: #086788
-// .input-box__input--pwd::placehoder       // doesn't work
+            path
+                fill: gray
+
+            &:focus-within
+                background: var(--interactive-accent)
+
+                input
+                    color: var(--background-primary)
+
+                    &::placeholder
+                        color: var(--background-secondary)
+
+                path
+                    fill: var(--background-primary)
+
+// .conn-heading
+//     font-size: $font-size+6px
+
+// .fast-conn-buttons
+//     display: flex
+//     flex-direction: column
+//     align-items: stretch
+//     margin: 0 $unit*6 0 $unit
+
+// .btn
+//     box-sizing: border-box
+//     border-radius: $border-radius
+//     border: 0
+//     margin: $unit 0
+//     padding: $font-size/2 $unit*10 $unit 0
+//     font-size: $font-size
+//     background-color: #086788
 //     color: white
+//     cursor: pointer
+//     img
+//         margin: 0 $unit/2 0 $unit/2
+//         width: $font-size
+//         height: $font-size
+
+// .input-box
+//     position: relative
+
+//     img
+//         position: absolute
+//         padding: $font-size
+
+// .input-box__input
+//     box-sizing: border-box
+//     border: 0
+//     border-radius: $border-radius
+//     margin: $unit 0
+//     padding: $font-size/2 $unit*16 $unit $unit*5
+//     font-size: $font-size
+//     background-color: #F5F6F8
+
+// .input-box__input:focus
+//     outline: none
+
+// .input-box__input--pwd
+//     background-color: #086788
+//     color: white
+
+// .hlink
+//     color: #086788
