@@ -54,18 +54,78 @@ a {
   text-decoration: none;
 }
 
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input {
+  border: 0;
+  background: none;
+  font: inherit;
+  padding: 0;
+  color: inherit;
+}
+
+input:focus {
+  outline: 0;
+}
+
+input:-webkit-autofill {
+  -webkit-background-clip: text;
+}
+
+.nav-bar {
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: var(--background-primary);
+  -webkit-box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
+          box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
+}
+
+.nav-bar-list {
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-column-gap: 40px;
+          column-gap: 40px;
+}
+
+.nav-bar-list li.right {
+  margin-left: auto;
+}
+
+.nav-bar-list li.sign-up {
+  border-radius: 20px;
+  height: 100%;
+  padding: 12px 20px;
+  background: var(--interactive-accent);
+  color: var(--background-primary);
+}
+
 :root {
   --background-primary: #ffffff;
   --background-primary-alt: #f5f6f8;
   --background-secondary: #f2f3f5;
   --background-secondary-alt: #e3e5e8;
   --interactive-accent: #086788;
+  --text-normal: #000000;
+  --text-faint: #6B6B6B;
 }
 
 html {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 400;
 }
 
 body {
@@ -73,7 +133,18 @@ body {
   height: 100vh;
 }
 
+h2 {
+  font-weight: 800;
+}
+
+.flex-1 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
 .responsive-container {
+  max-height: 90vh;
   max-width: 90vw;
   margin: 0 auto;
   width: 1600px;
@@ -102,39 +173,11 @@ body {
   width: 100%;
 }
 
-.nav-bar {
-  height: 80px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.content__box {
+  padding: 40px;
   background: var(--background-primary);
-  -webkit-box-shadow: 0px 18px 80px rgba(0, 0, 0, 0.07), 0px 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0px 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0px 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0px 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0px 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
-          box-shadow: 0px 18px 80px rgba(0, 0, 0, 0.07), 0px 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0px 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0px 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0px 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0px 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
-}
-
-.nav-bar-list {
-  list-style-type: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
-  -webkit-column-gap: 40px;
-          column-gap: 40px;
-}
-
-.nav-bar-list li.right {
-  margin-left: auto;
-}
-
-.nav-bar-list li.sign-up {
   border-radius: 20px;
-  height: 100%;
-  padding: 12px 20px;
-  background: var(--interactive-accent);
-  color: var(--background-primary);
+  -webkit-box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
+          box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
 }
+/*# sourceMappingURL=page.css.map */

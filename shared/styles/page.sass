@@ -1,19 +1,36 @@
 
 // daca scriu _menu, nu il compileaza, dar pot pune "./menu.sass" la import :)) sau mai scurt "menu.sass", sau mai scurt "menu"    
 @import "reset"
-@import "sass-variables"
-@import "css-variables"
+@import "config"
+@import "mixins"
+@import "menu"
+
+\:root
+    --background-primary: #ffffff
+    --background-primary-alt: #f5f6f8
+    --background-secondary: #f2f3f5
+    --background-secondary-alt: #e3e5e8
+    --interactive-accent: #086788
+    --text-normal: #000000
+    --text-faint: #6B6B6B
 
 html
     font-family: 'Roboto', sans-serif
     font-size: $font-size
-    font-weight: 800
+    font-weight: 400
 
 body
     background: var(--background-secondary)
     height: 100vh
 
+h2
+    font-weight: 800
+
+.flex-1
+    flex: 1
+
 .responsive-container
+    max-height: 90vh
     max-width: 90vw
     margin: 0 auto
     width: 1600px
@@ -31,4 +48,8 @@ body
             height: 100%
             width: 100%
 
-@import "menu"
+.content__box
+    padding: $unit
+    background: var(--background-primary)
+    border-radius: $border-radius
+    @include box-shadow
