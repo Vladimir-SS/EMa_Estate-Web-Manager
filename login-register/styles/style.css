@@ -1,3 +1,16 @@
+.content__box--login {
+  padding: 40px;
+  max-width: 600px;
+}
+
+.content__box--login h2 {
+  margin-bottom: 20px;
+}
+
+.content__box--login p {
+  margin-bottom: 20px;
+}
+
 .icon-field {
   padding: 0 20px;
   border: 0;
@@ -48,6 +61,7 @@
   background: var(--interactive-accent);
   cursor: pointer;
   width: auto;
+  margin-bottom: 0;
 }
 
 .content__box .submit path {
@@ -62,20 +76,8 @@
   color: var(--text-normal);
 }
 
-.content__box__form .input-box input::-webkit-input-placeholder {
-  color: var(--text-faint);
-}
-
-.content__box__form .input-box input:-ms-input-placeholder {
-  color: var(--text-faint);
-}
-
-.content__box__form .input-box input::-ms-input-placeholder {
-  color: var(--text-faint);
-}
-
-.content__box__form .input-box input::placeholder {
-  color: var(--text-faint);
+.content__box__form .input-box input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-normal);
 }
 
 .content__box__form .input-box path {
@@ -88,6 +90,10 @@
 
 .content__box__form .input-box:focus-within input {
   color: var(--background-primary);
+}
+
+.content__box__form .input-box:focus-within input:-webkit-autofill {
+  -webkit-text-fill-color: var(--background-primary);
 }
 
 .content__box__form .input-box:focus-within input::-webkit-input-placeholder {
@@ -128,4 +134,3 @@
 .term-and-cond__paragraph {
   line-height: 1.5;
 }
-/*# sourceMappingURL=style.css.map */

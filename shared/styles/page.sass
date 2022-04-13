@@ -3,7 +3,6 @@
 @import "reset"
 @import "config"
 @import "mixins"
-@import "menu"
 
 \:root
     --background-primary: #ffffff
@@ -30,7 +29,7 @@ h2
     flex: 1
 
 .responsive-container
-    max-height: 90vh
+    //max-height: 90vh
     max-width: 90vw
     margin: 0 auto
     width: 1600px
@@ -41,7 +40,6 @@ h2
     flex-direction: column
 
     .content-container
-        flex-grow: 1
         padding: $unit 0
 
         .content
@@ -49,7 +47,10 @@ h2
             width: 100%
 
 .content__box
+    @include box-shadow
     padding: $unit
     background: var(--background-primary)
     border-radius: $border-radius
-    @include box-shadow
+
+.---nothing---
+@import "menu"
