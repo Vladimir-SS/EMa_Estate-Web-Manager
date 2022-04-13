@@ -1,0 +1,42 @@
+@import "../../shared/styles/config"
+@import "../../shared/styles/mixins"
+@import "../../shared/styles/icon"
+
+$unit: $unit/2
+
+.content__box--filter
+    padding: $unit * 3
+    margin-left: $unit*3
+    max-width: 380px
+    h2
+        margin-bottom: $unit
+
+.filter-grid
+    display: grid
+    justify-items: start
+
+    .icon-field:last-child
+        grid-column: span 2
+
+.icon-field--announces
+    border: 2px solid black
+
+    svg
+        margin-left: $unit/2
+        margin-right: 0
+
+.icon-field--announces:hover
+    border-color: var(--interactive-accent)
+    cursor: pointer
+    color: var(--interactive-accent)
+    path
+        fill: var(--interactive-accent)
+
+.search
+    color: var(--background-primary)
+    background: var(--interactive-accent)
+    cursor: pointer
+    width: 100%
+
+    path
+        fill: var(--background-primary)
