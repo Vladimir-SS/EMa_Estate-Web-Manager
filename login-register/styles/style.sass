@@ -3,7 +3,7 @@
 $unit: $unit /2
 
 .content__box--login
-    padding: $unit * 3
+    padding: $unit * 2
     max-width: 600px
     h2
         margin-bottom: $unit
@@ -40,6 +40,7 @@ $unit: $unit /2
         background: var(--interactive-accent)
         cursor: pointer
         width: auto
+        margin-bottom: 0
 
         path
             fill: var(--background-primary)
@@ -51,8 +52,8 @@ $unit: $unit /2
             input
                 color: var(--text-normal)
 
-                &::placeholder
-                    color: var(--text-faint)
+                &:-webkit-autofill
+                    -webkit-text-fill-color: var(--text-normal)
 
             path
                 fill: gray
@@ -62,6 +63,9 @@ $unit: $unit /2
 
                 input
                     color: var(--background-primary)
+
+                    &:-webkit-autofill
+                        -webkit-text-fill-color: var(--background-primary)
 
                     &::placeholder
                         color: var(--background-secondary)
