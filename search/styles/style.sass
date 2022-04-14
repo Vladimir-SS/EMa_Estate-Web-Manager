@@ -1,3 +1,5 @@
+@import "../../shared/styles/config"
+@import "../../shared/styles/mixins"
 $unit: $unit/2
 
 .splited
@@ -85,4 +87,34 @@ $unit: $unit/2
 .item__info__icons__save--is-saved
     svg path
         stroke: var(--interactive-accent)
+        fill: var(--interactive-accent)
+
+
+
+
+
+.content__box--filter
+    margin-bottom: $unit
+
+.filter-grid
+    display: flex
+    flex-wrap: wrap
+    justify-items: start
+    gap: $unit
+
+.icon-field--announces
+    padding: $unit/4 $unit/2
+    padding-left: $unit
+    gap: $unit/4
+    display: flex
+    align-items: center
+    border: 2px solid var(--background-primary)
+    border-radius: $border-radius
+    background: var(--background-primary)
+
+.icon-field--announces:hover
+    border-color: var(--interactive-accent)
+    cursor: pointer
+    color: var(--interactive-accent)
+    path
         fill: var(--interactive-accent)

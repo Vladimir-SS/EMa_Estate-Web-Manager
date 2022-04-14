@@ -1,16 +1,3 @@
-.content__box--login {
-  padding: 40px;
-  max-width: 600px;
-}
-
-.content__box--login h2 {
-  margin-bottom: 20px;
-}
-
-.content__box--login p {
-  margin-bottom: 20px;
-}
-
 .icon-field {
   padding: 0 20px;
   border: 0;
@@ -44,7 +31,7 @@
 }
 
 .content__box--login {
-  padding: 30px;
+  padding: 20px;
   max-width: 600px;
 }
 
@@ -134,3 +121,4 @@
 .term-and-cond__paragraph {
   line-height: 1.5;
 }
+/*# sourceMappingURL=style.css.map */
