@@ -24,6 +24,14 @@ body
 
 h2
     font-weight: 800
+    font-size: $font-size * 1.2
+    margin-bottom: $unit/2
+
+p
+    margin-bottom: $unit/4
+    &.secondary
+        color: var(--text-faint)
+        font-size: $font-size - 2px
 
 .flex-1
     flex: 1
@@ -48,9 +56,14 @@ h2
 
 .content__box
     @include box-shadow
-    padding: $unit
+    padding: $unit/2
     background: var(--background-primary)
     border-radius: $border-radius
+
+    *:last-child
+        margin-bottom: 0
+
+@include mobile
 
 .---nothing---
 @import "menu"
