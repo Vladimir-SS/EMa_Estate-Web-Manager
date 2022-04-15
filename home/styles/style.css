@@ -148,6 +148,29 @@
   fill: var(--interactive-accent);
 }
 
+.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.footer__item__icon-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.footer__item__icon-text svg {
+  margin-right: 10px;
+}
+
 .content__filter {
   display: -webkit-box;
   display: -ms-flexbox;

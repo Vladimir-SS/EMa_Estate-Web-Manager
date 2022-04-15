@@ -4,37 +4,37 @@
 
             <div class="icon-field icon-field--filter">
                 Apartament
-                <?php include "svg/down-arrow.svg" ?>
+                <?php include "../shared/svg/down-arrow.svg" ?>
             </div>
 
             <div class="icon-field icon-field--filter">
                 Etaj
-                <?php include "svg/down-arrow.svg" ?>
+                <?php include "../shared/svg/down-arrow.svg" ?>
             </div>
 
             <div class="icon-field icon-field--filter">
                 Preț
-                <?php include "svg/left-right-arrow.svg" ?>
+                <?php include "../shared/svg/left-right-arrow.svg" ?>
             </div>
 
             <div class="icon-field icon-field--filter">
                 Mobilă
-                <?php include "svg/down-arrow.svg" ?>
+                <?php include "../shared/svg/down-arrow.svg" ?>
             </div>
 
             <div class="icon-field icon-field--filter">
                 Etaj
-                <?php include "svg/down-arrow.svg" ?>
+                <?php include "../shared/svg/down-arrow.svg" ?>
             </div>
 
             <div class="icon-field icon-field--filter">
                 Preț
-                <?php include "svg/left-right-arrow.svg" ?>
+                <?php include "../shared/svg/left-right-arrow.svg" ?>
             </div>
 
             <div class="icon-field icon-field--filter">
                 Alte opțiuni
-                <?php include "svg/right-arrow.svg" ?>
+                <?php include "../shared/svg/right-arrow.svg" ?>
             </div>
         </div>
         <!-- /.content-filter -->

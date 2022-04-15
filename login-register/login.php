@@ -25,13 +25,13 @@
 
                     <h2>Conectează-te</h2>
                     <button class="icon-field icon-field--gmail icon-field--social" type="conn-gmail">
-                        <?php include "svg/gmail.svg" ?>
+                        <?php include "../shared/svg/gmail.svg" ?>
                         Conectează-te cu contul tău Google
                     </button>
                     <!-- /.icon-field icon-field--gmail icon-field--social -->
 
                     <button class="icon-field icon-field--facebook icon-field--social" type="conn-facebook">
-                        <?php include "svg/facebook.svg" ?>
+                        <?php include "../shared/svg/facebook.svg" ?>
                         Conectează-te cu contul tău Facebook
                     </button>
                     <!-- /.icon-field icon-field--facebook icon-field--social -->
@@ -40,13 +40,13 @@
 
                         <p>Completeaza campurile de mai jos pentru a te conecta.</p>
                         <div class="icon-field input-box">
-                            <?php include "svg/person.svg" ?>
+                            <?php include "../shared/svg/person.svg" ?>
                             <input class="input-box__input" type="text" placeholder="E-mail sau Telefon" name="mail-or-phone" required>
                         </div>
                         <!-- /.icon-field input-box -->
 
                         <div class="icon-field input-box">
-                            <?php include "svg/pass.svg" ?>
+                            <?php include "../shared/svg/pass.svg" ?>
                             <input class="input-box__input input-box__input--pwd" type="password" placeholder="Introdu parola" name="psw" required>
                         </div>
                         <!-- /.icon-field input-box -->
@@ -63,7 +63,7 @@
                         </p>
 
                         <button class="icon-field submit" type="submit">
-                            <?php include "svg/conn-arr.svg" ?>
+                            <?php include "../shared/svg/conn-arr.svg" ?>
                             Conectare
                         </button>
                         <!-- /.icon-field submit -->
@@ -80,7 +80,7 @@
     </div>
     <!-- /.page-container -->
 
-    
+
     <script src="../shared/menu.js"></script>
 
 </body>
