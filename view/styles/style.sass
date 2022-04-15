@@ -1,0 +1,26 @@
+@import "../../shared/styles/config"
+@import "../../shared/styles/mixins"
+
+.content
+    display: flex
+    gap: $unit
+
+    &__left
+        background: red
+
+    &__right
+        background: green
+
+.content__box--profile
+    display: grid
+    grid-template-rows: 1fr auto auto auto
+    grid-template-columns: auto auto
+    row-gap: $unit/4
+    column-gap: $unit/2
+
+    &__img
+        background: black //!! remove in production
+        grid-row: span 4
+        height: $unit*4
+        width: $unit*4
+        border-radius: $border-radius
