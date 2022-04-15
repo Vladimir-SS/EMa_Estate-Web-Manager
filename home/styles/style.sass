@@ -1,16 +1,17 @@
 @import "../../shared/styles/config"
 @import "../../shared/styles/mixins"
 @import "../../shared/styles/icon"
+$unit: $unit/2
 @import "../../shared/styles/item"
 
 .content__filter
     display: flex
     img
-        margin-left: $unit*4
+        margin-left: $unit
 
 .content__box--filter
-    padding: $unit * 3
-    margin-left: $unit*3
+    padding: $unit*2
+    margin-left: $unit*2
     max-width: 380px
     h2
         margin-bottom: $unit
@@ -58,7 +59,7 @@
 .content__grid
     padding: $unit
     background: var(--background-primary)
-    margin: $unit*2 0
+    margin: $unit 0
     display: grid
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr))
     grid-gap: $unit

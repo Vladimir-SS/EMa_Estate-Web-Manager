@@ -1,46 +1,43 @@
 <div class="splited">
     <div class="flex-1">
-        <div class="content__box--filter">
-            <div class="filter-grid">
+        <div class="content-filter">
 
-                <div class="icon-field icon-field--announces">
-                    Apartament
-                    <?php include "svg/down-arrow.svg" ?>
-                </div>
-
-                <div class="icon-field icon-field--announces">
-                    Etaj
-                    <?php include "svg/down-arrow.svg" ?>
-                </div>
-
-                <div class="icon-field icon-field--announces">
-                    Preț
-                    <?php include "svg/left-right-arrow.svg" ?>
-                </div>
-
-                <div class="icon-field icon-field--announces">
-                    Mobilă
-                    <?php include "svg/down-arrow.svg" ?>
-                </div>
-
-                <div class="icon-field icon-field--announces">
-                    Etaj
-                    <?php include "svg/down-arrow.svg" ?>
-                </div>
-
-                <div class="icon-field icon-field--announces">
-                    Preț
-                    <?php include "svg/left-right-arrow.svg" ?>
-                </div>
-
-                <div class="icon-field icon-field--announces">
-                    Alte opțiuni
-                    <?php include "svg/right-arrow.svg" ?>
-                </div>
+            <div class="icon-field icon-field--filter">
+                Apartament
+                <?php include "svg/down-arrow.svg" ?>
             </div>
-            <!-- /.filter-grid -->
+
+            <div class="icon-field icon-field--filter">
+                Etaj
+                <?php include "svg/down-arrow.svg" ?>
+            </div>
+
+            <div class="icon-field icon-field--filter">
+                Preț
+                <?php include "svg/left-right-arrow.svg" ?>
+            </div>
+
+            <div class="icon-field icon-field--filter">
+                Mobilă
+                <?php include "svg/down-arrow.svg" ?>
+            </div>
+
+            <div class="icon-field icon-field--filter">
+                Etaj
+                <?php include "svg/down-arrow.svg" ?>
+            </div>
+
+            <div class="icon-field icon-field--filter">
+                Preț
+                <?php include "svg/left-right-arrow.svg" ?>
+            </div>
+
+            <div class="icon-field icon-field--filter">
+                Alte opțiuni
+                <?php include "svg/right-arrow.svg" ?>
+            </div>
         </div>
-        <!-- /.content__box content__box--filter -->
+        <!-- /.content-filter -->
         <?php include "item.php" ?>
     </div>
     <!-- /.flex-1 -->
