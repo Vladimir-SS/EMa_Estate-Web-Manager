@@ -1,8 +1,12 @@
 @import "../../shared/styles/config"
 @import "../../shared/styles/mixins"
 @import "../../shared/styles/icon"
+@import "../../shared/styles/item"
 
-$unit: $unit/2
+.content__filter
+    display: flex
+    img
+        margin-left: $unit*4
 
 .content__box--filter
     padding: $unit * 3
@@ -18,14 +22,14 @@ $unit: $unit/2
     .icon-field:last-child
         grid-column: span 2
 
-.icon-field--announces
+.icon-field--filter
     border: 2px solid black
 
     svg
         margin-left: $unit/2
         margin-right: 0
 
-.icon-field--announces:hover
+.icon-field--filter:hover
     border-color: var(--interactive-accent)
     cursor: pointer
     color: var(--interactive-accent)
@@ -40,3 +44,23 @@ $unit: $unit/2
 
     path
         fill: var(--background-primary)
+
+.item--chubby
+    flex-direction: column
+
+.item--chubby__image
+    height: 5 * $unit + 4 * $font-size
+    img
+        height: 100%
+        width: 100%
+        border-radius: $border-radius $border-radius 0 0
+
+.content__grid
+    padding: $unit
+    background: var(--background-primary)
+    margin: $unit*2 0
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr))
+    grid-gap: $unit
+
+.footer

@@ -22,48 +22,71 @@
 
             <div class="content">
 
-                <div class="content__box content__box--filter">
-                    <h2>Caută anunțuri:</h2>
-                    <div class="filter-grid">
+                <div class="content__filter">
+                    <div class="content__box content__box--filter">
+                        <h2>Caută anunțuri:</h2>
+                        <div class="filter-grid">
 
-                        <div class="icon-field icon-field--announces">
-                            Închiriat
-                            <?php include "svg/down-arrow.svg" ?>
+                            <div class="icon-field icon-field--filter">
+                                Închiriat
+                                <?php include "svg/down-arrow.svg" ?>
+                            </div>
+
+                            <div class="icon-field icon-field--filter">
+                                Apartament
+                                <?php include "svg/down-arrow.svg" ?>
+                            </div>
+
+                            <div class="icon-field icon-field--filter">
+                                Preț
+                                <?php include "svg/left-right-arrow.svg" ?>
+                            </div>
+
+                            <div class="icon-field icon-field--filter">
+                                Mobilă
+                                <?php include "svg/down-arrow.svg" ?>
+                            </div>
+
+                            <div class="icon-field icon-field--filter">
+                                Etaj
+                                <?php include "svg/left-right-arrow.svg" ?>
+                            </div>
+
+                            <div class="icon-field icon-field--filter">
+                                Alte opțiuni
+                                <?php include "svg/right-arrow.svg" ?>
+                            </div>
+
+                            <button class="icon-field search" type="search">
+                                <?php include "svg/magnifying-glass.svg" ?>
+                                Caută acum 20 132 anunțuri
+                            </button>
                         </div>
-
-                        <div class="icon-field icon-field--announces">
-                            Apartament
-                            <?php include "svg/down-arrow.svg" ?>
-                        </div>
-
-                        <div class="icon-field icon-field--announces">
-                            Preț
-                            <?php include "svg/left-right-arrow.svg" ?>
-                        </div>
-
-                        <div class="icon-field icon-field--announces">
-                            Mobilă
-                            <?php include "svg/down-arrow.svg" ?>
-                        </div>
-
-                        <div class="icon-field icon-field--announces">
-                            Etaj
-                            <?php include "svg/left-right-arrow.svg" ?>
-                        </div>
-
-                        <div class="icon-field icon-field--announces">
-                            Alte opțiuni
-                            <?php include "svg/right-arrow.svg" ?>
-                        </div>
-
-                        <button class="icon-field search" type="search">
-                            <?php include "svg/magnifying-glass.svg" ?>
-                            Caută acum 20 132 anunțuri
-                        </button>
+                        <!-- /.filter-grid -->
                     </div>
-                    <!-- /.filter-grid -->
+                    <!-- /.content__box content__box--filter -->
+                    <img src="./img/ap-header1.png" alt="Apartment1">
+                    <img src="./img/ap-header2.png" alt="Apartment2">
+                    <img src="./img/ap-header3.png" alt="Apartment3">
+                    <img src="./img/ap-header4.png" alt="Apartment4">
                 </div>
-                <!-- /.content__box content__box--filter -->
+                <!-- /.content__filter -->
+
+                <div class="content__grid">
+                    <?php include "item.php" ?>
+                    <?php include "item.php" ?>
+                    <?php include "item.php" ?>
+                    <?php include "item.php" ?>
+                    <?php include "item.php" ?>
+                    <?php include "item.php" ?>
+                    <?php include "item.php" ?>
+                    <?php include "item.php" ?>
+                </div>
+
+                <div class="footer">
+
+                </div>
+                <!-- /.footer -->
             </div>
             <!-- /.content -->
         </div>
