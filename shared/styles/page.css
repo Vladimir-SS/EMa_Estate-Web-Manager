@@ -98,6 +98,17 @@ body {
 
 h2 {
   font-weight: 800;
+  font-size: 19.2px;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+p.secondary {
+  color: var(--text-faint);
+  font-size: 14px;
 }
 
 .flex-1 {
@@ -135,9 +146,13 @@ h2 {
 .content__box {
   -webkit-box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
           box-shadow: 0 18px 80px rgba(0, 0, 0, 0.07), 0 8.41902px 33.4221px rgba(0, 0, 0, 0.0489855), 0 5.61451px 17.869px rgba(0, 0, 0, 0.0398771), 0 3.9734px 10.0172px rgba(0, 0, 0, 0.0326699), 0 2.62596px 5.32008px rgba(0, 0, 0, 0.0252576), 0 1.33023px 2.21381px rgba(0, 0, 0, 0.015792);
-  padding: 40px;
+  padding: 20px;
   background: var(--background-primary);
   border-radius: 20px;
+}
+
+.content__box *:last-child {
+  margin-bottom: 0;
 }
 
 .site-nav {
@@ -234,4 +249,3 @@ h2 {
     text-align: center;
   }
 }
-/*# sourceMappingURL=page.css.map */
