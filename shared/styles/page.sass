@@ -21,6 +21,7 @@ html
 body
     background: var(--background-secondary)
     height: 100vh
+    line-height: 1.6
 
 h2
     font-weight: 800
@@ -29,6 +30,7 @@ h2
 
 p
     margin-bottom: $unit/4
+
     &.secondary
         color: var(--text-faint)
         font-size: $font-size - 2px
@@ -43,9 +45,6 @@ p
     width: 1600px
 
 .page-container
-    height: 100%
-    display: flex
-    flex-direction: column
 
     .content-container
         padding: $unit 0
@@ -59,11 +58,16 @@ p
     padding: $unit/2
     background: var(--background-primary)
     border-radius: $border-radius
+    margin-bottom: $unit
 
     *:last-child
+        margin-bottom: 0
+
+    &:last-child
         margin-bottom: 0
 
 @include mobile
 
 .---nothing---
 @import "menu"
+@import "icon"
