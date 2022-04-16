@@ -1,4 +1,7 @@
 @import "config"
+@import "mixins"
+
+$unit: $unit / 2
 
 .item
     background: var(--background-primary)
@@ -7,7 +10,7 @@
     @include box-shadow
 
 .item__image
-    height: 5 * $unit + 4 * $font-size
+    height: 5 * $unit
     img
         height: 100%
         border-radius: $border-radius
@@ -20,68 +23,68 @@
     width: 100%
     color: black
 
-.item__info__text
-    display: flex
-    align-items: flex-start
-
-.item__info__text__description
-
-    p
-        padding-bottom: $unit/2
-        font-weight: bold
-
-    .price
-        color: var(--interactive-accent)
-
-    .street
-        color: gray
-        font-weight: normal
-
-.item__info__text__estate-type
-    box-sizing: border-box
-    border-radius: $border-radius
-    margin-left: $unit*3
-    border: 1px solid var(--interactive-accent)
-    padding: $font-size/2 $unit/2
-    color: var(--interactive-accent)
-
-.item__info__icons
-    display: flex
-    gap: 2 * $unit
-
-.item__info__icons__basic
-    display: flex
-    gap: 2 * $unit
-    padding-top: $unit/2
-    border-top: 1px
-    border-style: solid
-    border-color: gray //!!change with text muted
-
-    .icon-text
+    &__text
         display: flex
-        gap: $unit
-        height: $font-size
-        align-items: center
+        align-items: flex-start
 
-        &:nth-child(2)
+        &__description
+
+            p
+                padding-bottom: $unit/2
+                font-weight: bold
+
+            .price
+                color: var(--interactive-accent)
+
+            .street
+                color: gray
+                font-weight: normal
+
+        &__estate-type
+            box-sizing: border-box
+            border-radius: $border-radius
+            margin-left: $unit*3
+            border: 1px solid var(--interactive-accent)
+            padding: $font-size/2 $unit/2
+            color: var(--interactive-accent)
+
+    &__icons
+        display: flex
+        gap: 2 * $unit
+
+        &__basic
+            display: flex
+            gap: 2 * $unit
+            padding-top: $unit/2
+            border-top: 1px
+            border-style: solid
+            border-color: gray //!!change with text muted
+
+            .icon-text
+                display: flex
+                gap: $unit
+                height: $font-size
+                align-items: center
+
+                &:nth-child(2)
+                    margin-left: auto
+
+        &__save
             margin-left: auto
+            cursor: pointer
 
-.item__info__icons__save
-    margin-left: auto
-    cursor: pointer
+            svg
+                height: $unit/2 + $font-size
 
-    svg
-        height: $unit/2 + $font-size
+                path
+                    stroke: var(--text-normal)
 
-        path
-            stroke: var(--text-normal)
+            &:hover
+                svg path
+                    fill: var(--interactive-accent)
+                    opacity: 80%
 
-.item__info__icons__save:hover
-    svg path
-        fill: var(--interactive-accent)
-        opacity: 80%
-
-.item__info__icons__save--is-saved
-    svg path
-        stroke: var(--interactive-accent)
-        fill: var(--interactive-accent)
+            &--is-saved
+                svg path
+                    stroke: var(--interactive-accent)
+                    fill: var(--interactive-accent)

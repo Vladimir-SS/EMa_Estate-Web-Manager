@@ -38,7 +38,9 @@
             </div>
         </div>
         <!-- /.content-filter -->
-        <?php include "item.php" ?>
+        <div>
+            <?php include "items.php" ?>
+        </div>
     </div>
     <!-- /.flex-1 -->
     <div class="flex-1 side-map">

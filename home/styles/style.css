@@ -57,20 +57,20 @@
 }
 
 .item__image {
-  height: 264px;
+  height: 100px;
 }
 
 .item__image img {
   height: 100%;
   border-radius: 20px;
-  margin-top: 40px;
-  margin-left: 40px;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 .item__info {
   display: -ms-grid;
   display: grid;
-  padding: 40px;
+  padding: 20px;
   width: 100%;
   color: black;
 }
@@ -85,7 +85,7 @@
 }
 
 .item__info__text__description p {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   font-weight: bold;
 }
 
@@ -102,9 +102,9 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 20px;
-  margin-left: 120px;
+  margin-left: 60px;
   border: 1px solid var(--interactive-accent);
-  padding: 8px 20px;
+  padding: 8px 10px;
   color: var(--interactive-accent);
 }
 
@@ -112,15 +112,15 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 80px;
+  gap: 40px;
 }
 
 .item__info__icons__basic {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 80px;
-  padding-top: 20px;
+  gap: 40px;
+  padding-top: 10px;
   border-top: 1px;
   border-style: solid;
   border-color: gray;
@@ -130,7 +130,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 40px;
+  gap: 20px;
   height: 16px;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -147,7 +147,7 @@
 }
 
 .item__info__icons__save svg {
-  height: 36px;
+  height: 26px;
 }
 
 .item__info__icons__save svg path {
@@ -177,14 +177,14 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 20px;
+  margin-top: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
 .footer__item__icon-text svg {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .content__filter {
@@ -194,17 +194,11 @@
 }
 
 .content__filter img {
-  margin-left: 40px;
-}
-
-.content__box--filter {
-  padding: 80px;
-  margin-left: 80px;
-  max-width: 380px;
+  margin-left: 20px;
 }
 
 .content__box--filter h2 {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .filter-grid {
@@ -222,17 +216,17 @@
 }
 
 .icon-field--filter svg {
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right: 0;
 }
 
-.icon-field--filter:hover {
+.icon-field--filter--filter:hover {
   border-color: var(--interactive-accent);
   cursor: pointer;
   color: var(--interactive-accent);
 }
 
-.icon-field--filter:hover path {
+.icon-field--filter--filter:hover path {
   fill: var(--interactive-accent);
 }
 
@@ -255,7 +249,7 @@
 }
 
 .item--chubby__image {
-  height: 264px;
+  height: 164px;
 }
 
 .item--chubby__image img {
@@ -265,12 +259,12 @@
 }
 
 .content__grid {
-  padding: 40px;
+  padding: 20px;
   background: var(--background-primary);
-  margin: 40px 0;
+  margin: 20px 0;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (minmax(320px, 1fr))[auto-fill];
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-gap: 40px;
+  grid-gap: 20px;
 }

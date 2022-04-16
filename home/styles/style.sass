@@ -1,9 +1,11 @@
-@import "../../shared/styles/config"
-@import "../../shared/styles/mixins"
 @import "../../shared/styles/icon"
-$unit: $unit/2
 @import "../../shared/styles/item"
 @import "../../shared/styles/footer"
+
+@import "../../shared/styles/config"
+@import "../../shared/styles/mixins"
+
+$unit: $unit/2
 
 .content__filter
     display: flex
@@ -11,9 +13,6 @@ $unit: $unit/2
         margin-left: $unit
 
 .content__box--filter
-    padding: $unit*2
-    margin-left: $unit*2
-    max-width: 380px
     h2
         margin-bottom: $unit
 
@@ -31,12 +30,12 @@ $unit: $unit/2
         margin-left: $unit/2
         margin-right: 0
 
-.icon-field--filter:hover
-    border-color: var(--interactive-accent)
-    cursor: pointer
-    color: var(--interactive-accent)
-    path
-        fill: var(--interactive-accent)
+    &--filter:hover
+        border-color: var(--interactive-accent)
+        cursor: pointer
+        color: var(--interactive-accent)
+        path
+            fill: var(--interactive-accent)
 
 .search
     color: var(--background-primary)
@@ -50,12 +49,13 @@ $unit: $unit/2
 .item--chubby
     flex-direction: column
 
-.item--chubby__image
-    height: 5 * $unit + 4 * $font-size
-    img
-        height: 100%
-        width: 100%
-        border-radius: $border-radius $border-radius 0 0
+    &__image
+        height: 5 * $unit + 4 * $font-size
+
+        img
+            height: 100%
+            width: 100%
+            border-radius: $border-radius $border-radius 0 0
 
 .content__grid
     padding: $unit
