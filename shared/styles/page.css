@@ -122,8 +122,8 @@ p.secondary {
 }
 
 .responsive-container {
-  padding: 40px;
   margin: 0 auto;
+  max-width: 90vw;
   width: 1600px;
 }
 
@@ -260,7 +260,6 @@ p.secondary {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 20px;
-  margin-bottom: 20px;
 }
 
 .icon-field svg {

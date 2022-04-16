@@ -22,7 +22,7 @@
 
             <div class="content">
 
-                <div class="content__filter">
+                <div class="responsive-container content__filter">
                     <div class="content__box content__box--filter">
                         <h2>Caută anunțuri:</h2>
                         <div class="filter-grid">
@@ -65,10 +65,12 @@
                         <!-- /.filter-grid -->
                     </div>
                     <!-- /.content__box content__box--filter -->
+                    <!--
                     <img src="./img/ap-header1.png" alt="Apartment1">
                     <img src="./img/ap-header2.png" alt="Apartment2">
                     <img src="./img/ap-header3.png" alt="Apartment3">
                     <img src="./img/ap-header4.png" alt="Apartment4">
+                    -->
                 </div>
                 <!-- /.content__filter -->
 
