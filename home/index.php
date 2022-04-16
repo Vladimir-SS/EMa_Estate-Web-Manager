@@ -72,15 +72,18 @@
                 </div>
                 <!-- /.content__filter -->
 
-                <div class="content__grid">
-                    <?php include "item.php" ?>
-                    <?php include "item.php" ?>
-                    <?php include "item.php" ?>
-                    <?php include "item.php" ?>
-                    <?php include "item.php" ?>
-                    <?php include "item.php" ?>
-                    <?php include "item.php" ?>
-                    <?php include "item.php" ?>
+                <div class="items-container">
+                    <div class="chubby-items responsive-container">
+                            <?php
+                                include "../search/item.php";
+                                include "../search/item.php";
+                                include "../search/item.php";
+                                include "../search/item.php";
+                                include "../search/item.php";
+                                include "../search/item.php";
+                                include "../search/item.php";
+                            ?>
+                    </div>
                 </div>
 
                 <div class="footer">

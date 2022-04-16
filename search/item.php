@@ -1,24 +1,15 @@
-<div class="item">
-    <div class="item__image"> <img src="img/appartmen1-squared.jpg" alt="Apartmen1"> </div>
-    <!-- /.item__image -->
-    <div class="item__info">
+<div class="content__box content__box--item">
+    <div class="content__box--item__image">
+        <img src="../shared/img/appartmen1-squared.jpg" alt="Apartmen1">
+    </div>
+    <div class="content__box--item__info">
+        <h2 class="accent">230 000 Ron</h2>
+        <p class="flex-1">Title tempus imperdiet nulla malesuada pellentesque elit eget</p>
+        <p class="secondary" >Strada Canta nr. 45</p>
 
-        <div class="item__info__text">
+        <div class="content__box--item__info__icons">
 
-            <div class="item__info__text__description">
-                <p class="price">230 000 RON</p>
-                <p class="title">Title tempus imperdiet nulla malesuada pellentesque elit eget</p>
-                <p class="street">Strada Canta nr.45</p>
-            </div>
-            <!-- /.item__info__text__description -->
-
-            <p class="item__info__text__estate-type">Apartament</p>
-            <!-- /.item__info__text__estate-type -->
-        </div>
-        <!-- /.item__info__text -->
-        <div class="item__info__icons">
-
-            <div class="item__info__icons__basic">
+            <div class="content__box--item__info__icons__basic">
 
                 <div class="icon-text">
                     <?php include "../shared/svg/space.svg" ?>
@@ -41,16 +32,14 @@
                 </div>
                 <!-- /.icon-text -->
             </div>
-            <!-- /.item__info__icons__basic -->
-            <div class="item__info__icons__save">
+            
+            <div class="save-button" onclick="saveButtonClickHandler" >
                 <?php include "../shared/svg/save.svg" ?>
             </div>
-            <!-- /.item__info__icons__save -->
+            
 
         </div>
-        <!-- /.item__info__icons -->
-
     </div>
-    <!-- /.item__info -->
+
 </div>
 <!-- /.item -->

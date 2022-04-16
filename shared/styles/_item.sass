@@ -3,88 +3,100 @@
 
 $unit: $unit / 2
 
-.item
-    background: var(--background-primary)
+.content__box--item
     display: flex
-    border-radius: $border-radius
-    @include box-shadow
+    padding: 0
 
-.item__image
-    height: 5 * $unit
-    img
-        height: 100%
-        border-radius: $border-radius
-        margin-top: $unit
-        margin-left: $unit
+    &__image
+        height: 8 * $unit
 
-.item__info
-    display: grid
-    padding: $unit
-    width: 100%
-    color: black
-
-    &__text
-        display: flex
-        align-items: flex-start
-
-        &__description
-
-            p
-                padding-bottom: $unit/2
-                font-weight: bold
-
-            .price
-                color: var(--interactive-accent)
-
-            .street
-                color: gray
-                font-weight: normal
-
-        &__estate-type
-            box-sizing: border-box
+        img
+            margin-left: $unit
+            margin-top: $unit
+            height: 100%
             border-radius: $border-radius
-            margin-left: $unit*3
-            border: 1px solid var(--interactive-accent)
-            padding: $font-size/2 $unit/2
-            color: var(--interactive-accent)
 
-    &__icons
+    &__info
+        width: 100%
+        padding: $unit
+        line-height: 1
         display: flex
-        gap: 2 * $unit
+        flex-direction: column
 
-        &__basic
+        h2, .secondary
+            margin-bottom: $unit/4
+
+        &__icons
             display: flex
-            gap: 2 * $unit
-            padding-top: $unit/2
-            border-top: 1px
-            border-style: solid
-            border-color: gray //!!change with text muted
+            gap: $unit
 
-            .icon-text
+            &__basic
                 display: flex
-                gap: $unit
-                height: $font-size
-                align-items: center
+                flex: 1
+                gap: 2 * $unit
+                border-top: 1px solid var(--background-secondary-alt)
 
-                &:nth-child(2)
-                    margin-left: auto
+                .icon-text
+                    display: flex
+                    gap: $unit/2
+                    margin-top: $unit/4
+                    align-items: center
 
-        &__save
-            margin-left: auto
-            cursor: pointer
+                    svg
+                        height: $font-size*1.5
 
-            svg
-                height: $unit/2 + $font-size
+                    &:nth-child(2)
+                        margin-left: auto
 
-                path
-                    stroke: var(--text-normal)
+            .save-button
+                cursor: pointer
+                height: 100%
+                transition: transform .2s
 
-            &:hover
-                svg path
-                    fill: var(--interactive-accent)
-                    opacity: 80%
+                svg
+                    height: 100%
 
-            &--is-saved
-                svg path
-                    stroke: var(--interactive-accent)
-                    fill: var(--interactive-accent)
+                    path
+                        stroke: var(--text-normal)
+
+                &:hover
+                    transform: scale(1.1)
+
+                &--is-saved
+                    path
+                        stroke: var(--text-normal)
+                        fill: var(--interactive-accent)
+.items-container
+    background: var(--background-primary)
+
+.chubby-items
+    display: grid
+    grid-gap: $unit/2
+    justify-content: space-between
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr))
+
+    width: 100%
+
+    .content__box--item
+        flex-direction: column
+        margin: 0
+
+        &__image
+            height: 7 * $unit
+
+            img
+                margin: 0
+                height: 100%
+                width: 100%
+                border-radius: $border-radius $border-radius 0 0
+
+        &__info
+            &__icons
+                &__basic
+                    .icon-text
+                        gap: $unit/2
+                        &:nth-child(2), &:nth-child(3)
+
+                            display: none
+                        &:last-child
+                            margin-left: auto

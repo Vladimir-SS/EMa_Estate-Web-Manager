@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="content__box content__box--property">
-        <h2 class="euro">123 123</h2>
+        <h2 class="euro accent">123 123</h2>
         <div class="content__box--property__facilities">
             <p>254 m</p>
             <p>3 camere</p>
@@ -30,10 +30,10 @@
             <p>1 garaj</p>
         </div>
         <p>
-            Anul Construcției: <span>2017</span> </br>
-            Locație: <span>Strada Pacurari nr. 52</span> </br>
-            Indice de poluare: <span>2.3</span> </br>
-            Temperatură medie: <span>15° C</span>
+            Anul Construcției: <span class="accent">2017</span> </br>
+            Locație: <span class="accent">Strada Pacurari nr. 52</span> </br>
+            Indice de poluare: <span class="accent">2.3</span> </br>
+            Temperatură medie: <span class="accent">15° C</span>
         </p>
     </div>
 </div>

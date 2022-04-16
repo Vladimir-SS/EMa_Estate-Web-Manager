@@ -1,8 +1,9 @@
-{
-    let navListElement = document.getElementById("nav-list");
 
-    document.getElementById("hamburger-icon")
-        .addEventListener("click", () => {
-            navListElement.classList.toggle("show")
-        })
+
+const hamburgerClickHandler = () => {
+    document.getElementById("nav-list").classList.toggle("show")
+}
+
+const saveButtonClickHandler = (e) => {
+    console.log(e);
 }

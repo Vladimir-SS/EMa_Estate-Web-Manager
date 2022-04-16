@@ -39,11 +39,22 @@
         </div>
         <!-- /.content-filter -->
         <div>
-            <?php include "items.php" ?>
+            <?php     
+                include "item.php";
+                include "item.php";
+                include "item.php";
+                include "item.php";
+                include "item.php";
+                include "item.php";
+                include "item.php";
+                include "item.php";
+                include "item.php";
+                include "item.php";
+            ?>
         </div>
     </div>
     <!-- /.flex-1 -->
-    <div class="flex-1 side-map">
+    <div class="side-map">
     </div>
     <!-- /.flex-1 side-map -->
 </div>

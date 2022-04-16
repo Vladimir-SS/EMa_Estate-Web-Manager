@@ -26,7 +26,7 @@
         <!-- /.page -->
     </div>
     <!-- /.page-container -->
-
+    <script src="../shared/menu.js"></script>
 </body>
 
 </html>
