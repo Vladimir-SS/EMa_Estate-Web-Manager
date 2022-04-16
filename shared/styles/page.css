@@ -94,6 +94,7 @@ html {
 body {
   background: var(--background-secondary);
   height: 100vh;
+  line-height: 1.6;
 }
 
 h2 {
@@ -123,17 +124,6 @@ p.secondary {
   width: 1600px;
 }
 
-.page-container {
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
 .page-container .content-container {
   padding: 40px 0;
 }
@@ -149,9 +139,14 @@ p.secondary {
   padding: 20px;
   background: var(--background-primary);
   border-radius: 20px;
+  margin-bottom: 40px;
 }
 
 .content__box *:last-child {
+  margin-bottom: 0;
+}
+
+.content__box:last-child {
   margin-bottom: 0;
 }
 
@@ -202,7 +197,7 @@ p.secondary {
 .site-nav-container-list li.sign-up {
   border-radius: 20px;
   height: 100%;
-  padding: 12px 20px;
+  padding: 7.2px 20px;
   background: var(--interactive-accent);
   color: var(--background-primary);
 }
@@ -249,4 +244,47 @@ p.secondary {
     text-align: center;
   }
 }
-/*# sourceMappingURL=page.css.map */
+
+.icon-field {
+  padding: 0 20px;
+  border: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 40px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.icon-field svg {
+  margin-right: 10px;
+}
+
+.icon-field--gmail {
+  background-color: #EA4335;
+}
+
+.icon-field--facebook {
+  background-color: #45619D;
+}
+
+.icon-field--social {
+  width: 100%;
+  color: var(--background-primary);
+  cursor: pointer;
+}
+
+.icon-field--important {
+  color: var(--background-primary);
+  background: var(--interactive-accent);
+  cursor: pointer;
+  width: auto;
+  margin-bottom: 0;
+}
+
+.icon-field--important path {
+  fill: var(--background-primary);
+}
