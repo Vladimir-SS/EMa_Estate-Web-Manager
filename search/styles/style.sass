@@ -1,6 +1,7 @@
 @import "../../shared/styles/config"
 @import "../../shared/styles/mixins"
 @import "../../shared/styles/item"
+@import "../../shared/styles/icon"
 
 $unit: $unit/2
 
@@ -12,3 +13,23 @@ $unit: $unit/2
 .side-map
     border-radius: $border-radius
     background: red
+
+.content-filter
+    margin-bottom: $unit
+    display: flex
+    flex-wrap: wrap
+    gap: $unit
+
+.icon-field--filter
+    padding: $unit/2
+    padding-left: $unit
+    margin-bottom: 0
+    border: 2px solid var(--background-primary)
+    background: var(--background-primary)
+
+.icon-field--filter:hover
+    border-color: var(--interactive-accent)
+    cursor: pointer
+    color: var(--interactive-accent)
+    path
+        fill: var(--interactive-accent)

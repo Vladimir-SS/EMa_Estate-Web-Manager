@@ -31,7 +31,7 @@
                     <!-- /.icon-field icon-field--gmail icon-field--social -->
 
                     <button class="icon-field icon-field--facebook icon-field--social" type="conn-facebook">
-                        <?php include "svg/facebook.svg" ?>
+                        <?php include "../shared/svg/facebook.svg" ?>
                         Conectează-te cu contul tău Facebook
                     </button>
                     <!-- /.icon-field icon-field--facebook icon-field--social -->
@@ -40,31 +40,31 @@
 
                         <p>Completează câmpurile de mai jos pentru a te înregistra.</p>
                         <div class="icon-field input-box">
-                            <?php include "svg/person.svg" ?>
+                            <?php include "../shared/svg/person.svg" ?>
                             <input class="input-box__input" type="text" placeholder="Nume si prenume" name="flname" required>
                         </div>
                         <!-- /.icon-field input-box -->
 
                         <div class="icon-field input-box">
-                            <?php include "svg/phone.svg" ?>
+                            <?php include "../shared/svg/phone.svg" ?>
                             <input class="input-box__input" type="tel" placeholder="Telefon" name="phone" required>
                         </div>
                         <!-- /.icon-field input-box -->
 
                         <div class="icon-field input-box">
-                            <?php include "svg/mail.svg" ?>
+                            <?php include "../shared/svg/mail.svg" ?>
                             <input class="input-box__input" type="email" placeholder="E-mail" name="email" required>
                         </div>
                         <!-- /.icon-field input-box -->
 
                         <div class="icon-field input-box">
-                            <?php include "svg/pass.svg" ?>
+                            <?php include "../shared/svg/pass.svg" ?>
                             <input class="input-box__input input-box__input--pwd" type="password" placeholder="Introdu parola" name="psw" required>
                         </div>
                         <!-- /.icon-field input-box -->
 
                         <div class="icon-field input-box">
-                            <?php include "svg/pass.svg" ?>
+                            <?php include "../shared/svg/pass.svg" ?>
                             <input class="input-box__input input-box__input--pwd" type="password" placeholder="Confirmă parola" name="psw" required>
                         </div>
                         <!-- /.icon-field input-box -->
@@ -74,7 +74,7 @@
                         </p>
 
                         <div class="term-and-cond">
-                            <?php include "svg/cbox-checked.svg" ?>
+                            <?php include "../shared/svg/cbox-checked.svg" ?>
                             <p class="term-and-cond__paragraph">Sunt de acord cu
                                 <a class="hlink" href="#">Termenii și Condițiile</a>, cât și <br> <a class="hlink" href="#">Politica de confidenţialitate</a>
                             </p>
@@ -82,7 +82,7 @@
 
 
                         <button class="icon-field submit" type="submit">
-                            <?php include "svg/conn-arr.svg" ?>
+                            <?php include "../shared/svg/conn-arr.svg" ?>
                             Creează-ți contul
                         </button>
                         <!-- /.icon-field submit -->
