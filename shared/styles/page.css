@@ -111,6 +111,10 @@ p.secondary {
   font-size: 14px;
 }
 
+p:last-child {
+  margin-bottom: 0;
+}
+
 .accent {
   color: var(--interactive-accent);
 }
@@ -122,6 +126,7 @@ p.secondary {
 }
 
 .responsive-container {
+  max-width: 90vw;
   padding: 40px;
   margin: 0 auto;
   width: 1600px;
@@ -296,3 +301,4 @@ p.secondary {
 .icon-field--important path {
   fill: var(--background-primary);
 }
+/*# sourceMappingURL=page.css.map */

@@ -205,7 +205,8 @@
 
 .side-map {
   border-radius: 20px;
-  background: red;
+  background-image: url("../img/map.png");
+  background-repeat: no-repeat;
   position: -webkit-sticky;
   position: sticky;
   top: 40px;
@@ -240,3 +241,32 @@
 .icon-field--filter:hover path {
   fill: var(--interactive-accent);
 }
+
+.pin {
+  position: absolute;
+  padding: 5px 20px;
+  background: var(--interactive-accent);
+  border-radius: 8px;
+}
+
+.pin p {
+  color: var(--background-primary);
+}
+
+.pin:before {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--interactive-accent);
+  z-index: -1;
+  bottom: -7px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 20px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+/*# sourceMappingURL=style.css.map */
