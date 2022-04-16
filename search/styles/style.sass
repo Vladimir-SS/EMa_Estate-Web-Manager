@@ -14,7 +14,8 @@ $unit: $unit/2
 
 .side-map
     border-radius: $border-radius
-    background: red
+    background-image: url("../img/map.png")
+    background-repeat: no-repeat
     position: sticky
     top: 2 * $unit
     height: 500px
@@ -39,3 +40,28 @@ $unit: $unit/2
         color: var(--interactive-accent)
         path
             fill: var(--interactive-accent)
+
+// To be edited later
+.pin
+    position: absolute
+    padding: $unit/4 $unit
+    background: var(--interactive-accent)
+    border-radius: 8px
+    p
+        color: var(--background-primary)
+
+.pin:before
+    $size: $unit*1.5
+    content: ''
+    position: absolute
+    width: $size
+    height: $size
+    border-radius: 8px
+    background: var(--interactive-accent)
+    z-index: -1
+    bottom: (16px - $size)/2
+    left: 0
+    right: 0
+    margin: 0 auto
+    top: $unit
+    transform: rotate(45deg)

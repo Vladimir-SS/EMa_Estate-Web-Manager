@@ -241,13 +241,13 @@
   margin-right: 0;
 }
 
-.icon-field--filter--filter:hover {
+.icon-field--filter:hover {
   border-color: var(--interactive-accent);
   cursor: pointer;
   color: var(--interactive-accent);
 }
 
-.icon-field--filter--filter:hover path {
+.icon-field--filter:hover path {
   fill: var(--interactive-accent);
 }
 
@@ -261,3 +261,4 @@
 .search path {
   fill: var(--background-primary);
 }
+/*# sourceMappingURL=style.css.map */
