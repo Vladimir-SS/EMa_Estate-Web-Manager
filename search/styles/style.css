@@ -48,7 +48,7 @@
       -ms-flex: 1;
           flex: 1;
   gap: 40px;
-  border-top: 1px solid var(--background-secondary-alt);
+  border-top: 2px solid var(--background-secondary-alt);
 }
 
 .content__box--item__info__icons__basic .icon-text {
@@ -104,7 +104,7 @@
 .chubby-items {
   display: -ms-grid;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 20px;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -155,7 +155,6 @@
       -ms-flex-align: center;
           align-items: center;
   border-radius: 20px;
-  margin-bottom: 20px;
 }
 
 .icon-field svg {

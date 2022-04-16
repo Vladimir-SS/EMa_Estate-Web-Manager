@@ -9,22 +9,18 @@ $unit: $unit/2
 
 .content__filter
     display: flex
-    img
-        margin-left: $unit
-
-.content__box--filter
-    h2
-        margin-bottom: $unit
+    padding-bottom: 2 * $unit
 
 .filter-grid
     display: grid
+    gap: $unit
     justify-items: start
 
     .icon-field:last-child
         grid-column: span 2
 
 .icon-field--filter
-    border: 2px solid black
+    border: 2px solid var(--text-normal)
 
     svg
         margin-left: $unit/2
