@@ -93,7 +93,6 @@ html {
 
 body {
   background: var(--background-secondary);
-  height: 100vh;
   line-height: 1.6;
 }
 
@@ -207,6 +206,7 @@ p.secondary {
     margin-top: 80px;
   }
   .site-nav {
+    top: 0;
     position: fixed;
   }
   .site-nav .site-nav-container #hamburger-icon {
@@ -275,6 +275,10 @@ p.secondary {
   width: 100%;
   color: var(--background-primary);
   cursor: pointer;
+}
+
+.icon-field--social path {
+  fill: white;
 }
 
 .icon-field--important {

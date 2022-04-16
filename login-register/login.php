@@ -62,7 +62,7 @@
                             <a class="hlink" href="#">Politica de confidentialitate</a>
                         </p>
 
-                        <button class="icon-field submit" type="submit">
+                        <button class="icon-field icon-field--important" type="submit">
                             <?php include "../shared/svg/conn-arr.svg" ?>
                             Conectare
                         </button>

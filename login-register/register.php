@@ -25,7 +25,7 @@
 
                     <h2>Creează-ți cont</h2>
                     <button class="icon-field icon-field--gmail icon-field--social" type="conn-gmail">
-                        <?php include "svg/gmail.svg" ?>
+                        <?php include "../shared/svg/gmail.svg" ?>
                         Conectează-te cu contul tău Google
                     </button>
                     <!-- /.icon-field icon-field--gmail icon-field--social -->
@@ -81,7 +81,7 @@
                         </div>
 
 
-                        <button class="icon-field submit" type="submit">
+                        <button class="icon-field icon-field--important" type="submit">
                             <?php include "../shared/svg/conn-arr.svg" ?>
                             Creează-ți contul
                         </button>

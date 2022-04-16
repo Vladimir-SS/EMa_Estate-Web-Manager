@@ -1,0 +1,120 @@
+.icon-field {
+  padding: 0 20px;
+  border: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 40px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.icon-field svg {
+  margin-right: 10px;
+}
+
+.icon-field--gmail {
+  background-color: #EA4335;
+}
+
+.icon-field--facebook {
+  background-color: #45619D;
+}
+
+.icon-field--social {
+  width: 100%;
+  color: var(--background-primary);
+  cursor: pointer;
+}
+
+.icon-field--social path {
+  fill: white;
+}
+
+.icon-field--important {
+  color: var(--background-primary);
+  background: var(--interactive-accent);
+  cursor: pointer;
+  width: auto;
+  margin-bottom: 0;
+}
+
+.icon-field--important path {
+  fill: var(--background-primary);
+}
+
+.content__box--login {
+  padding: 40px;
+  max-width: 600px;
+}
+
+.content__box__form {
+  margin-top: 40px;
+}
+
+.content__box__form .input-box {
+  background: var(--background-secondary);
+}
+
+.content__box__form .input-box input {
+  width: 100%;
+  color: var(--text-normal);
+}
+
+.content__box__form .input-box input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-normal);
+}
+
+.content__box__form .input-box path {
+  fill: gray;
+}
+
+.content__box__form .input-box:focus-within {
+  background: var(--interactive-accent);
+}
+
+.content__box__form .input-box:focus-within input {
+  color: var(--background-primary);
+}
+
+.content__box__form .input-box:focus-within input:-webkit-autofill {
+  -webkit-text-fill-color: var(--background-primary);
+}
+
+.content__box__form .input-box:focus-within input::-webkit-input-placeholder {
+  color: var(--background-secondary);
+}
+
+.content__box__form .input-box:focus-within input:-ms-input-placeholder {
+  color: var(--background-secondary);
+}
+
+.content__box__form .input-box:focus-within input::-ms-input-placeholder {
+  color: var(--background-secondary);
+}
+
+.content__box__form .input-box:focus-within input::placeholder {
+  color: var(--background-secondary);
+}
+
+.content__box__form .input-box:focus-within path {
+  fill: var(--background-primary);
+}
+
+.hlink {
+  color: var(--interactive-accent);
+}
+
+.term-and-cond {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.term-and-cond svg {
+  margin-right: 10px;
+}
