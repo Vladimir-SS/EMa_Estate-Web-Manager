@@ -36,30 +36,47 @@
 .icon-field--important {
   color: var(--background-primary);
   background: var(--interactive-accent);
-  cursor: pointer;
-  width: auto;
-  margin-bottom: 0;
 }
 
 .icon-field--important path {
   fill: var(--background-primary);
 }
 
+.icon-field--option {
+  border: 2px solid var(--text-normal);
+}
+
+.icon-field--option svg {
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+.icon-field--option:hover {
+  border-color: var(--interactive-accent);
+  cursor: pointer;
+  color: var(--interactive-accent);
+}
+
+.icon-field--option:hover path {
+  fill: var(--interactive-accent);
+}
+
 .content__box--item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 20px;
   padding: 0;
 }
 
-.content__box--item__image {
-  height: 160px;
+.content__box--item:hover .content__box--item__image {
+  background-size: 120%;
 }
 
-.content__box--item__image img {
-  margin-left: 20px;
-  margin-top: 20px;
-  height: 100%;
+.content__box--item .image-container {
+  height: 160px;
+  width: 160px;
+  inset: 20px 0 0 20px;
   border-radius: 20px;
 }
 
@@ -74,10 +91,15 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  gap: 5px;
 }
 
-.content__box--item__info h2, .content__box--item__info .secondary {
-  margin-bottom: 5px;
+.content__box--item__info h2, .content__box--item__info p {
+  margin: 0;
+}
+
+.content__box--item__info .secondary path {
+  fill: var(--text-faint);
 }
 
 .content__box--item__info__icons {
@@ -99,27 +121,28 @@
 }
 
 .content__box--item__info__icons__basic .icon-text {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  margin-bottom: 0;
+  margin-top: 10px;
   gap: 10px;
-  margin-top: 5px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
-.content__box--item__info__icons__basic .icon-text svg {
-  height: 24px;
+.content__box--item__info__icons__basic .icon-text span {
+  height: 150%;
+}
+
+.content__box--item__info__icons__basic .icon-text span path {
+  fill: var(--interactive-accent);
 }
 
 .content__box--item__info__icons__basic .icon-text:nth-child(2) {
   margin-left: auto;
 }
 
+.content__box--item__info__icons__basic .icon-text:last-child span {
+  height: 180%;
+}
+
 .content__box--item__info__icons .save-button {
-  cursor: pointer;
-  height: 100%;
   -webkit-transition: -webkit-transform .2s;
   transition: -webkit-transform .2s;
   transition: transform .2s;
@@ -130,8 +153,8 @@
   height: 100%;
 }
 
-.content__box--item__info__icons .save-button svg path {
-  stroke: var(--text-normal);
+.content__box--item__info__icons .save-button svg path:nth-child(2) {
+  fill: var(--text-normal);
 }
 
 .content__box--item__info__icons .save-button:hover {
@@ -139,13 +162,13 @@
           transform: scale(1.1);
 }
 
-.content__box--item__info__icons .save-button--is-saved path {
-  stroke: var(--text-normal);
+.content__box--item__info__icons .save-button--is-saved svg path:nth-child(1), .content__box--item__info__icons .save-button--is-saved svg path:nth-child(2) {
   fill: var(--interactive-accent);
 }
 
 .items-container {
   background: var(--background-primary);
+  padding: 40px 0;
 }
 
 .chubby-items {
@@ -165,18 +188,19 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  gap: 0;
   margin: 0;
 }
 
-.chubby-items .content__box--item__image {
+.chubby-items .content__box--item .image-container {
+  border-radius: 20px 20px 0 0;
+  inset: 0;
+  width: 100%;
   height: 140px;
 }
 
-.chubby-items .content__box--item__image img {
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  border-radius: 20px 20px 0 0;
+.chubby-items .content__box--item__info {
+  gap: 10px;
 }
 
 .chubby-items .content__box--item__info__icons__basic .icon-text {
@@ -232,33 +256,6 @@
   grid-column: span 2;
 }
 
-.icon-field--filter {
-  border: 2px solid var(--text-normal);
-}
-
-.icon-field--filter svg {
-  margin-left: 10px;
-  margin-right: 0;
-}
-
-.icon-field--filter:hover {
-  border-color: var(--interactive-accent);
-  cursor: pointer;
-  color: var(--interactive-accent);
-}
-
-.icon-field--filter:hover path {
-  fill: var(--interactive-accent);
-}
-
-.search {
-  color: var(--background-primary);
-  background: var(--interactive-accent);
-  cursor: pointer;
+.icon-field--important[type="search"] {
   width: 100%;
 }
-
-.search path {
-  fill: var(--background-primary);
-}
-/*# sourceMappingURL=style.css.map */

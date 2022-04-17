@@ -5,16 +5,18 @@ $unit: $unit / 2
 
 .content__box--item
     display: flex
+    gap: $unit
     padding: 0
 
-    &__image
-        height: 8 * $unit
+    &:hover
+        .content__box--item__image
+            background-size: 120%
 
-        img
-            margin-left: $unit
-            margin-top: $unit
-            height: 100%
-            border-radius: $border-radius
+    .image-container
+        height: 8 * $unit
+        width: 8 * $unit
+        inset: $unit 0 0 $unit
+        border-radius: $border-radius
 
     &__info
         width: 100%
@@ -22,9 +24,14 @@ $unit: $unit / 2
         line-height: 1
         display: flex
         flex-direction: column
+        gap: $unit/4
 
-        h2, .secondary
-            margin-bottom: $unit/4
+        h2, p
+            margin: 0
+
+        .secondary
+            path
+                fill: var(--text-faint)
 
         &__icons
             display: flex
@@ -37,66 +44,68 @@ $unit: $unit / 2
                 border-top: 2px solid var(--background-secondary-alt)
 
                 .icon-text
-                    display: flex
+                    margin-bottom: 0
+                    margin-top: $unit/2
                     gap: $unit/2
-                    margin-top: $unit/4
-                    align-items: center
 
-                    svg
-                        height: $font-size*1.5
+                    span
+                        height: 150%
+                        path
+                            fill: var(--interactive-accent)
 
                     &:nth-child(2)
                         margin-left: auto
 
+                    &:last-child
+                        span
+                            height: 180%
+
             .save-button
-                cursor: pointer
-                height: 100%
                 transition: transform .2s
 
                 svg
                     height: 100%
 
-                    path
-                        stroke: var(--text-normal)
+                    path:nth-child(2)
+                        fill: var(--text-normal)
 
                 &:hover
                     transform: scale(1.1)
 
                 &--is-saved
-                    path
-                        stroke: var(--text-normal)
-                        fill: var(--interactive-accent)
+                    svg
+                        path:nth-child(1), path:nth-child(2)
+                            fill: var(--interactive-accent)
 .items-container
     background: var(--background-primary)
+    padding: 2 * $unit 0
 
 .chubby-items
     display: grid
     grid-gap: $unit
     justify-content: space-between
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr))
-
     width: 100%
 
     .content__box--item
         flex-direction: column
+        gap: 0
         margin: 0
 
-        &__image
+        .image-container
+            border-radius: $border-radius $border-radius 0 0
+            inset: 0
+            width: 100%
             height: 7 * $unit
 
-            img
-                margin: 0
-                height: 100%
-                width: 100%
-                border-radius: $border-radius $border-radius 0 0
-
         &__info
+            gap: $unit/2
             &__icons
                 &__basic
                     .icon-text
                         gap: $unit/2
                         &:nth-child(2), &:nth-child(3)
-
                             display: none
+
                         &:last-child
                             margin-left: auto

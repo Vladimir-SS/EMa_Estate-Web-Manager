@@ -1,9 +1,9 @@
 
 
 const hamburgerClickHandler = () => {
-    document.getElementById("nav-list").classList.toggle("show")
+    document.getElementById("nav-list").classList.toggle("show");
 }
 
-const saveButtonClickHandler = (e) => {
-    console.log(e);
+const saveButtonClickHandler = (element) => {
+    element.classList.toggle("save-button--is-saved")
 }

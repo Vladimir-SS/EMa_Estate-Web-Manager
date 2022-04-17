@@ -10,7 +10,6 @@ $unit: $unit/2
     height: 2*$unit
     align-items: center
     border-radius: $border-radius
-    //margin-bottom: $unit
 
     svg
         margin-right: $unit/2
@@ -32,11 +31,22 @@ $unit: $unit/2
 .icon-field--important
     color: var(--background-primary)
     background: var(--interactive-accent)
-    cursor: pointer
-    width: auto
-    margin-bottom: 0
 
     path
         fill: var(--background-primary)
 
 $unit: $unit*2
+
+.icon-field--option
+    border: 2px solid var(--text-normal)
+
+    svg
+        margin-left: $unit/2
+        margin-right: 0
+
+    &:hover
+        border-color: var(--interactive-accent)
+        cursor: pointer
+        color: var(--interactive-accent)
+        path
+            fill: var(--interactive-accent)

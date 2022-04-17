@@ -69,6 +69,39 @@ p
     &:last-child
         margin-bottom: 0
 
+.image-container
+    overflow: hidden
+    position: relative
+
+    .image
+        height: 100%
+        width: 100%
+
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+
+        @include transition(transform)
+
+.icon-text
+    display: flex
+    gap: 5px
+    align-items: center
+
+    span
+        height: 100%
+
+        svg
+            height: 100%
+
+[onclick]
+    cursor: pointer
+    user-select: none
+
+.image-container--animated:hover
+    .image
+        transform: scale(1.2)
+
 @include mobile
 
 .---nothing---

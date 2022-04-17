@@ -36,13 +36,29 @@
 .icon-field--important {
   color: var(--background-primary);
   background: var(--interactive-accent);
-  cursor: pointer;
-  width: auto;
-  margin-bottom: 0;
 }
 
 .icon-field--important path {
   fill: var(--background-primary);
+}
+
+.icon-field--option {
+  border: 2px solid var(--text-normal);
+}
+
+.icon-field--option svg {
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+.icon-field--option:hover {
+  border-color: var(--interactive-accent);
+  cursor: pointer;
+  color: var(--interactive-accent);
+}
+
+.icon-field--option:hover path {
+  fill: var(--interactive-accent);
 }
 
 .content__box--login {
@@ -117,4 +133,3 @@
 .term-and-cond svg {
   margin-right: 10px;
 }
-/*# sourceMappingURL=style.css.map */
