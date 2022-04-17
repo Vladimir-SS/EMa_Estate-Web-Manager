@@ -2,6 +2,12 @@
 
 $unit: $unit/2
 
+.content-filter
+    margin-bottom: $unit
+    display: flex
+    flex-wrap: wrap
+    gap: $unit
+
 .icon-field
     padding: 0 $border-radius
     border: 0
@@ -41,6 +47,25 @@ $unit: $unit*2
     border: 2px solid var(--text-normal)
     background: var(--background-primary)
 
+    svg
+        margin-left: $unit/2
+        margin-right: 0
+
+    &:hover
+        border-color: var(--interactive-accent)
+        color: var(--interactive-accent)
+        path
+            fill: var(--interactive-accent)
+
+    &--selected
+        border-color: var(--interactive-accent)
+        color: var(--interactive-accent)
+        path
+            fill: var(--interactive-accent)
+
+.icon-field--setter
+    border: 2px solid var(--background-primary-alt)
+    background: var(--background-primary-alt)
     svg
         margin-left: $unit/2
         margin-right: 0

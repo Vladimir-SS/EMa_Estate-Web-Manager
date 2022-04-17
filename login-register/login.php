@@ -47,7 +47,7 @@
 
                         <div class="icon-field input-box">
                             <?php include "../shared/svg/pass.svg" ?>
-                            <input class="input-box__input input-box__input--pwd" type="password" placeholder="Introdu parola" name="psw" required>
+                            <input class="input-box__input" type="password" placeholder="Introdu parola" name="psw" required>
                         </div>
                         <!-- /.icon-field input-box -->
 
@@ -62,7 +62,7 @@
                             <a class="hlink" href="#">Politica de confidentialitate</a>
                         </p>
 
-                        <button class="icon-field icon-field--important" type="submit">
+                        <button class="icon-field icon-field--important" type="submit" onclick>
                             <?php include "../shared/svg/conn-arr.svg" ?>
                             Conectare
                         </button>
