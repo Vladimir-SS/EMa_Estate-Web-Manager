@@ -31,6 +31,11 @@
                 Alte opțiuni
                 <?php include "../shared/svg/right-arrow.svg" ?>
             </div>
+
+            <button class="icon-field icon-field--important" type="search" onclick>
+                <?php include "../shared/svg/magnifying-glass.svg" ?>
+                Caută acum 20 132 anunțuri
+            </button>
         </div>
         <!-- /.content-filter -->
         <div id="items">
@@ -49,7 +54,7 @@
         </div>
     </div>
     <!-- /.flex-1 -->
-    <div class="side-map">
+    <div class="side-map content__box">
         <div class="pin-container">
             <div class="pin">
                 123 000

@@ -8,13 +8,56 @@
 
     &__left
         .carousel
-            height: 600px
+            &__top
+                position: relative
+                margin-bottom: $unit/2
+
+                img
+                    display: block
+                    margin: 0 auto
+                    height: 500px
+                    border-radius: $border-radius
+
+                &__arrow
+                    position: absolute
+                    border-radius: 100%
+                    width: $unit
+                    height: $unit
+                    background: var(--background-primary)
+                    @include box-shadow
+                    top: 50%
+                    left: 0
+                    transform: translateY(-100%)
+                    margin: auto
+
+                    svg
+                        height: 100%
+
+                    &--right
+                        transform: translateY(-100%) scaleX(-1)
+                        right: 0
+                        left: auto
+
+            &__bottom
+                position: relative
+                display: flex
+                height: 50px
+                gap: $unit/2
+                overflow-x: hidden
+
+                img
+                    border-radius: $border-radius/4
 
         .description
-            height: 600px
+            pre
+                white-space: pre-wrap
 
         .map
             height: 600px
+            background-image: url("../../shared/img/map.png")
+            background-size: cover
+            background-position: center
+            background-repeat: no-repeat
 
     &__right
         position: sticky
