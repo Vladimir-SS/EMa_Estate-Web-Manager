@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../shared/styles/page.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="site-nav">
+            <div class="site-nav-container responsive-container">
+                <svg id="hamburger-icon" onclick="hamburgerClickHandler(this)" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 7H19" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M5 12H19" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M5 17H19" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <ul id="nav-list" class="site-nav-container-list">
+                    <li><a href="../home/index.html">Acasă</a></li>
+                    <li><a href="../search/index.html">Caută</a></li>
+                    <li><a href="../add/index.html">Adaugă anunț nou</a></li>
+                    <li class="right"><a href="../login-register/login.html">Conectează-te</a></li>
+                    <li class="sign-up"><a href="../login-register/register.html">Creează cont</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-container responsive-container">
+            <div class="content">
+                <div class="content__left flex-1">
+                    <div class="content__box carousel">
+                        <div class="carousel__top">
+                            <img src="../shared/img/appartmen1.jpg" alt="apartament">
+
+                            <div class="carousel__top__arrow" onclick>
+                                <svg height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23 12L16.3333 20.3333L23 28.6667" stroke="black" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+                            <div class="carousel__top__arrow carousel__top__arrow--right" onclick>
+                                <svg height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23 12L16.3333 20.3333L23 28.6667" stroke="black" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="carousel__bottom">
+                            <img src="../shared/img/appartmen1.jpg" alt="apartament">
+                            <img src="../shared/img/appartmen1.jpg" alt="apartament">
+                            <img src="../shared/img/appartmen1.jpg" alt="apartament">
+                            <img src="../shared/img/appartmen1.jpg" alt="apartament">
+                        </div>
+
+                    </div>
+                    <div class="content__box description">
+                        <h2>Descriere</h2>
+                        <p>
+                        <pre>
+71.000 EURO NEMOBILAT/NEUTILAT
+76.000 EURO MOBILAT SI UTILAT
+Vand apartament cu 2 camere, decomandat, situat la mansarda intr-un bloc P+2E+M, de 12 apartamente. Blocul este finalizat in toamna 2019 si se afla pe strada Galaxiei, in cartierul Sanpetru Residence. Accesul se face pe drum asfaltat, iar la 50 m de bloc se afla statia de autobuz. In imediata apropiere (aprox. 3-5 minute de mers pe jos) regasim un aprozar, un magazin alimentar si locuri de joaca pentru copii.
+Apartamentul este compus din:
+1. Living 18,25 mp
+2. Dormitor 14,70 mp
+3. Bucatarie 11,34 mp
+4. Baie 4,73 mp
+5. Hol 8,52 mp
+6. Terasa 6,53 mp
+Si beneficiaza de un loc de parcare privat.
+Se vinde mobilat si utilat complet ( la 76.000 Euro) cu masina de spalat rufe, masina de spalat vase, combina frigorifica, AC inverter cu wifi, etc, conform poze.
+Apartamentul are centrala proprie Saunier Duval, geamuri Tripan cu tamplarie Rehau si feronerie Roto, usa metalica, fibra optica Digi pana in apartament, fiecare camera avand priza pentru internet.
+Se accepta orice varianta de plata, insa nu se accepta schimburi.
+Pentru orice alte informatii, poze suplimentare sau vizionari, va rog sa ma contactati.
+            </pre>
+                        </p>
+                    </div>
+                    <div class="content__box map">
+                    </div>
+                </div>
+                <div class="content__right">
+                    <div class="content__box content__box--profile">
+                        <div class="content__box--profile__img image-container">
+                            <div class="image" style="background-image:url(../shared/img/cornelia.jpg);"></div>
+                        </div>
+                        <h2>Cornelia Rednic (RedMax)</h2>
+                        <p>Agent Imobiliar</p>
+                        <p class="secondary"> Pe Estence din Februarie 2018 </p>
+                        <div class="icon-field icon-field--important">
+                            <svg height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 19V17.3541C21 16.5363 20.5021 15.8008 19.7428 15.4971L17.7086 14.6835C16.7429 14.2971 15.6422 14.7156 15.177 15.646L15 16C15 16 12.5 15.5 10.5 13.5C8.5 11.5 8 9 8 9L8.35402 8.82299C9.28438 8.35781 9.70285 7.25714 9.31654 6.29136L8.50289 4.25722C8.19916 3.4979 7.46374 3 6.64593 3H5C3.89543 3 3 3.89543 3 5C3 13.8366 10.1634 21 19 21C20.1046 21 21 20.1046 21 19Z" />
+                            </svg>
+                            0744 704 733
+                        </div>
+                    </div>
+                    <div class="content__box content__box--property">
+                        <h2 class="euro accent">123 123 Ron</h2>
+                        <div class="content__box--property__facilities">
+                            <p>254 m</p>
+                            <p>3 camere</p>
+                            <p>1 baie</p>
+                            <p>1 garaj</p>
+                        </div>
+                        <p>
+                            Anul Construcției: <span class="accent">2017</span> </br>
+                            Locație: <span class="accent">Strada Pacurari nr. 52</span> </br>
+                            Indice de poluare: <span class="accent">2.3</span> </br>
+                            Temperatură medie: <span class="accent">15° C</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.page -->
+    </div>
+    <!-- /.page-container -->
+
+</body>
+
+</html>
