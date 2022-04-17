@@ -177,22 +177,18 @@ p:last-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 0.2em;
 }
 
-.icon-text span {
-  width: 23.2px;
-  height: 23.2px;
+.icon-text svg {
+  position: relative;
+  height: 1em;
 }
 
-.icon-text span svg {
-  width: 100%;
-}
-
-.icon-text span svg path {
+.icon-text svg path {
   fill: var(--text-normal);
 }
 
@@ -333,7 +329,6 @@ p:last-child {
 .icon-field--social {
   width: 100%;
   color: var(--background-primary);
-  cursor: pointer;
 }
 
 .icon-field--social path {

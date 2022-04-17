@@ -13,16 +13,16 @@
 
             <div class="content__box--item__info__icons__basic">
                 <p class="icon-text" >
-                    <span> <?php include "../shared/svg/space.svg" ?> </span> 200
+                    <?php include "../shared/svg/space.svg" ?>200
                 </p>
                 <p class="icon-text" >
-                    <span> <?php include "../shared/svg/bathroom.svg" ?> </span> 1
+                    <?php include "../shared/svg/bathroom.svg" ?> 1
                 </p>
                 <p class="icon-text" >
-                    <span> <?php include "../shared/svg/garage.svg" ?> </span> 1
+                    <?php include "../shared/svg/garage.svg" ?>1
                 </p>
                 <p class="icon-text" >
-                    <span> <?php include "../shared/svg/room.svg" ?> </span> 3
+                    <?php include "../shared/svg/room.svg" ?> 3
                 </p>
             </div>
             
