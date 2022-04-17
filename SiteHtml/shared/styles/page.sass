@@ -1,0 +1,110 @@
+
+// daca scriu _menu, nu il compileaza, dar pot pune "./menu.sass" la import :)) sau mai scurt "menu.sass", sau mai scurt "menu"    
+@import "reset"
+@import "config"
+@import "mixins"
+
+\:root
+    --background-primary: #ffffff
+    --background-primary-alt: #f5f6f8
+    --background-secondary: #f2f3f5
+    --background-secondary-alt: #e3e5e8
+    --interactive-accent: #086788
+    --text-normal: #000000
+    --text-faint: #000000 //!! need to get read of it
+
+html
+    font-family: 'Roboto', sans-serif
+    font-size: $font-size
+    font-weight: 400
+
+body
+    background: var(--background-secondary)
+    line-height: 1.6
+
+h2
+    //font-weight: 800
+    font-size: $font-size * 1.2
+    margin-bottom: $unit/2
+
+p
+    margin-bottom: $unit/4
+
+    &.secondary
+        color: var(--text-faint)
+        font-size: $font-size - 2px
+    &:last-child
+        margin-bottom: 0
+
+.accent
+    color: var(--interactive-accent)
+
+.flex-1
+    flex: 1
+
+.responsive-container
+    margin: 0 auto
+    max-width: 90vw
+    width: 1600px
+
+.page-container
+
+    .content-container
+        padding: $unit 0
+
+        .content
+            height: 100%
+            width: 100%
+
+.content__box
+    @include box-shadow
+    padding: $unit/2
+    background: var(--background-primary)
+    border-radius: $border-radius
+    margin-bottom: $unit
+
+    *:last-child
+        margin-bottom: 0
+
+    &:last-child
+        margin-bottom: 0
+
+.image-container
+    overflow: hidden
+    position: relative
+
+    .image
+        height: 100%
+        width: 100%
+
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+
+        @include transition(transform)
+
+.icon-text
+    display: flex
+    align-items: center
+    gap: 0.2em
+
+    svg
+        position: relative
+        height: 1em
+
+        path
+            fill: var(--text-normal)
+
+[onclick]
+    cursor: pointer
+    user-select: none
+
+.image-container--animated:hover
+    .image
+        transform: scale(1.2)
+
+@include mobile
+
+.---nothing---
+@import "menu"
+@import "icon"

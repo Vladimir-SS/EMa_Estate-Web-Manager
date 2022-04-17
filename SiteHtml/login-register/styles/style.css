@@ -1,0 +1,124 @@
+.content-filter {
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 20px;
+}
+
+.icon-field {
+  padding: 0 20px;
+  border: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 40px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 20px;
+}
+
+.icon-field svg {
+  margin-right: 10px;
+}
+
+.icon-field--gmail {
+  background-color: #EA4335;
+}
+
+.icon-field--facebook {
+  background-color: #45619D;
+}
+
+.icon-field--social {
+  width: 100%;
+  color: var(--background-primary);
+}
+
+.icon-field--social path {
+  fill: white;
+}
+
+.icon-field--important {
+  color: var(--background-primary);
+  background: var(--interactive-accent);
+}
+
+.icon-field--important path {
+  fill: var(--background-primary);
+}
+
+.icon-field--option {
+  border: 2px solid var(--text-normal);
+  background: var(--background-primary);
+}
+
+.icon-field--option svg {
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+.icon-field--option:hover {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.icon-field--option:hover path {
+  fill: var(--interactive-accent);
+}
+
+.icon-field--option--selected {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.icon-field--option--selected path {
+  fill: var(--interactive-accent);
+}
+
+.icon-field--setter {
+  border: 2px solid var(--background-primary-alt);
+  background: var(--background-primary-alt);
+}
+
+.icon-field--setter svg {
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+.icon-field--setter:hover {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.icon-field--setter:hover path {
+  fill: var(--interactive-accent);
+}
+
+.icon-field--setter--selected {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.icon-field--setter--selected path {
+  fill: var(--interactive-accent);
+}
+
+.hlink {
+  color: var(--interactive-accent);
+}
+
+.term-and-cond {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.term-and-cond svg {
+  margin-right: 10px;
+}
+/*# sourceMappingURL=style.css.map */

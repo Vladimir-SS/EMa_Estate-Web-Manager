@@ -311,10 +311,4 @@
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
 }
-
-@media (max-width: 959px) {
-  .side-map {
-    display: none;
-  }
-}
 /*# sourceMappingURL=style.css.map */

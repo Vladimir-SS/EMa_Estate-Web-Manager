@@ -1,0 +1,76 @@
+@import "config"
+
+.site-nav
+    height: 2 * $unit
+    width: 100%
+
+    display: flex
+    align-items: center
+    background: var(--background-primary)
+    @include box-shadow
+
+    &-container
+        width: 100%
+
+        #hamburger-icon
+            display: none
+            height: $unit
+
+            path
+                stroke: var(--text-normal)
+
+        &-list
+            list-style-type: none
+            display: flex
+            align-items: baseline
+            column-gap: $unit
+
+            li
+                &.right
+                    margin-left: auto
+
+                &.sign-up
+                    border-radius: $border-radius
+                    height: 100%
+                    @include button-padding
+                    background: var(--interactive-accent)
+                    color: var(--background-primary)
+
+@include mobile
+
+    .content-container
+        margin-top: 2 * $unit
+
+    .site-nav
+        top: 0
+        position: fixed
+        z-index: 20
+
+        .site-nav-container
+
+            #hamburger-icon
+                display: block
+
+            &-list
+                display: none
+                background: var(--background-primary-alt)
+                position: fixed
+                flex-flow: column
+                align-items: center
+                inset: 0
+                top: 2 * $unit
+
+                &.show
+                    display: flex
+
+                li
+                    margin-top: $unit
+
+                    &.right
+                        margin-left: 0
+
+                    &.sign-up
+                        width: 100%
+                        height: auto
+                        border-radius: 0
+                        text-align: center
