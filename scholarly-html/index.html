@@ -118,20 +118,6 @@
 
                 </ul>
             </li>
-
-            <li>
-                <a href="#4-system-features"> Funcțiile sistemului </a>
-
-                <ul>
-                    <li>
-                        <a href="#41-system-feature-1"> 4.1 </a>
-                    </li>
-
-                    <li>
-                        <a href="#42-system-feature-2"> 4.2 </a>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </section>
 
@@ -142,8 +128,8 @@
         <section id="11-purpose">
             <h3>1.1 Scop</h3>
             <p>
-                Necesitatea realizării unei aplicații web pentru eficientizarea tranzacțiilor imobiliarea reprezintă sursa dezvoltării site-ului EMa_Estate-Web-Manager. Aplicația beneficiază de diverse facilități precum date legate de poluare, amplasare, media pieței,
-                etc. Fiecare utilizator trebuie să se înregistreze sau să își acceseze contul personal pentru a finaliza anumite tranzacții sau a avea acces la anumite facilități din cadrul aplicației.
+                Necesitatea realizării unei aplicații web pentru eficientizarea tranzacțiilor imobiliarea reprezintă sursa dezvoltării site-ului EMa_Estate-Web-Manager. Aplicația beneficiază de diverse facilități precum date legate de poluare, temperatură medie, amplasare
+                geografică, prețul pieței, etc. Fiecare utilizator trebuie să se înregistreze sau să își acceseze contul personal pentru a finaliza anumite tranzacții sau a avea acces la anumite facilități din cadrul aplicației.
             </p>
             <p>
                 Acest document are rolul de a facilita utilizarea aplicației web, cum a fost realizat, ce factori au fost luați în considerarea la proiectare și ce servicii deservește.
@@ -153,7 +139,7 @@
         <section id="12-doc-conventions">
             <h3>1.2 Convenții în document </h3>
             <p>
-                Titlurile de capitol, secțiunile și subsecțiunile sunt numerotate și reprezentate îngroșat pentru o ușoară parcurgere a documentului conform standardului Scholarly HTML.
+                Titlurile de capitol, secțiunile și subsecțiunile sunt numerotate și reprezentate îngroșat pentru o ușoară parcurgere a documentului conform machetei: IEEE System Requirements Specification Template.
             </p>
         </section>
 
@@ -192,7 +178,7 @@
 
         <section id="14-product-scope">
             <h3>1.4 Domeniul de aplicare al produsului</h3>
-            <p> Aplicația web are utilitate în domeniul imobiliar, conținând o suită de opțiuni pentru filtrarea și gruparea anunțurilor disponibile pe platformă. Cu un aspect simplu și plăcut ușurează utilizatorul în alegerea imobilului.
+            <p> Aplicația web are utilitate în domeniul imobiliar, conținând o suită de opțiuni pentru filtrarea și gruparea anunțurilor disponibile pe platformă. Cu un aspect simplu și plăcut ușurează utilizatorul în alegerea imobilului dorit.
             </p>
         </section>
 
@@ -204,16 +190,28 @@
                     <a href="https://github.com/rick4470/IEEE-SRS-Tempate"> IEEE-SRS-Template pentru Documentație Scholarly HTML </a>
                 </li>
                 <li>
+                    <a href="https://www.figma.com/file/MgwuSLcZmdNURq57CIeqev/Page?node-id=0%3A1"> Figma - Proiectare grafică a aplicației</a>
+                </li>
+                <li>
                     <a href="https://www.mapbox.com"> Mapbox - suport de dezvoltare</a>
                 </li>
                 <li>
-                    <a href="https://openweathermap.org/api/air-pollution"> Poluarea aerului, statistică și detalii tehnice</a>
+                    <a href="https://openweathermap.org/api/air-pollution"> OpenWeather API - Poluarea aerului, statistică și detalii tehnice</a>
                 </li>
                 <li>
-                    <a href="https://openweathermap.org/api/statistics-api"> Statistică meteorologică și detalii atmosferice</a>
+                    <a href="https://openweathermap.org/api/statistics-api"> OpemWeather API - Statistică meteorologică și detalii atmosferice</a>
                 </li>
                 <li>
                     <a href="https://caniuse.com/flexbox-gap"> Versiuni browser: Flexbox-gap  </a>
+                </li>
+                <li>
+                    <a href="https://www.figma.com/community/file/1090211207664351238/Huge-Icon-Pack---Free-Version-(150%2B-Icons)"> Figma: Huge Icons (Free pack) </a>
+                </li>
+                <li>
+                    <a href="https://www.figma.com/community/file/886554014393250663/Free-Icon-Pack-1300%2B-icons"> Figma: Pachet de pictograme</a>
+                </li>
+                <li>
+                    <a href="https://www.iconfinder.com/"> IconFinder</a>
                 </li>
             </ul>
         </section>
@@ -226,13 +224,13 @@
             <h3>2.1 Perspectiva produsului</h3>
             <p>
                 Aplicația web este un produs de sine stătător, dar cu implementări exterioare pentru susținerea opțiunilor oferite de locație, distribuția zonelor rezidențiale, comerciale, recreaționale, riscuri naturale, zone inundabile, seimice, factori de poluare,
-                date climatice, ce sunt furnizate cu ajutorul diverselor servicii externe.
+                zgomot date climatice (temperatură, presiune atmosferică, media precipitațiilor), ce sunt furnizate cu ajutorul diverselor servicii externe (API-uri).
             </p>
             <p>
-                Aplicația este constituită din 3 compomente: partea de aplicație web ce reprezintă interacțiunea utilizatorilor cu aplicația (vizualizarea imobilelor listate, caracteristicile fiecărei locații, utilizarea localizării), baza de date ce este utilizată pentru
-                stocarea informațiilor legate de utilizator (adresă de email, nume, prenume, număr de telefon) sau utilizarea unei conectări externe (Facebook, Google) și proprietățile pentru fiecare anunț (Titlul, tipul de imobil (clădire de birouri,
-                apartament, casă, etc.), tipul de tranzacție (închiriere sau vânzare), locația (coordonatele geografice: latitudine, longitudine), preț, etaj, imagini, descriere) și componenta de server ce gestionează toate interacțiunile și realizează
-                funcționalitățile aplicației.
+                Aplicația este constituită din 3 compomente: partea de aplicație web ce reprezintă interacțiunea utilizatorilor cu aplicația (vizualizarea imobilelor listate, caracteristicile fiecărei locații, utilizarea localizării, introducerea datelor de logare și
+                anunțuri) - front-end, baza de date ce este utilizată pentru stocarea informațiilor legate de utilizator (adresă de email, nume, prenume, număr de telefon) sau utilizarea unei conectări externe (Facebook, Google) și proprietățile pentru
+                fiecare anunț (Titlul, tipul de imobil (clădire de birouri, apartament, casă, etc.), tipul de tranzacție (închiriere sau vânzare), locația (coordonatele geografice: latitudine, longitudine), preț, etaj, imagini, descriere) și componenta
+                de server ce gestionează toate interacțiunile și realizează funcționalitățile aplicației.
             </p>
         </section>
         <section id="22-product-functions">
@@ -257,7 +255,7 @@
         <section id="23-usr-classes">
             <h3>2.3 Categorii de utilizatori, descriere</h3>
             <p>
-                Publicul țintă este reprezentat de persoanele ce doresc să își achiziționeze o nouă locuință, doresc să închirieze un spațiu sau vânzarea unui imobil. Profilul unui utilizator este general, orice persoană ce urmărește să realizeze o tranzacție imobiliară,
+                Publicul țintă este reprezentat de persoanele ce doresc să își achiziționeze o nouă locuință, doresc să închirieze un spațiu sau să vândă un imobil. Profilul unui utilizator este general, orice persoană ce urmărește să realizeze o tranzacție imobiliară,
                 nu depinde de sex, naționalitate, stare civilă, dar poate fi definit de profesia utilizatorului, un antreprenor din diverse domenii caută un sediu pentru firma/afacerea sa sau dorește să închirieze o nouă locație pentru un punct în care
                 se extinde, locația este un factor major ce influențează achiziția unei imobil, alegerea realizându-se după anumite opțiuni: accesibilitate către zone comerciale, educație: școli, gradinițe; parcuri, zone de agrement, acces la transportul
                 în comun și infrastructura rutieră.
@@ -296,7 +294,7 @@
             <h3>2.5 Restricții de proiectare și implementare</h3>
             <p>
                 Limitarea la componente clasice ale HTML, CSS, SASS, PHP, Apashe, MySQL/MariaDB, deoarece nu este permisă utilizarea de framework-uri în realizarea aplicației. Utilizarea facilă a componentelor externe (serviciu de cartografiere, utilizarea corectă a
-                hastag-urilor sau categorisirea propriu-zisă a proprietăților/spațiilor/imobilelor) ce nu depind de aplicația propriu-zisă.
+                hastag-urilor fapt ce nu permite utilizarea lor cu încredere sau categorisirea propriu-zisă a proprietăților/spațiilor/imobilelor) ce nu depind de aplicația propriu-zisă.
             </p>
         </section>
 
@@ -310,8 +308,8 @@
         <section id="27-assumptions-dependencies">
             <h3>2.7 Dependențe și ipoteze externe</h3>
             <p>
-                Aplicația este dependentă de diverse facilități externe, precum serviciul de stabilire a locației geografice, factori climatici statistici stabiliți în funcție de aceste informații, reprezentarea pe hartă, dar și a aplicațiilor: Twitter, Facebook pentru
-                stabilirea diverselor criterii de tip hastag # pentru multiplele informații suplimentare.
+                Aplicația este dependentă de diverse facilități externe, precum serviciul de stabilire a locației geografice și reprezentarea pe hartă (Mapbox), factori climatici statistici (presiune atmosferică, media precipitațiilor, poluare) stabiliți în funcție de
+                aceste informații (OpenWeather).
             </p>
         </section>
     </section>
@@ -322,56 +320,191 @@
         <section id="31-user-interfaces">
             <h3>3.1 Interfețe utilizator</h3>
             <p>
-                Describe the logical characteristics of each interface between the software product and the users. This may include sample screen images, any GUI standards or product family style guides that are to be followed, screen layout constraints, standard buttons
-                and functions (e.g., help) that will appear on every screen, keyboard shortcuts, error message display standards, and so on. Define the software components for which a user interface is needed. Details of the user interface design should
-                be documented in a separate user interface specification.
+                Aplicația web este alcătuită din 6 pagini web. Aceste pagini au în comun meniul de navigație alcătuit din 5 butoane. Regăsit în partea superioară a paginii, meniu este realizat în manieră responsive și își modifică aspectul în drop-down list, reprezentat
+                de un singur buton ce permite accesul la celelalte butoane.
+            </p>
+            <ul>
+                <li>
+                    Acasă, ce permite prin apăsare revenirea la pagina principală a aplicației.
+                </li>
+                <li>
+                    Caută, prin apăsare utilizatorul este redirecționat către pagina de căutare unde poate filtra anunțurile.
+                </li>
+                <li>
+                    Adaugă anunț nou, redirecționare către pagina de adaugare a unui anunț.
+                </li>
+                <li>
+                    Conectează-te, trimitere către pagina de logare și accesare a contului.
+                </li>
+                <li>
+                    Creează cont, redirecționează utilizatorul către pagina unde își poate introducele datele necesare creării unui cont sau alege să se conecteze cu un cont extern (Facebook, Google).
+                </li>
+            </ul>
+            <p>
+                Pagina inițială sau Acasă conține sub meniu un filtru rapid pentru imobile, cu cele mai comune opțiuni. Prin apăsarea butoanelor din filtru se modifică proprietațile specificate:
+            </p>
+            <ul>
+                <li>
+                    Închiriat, ce marchează modificarea opțiunii pentru tipul tranzacției închiriere. Prin selectare se filtrează din toate anunțurile doar cele oferite spre închiriere.
+                </li>
+                <li>
+                    Apartament, ce marchează modificarea opțiunii pentru tipul imobilului. Prin selectare se filtrează din toate anunțurile doar cele ce conțin apartamente de locuit.
+                </li>
+                <li>
+                    Preț, prin apăsarea butonului preț, apare opțiunea de selectare a bugetului disponibil ca interval și de alegere a monezii. Selectarea se realizează cu ajutorul unui glisor(slider), cu valori din 10000 în 10000 de euro sau din 50000 în 50000 de roni,
+                    iar moneda este aleasă cu ajutorului unui drop-down list între euro și lei.
+                </li>
+                <li>
+                    Mobilă, prin apăsare se specifică filtrarea imobililor ce sunt mobilate, din toate anunțurile disponibile.
+                </li>
+                <li>
+                    Etaj, prin apăsare, apare un drop-down list de unde se poate selecta un anumit etaj.
+                </li>
+                <li>
+                    Alte opțiuni, prin apăsare utilizatorul este redirecționat către pagina de căutare având mai multe opțiuni și fitre disponibile. Filtrele selectate inițial în pagina principală se păstrează după redirecționare în pagina de căutare.
+                </li>
+                <li>
+                    Caută acum anunțuri, redirecționează de asemenea tot către pagina de căutare, după fitrele stabilite.
+                </li>
+            </ul>
+            <p>
+                Anunțurile de pe pagina inițială sunt ultimele anunțuri adăugate în aplicație. La fiecare refresh al paginii se actualizează anunțurile disponibile. Fiecare anunț disponibil pe pagina principală, conține un mic rezumat: prețul imobilului, titlul anunțului,
+                adresa, suprafața, numărul de camere, loc de parcare. Suplimentar există un buton de salvare a anunțului disponibil în urma conectării, dacă utilizatorul nu este conectat, atunci este redirecționat către pagina de creare cont. Prin hover
+                asupra imaginii anunțului, se realizează un mic zoom-in pe centrul imaginii.
+            </p>
+            <p>
+                În partea de footer a paginii sunt disponibile informații despre: paginiile social media de promovare a aplicației: Instagram și Facebook, date de contact telefonic și fax, adresa sediului și link-uri către termeni și condiții, politica de confidențialitate.
+            </p>
+            <p>
+                -
+            </p>
+            <p>
+                Pagina de creare cont conține în partea stânga meniul de conectare cu un cont extern și un formular. Două butoane în partea superioară pentru conectarea cu Facebook sau Google reprezintă meniul de selectare al contului extern dacă se dorește conectarea
+                în acest fel, iar mai jos cele cinci câmpuri ale formularului unde utilizatorul își poate completa numele, prenumele, numarul de telefon, adresa de email, parola și confirmarea parolei, cu un afișaj criptat pentru ultimele două cu ajutorul
+                unor buline, pentru păstrarea securității parolei utilizatorului față de cei din jur. Dacă utilizatorul are deja cont poate selecta Conectează-te și este redirecționat către pagina de logare a aplicației. Înainte de a confirma datele introduse
+                și crearea contului, utilizatorul trebuie sa bifeze într-un checkbox că a citit și ia la cunoștință termenii și condițiile, dar și politica de confidențialitate, ce sunt dispuse în forma unui link. Crearea contului se realizează prin apăsarea
+                butonului Creează-ți contul se validează datele, iar utilizatorul este redirecționat către pagina inițială. În cazul în care datele introduse nu sunt corecte: adresa de email nu este conformă sau numărul de telefon nu este complet, utilizatorul
+                este atenționat ce trebuie modificat și nu este redirecționat de pe pagină.
+            </p>
+            <p>
+                -
+            </p>
+            <p>
+                Pagina logare este asemănătoare ca aspect cu cea de creare cont, diferă anumite componente ale meniului. Butoanele de conectare cu ajutorul Facebook sau Google sunt în partea superioară, urmate de două câmpuri pentru introducerea email-ului sau numărului
+                de telefon și parolei, necesare pentru realizarea conexiunii la contul din cadrul aplicației. De asemenea câmpul destinat parolei este criptat vizual. Dacă utilizatorul nu are cont și nu poate să se conecteze poate selecta Creează-ți cont.
+                Prin apăsarea butonului Conectare se realizează verificarea datelor introduse de utilizator și este redirecționat în cazul favorabil către pagina inițială, iar în caz nefavorabil este atenționat că datele introduse nu sunt corecte și nu
+                este redirecționat de pe pagină.
+            </p>
+            <p>
+                -
+            </p>
+            <p>
+                Pagina adaugă anunț nou conține un formular în partea stânga a paginii, unde utilizatorul trebuie să introducă în câmpurile specifice: titlul anunțului, locația sau adresa imobilului, prețul cerut, etajul la care este situată locuința, acolo unde se poate
+                specifica sau câte etaje are construcția, suprafața, numărul de camere, băi, anul construcției (ultimele 3 câmpuri fiind opționale). Butonul de selecție al tipului de tranzacție Închiriat, asemănător cu cel din pagina principală și cea
+                de căutare. Un buton cu opțiunea de drop-down list pentru specificarea tipului de imobil, utilizatorul având posibilitatea de a alege între: apartament, birouri, spații comerciale, casă, depozit/hală, teren. La categoria imagini, utilizatorul
+                poate insera imagini de pe propriul dispozitiv pentru a servi vizionării sau poate lăsa fără imagine, câmplul fiind opțional. Obligatoriu însă este câmpul de descriere al anunțului limitat la 5000 de caractere, unde se pot specifica orice
+                particularități ale imobilului și anunțului, utilizatorul având posibiliatea de a-și realiza singur o descrire, fără un format anume. Butonul final Creează anunț pornește verificarea datelor introduse de utilizator și este redirecționat
+                în cazul favorabil către pagina inițială, iar în caz nefavorabil utilizatorul este atenționat că datele introduse nu sunt corecte sau complete și nu este redirecționat de pe pagina de adăugare anunț.
+            </p>
+            <p>
+                -
+            </p>
+            <p>
+                Pagina de căutare este împărțită în două componente: partea din dreapta ce deservește API-ul Mapbox utilizat pentru reprezentarea grafică a locației anunțurilor, oferind detalii despre prețurile anunțurilor din zona selectată. Partea stângă conține un
+                meniu de filtrare a anunțurilor asemănător cu cel din pagina inițială, dar cu mai multe opțiuni de selecție. Harta realizată rămâne fixată, iar prin acțiunea de scroll se deplasează doar partea dreaptă a paginii, ce conține meniul de filtru
+                și anunțurile.
+            </p>
+            <ul>
+                <li>
+                    Tip tranzacție, prin apăsarea butonului permite selectarea într-un drop-down list între închiriere și vânzare.
+                </li>
+                <li>
+                    Tip proprietate, prin apăsarea butonului permite selectarea într-un drop-down list între apartament, casă, birouri, depozit/hală, spațiu comercial și teren.
+                </li>
+                <li>
+                    Preț, prin apăsarea butonului preț, apare opțiunea de selectare a bugetului disponibil ca interval și de alegere a monezii. Selectarea se realizează cu ajutorul unui glisor(slider), cu valori din 10000 în 10000 de euro sau din 50000 în 50000 de roni,
+                    iar moneda este aleasă cu ajutorului unui drop-down list între euro și lei.
+                </li>
+                <li>
+                    Mobilă, prin apăsare se specifică filtrarea imobililor ce sunt mobilate, din toate anunțurile disponibile.
+                </li>
+                <li>
+                    Etaj, prin apăsare, apare un drop-down list de unde se poate selecta un anumit etaj.
+                </li>
+                <li>
+                    Alte opțiuni, prin apăsare se deschid multiple fitre disponibile: număr de camere, loc de parcare, tipul de apartament, anul construcției.
+                </li>
+                <li>
+                    Număr camere, prin apăsarea butonului, utilizatorului poate selecta dintr-un drop-down list numărul de camere căutat.
+                </li>
+                <li>
+                    Loc de parcare, prin apăsarea butonului, utilizatorului poate selecta dintr-un drop-down list dacă urmărește sau nu achiziția unei proprietăți cu loc de parcare sau nu.
+                </li>
+                <li>
+                    Tip apartament, în cazul în care este selectată tipul de proprietate apartament sau casă opțiunea este activă, în caz contrar nu poate fi modificat câmpul, prin apăsarea butonului, utilizatorului poate selecta dintr-un drop-down list formatul imobilului
+                    decomandat,semi-decomandat, nedecomandat, circular, open-space.
+                </li>
+                <li>
+                    Anul de construcție, în cazul în care este selectată tipul de proprietate teren opțiunea este inactivă și nu poate fi selectat anul construcției, în caz contrar prin apăsarea butonului, utilizatorului poate selecta dintr-un drop-down list anul construcției
+                    imobilului.
+                </li>
+            </ul>
+            <p>
+                Sub filtrul de căutare sunt listate anunțurile rezultate în urma procesării datelor din filtru. Formatul informațiilor din anunțuri este similar cu cel de pe pagina inițială, diferă doar aspectul, fiind dipus pe orizontală. Fiecare anunț disponibil pe
+                pagină, conține un mic rezumat: prețul proprietății, titlul anunțului, adresa, suprafața, numărul de camere, loc de parcare, tag-ul specific tipului de proprietate: apartament, casa, teren, birouri, spațiu comercial, depozit/hală, dar
+                și o poză cu proprietatea, în cazul în care există, altfel rămâne o ramă foto goală. De asemenea există și butonul de salvarea ca favorit a unui anunț, disponibil în urma conectării, dacă utilizatorul nu este conectat, atunci este redirecționat
+                către pagina de creare cont.
+            </p>
+            <p>
+                -
+            </p>
+            <p>
+                Pagina anunțului conține informații detaliate despre proprietate și utilizatorul care a postat anunțul. În partea stângă sunt informațiile despre utilizator: numele și prenumele sau agenția imobiliară pe care o reprezintă, de cît timp este utilizator
+                al aplicației, numărul de telefon și o poză/avatar, în cazul în care utilizatorul a decis să se conecteze cu contul de Facebook, Google sau a stabilit un avatar. Sub profilul utilizatorului ce a postat anunțul sunt plasate informațiile
+                legate de anunț: suprafața proprietății, numărul de camere și băi în cazul imobilelor, existența unui loc de parcare sau garaj, anul construcției, tipul construcției, adresa/locația proprietății, oferite la momentul postării anunțului,
+                dar și informațiile tehnice oferite de API-ul OpenWeather: indice de poluare, temperatura medie anuală, media precipitațiilor.
+            </p>
+            <p>
+                În partea dreaptă a paginii este galeria proprietății, cu o imagine principală mărită și butoane de comutare între pozele din galerie. Prin apăsarea butoanelor se poate parcurge galeria în ambele sensuri de la dreapta la stânga sau de la stânga la dreapta,
+                iar când se ajunge la capătul liste de imagini se reia, formându-se un ciclu. Butoanele au un aspect circular, cu săgeți sugestive ce determină sensul de deplasare al imaginilor. Sub imaginea pricipală și butoane este reprezentată lista
+                galeriei în format miniatural, iar prin apăsarea uneia dintre pozele din listă respectivă, aceasta îi ia locul celei de mai sus din zona de vizualizare și lista galeriei se centrează asupra imaginii selectate.
+            </p>
+            <p>
+                În partea inferioară galeriei este redată descrirea proprietații realizată de utilizatorul ce a postat anunțul. Descrirea este realizată după bunul plac al celui ce a postat anunțul, având posibiliatea să prezinte diverse detalii ce țin sau nu de proprietate.
+            </p>
+            <p>
+                În continuarea descrierii, dedesubt, este plasată locația proprietății, cu reprezentarea pe harta oferită de API-ul Mapbox și disponibilitățile din jurul imobilului: stații de autobuz, magazine, farmacii, restaurante, unități de învățământ, hoteluri,
+                instituții publice.
             </p>
         </section>
 
         <section id="32-hardware-interfaces">
             <h3>3.2 Interfațe hardware</h3>
             <p>
-                Describe the logical and physical characteristics of each interface between the software product and the hardware components of the system. This may include the supported device types, the nature of the data and control interactions between the software
-                and the hardware, and communication protocols to be used.
+                Partea de front-end (Interfață utilizator) a aplicației este concepută pentru a fi compatibilă cu majoritatea dispozitivelor de comunicare moderne (telefoane (Android și iOS), calculatoare (Windows, Linux, MacOS, etc.), tablete). Datorită funcționalității
+                de bază nu foarte complexe a aplicației utilizând HTML, CSS, SASS, pagina nu esteeste costisitoare, cerințele tehnice fiind minime. Partea de back-end (Bază de date și Serverul de gestiune a anunțurilor) va rula pe un host comun sau pe
+                un server de capacitate redusă, întrucât funcțiile utilizate sunt de complexitate medie. Din punct de vedere al producție și economic întreținerea aplicației este redusă. Comunicarea între componente va fi realizată de API-uri și suport
+                PHP.
             </p>
         </section>
 
         <section id="33-software-interfaces">
             <h3>3.3 Interfețe software</h3>
             <p>
-                Describe the connections between this product and other specific software components (name and version), including databases, operating systems, tools, libraries, and integrated commercial components. Identify the data items or messages coming into the
-                system and going out and describe the purpose of each. Describe the services needed and the nature of communications. Refer to documents that describe detailed application programming interface protocols. Identify data that will be shared
-                across software components. If the data sharing mechanism must be implemented in a specific way (for example, use of a global data area in a multitasking operating system), specify this as an implementation constraint.
-            </p>
+                Acestă aplicație interacționează cu mai multe alte elemente software externe. Printre acestea se numără de browser-ul al utilizatorului și API-urile OpenSource. De asemenea, programul interacționează cu serviciile oferite de Google și Facebook, bibliotecile
+                standard PHP. Serviciile acestea necesată un host web, disponibil fie în formă virtuală, fie în formă fizică și un furnizor de nume de domeniu. Comunicarea între baza de date și partea de back-end(server), front-end(site web) a aplicației
+                prin limbajul PHP vizând acțiunile: stocarea temporară a codurilor de verificare pentru autentificare (până la deconectare sau până la expirarea acestora în caz de neutilizare la timp), stocarea adreselor de email corespunzătoare conturilor
+                utilizatorilor, care se actualizează la crearea de noi conturi, stocarea, pentru fiecare utilizator, a anunțurilor și conținuturilor lor, care se actualizează la publicare, adăugarea în colecție sau ștergerea unui anunț favorit, interogarea
+                bazei de date pentru verificarea informațiilor, existența unui cont sau nume de utilizator, email, număr de telefon. Detalii privind implemetarea prporiu=zisă a funțiilor de server urmează să fie stabilite.</p>
         </section>
 
         <section id="34-communications interfaces">
             <h3>3.4 Interfețe de conexiune</h3>
             <p>
-                Describe the requirements associated with any communications functions required by this product, including e-mail, web browser, network server communications protocols, electronic forms, and so on. Define any pertinent message formatting. Identify any
-                communication standards that will be used, such as FTP or HTTP. Specify any communication security or encryption issues, data transfer rates, and synchronization mechanisms.
-            </p>
+                Standardul de comunicare utilizat este HTTP. Pentru comunicarea internă a serverului, se vor folosi cereri de tip direct request, specifice aplicațiilor și API-urilor folosite. Pentru securitatea datelor protocoulul HTTPS este folosit în gestiunea contului
+                de utilizator, parole și username. Datele vor fi transmise criptate sub formă de hash</p>
         </section>
 
-    </section>
-
-    <section id="4-system-features">
-        <h2>Funcțiile sistemului</h2>
-        <section id="41-system-feature-1">
-            <h3> 4.1 System Feature 1 </h3>
-            <p>
-                Don't really say "System Feature 1." State the feature name in just a few words. 4.1.1 Description and Priority Provide a short description of the feature and indicate whether it is of High, Medium, or Low priority. You could also include specific priority
-                component ratings, such as benefit, penalty, cost, and risk (each rated on a relative scale from a low of 1 to a high of 9). 4.1.2 Stimulus/Response Sequences List the sequences of user actions and system responses that stimulate the behavior
-                defined for this feature. These will correspond to the dialog elements associated with use cases. 4.1.3 Functional Requirements Itemize the detailed functional requirements associated with this feature. These are the software capabilities
-                that must be present in order for the user to carry out the services provided by the feature, or to execute the use case. Include how the product should respond to anticipated error conditions or invalid inputs. Requirements should be
-                concise, complete, unambiguous, verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary information is not yet available. Each requirement should be uniquely identified with a sequence number or a meaningful tag
-                of some kind.
-            </p>
-        </section>
-
-        <section id="42-system-feature-2">
-            <h3> 4.2 System Feature 2 </h3>
-        </section>
     </section>
 </body>
 
