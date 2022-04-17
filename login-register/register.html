@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creeare Cont</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../shared/styles/page.css">
+    <link rel="stylesheet" href="../shared/styles/form.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="site-nav">
+            <div class="site-nav-container responsive-container">
+                <svg id="hamburger-icon" onclick="hamburgerClickHandler(this)" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 7H19" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M5 12H19" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M5 17H19" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <ul id="nav-list" class="site-nav-container-list">
+                    <li><a href="../home/index.html">Acasă</a></li>
+                    <li><a href="../search/index.html">Caută</a></li>
+                    <li><a href="../add/index.html">Adaugă anunț nou</a></li>
+                    <li class="right"><a href="../login-register/login.html">Conectează-te</a></li>
+                    <li class="sign-up"><a href="../login-register/register.html">Creează cont</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-container responsive-container">
+            <div class="content">
+
+                <div class="content__box content__box--form">
+
+                    <h2>Creează-ți cont</h2>
+                    <button class="icon-field icon-field--gmail icon-field--social" type="conn-gmail" onclick>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12.1961 3C8.60194 3 5.49755 5.06846 3.98786 8.07251C3.35946 9.31398 3 10.7094 3 12.1961C3 13.6828 3.35946 15.0782 3.98786 16.3196C5.49755 19.3237 8.60194 21.3922 12.1961 21.3922C14.679 21.3922 16.7556 20.5644 18.2729 19.162C20.0048 17.5603 21 15.1998 21 12.4026C21 11.7972 20.9468 11.2228 20.8548 10.6634H12.1961V14.1194H17.1533C16.9311 15.2536 16.2794 16.2116 15.3138 16.863C14.4862 17.4147 13.4375 17.752 12.1961 17.752C9.79743 17.752 7.76627 16.1343 7.03825 13.9503C6.84667 13.3985 6.74638 12.8091 6.74638 12.1961C6.74638 11.583 6.85433 10.9936 7.03825 10.4419C7.76627 8.25781 9.79743 6.64011 12.1961 6.64011C13.5525 6.64011 14.763 7.10818 15.7209 8.02012L18.3418 5.3993C16.7554 3.9126 14.679 3 12.1961 3Z"
+                                fill="white" />
+                        </svg>
+                        Conectează-te cu contul tău Google
+                    </button>
+                    <!-- /.icon-field icon-field--gmail icon-field--social -->
+
+                    <button class="icon-field icon-field--facebook icon-field--social" type="conn-facebook" onclick>
+                        <svg height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22 12C22 6.47715 17.5229 2 12 2C6.47715 2 2 6.47715 2 12C2 16.9912 5.65684 21.1283 10.4375 21.8785V14.8906H7.89844V12H10.4375V9.79688C10.4375 7.29063 11.9305 5.90625 14.2146 5.90625C15.3084 5.90625 16.4531 6.10156 16.4531 6.10156V8.5625H15.1922C13.95 8.5625 13.5625 9.3334 13.5625 10.125V12H16.3359L15.8926 14.8906H13.5625V21.8785C18.3432 21.1283 22 16.9912 22 12Z"
+                                fill="black" />
+                        </svg>
+                        Conectează-te cu contul tău Facebook
+                    </button>
+                    <!-- /.icon-field icon-field--facebook icon-field--social -->
+
+                    <form class="content__box__form" action="action_register.php" method="get">
+
+                        <p>Completează câmpurile de mai jos pentru a te înregistra.</p>
+                        <div class="icon-field input-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11ZM12 21C15.866 21 19 19.2091 19 17C19 14.7909 15.866 13 12 13C8.13401 13 5 14.7909 5 17C5 19.2091 8.13401 21 12 21Z"
+                                    fill="#6B6B6B" />
+                            </svg>
+                            <input class="input-box__input" type="text" placeholder="Nume si prenume" name="flname"
+                                required>
+                        </div>
+                        <!-- /.icon-field input-box -->
+
+                        <div class="icon-field input-box">
+                            <svg height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 19V17.3541C21 16.5363 20.5021 15.8008 19.7428 15.4971L17.7086 14.6835C16.7429 14.2971 15.6422 14.7156 15.177 15.646L15 16C15 16 12.5 15.5 10.5 13.5C8.5 11.5 8 9 8 9L8.35402 8.82299C9.28438 8.35781 9.70285 7.25714 9.31654 6.29136L8.50289 4.25722C8.19916 3.4979 7.46374 3 6.64593 3H5C3.89543 3 3 3.89543 3 5C3 13.8366 10.1634 21 19 21C20.1046 21 21 20.1046 21 19Z" />
+                            </svg>
+                            <input class="input-box__input" type="tel" placeholder="Telefon" name="phone" required>
+                        </div>
+                        <!-- /.icon-field input-box -->
+
+                        <div class="icon-field input-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.0132 9.15129C3 9.69022 3 10.3021 3 11V13C3 15.8284 3 17.2426 3.87868 18.1213C4.75736 19 6.17157 19 9 19H15C17.8284 19 19.2426 19 20.1213 18.1213C21 17.2426 21 15.8284 21 13V11C21 10.3021 21 9.69022 20.9868 9.15129L12.9713 13.6044C12.3672 13.9399 11.6328 13.9399 11.0287 13.6044L3.0132 9.15129ZM3.24297 7.02971C3.32584 7.05052 3.4074 7.08237 3.48564 7.12584L12 11.856L20.5144 7.12584C20.5926 7.08237 20.6742 7.05052 20.757 7.02971C20.6271 6.55619 20.4276 6.18491 20.1213 5.87868C19.2426 5 17.8284 5 15 5H9C6.17157 5 4.75736 5 3.87868 5.87868C3.57245 6.18491 3.37294 6.55619 3.24297 7.02971Z"
+                                    fill="#6B6B6B" />
+                            </svg>
+                            <input class="input-box__input" type="email" placeholder="E-mail" name="email" required>
+                        </div>
+                        <!-- /.icon-field input-box -->
+
+                        <div class="icon-field input-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8.75 6.75C8.75 4.95507 10.2051 3.5 12 3.5C13.7949 3.5 15.25 4.95507 15.25 6.75V8H8.75V6.75ZM7.25 8.0702V6.75C7.25 4.12665 9.37665 2 12 2C14.6234 2 16.75 4.12665 16.75 6.75V8.0702C18.6006 8.42125 20 10.0472 20 12V18C20 20.2091 18.2091 22 16 22H8C5.79086 22 4 20.2091 4 18V12C4 10.0472 5.39935 8.42125 7.25 8.0702ZM14 15C14 16.1046 13.1046 17 12 17C10.8954 17 10 16.1046 10 15C10 13.8954 10.8954 13 12 13C13.1046 13 14 13.8954 14 15Z"
+                                    fill="white" />
+                            </svg>
+                            <input class="input-box__input" type="password" placeholder="Introdu parola" name="psw"
+                                required>
+                        </div>
+                        <!-- /.icon-field input-box -->
+
+                        <div class="icon-field input-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8.75 6.75C8.75 4.95507 10.2051 3.5 12 3.5C13.7949 3.5 15.25 4.95507 15.25 6.75V8H8.75V6.75ZM7.25 8.0702V6.75C7.25 4.12665 9.37665 2 12 2C14.6234 2 16.75 4.12665 16.75 6.75V8.0702C18.6006 8.42125 20 10.0472 20 12V18C20 20.2091 18.2091 22 16 22H8C5.79086 22 4 20.2091 4 18V12C4 10.0472 5.39935 8.42125 7.25 8.0702ZM14 15C14 16.1046 13.1046 17 12 17C10.8954 17 10 16.1046 10 15C10 13.8954 10.8954 13 12 13C13.1046 13 14 13.8954 14 15Z"
+                                    fill="white" />
+                            </svg>
+                            <input class="input-box__input" type="password" placeholder="Confirmă parola" name="psw"
+                                required>
+                        </div>
+                        <!-- /.icon-field input-box -->
+
+                        <p>Ai deja cont?
+                            <a class="hlink" href="login.html"> Conectează-te</a>
+                        </p>
+
+                        <div class="term-and-cond">
+                            <svg height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M18 2H6C3.79086 2 2 3.79086 2 6V18C2 20.2091 3.79086 22 6 22H18C20.2091 22 22 20.2091 22 18V6C22 3.79086 20.2091 2 18 2ZM16.592 9.46049C16.8463 9.13353 16.7874 8.66232 16.4605 8.40802C16.1335 8.15372 15.6623 8.21262 15.408 8.53958L11.401 13.6914C11.3119 13.806 11.1443 13.8209 11.0364 13.7238L8.50173 11.4426C8.19385 11.1655 7.71963 11.1904 7.44254 11.4983C7.16544 11.8062 7.1904 12.2804 7.49828 12.5575L10.033 14.8387C10.7881 15.5183 11.9613 15.4143 12.585 14.6123L16.592 9.46049Z"
+                                    fill="#086788" />
+                            </svg>
+                            <p class="term-and-cond__paragraph">Sunt de acord cu
+                                <a class="hlink" href="#">Termenii și Condițiile</a>, cât și <br> <a class="hlink"
+                                    href="#">Politica de confidenţialitate</a>
+                            </p>
+                        </div>
+
+
+                        <button class="icon-field icon-field--important" type="submit" onclick>
+                            <svg height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M18.5303 12.5303C18.8232 12.2374 18.8232 11.7626 18.5303 11.4697L14.5303 7.46967C14.2374 7.17678 13.7626 7.17678 13.4697 7.46967C13.1768 7.76256 13.1768 8.23744 13.4697 8.53033L16.1893 11.25H6C5.58579 11.25 5.25 11.5858 5.25 12C5.25 12.4142 5.58579 12.75 6 12.75H16.1893L13.4697 15.4697C13.1768 15.7626 13.1768 16.2374 13.4697 16.5303C13.7626 16.8232 14.2374 16.8232 14.5303 16.5303L18.5303 12.5303Z"
+                                    fill="white" />
+                            </svg>
+                            Creează-ți contul
+                        </button>
+                        <!-- /.icon-field submit -->
+
+                    </form>
+                    <!-- /.content__box__form -->
+                </div>
+                <!-- /.content__box content__box--login -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.page -->
+    </div>
+    <!-- /.page-container -->
+
+    <script src="../shared/page.js"></script>
+
+</body>
+
+</html>

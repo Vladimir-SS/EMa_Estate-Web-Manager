@@ -1,0 +1,10 @@
+.footer {
+  display: -ms-grid;
+  display: grid;
+  position: relative;
+  z-index: 10;
+  -ms-grid-rows: (auto)[3];
+      grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column dense;
+  bottom: -20px;
+}
