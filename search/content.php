@@ -33,7 +33,7 @@
             </div>
         </div>
         <!-- /.content-filter -->
-        <div>
+        <div id="items">
             <?php
             include "item.php";
             include "item.php";

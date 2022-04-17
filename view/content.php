@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="content__box content__box--property">
-        <h2 class="euro accent">123 123</h2>
+        <h2 class="euro accent">123 123 Ron</h2>
         <div class="content__box--property__facilities">
             <p>254 m</p>
             <p>3 camere</p>

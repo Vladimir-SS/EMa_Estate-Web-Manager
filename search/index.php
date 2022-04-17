@@ -27,6 +27,33 @@
     </div>
     <!-- /.page-container -->
     <script src="../shared/menu.js"></script>
+    
+    <script>
+        var itemsElement;
+
+        const documentIsReady = func => {
+            if (document.readyState === "complete" || document.readyState === "interactive") {
+                setTimeout(func, 1);
+            } else {
+                document.addEventListener("DOMContentLoaded", func);
+            }
+        }    
+
+        const resizeHandler = func => {
+            if (window.innerWidth <= 1220)
+                itemsElement.classList.add('chubby-items');
+            else
+                itemsElement.classList.remove('chubby-items');
+            
+        }
+
+        documentIsReady(() => {
+            itemsElement = document.getElementById("items");
+            resizeHandler();
+        })
+        
+        window.addEventListener('resize', resizeHandler);
+    </script>
 </body>
 
 </html>
