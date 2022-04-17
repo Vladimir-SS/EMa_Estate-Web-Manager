@@ -68,25 +68,20 @@
 }
 
 .content__box--item__info__icons__basic .icon-text {
-  margin-bottom: 0;
   gap: 10px;
 }
 
-.content__box--item__info__icons__basic .icon-text span {
-  width: 24px;
-  height: 24px;
+.content__box--item__info__icons__basic .icon-text svg {
+  top: -0.01em;
+  height: 1.5em;
 }
 
-.content__box--item__info__icons__basic .icon-text span path {
+.content__box--item__info__icons__basic .icon-text svg path {
   fill: var(--interactive-accent);
 }
 
 .content__box--item__info__icons__basic .icon-text:nth-child(2) {
   margin-left: auto;
-}
-
-.content__box--item__info__icons__basic .icon-text:first-child span {
-  width: 24px;
 }
 
 .content__box--item__info__icons .save-button {
@@ -150,15 +145,11 @@
   gap: 10px;
 }
 
-.chubby-items .content__box--item__info__icons__basic .icon-text {
-  gap: 10px;
-}
-
-.chubby-items .content__box--item__info__icons__basic .icon-text:nth-child(2), .chubby-items .content__box--item__info__icons__basic .icon-text:nth-child(3) {
+.chubby-items .content__box--item__info .icon-text:nth-child(2), .chubby-items .content__box--item__info .icon-text:nth-child(3) {
   display: none;
 }
 
-.chubby-items .content__box--item__info__icons__basic .icon-text:last-child {
+.chubby-items .content__box--item__info .icon-text:last-child {
   margin-left: auto;
 }
 
@@ -200,7 +191,6 @@
 .icon-field--social {
   width: 100%;
   color: var(--background-primary);
-  cursor: pointer;
 }
 
 .icon-field--social path {
@@ -302,19 +292,19 @@
   background: var(--interactive-accent);
   padding: 5px 20px;
   position: relative;
-  border-radius: 8px;
+  border-radius: 4px;
   color: var(--background-primary);
 }
 
 .pin-container .pin:before {
   content: '';
   position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
   background: var(--interactive-accent);
   z-index: -1;
-  bottom: -11px;
+  bottom: -8px;
   left: 0;
   right: 0;
   margin: 0 auto;

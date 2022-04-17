@@ -24,13 +24,13 @@
                 <div class="content__box content__box--login">
 
                     <h2>Creează-ți cont</h2>
-                    <button class="icon-field icon-field--gmail icon-field--social" type="conn-gmail">
+                    <button class="icon-field icon-field--gmail icon-field--social" type="conn-gmail" onclick>
                         <?php include "../shared/svg/gmail.svg" ?>
                         Conectează-te cu contul tău Google
                     </button>
                     <!-- /.icon-field icon-field--gmail icon-field--social -->
 
-                    <button class="icon-field icon-field--facebook icon-field--social" type="conn-facebook">
+                    <button class="icon-field icon-field--facebook icon-field--social" type="conn-facebook" onclick>
                         <?php include "../shared/svg/facebook.svg" ?>
                         Conectează-te cu contul tău Facebook
                     </button>

@@ -36,7 +36,6 @@
 .icon-field--social {
   width: 100%;
   color: var(--background-primary);
-  cursor: pointer;
 }
 
 .icon-field--social path {
@@ -111,6 +110,10 @@
 .content__box--login {
   padding: 40px;
   max-width: 600px;
+}
+
+.content__box--login .icon-field {
+  margin-bottom: 20px;
 }
 
 .content__box__form {
