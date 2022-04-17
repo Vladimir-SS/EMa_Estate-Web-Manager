@@ -59,13 +59,13 @@
 
                         <div class="icon-field input-box">
                             <?php include "../shared/svg/pass.svg" ?>
-                            <input class="input-box__input input-box__input--pwd" type="password" placeholder="Introdu parola" name="psw" required>
+                            <input class="input-box__input" type="password" placeholder="Introdu parola" name="psw" required>
                         </div>
                         <!-- /.icon-field input-box -->
 
                         <div class="icon-field input-box">
                             <?php include "../shared/svg/pass.svg" ?>
-                            <input class="input-box__input input-box__input--pwd" type="password" placeholder="Confirmă parola" name="psw" required>
+                            <input class="input-box__input" type="password" placeholder="Confirmă parola" name="psw" required>
                         </div>
                         <!-- /.icon-field input-box -->
 

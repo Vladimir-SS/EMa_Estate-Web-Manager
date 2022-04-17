@@ -36,6 +36,7 @@
 .icon-field--social {
   width: 100%;
   color: var(--background-primary);
+  cursor: pointer;
 }
 
 .icon-field--social path {
@@ -107,13 +108,9 @@
   fill: var(--interactive-accent);
 }
 
-.content__box--login {
+.content__box--add {
   padding: 40px;
   max-width: 600px;
-}
-
-.content__box--login .icon-field {
-  margin-bottom: 20px;
 }
 
 .content__box__form {
@@ -169,18 +166,35 @@
   fill: var(--background-primary);
 }
 
-.hlink {
-  color: var(--interactive-accent);
-}
-
-.term-and-cond {
+.content__box__form .images {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 20px;
+  gap: 20px;
 }
 
-.term-and-cond svg {
-  margin-right: 10px;
+.content__box__form .images__add-img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: var(--background-primary-alt);
+  height: 90px;
+  width: 90px;
+  border-radius: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.content__box__form .desc {
+  padding: 20px;
+  height: 200px;
+  width: 100%;
+  background: var(--background-secondary);
+  border-radius: 20px;
+  resize: none;
 }
 /*# sourceMappingURL=style.css.map */
