@@ -39,6 +39,7 @@ $unit: $unit*2
 
 .icon-field--option
     border: 2px solid var(--text-normal)
+    background: var(--background-primary)
 
     svg
         margin-left: $unit/2
@@ -46,7 +47,12 @@ $unit: $unit*2
 
     &:hover
         border-color: var(--interactive-accent)
-        cursor: pointer
+        color: var(--interactive-accent)
+        path
+            fill: var(--interactive-accent)
+
+    &--selected
+        border-color: var(--interactive-accent)
         color: var(--interactive-accent)
         path
             fill: var(--interactive-accent)

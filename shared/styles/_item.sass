@@ -30,8 +30,14 @@ $unit: $unit / 2
             margin: 0
 
         .secondary
-            path
-                fill: var(--text-faint)
+            gap: 5px
+
+            span
+                height: $font-size * 0.9
+                width: $font-size * 0.9
+
+                path
+                    fill: var(--text-faint)
 
         &__icons
             display: flex
@@ -42,23 +48,24 @@ $unit: $unit / 2
                 flex: 1
                 gap: 2 * $unit
                 border-top: 2px solid var(--background-secondary-alt)
+                padding-top: $unit/4
 
                 .icon-text
                     margin-bottom: 0
-                    margin-top: $unit/2
                     gap: $unit/2
 
                     span
-                        height: 150%
+                        width: 1.2 * $unit
+                        height: 1.2 * $unit
                         path
                             fill: var(--interactive-accent)
 
                     &:nth-child(2)
                         margin-left: auto
 
-                    &:last-child
+                    &:first-child
                         span
-                            height: 180%
+                            width: $unit * 1.2
 
             .save-button
                 transition: transform .2s

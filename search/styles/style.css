@@ -35,7 +35,16 @@
   margin: 0;
 }
 
-.content__box--item__info .secondary path {
+.content__box--item__info .secondary {
+  gap: 5px;
+}
+
+.content__box--item__info .secondary span {
+  height: 14.4px;
+  width: 14.4px;
+}
+
+.content__box--item__info .secondary span path {
   fill: var(--text-faint);
 }
 
@@ -55,16 +64,17 @@
           flex: 1;
   gap: 40px;
   border-top: 2px solid var(--background-secondary-alt);
+  padding-top: 5px;
 }
 
 .content__box--item__info__icons__basic .icon-text {
   margin-bottom: 0;
-  margin-top: 10px;
   gap: 10px;
 }
 
 .content__box--item__info__icons__basic .icon-text span {
-  height: 150%;
+  width: 24px;
+  height: 24px;
 }
 
 .content__box--item__info__icons__basic .icon-text span path {
@@ -75,8 +85,8 @@
   margin-left: auto;
 }
 
-.content__box--item__info__icons__basic .icon-text:last-child span {
-  height: 180%;
+.content__box--item__info__icons__basic .icon-text:first-child span {
+  width: 24px;
 }
 
 .content__box--item__info__icons .save-button {
@@ -198,6 +208,7 @@
 
 .icon-field--option {
   border: 2px solid var(--text-normal);
+  background: var(--background-primary);
 }
 
 .icon-field--option svg {
@@ -207,11 +218,19 @@
 
 .icon-field--option:hover {
   border-color: var(--interactive-accent);
-  cursor: pointer;
   color: var(--interactive-accent);
 }
 
 .icon-field--option:hover path {
+  fill: var(--interactive-accent);
+}
+
+.icon-field--option--selected {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.icon-field--option--selected path {
   fill: var(--interactive-accent);
 }
 
@@ -234,7 +253,7 @@
   position: sticky;
   top: 40px;
   height: 500px;
-  width: 600px;
+  width: 500px;
 }
 
 .content-filter {
@@ -247,36 +266,19 @@
   gap: 20px;
 }
 
-.icon-field--filter {
-  padding: 10px;
-  padding-left: 20px;
-  margin-bottom: 0;
-  border: 2px solid var(--background-primary);
-  background: var(--background-primary);
-}
-
-.icon-field--filter:hover {
-  border-color: var(--interactive-accent);
-  cursor: pointer;
-  color: var(--interactive-accent);
-}
-
-.icon-field--filter:hover path {
-  fill: var(--interactive-accent);
-}
-
-.pin {
+.pin-container {
   position: absolute;
-  padding: 5px 20px;
-  background: var(--interactive-accent);
-  border-radius: 8px;
 }
 
-.pin p {
+.pin-container .pin {
+  background: var(--interactive-accent);
+  padding: 5px 20px;
+  position: relative;
+  border-radius: 8px;
   color: var(--background-primary);
 }
 
-.pin:before {
+.pin-container .pin:before {
   content: '';
   position: absolute;
   width: 30px;
@@ -284,11 +286,10 @@
   border-radius: 8px;
   background: var(--interactive-accent);
   z-index: -1;
-  bottom: -7px;
+  bottom: -11px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  top: 20px;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
 }

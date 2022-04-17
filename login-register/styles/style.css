@@ -44,6 +44,7 @@
 
 .icon-field--option {
   border: 2px solid var(--text-normal);
+  background: var(--background-primary);
 }
 
 .icon-field--option svg {
@@ -53,11 +54,19 @@
 
 .icon-field--option:hover {
   border-color: var(--interactive-accent);
-  cursor: pointer;
   color: var(--interactive-accent);
 }
 
 .icon-field--option:hover path {
+  fill: var(--interactive-accent);
+}
+
+.icon-field--option--selected {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.icon-field--option--selected path {
   fill: var(--interactive-accent);
 }
 

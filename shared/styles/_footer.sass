@@ -1,11 +1,9 @@
-.footer
-    display: flex
-    justify-content: space-evenly
-.footer__item
+@import config
 
-.footer__item__icon-text
-    display: flex
-    margin-top: $unit/2
-    align-items: center
-    svg
-        margin-right: $unit/2
+.footer
+    display: grid
+    position: relative
+    z-index: 10
+    grid-template-rows: repeat(3, auto)
+    grid-auto-flow: column dense
+    bottom: -$unit/2

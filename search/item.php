@@ -1,5 +1,5 @@
-<div class="content__box content__box--item image-container--animated">
-    <div class="image-container">
+<div class="content__box content__box--item">
+    <div class="image-container image-container--animated">
         <div class="image" style="background-image:url(../shared/img/appartmen1-squared.jpg);"></div>
     </div>
     <div class="content__box--item__info flex-1">
@@ -12,19 +12,18 @@
         <div class="content__box--item__info__icons">
 
             <div class="content__box--item__info__icons__basic">
-
-            <p class="icon-text" >
-            <span> <?php include "../shared/svg/space.svg" ?> </span> 200
-            </p>
-            <p class="icon-text" >
-            <span> <?php include "../shared/svg/bathroom.svg" ?> </span> 1
-            </p>
-            <p class="icon-text" >
-            <span> <?php include "../shared/svg/garage.svg" ?> </span> 1
-            </p>
-            <p class="icon-text" >
-            <span> <?php include "../shared/svg/room.svg" ?> </span> 3
-            </p>
+                <p class="icon-text" >
+                    <span> <?php include "../shared/svg/space.svg" ?> </span> 200
+                </p>
+                <p class="icon-text" >
+                    <span> <?php include "../shared/svg/bathroom.svg" ?> </span> 1
+                </p>
+                <p class="icon-text" >
+                    <span> <?php include "../shared/svg/garage.svg" ?> </span> 1
+                </p>
+                <p class="icon-text" >
+                    <span> <?php include "../shared/svg/room.svg" ?> </span> 3
+                </p>
             </div>
             
             <div class="save-button" onclick="saveButtonClickHandler(this)" >

@@ -11,7 +11,7 @@
     --background-secondary-alt: #e3e5e8
     --interactive-accent: #086788
     --text-normal: #000000
-    --text-faint: #6B6B6B
+    --text-faint: #000000 //!! need to get read of it
 
 html
     font-family: 'Roboto', sans-serif
@@ -23,7 +23,7 @@ body
     line-height: 1.6
 
 h2
-    font-weight: 800
+    //font-weight: 800
     font-size: $font-size * 1.2
     margin-bottom: $unit/2
 
@@ -85,14 +85,18 @@ p
 
 .icon-text
     display: flex
-    gap: 5px
+    gap: $unit/4
     align-items: center
 
     span
-        height: 100%
+        width: $font-size * 1.45
+        height: $font-size * 1.45
 
         svg
-            height: 100%
+            width: 100%
+
+            path
+                fill: var(--text-normal)
 
 [onclick]
     cursor: pointer

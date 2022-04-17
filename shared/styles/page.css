@@ -82,7 +82,7 @@ input:-webkit-autofill {
   --background-secondary-alt: #e3e5e8;
   --interactive-accent: #086788;
   --text-normal: #000000;
-  --text-faint: #6B6B6B;
+  --text-faint: #000000;
 }
 
 html {
@@ -97,7 +97,6 @@ body {
 }
 
 h2 {
-  font-weight: 800;
   font-size: 19.2px;
   margin-bottom: 20px;
 }
@@ -178,18 +177,23 @@ p:last-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 5px;
+  gap: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
 .icon-text span {
-  height: 100%;
+  width: 23.2px;
+  height: 23.2px;
 }
 
 .icon-text span svg {
-  height: 100%;
+  width: 100%;
+}
+
+.icon-text span svg path {
+  fill: var(--text-normal);
 }
 
 [onclick] {
@@ -226,7 +230,6 @@ p:last-child {
 .site-nav-container #hamburger-icon {
   display: none;
   height: 40px;
-  cursor: pointer;
 }
 
 .site-nav-container #hamburger-icon path {
@@ -264,6 +267,7 @@ p:last-child {
   .site-nav {
     top: 0;
     position: fixed;
+    z-index: 20;
   }
   .site-nav .site-nav-container #hamburger-icon {
     display: block;
@@ -347,6 +351,7 @@ p:last-child {
 
 .icon-field--option {
   border: 2px solid var(--text-normal);
+  background: var(--background-primary);
 }
 
 .icon-field--option svg {
@@ -356,10 +361,18 @@ p:last-child {
 
 .icon-field--option:hover {
   border-color: var(--interactive-accent);
-  cursor: pointer;
   color: var(--interactive-accent);
 }
 
 .icon-field--option:hover path {
+  fill: var(--interactive-accent);
+}
+
+.icon-field--option--selected {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.icon-field--option--selected path {
   fill: var(--interactive-accent);
 }

@@ -19,7 +19,7 @@ $unit: $unit/2
     position: sticky
     top: 2 * $unit
     height: 500px
-    width: 600px
+    width: 500px
 
 .content-filter
     margin-bottom: $unit
@@ -27,41 +27,29 @@ $unit: $unit/2
     flex-wrap: wrap
     gap: $unit
 
-.icon-field--filter
-    padding: $unit/2
-    padding-left: $unit
-    margin-bottom: 0
-    border: 2px solid var(--background-primary)
-    background: var(--background-primary)
-
-    &:hover
-        border-color: var(--interactive-accent)
-        cursor: pointer
-        color: var(--interactive-accent)
-        path
-            fill: var(--interactive-accent)
-
 // To be edited later
-.pin
+
+.pin-container
     position: absolute
-    padding: $unit/4 $unit
-    background: var(--interactive-accent)
-    border-radius: 8px
-    p
+
+    .pin
+        background: var(--interactive-accent)
+        padding: $unit/4 $unit
+        position: relative
+        border-radius: 8px
         color: var(--background-primary)
 
-.pin:before
-    $size: $unit*1.5
-    content: ''
-    position: absolute
-    width: $size
-    height: $size
-    border-radius: 8px
-    background: var(--interactive-accent)
-    z-index: -1
-    bottom: (16px - $size)/2
-    left: 0
-    right: 0
-    margin: 0 auto
-    top: $unit
-    transform: rotate(45deg)
+        &:before
+            $size: $unit*1.5
+            content: ''
+            position: absolute
+            width: $size
+            height: $size
+            border-radius: 8px
+            background: var(--interactive-accent)
+            z-index: -1
+            bottom: (8px - $size)/2
+            left: 0
+            right: 0
+            margin: 0 auto
+            transform: rotate(45deg)

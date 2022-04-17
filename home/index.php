@@ -27,32 +27,32 @@
                         <h2>Caută anunțuri:</h2>
                         <div class="filter-grid">
 
-                            <div class="icon-field icon-field--option">
+                            <div class="icon-field icon-field--option icon-field--option--selected" onclick>
                                 Închiriat
                                 <?php include "../shared/svg/down-arrow.svg" ?>
                             </div>
 
-                            <div class="icon-field icon-field--option">
+                            <div class="icon-field icon-field--option icon-field--option--selected" onclick>
                                 Apartament
                                 <?php include "../shared/svg/down-arrow.svg" ?>
                             </div>
 
-                            <div class="icon-field icon-field--option">
+                            <div class="icon-field icon-field--option" onclick>
                                 Preț
                                 <?php include "../shared/svg/left-right-arrow.svg" ?>
                             </div>
 
-                            <div class="icon-field icon-field--option">
+                            <div class="icon-field icon-field--option" onclick>
                                 Mobilă
                                 <?php include "../shared/svg/down-arrow.svg" ?>
                             </div>
 
-                            <div class="icon-field icon-field--option">
+                            <div class="icon-field icon-field--option" onclick>
                                 Etaj
                                 <?php include "../shared/svg/left-right-arrow.svg" ?>
                             </div>
 
-                            <div class="icon-field icon-field--option">
+                            <div class="icon-field icon-field--option" onclick>
                                 Alte opțiuni
                                 <?php include "../shared/svg/right-arrow.svg" ?>
                             </div>
