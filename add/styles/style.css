@@ -36,7 +36,6 @@
 .icon-field--social {
   width: 100%;
   color: var(--background-primary);
-  cursor: pointer;
 }
 
 .icon-field--social path {
@@ -108,69 +107,12 @@
   fill: var(--interactive-accent);
 }
 
-.content__box--add {
-  padding: 40px;
-  max-width: 600px;
-}
-
-.content__box__form {
-  margin-top: 40px;
-}
-
-.content__box__form .input-box {
-  background: var(--background-secondary);
-}
-
-.content__box__form .input-box input {
-  width: 100%;
-  color: var(--text-normal);
-}
-
-.content__box__form .input-box input:-webkit-autofill {
-  -webkit-text-fill-color: var(--text-normal);
-}
-
-.content__box__form .input-box path {
-  fill: gray;
-}
-
-.content__box__form .input-box:focus-within {
-  background: var(--interactive-accent);
-}
-
-.content__box__form .input-box:focus-within input {
-  color: var(--background-primary);
-}
-
-.content__box__form .input-box:focus-within input:-webkit-autofill {
-  -webkit-text-fill-color: var(--background-primary);
-}
-
-.content__box__form .input-box:focus-within input::-webkit-input-placeholder {
-  color: var(--background-secondary);
-}
-
-.content__box__form .input-box:focus-within input:-ms-input-placeholder {
-  color: var(--background-secondary);
-}
-
-.content__box__form .input-box:focus-within input::-ms-input-placeholder {
-  color: var(--background-secondary);
-}
-
-.content__box__form .input-box:focus-within input::placeholder {
-  color: var(--background-secondary);
-}
-
-.content__box__form .input-box:focus-within path {
-  fill: var(--background-primary);
-}
-
 .content__box__form .images {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .content__box__form .images__add-img {
@@ -196,5 +138,15 @@
   background: var(--background-secondary);
   border-radius: 20px;
   resize: none;
+  margin-bottom: 20px;
+}
+
+.content__box__form .desc:focus-within {
+  background: var(--interactive-accent);
+  color: var(--background-primary);
+}
+
+.content__box__form .icon-field--setter {
+  margin-bottom: 0;
 }
 /*# sourceMappingURL=style.css.map */

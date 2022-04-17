@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../shared/styles/page.css">
+    <link rel="stylesheet" href="../shared/styles/form.css">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
@@ -21,7 +22,7 @@
         <div class="content-container responsive-container">
             <div class="content">
 
-                <div class="content__box content__box--add">
+                <div class="content__box content__box--form">
 
                     <form class="content__box__form" action="action_add.php" method="get">
                         <h2>Adaugă titlu anunț*</h2>

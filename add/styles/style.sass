@@ -4,44 +4,13 @@
 
 $unit: $unit /2
 
-.content__box--add
-    padding: $unit * 2
-    max-width: 600px
-
 .content__box
 
     &__form
-        margin-top: $unit * 2
-        .input-box
-            background: var(--background-secondary)
-
-            input
-                width: 100%
-                color: var(--text-normal)
-
-                &:-webkit-autofill
-                    -webkit-text-fill-color: var(--text-normal)
-
-            path
-                fill: gray
-
-            &:focus-within
-                background: var(--interactive-accent)
-
-                input
-                    color: var(--background-primary)
-
-                    &:-webkit-autofill
-                        -webkit-text-fill-color: var(--background-primary)
-
-                    &::placeholder
-                        color: var(--background-secondary)
-
-                path
-                    fill: var(--background-primary)
         .images
             display: flex
             gap: $unit
+            margin-bottom: $unit
 
         .images__add-img
             $unit: $unit*1.5
@@ -60,3 +29,9 @@ $unit: $unit /2
             background: var(--background-secondary)
             border-radius: $border-radius
             resize: none
+            margin-bottom: $unit
+            &:focus-within
+                background: var(--interactive-accent)
+                color: var(--background-primary)
+        .icon-field--setter
+            margin-bottom: 0
