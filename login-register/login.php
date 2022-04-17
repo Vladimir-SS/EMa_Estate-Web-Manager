@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../shared/styles/page.css">
+    <link rel="stylesheet" href="../shared/styles/form.css">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
@@ -21,7 +22,7 @@
         <div class="content-container responsive-container">
             <div class="content">
 
-                <div class="content__box content__box--login">
+                <div class="content__box content__box--form">
 
                     <h2>Conectează-te</h2>
                     <button class="icon-field icon-field--gmail icon-field--social" type="conn-gmail" onclick>
@@ -47,7 +48,7 @@
 
                         <div class="icon-field input-box">
                             <?php include "../shared/svg/pass.svg" ?>
-                            <input class="input-box__input input-box__input--pwd" type="password" placeholder="Introdu parola" name="psw" required>
+                            <input class="input-box__input" type="password" placeholder="Introdu parola" name="psw" required>
                         </div>
                         <!-- /.icon-field input-box -->
 
