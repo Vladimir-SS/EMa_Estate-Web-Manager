@@ -9,20 +9,13 @@
 }
 
 .icon-field {
-  padding: 0 20px;
-  border: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 40px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 20px;
-}
-
-.icon-field svg {
-  margin-right: 10px;
+  gap: 10px;
 }
 
 .icon-field--gmail {
@@ -42,57 +35,61 @@
   fill: white;
 }
 
-.icon-field--important {
+.label {
+  background: var(--background-primary);
+  border: 2px solid var(--text-normal);
+  border-radius: 20px;
+  padding: 5px 20px;
+}
+
+.label--bordered {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.label--bordered path {
+  fill: var(--interactive-accent);
+}
+
+.label--important {
   color: var(--background-primary);
   background: var(--interactive-accent);
 }
 
-.icon-field--important path {
+.label--important path {
   fill: var(--background-primary);
 }
 
-.icon-field--option {
-  border: 2px solid var(--text-normal);
-  background: var(--background-primary);
+.filter-option {
+  position: relative;
+  z-index: 4;
 }
 
-.icon-field--option:hover {
-  border-color: var(--interactive-accent);
-  color: var(--interactive-accent);
+.filter-option > ul {
+  padding: 10px 0;
+  display: none;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  overflow: hidden;
+  z-index: 3;
 }
 
-.icon-field--option:hover path {
-  fill: var(--interactive-accent);
+.filter-option > ul > li {
+  padding: 10px 20px;
 }
 
-.icon-field--option--selected {
-  border-color: var(--interactive-accent);
-  color: var(--interactive-accent);
-}
-
-.icon-field--option--selected path {
-  fill: var(--interactive-accent);
-}
-
-.icon-field--setter {
-  border: 2px solid var(--background-primary-alt);
+.filter-option > ul > li:hover {
   background: var(--background-primary-alt);
 }
 
-.icon-field--setter:hover {
-  border-color: var(--interactive-accent);
-  color: var(--interactive-accent);
+.filter-option.show > ul {
+  display: block;
 }
 
-.icon-field--setter:hover path {
-  fill: var(--interactive-accent);
-}
-
-.icon-field--setter--selected {
-  border-color: var(--interactive-accent);
-  color: var(--interactive-accent);
-}
-
-.icon-field--setter--selected path {
-  fill: var(--interactive-accent);
+.filter-option--dropdown.show > .label > svg {
+  -webkit-transform: scaleY(-1);
+          transform: scaleY(-1);
 }

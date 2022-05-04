@@ -4,5 +4,6 @@ echo View::render_template("Page", [
     "content" => View::render_template("page/Filter"),
     "styles" =>
     View::render_style("icon") .
-        View::render_style("home")
+        View::render_style("home"),
+    "scripts" => View::render_script("filter")
 ]);

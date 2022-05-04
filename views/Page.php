@@ -25,6 +25,10 @@
             </div>
         </div>
     </div>
+
+    <?php
+    echo $scripts;
+    ?>
 </body>
 
 </html>

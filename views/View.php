@@ -25,6 +25,11 @@ class View
         return "<style>" . View::render_file(DIR_VIEWS . "style/" . $file_name . ".css") . "</style>";
     }
 
+    public static function render_script(String $file_name)
+    {
+        return "<script>" . View::render_file(DIR_VIEWS . "script/" . $file_name . ".js") . "</script>";
+    }
+
     public static function render_vector(String $vector_name)
     {
         return View::render_file(DIR_SVG . $vector_name . '.svg');
