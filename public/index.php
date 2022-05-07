@@ -4,7 +4,11 @@ include_once DIR_VIEWS . "View.php";
 include_once DIR_ROUTER . "Router.php";
 
 Router::get("/", "Home");
+Router::get("/home", "Home");
+Router::get("/svg", "SVG");
 Router::get("/404", "Error");
+
+
 
 // echo "<pre>";
 // var_dump(Router::get_route());

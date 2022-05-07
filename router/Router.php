@@ -22,18 +22,26 @@ class Router
         return substr($path, 0, $position);
     }
 
+    static private function split_path($path): array
+    {
+        preg_match('/^(?<path>[^.\s]+)(?:\/(?<file_name>.+\..+))?$/', $path, $matches);
+        for ($i = 0; $i < 3; ++$i)
+            unset($matches[$i]);
+
+        return $matches;
+    }
+
     static public function run()
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $pages_method = Router::$pages[$method];
 
-        $path = Router::get_path();
+        extract(Router::split_path(Router::get_path()));
+
         if (!array_key_exists($path, $pages_method))
             $path = "/404";
 
-        $file_name = $pages_method[$path];
-
-        include_once DIR_CONTROLLERS . $file_name . ".php";
+        include_once DIR_CONTROLLERS . $pages_method[$path] . ".php";
     }
 
     static public function get_route() //!! delete

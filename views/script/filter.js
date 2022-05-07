@@ -1,3 +1,11 @@
+class FilterOption {
+    element;
+
+    constructor() {
+
+    }
+}
+
 class OptionHandler {
     static #lastElement;
     static #filter = {};
