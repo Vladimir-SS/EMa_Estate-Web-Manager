@@ -1,0 +1,104 @@
+@import "config"
+
+$unit: $unit/2
+
+.content-filter
+    margin-bottom: $unit
+    display: flex
+    flex-wrap: wrap
+    gap: $unit
+
+.icon-field
+    display: flex
+    align-items: center
+    gap: 10px
+
+.icon-field--gmail
+    background-color: #EA4335
+
+.icon-field--facebook
+    background-color: #45619D
+
+.icon-field--social
+    width: 100%
+    color: var(--background-primary)
+
+    path
+        fill: white
+
+.label
+    background: var(--background-primary)
+
+    border: 2px solid var(--text-normal)
+    border-radius: $border-radius
+    padding: $unit/4 $border-radius
+
+    svg
+        //margin-left: $unit/2
+        //margin-right: 0
+
+    // &:hover
+    //     border-color: var(--interactive-accent)
+    //     color: var(--interactive-accent)
+    //     path
+    //         fill: var(--interactive-accent)
+
+    &--bordered
+        border-color: var(--interactive-accent)
+        color: var(--interactive-accent)
+        path
+            fill: var(--interactive-accent)
+
+    &--important
+        color: var(--background-primary)
+        background: var(--interactive-accent)
+
+        path
+            fill: var(--background-primary)
+
+.filter-option
+    position: relative
+    z-index: 4
+
+    > ul
+        padding: $unit/2 0
+        display: none
+        position: absolute
+        //width: 100%
+        bottom: -$unit/2
+        left: 0
+        transform: translateY(100%)
+        overflow: hidden
+        z-index: 3
+
+        > li
+            padding: $unit/2 $border-radius
+
+            &:hover
+                background: var(--background-primary-alt)
+
+    &.show > ul
+        display: block
+
+    &--dropdown.show > .label > svg
+        transform: scaleY(-1)
+
+// .icon-field--setter
+//     border: 2px solid var(--background-primary-alt)
+//     background: var(--background-primary-alt)
+
+//     svg
+//         //margin-left: $unit/2
+//         //margin-right: 0
+
+//     &:hover
+//         border-color: var(--interactive-accent)
+//         color: var(--interactive-accent)
+//         path
+//             fill: var(--interactive-accent)
+
+//     &--selected
+//         border-color: var(--interactive-accent)
+//         color: var(--interactive-accent)
+//         path
+//             fill: var(--interactive-accent)
