@@ -1,0 +1,22 @@
+@import "config"
+@import "mixins"
+
+$unit: $unit/2
+
+.items-container
+    position: relative
+    @include box-shadow
+
+.filter-container
+    display: inline-block
+
+.filter-alignment
+    display: grid
+    gap: $unit
+    justify-items: start
+
+    > .icon-field:last-child
+        grid-column: span 2
+
+.icon-field--important[type="search"]
+    width: 100%
