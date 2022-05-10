@@ -5,7 +5,7 @@ include_once DIR_ROUTER . "Router.php";
 
 Router::get("/", "Home");
 Router::get("/home", "Home");
-Router::get("/svg", "SVG");
+Router::get("/fonts", "Fonts");
 Router::get("/404", "Error");
 
 

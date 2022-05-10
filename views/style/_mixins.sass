@@ -10,3 +10,14 @@
 @mixin mobile
     @media (max-width: #{959px})
         @content
+
+@function urls($file)
+    $result: ()
+
+    //@each $type in ("ttf", "eot", "woff", "svg")
+    $result: append($result, "url(http:/localhost:8000/fonts/#{$file}.woff) format('woff')")
+
+    @return $result
+
+@mixin font-src($family)
+    src: #{urls($family)}

@@ -1,5 +1,7 @@
 @import "config"
 
+@import "icon-font"
+
 $unit: $unit/2
 
 .content-filter
@@ -8,23 +10,23 @@ $unit: $unit/2
     flex-wrap: wrap
     gap: $unit
 
-.icon-field
-    display: flex
-    align-items: center
-    gap: 10px
+// .icon-field
+//     display: flex
+//     align-items: center
+//     gap: 10px
 
-.icon-field--gmail
-    background-color: #EA4335
+// .icon-field--gmail
+//     background-color: #EA4335
 
-.icon-field--facebook
-    background-color: #45619D
+// .icon-field--facebook
+//     background-color: #45619D
 
-.icon-field--social
-    width: 100%
-    color: var(--background-primary)
+// .icon-field--social
+//     width: 100%
+//     color: var(--background-primary)
 
-    path
-        fill: white
+//     path
+//         fill: white
 
 .label
     background: var(--background-primary)
@@ -32,16 +34,6 @@ $unit: $unit/2
     border: 2px solid var(--text-normal)
     border-radius: $border-radius
     padding: $unit/4 $border-radius
-
-    svg
-        //margin-left: $unit/2
-        //margin-right: 0
-
-    // &:hover
-    //     border-color: var(--interactive-accent)
-    //     color: var(--interactive-accent)
-    //     path
-    //         fill: var(--interactive-accent)
 
     &--bordered
         border-color: var(--interactive-accent)
@@ -55,6 +47,11 @@ $unit: $unit/2
 
         path
             fill: var(--background-primary)
+
+    &--flex
+        display: flex
+        align-items: center
+        gap: 10px
 
 .filter-option
     position: relative
@@ -82,23 +79,3 @@ $unit: $unit/2
 
     &--dropdown.show > .label > svg
         transform: scaleY(-1)
-
-// .icon-field--setter
-//     border: 2px solid var(--background-primary-alt)
-//     background: var(--background-primary-alt)
-
-//     svg
-//         //margin-left: $unit/2
-//         //margin-right: 0
-
-//     &:hover
-//         border-color: var(--interactive-accent)
-//         color: var(--interactive-accent)
-//         path
-//             fill: var(--interactive-accent)
-
-//     &--selected
-//         border-color: var(--interactive-accent)
-//         color: var(--interactive-accent)
-//         path
-//             fill: var(--interactive-accent)

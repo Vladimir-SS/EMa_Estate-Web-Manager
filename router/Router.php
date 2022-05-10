@@ -36,6 +36,7 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'];
         $pages_method = Router::$pages[$method];
 
+        $path = "";
         extract(Router::split_path(Router::get_path()));
 
         if (!array_key_exists($path, $pages_method))
