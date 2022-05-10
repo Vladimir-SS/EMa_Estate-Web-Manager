@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "module": "none",
+        "moduleResolution": "node",
+        "noEmitOnError": true,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "target": "es6",
+        "outDir": "views/script/build",
+        "rootDir": "views/script"
+    }
+}

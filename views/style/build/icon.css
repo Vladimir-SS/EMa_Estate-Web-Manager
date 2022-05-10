@@ -1,0 +1,286 @@
+@font-face {
+  font-family: 'icomoon';
+  src: url(http:/localhost:8000/fonts/icomoon.woff) format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.icon {
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-email:before {
+  content: "\e908";
+}
+
+.icon-keyboard_arrow_down:before {
+  content: "\e909";
+}
+
+.icon-keyboard_arrow_left:before {
+  content: "\e90a";
+}
+
+.icon-keyboard_arrow_right:before {
+  content: "\e90b";
+}
+
+.icon-keyboard_arrow_up:before {
+  content: "\e90c";
+}
+
+.icon-center_focus_strong:before {
+  content: "\e90d";
+}
+
+.icon-crop:before {
+  content: "\e90e";
+}
+
+.icon-crop_free:before {
+  content: "\e90f";
+}
+
+.icon-photo_size_select_actual:before {
+  content: "\e910";
+}
+
+.icon-expand_less:before {
+  content: "\e911";
+}
+
+.icon-expand_more:before {
+  content: "\e912";
+}
+
+.icon-fullscreen:before {
+  content: "\e913";
+}
+
+.icon-fullscreen_exit:before {
+  content: "\e914";
+}
+
+.icon-unfold_more:before {
+  content: "\e915";
+}
+
+.icon-pages:before {
+  content: "\e916";
+}
+
+.icon-check_box:before {
+  content: "\e917";
+}
+
+.icon-check_box_outline_blank:before {
+  content: "\e918";
+}
+
+.icon-star:before {
+  content: "\e919";
+}
+
+.icon-star_outline:before {
+  content: "\e91a";
+}
+
+.icon-bookmark:before {
+  content: "\e91b";
+}
+
+.icon-bookmark_outline:before {
+  content: "\e91c";
+}
+
+.icon-favorite:before {
+  content: "\e91d";
+}
+
+.icon-favorite_outline:before {
+  content: "\e91e";
+}
+
+.icon-lock_open:before {
+  content: "\e91f";
+}
+
+.icon-lock_outline:before {
+  content: "\e920";
+}
+
+.icon-open_with:before {
+  content: "\e921";
+}
+
+.icon-bathtub1:before {
+  content: "\e922";
+}
+
+.icon-king_bed:before {
+  content: "\e923";
+}
+
+.icon-square_foot1:before {
+  content: "\e924";
+}
+
+.icon-api:before {
+  content: "\e925";
+}
+
+.icon-location_pin:before {
+  content: "\e926";
+}
+
+.icon-open_in_full:before {
+  content: "\e927";
+}
+
+.icon-superscript:before {
+  content: "\e928";
+}
+
+.icon-call:before {
+  content: "\e929";
+}
+
+.icon-arrow_forward:before {
+  content: "\e92a";
+}
+
+.icon-keyboard_arrow_up1:before {
+  content: "\e92b";
+}
+
+.icon-keyboard_arrow_right1:before {
+  content: "\e92c";
+}
+
+.icon-keyboard_arrow_left1:before {
+  content: "\e92d";
+}
+
+.icon-keyboard_arrow_down1:before {
+  content: "\e92e";
+}
+
+.icon-square_foot:before {
+  content: "\e905";
+}
+
+.icon-crop_square:before {
+  content: "\e906";
+}
+
+.icon-bathtub:before {
+  content: "\e904";
+}
+
+.icon-directions_car:before {
+  content: "\e901";
+}
+
+.icon-square:before {
+  content: "\e907";
+}
+
+.icon-bath:before {
+  content: "\e902";
+}
+
+.icon-shower:before {
+  content: "\e903";
+}
+
+.icon-travel-car:before {
+  content: "\e900";
+}
+
+.content-filter {
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 20px;
+}
+
+.label {
+  background: var(--background-primary);
+  border: 2px solid var(--text-normal);
+  border-radius: 20px;
+  padding: 5px 20px;
+}
+
+.label--bordered {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.label--bordered path {
+  fill: var(--interactive-accent);
+}
+
+.label--important {
+  color: var(--background-primary);
+  background: var(--interactive-accent);
+}
+
+.label--important path {
+  fill: var(--background-primary);
+}
+
+.label--flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.filter-option {
+  position: relative;
+  z-index: 4;
+}
+
+.filter-option > ul {
+  padding: 10px 0;
+  display: none;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  overflow: hidden;
+  z-index: 3;
+}
+
+.filter-option > ul > li {
+  padding: 10px 20px;
+}
+
+.filter-option > ul > li:hover {
+  background: var(--background-primary-alt);
+}
+
+.filter-option.show > ul {
+  display: block;
+}
+
+.filter-option--dropdown.show > .label > svg {
+  -webkit-transform: scaleY(-1);
+          transform: scaleY(-1);
+}

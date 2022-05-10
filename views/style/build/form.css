@@ -1,0 +1,57 @@
+.content__box__form .input-box {
+  background: var(--background-secondary);
+}
+
+.content__box__form .input-box input {
+  width: 100%;
+  color: var(--text-normal);
+}
+
+.content__box__form .input-box input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-normal);
+}
+
+.content__box__form .input-box path {
+  fill: gray;
+}
+
+.content__box__form .input-box:focus-within {
+  background: var(--interactive-accent);
+}
+
+.content__box__form .input-box:focus-within input {
+  color: var(--background-primary);
+}
+
+.content__box__form .input-box:focus-within input:-webkit-autofill {
+  -webkit-text-fill-color: var(--background-primary);
+}
+
+.content__box__form .input-box:focus-within input::-webkit-input-placeholder {
+  color: var(--background-secondary);
+}
+
+.content__box__form .input-box:focus-within input:-ms-input-placeholder {
+  color: var(--background-secondary);
+}
+
+.content__box__form .input-box:focus-within input::-ms-input-placeholder {
+  color: var(--background-secondary);
+}
+
+.content__box__form .input-box:focus-within input::placeholder {
+  color: var(--background-secondary);
+}
+
+.content__box__form .input-box:focus-within path {
+  fill: var(--background-primary);
+}
+
+.content__box--form {
+  padding: 40px;
+  max-width: 600px;
+}
+
+.content__box--form .icon-field {
+  margin-bottom: 20px;
+}
