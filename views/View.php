@@ -15,23 +15,23 @@ class View
         extract($props);
 
         ob_start();
-        include DIR_VIEWS . $template_name . '.php';
+        include DIR_TEMPLATES . $template_name . '.php';
 
         return ob_get_clean();
     }
 
     public static function render_style(String $file_name)
     {
-        return "<style>" . View::render_file(DIR_VIEWS . "style/" . $file_name . ".css") . "</style>";
+        return "<style>" . View::render_file(DIR_VIEWS . "style/build/" . $file_name . ".css") . "</style>";
     }
 
     public static function render_script(String $file_name)
     {
-        return "<script>" . View::render_file(DIR_VIEWS . "script/" . $file_name . ".js") . "</script>";
+        return "<script>" . View::render_file(DIR_VIEWS . "script/build/" . $file_name . ".js") . "</script>";
     }
 
     public static function render_vector(String $vector_name)
     {
-        return View::render_file(DIR_SVG . $vector_name . '.svg');
+        return View::render_file(DIR_VIEWS . "svg/" . $vector_name . '.svg');
     }
 }

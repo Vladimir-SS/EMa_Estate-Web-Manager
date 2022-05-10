@@ -5,5 +5,5 @@ echo View::render_template("Page", [
     "styles" =>
     View::render_style("icon") .
         View::render_style("home"),
-    "scripts" => View::render_script("filter")
+    "scripts" => View::render_script("FilterOption") . View::render_script("filter")
 ]);
