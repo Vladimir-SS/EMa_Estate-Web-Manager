@@ -1,7 +1,5 @@
 DocumentHandler.whenReady(() => {
-    let filterElement = document.getElementById("filter");
-    let lebelElement = document.createTextNode("Test");
-    let aux = new FilterOption(lebelElement, "", null);
-    lebelElement.after(createIcon("keyboard_arrow_down"));
-    filterElement.appendChild(aux.element);
+    FilterOptionHandler
+        .add(DropdownFilterOption.createWithIndex("type", ["Apartament", "Casă"], 1))
+        .add(DropdownFilterOption.createWithDefault("by", ["Proprietar", "Firmă", "Dezovoltator"], "Oricine"));
 });

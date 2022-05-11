@@ -29,36 +29,31 @@ $unit: $unit/2
 //         fill: white
 
 .label
-    background: var(--background-primary)
+    background: var(--background-primary-alt)
 
-    border: 2px solid var(--text-normal)
+    border: 1px solid var(--background-secondary-alt)
     border-radius: $border-radius
-    padding: $unit/4 $border-radius
-
-    &--bordered
-        border-color: var(--interactive-accent)
-        color: var(--interactive-accent)
-        path
-            fill: var(--interactive-accent)
+    padding: $unit/4 $unit/1.5
 
     &--important
         color: var(--background-primary)
         background: var(--interactive-accent)
 
-        path
-            fill: var(--background-primary)
-
     &--flex
         display: flex
         align-items: center
-        gap: 10px
+        gap: 5px
+
+    > .icon
+        margin-right: -0.1em
 
 .filter-option
     position: relative
-    z-index: 4
+    //z-index: 4
 
-    > ul
-        padding: $unit/2 0
+    > .content-box
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px
+        padding: $unit/2 $border-radius
         display: none
         position: absolute
         //width: 100%
@@ -66,16 +61,31 @@ $unit: $unit/2
         left: 0
         transform: translateY(100%)
         overflow: hidden
+
+    > .label
+        position: relative
+        z-index: 2
+
+    &.show
         z-index: 3
+        > .content-box
+            display: block
 
-        > li
-            padding: $unit/2 $border-radius
+    &--dropdown
+        > .content-box
+            padding: 0
 
-            &:hover
-                background: var(--background-primary-alt)
+            > ul > li
+                padding: $unit/2 $border-radius
 
-    &.show > ul
-        display: block
+                &:hover
+                    background: var(--background-secondary)
 
-    &--dropdown.show > .label > svg
-        transform: scaleY(-1)
+                &:first-child
+                    padding-top: $unit/2
+
+                &:last-child
+                    padding-bottom: $unit/2
+
+        &.show> .label > .icon
+            transform: scaleY(-1)

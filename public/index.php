@@ -1,6 +1,5 @@
 <?php
 include_once "../config.php";
-include_once DIR_VIEWS . "View.php";
 include_once DIR_ROUTER . "Router.php";
 
 Router::get("/", "Home");

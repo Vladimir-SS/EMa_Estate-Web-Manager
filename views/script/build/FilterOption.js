@@ -1,20 +1,84 @@
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _a, _FilterOption_createLabel;
 class FilterOption {
-    constructor(labelContent, className, content) {
-        this.element = document.createElement("div");
-        this.element.className = `filter-option ${className}`;
-        this.element.appendChild(__classPrivateFieldGet(FilterOption, _a, "f", _FilterOption_createLabel).call(FilterOption, labelContent));
+    constructor(name) {
+        this.setLabelTextIcon = (text, iconName) => {
+            this.textNode = document.createTextNode(text);
+            this.labelElement.append(this.textNode);
+            this.labelElement.appendChild(createIcon(iconName));
+        };
+        this.getParameters = () => {
+            return null;
+        };
+        this.name = name;
+        let element = document.createElement("div");
+        element.className = "filter-option";
+        let labelElement = FilterOption.createLabelElement();
+        labelElement.onclick = () => { FilterOptionHandler.labelOnClickEventHandler(this); };
+        let contentBoxElement = FilterOption.createContentBoxElement();
+        element.appendChild(labelElement);
+        element.appendChild(contentBoxElement);
+        this.labelElement = labelElement;
+        this.contentBoxElement = contentBoxElement;
+        this.element = element;
     }
 }
-_a = FilterOption;
-_FilterOption_createLabel = { value: (content) => {
-        let lebelElement = document.createElement("div");
-        lebelElement.className = `label label--flex`;
-        lebelElement.append(content);
-        return lebelElement;
-    } };
+FilterOption.createLabelElement = () => {
+    let labelElement = document.createElement("div");
+    labelElement.className = `label label--flex`;
+    labelElement.setAttribute("onclick", "");
+    return labelElement;
+};
+FilterOption.createContentBoxElement = () => {
+    let contentBoxElement = document.createElement("div");
+    contentBoxElement.className = "content-box";
+    return contentBoxElement;
+};
+class DropdownFilterOption extends FilterOption {
+    constructor() {
+        super(...arguments);
+        this.chosenOptionItem = null;
+        this.createOptionItem = (text) => {
+            let element = document.createElement("li");
+            element.innerHTML = text;
+            element.setAttribute("onclick", "");
+            element.onclick = () => this.optionItemHandler(element);
+            return element;
+        };
+        this.createOptionList = (optionList) => {
+            let listElement = document.createElement("ul");
+            optionList
+                .map(this.createOptionItem)
+                .forEach(e => listElement.append(e));
+            return listElement;
+        };
+        this.optionItemHandler = (optionItem) => {
+            this.textNode.textContent = optionItem.innerHTML;
+            this.chosenOptionItem = optionItem;
+            FilterOptionHandler.closeLastElement();
+        };
+        this.getParameters = () => {
+            return this.chosenOptionItem ? `${this.name}=${this.chosenOptionItem.innerHTML}` : null;
+        };
+    }
+    static create(name, optionList, labelText) {
+        let instance = new DropdownFilterOption(name);
+        instance.setLabelTextIcon(labelText, "down-arrow");
+        instance.contentBoxElement.appendChild(instance.createOptionList(optionList));
+        instance.element.classList.add("filter-option--dropdown");
+        return instance;
+    }
+    static createWithIndex(name, optionList, index) {
+        let instance = this.create(name, optionList, optionList[index]);
+        let child = instance.contentBoxElement.firstChild.childNodes[index];
+        instance.chosenOptionItem = child;
+        return instance;
+    }
+    static createWithDefault(name, optionList, defaultPlaceholder) {
+        let instance = this.create(name, [defaultPlaceholder, ...optionList], defaultPlaceholder);
+        let child = instance.contentBoxElement.firstChild.firstChild;
+        child.onclick = () => {
+            instance.optionItemHandler(child);
+            instance.chosenOptionItem = null;
+        };
+        return instance;
+    }
+}

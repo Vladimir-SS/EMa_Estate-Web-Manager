@@ -27,6 +27,6 @@ class FileRequest
             return;
 
         header('Content-Type: ' . mime_content_type($path));
-        echo file_get_contents($path);
+        die(file_get_contents($path));
     }
 }

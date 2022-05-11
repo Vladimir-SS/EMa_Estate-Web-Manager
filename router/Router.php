@@ -24,9 +24,12 @@ class Router
 
     static private function split_path($path): array
     {
-        preg_match('/^(?<path>[^.\s]+)(?:\/(?<file_name>.+\..+))?$/', $path, $matches);
+        preg_match('/^(?<path>[^.\s]+)?(?:\/(?<file_name>.+\..+))?$/', $path, $matches);
         for ($i = 0; $i < 3; ++$i)
             unset($matches[$i]);
+
+        if ($matches["path"] === "")
+            $matches["path"] = "/";
 
         return $matches;
     }

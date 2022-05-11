@@ -1,5 +1,5 @@
 class DocumentHandler {
-    private static pipeline = [];
+    private static pipeline: (() => void)[] = [];
 
 
     public static whenReady = (func: () => void) => {

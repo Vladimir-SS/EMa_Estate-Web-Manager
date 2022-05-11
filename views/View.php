@@ -1,11 +1,12 @@
 <?php
+include_once DIR_VIEWS . "HtmlContainer.php";
 
 class View
 {
-    private static function render_file(String $file_name)
+    public static function render_file(String $file_path)
     {
         ob_start();
-        include $file_name;
+        include $file_path;
 
         return ob_get_clean();
     }
@@ -20,18 +21,27 @@ class View
         return ob_get_clean();
     }
 
-    public static function render_style(String $file_name)
+    public static function render_style(String $file_name): HtmlContainer
     {
-        return "<style>" . View::render_file(DIR_VIEWS . "style/build/" . $file_name . ".css") . "</style>";
+        return HtmlContainer::HtmlElement("style")
+            ->setPath(DIR_VIEWS . "style/build/")
+            ->setExtension("css")
+            ->add($file_name);
     }
 
-    public static function render_script(String $file_name)
+    public static function render_script(String $file_name): HtmlContainer
     {
-        return "<script>" . View::render_file(DIR_VIEWS . "script/build/" . $file_name . ".js") . "</script>";
+        return HtmlContainer::HtmlElement("script")
+            ->setPath(DIR_VIEWS . "script/build/")
+            ->setExtension("js")
+            ->add($file_name);
     }
 
-    public static function render_vector(String $vector_name)
+    public static function render_vector(String $file_name)
     {
-        return View::render_file(DIR_VIEWS . "svg/" . $vector_name . '.svg');
+        return HtmlContainer::CustomTag("", "")
+            ->setPath(DIR_VIEWS . "svg/")
+            ->setExtension("svg")
+            ->add($file_name);
     }
 }
