@@ -53,6 +53,7 @@ class DropdownFilterOption extends FilterOption {
         this.optionItemHandler = (optionItem) => {
             this.textNode.textContent = optionItem.innerHTML;
             this.chosenOptionItem = optionItem;
+            this.labelElement.classList.add("label--important");
             FilterOptionHandler.closeLastElement();
         };
         this.getParameters = () => {
@@ -68,8 +69,10 @@ class DropdownFilterOption extends FilterOption {
     }
     static createWithIndex(name, optionList, index) {
         let instance = this.create(name, optionList, optionList[index]);
-        let child = instance.contentBoxElement.firstChild.childNodes[index];
-        instance.chosenOptionItem = child;
+        let child = instance.contentBoxElement.firstElementChild.children[index];
+        ;
+        console.log(child);
+        instance.optionItemHandler(child);
         return instance;
     }
     static createWithDefault(name, optionList, defaultPlaceholder) {
@@ -77,6 +80,7 @@ class DropdownFilterOption extends FilterOption {
         let child = instance.contentBoxElement.firstChild.firstChild;
         child.onclick = () => {
             instance.optionItemHandler(child);
+            instance.labelElement.classList.remove("label--important");
             instance.chosenOptionItem = null;
         };
         return instance;

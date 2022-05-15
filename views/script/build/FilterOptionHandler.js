@@ -2,9 +2,12 @@ var _a;
 class FilterOptionHandler {
 }
 _a = FilterOptionHandler;
+FilterOptionHandler.lastFilterOption = null;
 FilterOptionHandler.filterElement = document.getElementById("filter");
 FilterOptionHandler.filterOptions = [];
 FilterOptionHandler.closeLastElement = () => {
+    if (_a.lastFilterOption === null)
+        return;
     _a.lastFilterOption.element.classList.remove("show");
     _a.lastFilterOption = null;
 };

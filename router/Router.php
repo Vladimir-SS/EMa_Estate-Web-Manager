@@ -1,14 +1,21 @@
 <?php
 class Router
 {
-    static private array $pages = array(
-        "GET" => array(),
-        "POST" => array()
-    );
+    private array $pages;
 
-    static public function get(String $route, string $page_name)
+    public function __construct()
     {
-        Router::$pages["GET"][$route] = $page_name;
+        $this->pages = array(
+            "GET" => array(),
+            "POST" => array()
+        );
+    }
+
+    public function get(String $route, string $page_name): Router
+    {
+        $this->pages["GET"][$route] = $page_name;
+
+        return $this;
     }
 
     static private function get_path(): String
@@ -34,22 +41,17 @@ class Router
         return $matches;
     }
 
-    static public function run()
+    public function run()
     {
         $method = $_SERVER['REQUEST_METHOD'];
-        $pages_method = Router::$pages[$method];
+        $pages_method = $this->pages[$method];
 
         $path = "";
-        extract(Router::split_path(Router::get_path()));
+        extract(self::split_path(self::get_path()));
 
         if (!array_key_exists($path, $pages_method))
             $path = "/404";
 
         include_once DIR_CONTROLLERS . $pages_method[$path] . ".php";
-    }
-
-    static public function get_route() //!! delete
-    {
-        return Router::$pages;
     }
 }
