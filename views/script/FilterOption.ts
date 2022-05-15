@@ -75,6 +75,7 @@ class DropdownFilterOption extends FilterOption {
     private optionItemHandler = (optionItem: HTMLLIElement) => {
         this.textNode.textContent = optionItem.innerHTML;
         this.chosenOptionItem = optionItem;
+        this.labelElement.classList.add("label--important")
         FilterOptionHandler.closeLastElement();
     }
 
@@ -90,9 +91,12 @@ class DropdownFilterOption extends FilterOption {
 
     static createWithIndex(name: string, optionList: string[], index: number) {
         let instance = this.create(name, optionList, optionList[index]);
-        let child = instance.contentBoxElement.firstChild.childNodes[index] as HTMLLIElement;
+        let child = instance.contentBoxElement.firstElementChild.children[index] as HTMLLIElement;;
 
-        instance.chosenOptionItem = child;
+        console.log(child);
+
+
+        instance.optionItemHandler(child);
 
         return instance;
     }
@@ -103,6 +107,7 @@ class DropdownFilterOption extends FilterOption {
 
         child.onclick = () => {
             instance.optionItemHandler(child);
+            instance.labelElement.classList.remove("label--important")
             instance.chosenOptionItem = null;
         };
 

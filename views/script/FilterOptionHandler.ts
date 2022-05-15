@@ -1,9 +1,11 @@
 class FilterOptionHandler {
-    private static lastFilterOption: FilterOption;
+    private static lastFilterOption: FilterOption = null;
     private static filterElement = document.getElementById("filter");
     private static filterOptions: FilterOption[] = [];
 
     public static closeLastElement = () => {
+        if (this.lastFilterOption === null)
+            return;
         this.lastFilterOption.element.classList.remove("show");
         this.lastFilterOption = null;
     }

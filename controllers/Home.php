@@ -7,7 +7,7 @@ if (isset($file_name)) {
 
 echo View::render_template("Page", [
     "title" => "Acasă",
-    "content" => View::render_template("page/Filter"),
+    "content" => View::render_template("home/Filter"),
     "styles" => View::render_style("icon")->add("home"),
-    "scripts" => View::render_script("FilterOptionHandler") . View::render_script("FilterOption") . View::render_script("filter")
+    "scripts" => View::render_script("FilterOptionHandler")->add("FilterOption")->add("filter")
 ]);

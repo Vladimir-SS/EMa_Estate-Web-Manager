@@ -74,11 +74,8 @@
 
 .label--important {
   color: var(--background-primary);
-  background: var(--interactive-accent);
-}
-
-.label--important path {
-  fill: var(--background-primary);
+  --background-primary-alt: var(--interactive-accent);
+  --background-secondary-alt: var(--interactive-accent);
 }
 
 .label--flex {
