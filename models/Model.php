@@ -1,10 +1,12 @@
 <?php
-include_once DIR_MODULES . "Column.php";
+include_once DIR_BASE . "db_config.php";
+include_once DIR_MODELS . "Column.php";
 
-class Module
+class Model
 {
     private array $columns;
-    private array $data;
+    protected array $data;
+    protected $conn;
 
     protected function __construct(array $columns)
     {
@@ -12,7 +14,7 @@ class Module
         $this->data = [];
     }
 
-    public function load(array $data): Module
+    public function load(array $data): Model
     {
         $this->data = $data;
 
@@ -32,5 +34,21 @@ class Module
         }
 
         return $rv;
+    }
+
+    public function getData(): array
+    {
+        $data = [];
+
+
+
+        foreach ($this->data as $key => $value) {
+            $data[$key] = [
+                "type" => $this->columns[$key]->getType(),
+                "value" => $value
+            ];
+        }
+
+        return $data;
     }
 }

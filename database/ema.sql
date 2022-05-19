@@ -1,40 +1,45 @@
 
 -- delete table account from previous database
-DROP TABLE account CASCADE CONSTRAINTS;
+DROP TABLE accounts CASCADE CONSTRAINTS;
 /
 
 --create table for account
-CREATE TABLE account (
+CREATE TABLE accounts (
   id INT NOT NULL PRIMARY KEY,
   name VARCHAR2(64) NOT NULL,
   phone VARCHAR2(16) NOT NULL,
   email VARCHAR2(64) NOT NULL,
-  image BLOB NOT NULL,
-  password_hash VARCHAR(255) NOT NULL,
-  bussines_name VARCHAR2(32),
+  image BLOB ,
+  password_hash VARCHAR(60) NOT NULL,
+  password_salt VARCHAR(20) NOT NULL,
+  business_name VARCHAR2(32) NOT NULL,
   
   created_at DATE,
   updated_at DATE
 );
 /
 
-DROP SEQUENCE PADB.account_SEQ;
+DROP SEQUENCE accounts_seq;
 /
 
-CREATE SEQUENCE account_seq START WITH 1;
+CREATE SEQUENCE accounts_seq START WITH 1;
 /
 
-CREATE OR REPLACE TRIGGER account_inc
-    BEFORE INSERT ON account
+DROP TRIGGER accounts_inc;
+/
+
+CREATE TRIGGER accounts_inc
+    BEFORE INSERT ON accounts
     FOR EACH ROW
 BEGIN
-    SELECT account_seq.nextval
+    SELECT accounts_seq.nextval
     INTO :new.id
     FROM dual;
 END;
 /
 
 
+select * from accounts;
 
 
 

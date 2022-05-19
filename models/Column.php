@@ -53,10 +53,22 @@ enum Constrain
 class Column
 {
     private array $constraints;
+    private int $type;
 
     public function __construct()
     {
         $this->constraints = [];
+        $this->type = SQLT_CHR;
+    }
+
+    public function setType(int $type)
+    {
+        $this->type = $type;
+    }
+
+    public function getType(): int
+    {
+        return $this->type;
     }
 
     public function add(Constrain $c, ...$params): Column
