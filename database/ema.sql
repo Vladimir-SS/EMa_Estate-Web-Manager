@@ -1,232 +1,124 @@
-
--- delete table account from previous database
+-- SELECT table_name FROM user_tables;
+-- drop old tables:
 DROP TABLE accounts CASCADE CONSTRAINTS;
-/
+DROP TABLE announcements CASCADE CONSTRAINTS;
+DROP TABLE images CASCADE CONSTRAINTS;
+DROP TABLE apartments CASCADE CONSTRAINTS;
+DROP TABLE houses CASCADE CONSTRAINTS;
+DROP TABLE offices CASCADE CONSTRAINTS;
 
---create table for account
+--create table for accounts
 CREATE TABLE accounts (
-  id INT NOT NULL PRIMARY KEY,
+  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   name VARCHAR2(64) NOT NULL,
   phone VARCHAR2(16) NOT NULL,
   email VARCHAR2(64) NOT NULL,
-  image BLOB ,
-  password_hash VARCHAR(60) NOT NULL,
+  image BLOB,
+  password_hash VARCHAR(255) NOT NULL,
   password_salt VARCHAR(20) NOT NULL,
-  business_name VARCHAR2(32) NOT NULL,
+  business_name VARCHAR2(32),
   
   created_at DATE,
   updated_at DATE
 );
 /
-
-DROP SEQUENCE accounts_seq;
-/
-
-CREATE SEQUENCE accounts_seq START WITH 1;
-/
-
-DROP TRIGGER accounts_inc;
-/
-
-CREATE TRIGGER accounts_inc
-    BEFORE INSERT ON accounts
-    FOR EACH ROW
-BEGIN
-    SELECT accounts_seq.nextval
-    INTO :new.id
-    FROM dual;
-END;
-/
-
-
-select * from accounts;
-
-
-
-
--- delete table property from previous database
-DROP TABLE property CASCADE CONSTRAINTS;
-/
-
 --create table for announcement/property
-CREATE TABLE property (
-  id INT NOT NULL PRIMARY KEY,
+CREATE TABLE announcements (
+  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
+  account_id INT NOT NULL,
   title VARCHAR2(64) NOT NULL,
   address VARCHAR2(128) NOT NULL,
   price INT NOT NULL,
   surface INT NOT NULL,
-  land BOOLEAN NOT NULL,
+  land NUMBER(1) NOT NULL,
   building_state VARCHAR2(32) NOT NULL,
   tranzaction_type VARCHAR2(64) NOT NULL, --rent BOOLEAN NOT NULL,
-  description VARCHAR2(5000),
+  description VARCHAR2(4000),
   created_at DATE,
-  updated_at DATE
+  updated_at DATE,
+  
+  CONSTRAINT fk_announcements_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 /
-
-DROP SEQUENCE PADB.property_SEQ;
-/
-
-CREATE SEQUENCE property_seq START WITH 1;
-/
-
-CREATE OR REPLACE TRIGGER property_inc
-    BEFORE INSERT ON property
+CREATE OR REPLACE TRIGGER announcements_inc
+    BEFORE INSERT ON announcements
     FOR EACH ROW
 BEGIN
-    SELECT property_seq.nextval
-    INTO :new.id
-    FROM dual;
+    :new.created_at := sysdate();
+    :new.updated_at := sysdate();
 END;
 /
-
-
-
--- delete table images from previous database
-DROP TABLE images CASCADE CONSTRAINTS;
-/
-
 --create table for images
 CREATE TABLE images (
-  id INT NOT NULL PRIMARY KEY,
-  property_id INT NOT NULL
+  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
+  announcement_id INT NOT NULL,
   name VARCHAR2(64) NOT NULL,
   image BLOB NOT NULL,
-  CONSTRAINT fk_images_property_id FOREIGN KEY (property_id) REFERENCES property(id),
+  
   created_at DATE,
-  updated_at DATE
+  updated_at DATE,
+
+  CONSTRAINT fk_images_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
 /
-
-DROP SEQUENCE PADB.images_SEQ;
-/
-
-CREATE SEQUENCE images_seq START WITH 1;
-/
-
 CREATE OR REPLACE TRIGGER images_inc
     BEFORE INSERT ON images
     FOR EACH ROW
 BEGIN
-    SELECT images_seq.nextval
-    INTO :new.id
-    FROM dual;
+    :new.created_at := sysdate();
+    :new.updated_at := sysdate();
 END;
 /
-
-
-
-
--- delete table apartments from previous database
-DROP TABLE apartments CASCADE CONSTRAINTS;
-/
-
 --create table for apartments
 CREATE TABLE apartments (
-  id INT NOT NULL PRIMARY KEY,
-  property_id INT NOT NULL,
+  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
+  announcement_id INT NOT NULL UNIQUE,
   
   floor INT NOT NULL,
 
   rooms INT NOT NULL,
   type VARCHAR2(32),
-  bathrooms INT NOT NULL,
+  bathrooms INT DEFAULT 1 NOT NULL ,
   construction_year INT NOT NULL,
-  elevator BOOLEAN,
-  parking_space BOOLEAN,
+  elevator NUMBER(1),
+  parking_space NUMBER(1),
 
-  CONSTRAINT fk_apartments_property_id FOREIGN KEY (property_id) REFERENCES property(id)
+  CONSTRAINT fk_apartments_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
 /
-
-DROP SEQUENCE PADB.apartments_SEQ;
-/
-
-CREATE SEQUENCE apartments_seq START WITH 1;
-/
-
-CREATE OR REPLACE TRIGGER apartments_inc
-    BEFORE INSERT ON apartments
-    FOR EACH ROW
-BEGIN
-    SELECT apartments_seq.nextval
-    INTO :new.id
-    FROM dual;
-END;
-/
-
--- delete table houses from previous database
-DROP TABLE houses CASCADE CONSTRAINTS;
-/
-
 --create table for houses
 CREATE TABLE houses (
-  id INT NOT NULL PRIMARY KEY,
-  property_id INT NOT NULL,
+  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
+  announcement_id INT NOT NULL UNIQUE,
   
   number_of_floors INT NOT NULL,
 
   rooms INT NOT NULL,
   --type VARCHAR2(32),
-  bathrooms INT NOT NULL,
+  bathrooms INT DEFAULT 1 NOT NULL,
   construction_year INT NOT NULL,
-  basement BOOLEAN,
-  garage BOOLEAN,
+  basement NUMBER(1),
+  garage NUMBER(1),
 
-  CONSTRAINT fk_houses_property_id FOREIGN KEY (property_id) REFERENCES property(id)
+  CONSTRAINT fk_houses_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
-/
-
-DROP SEQUENCE PADB.houses_SEQ;
-/
-
-CREATE SEQUENCE houses_seq START WITH 1;
-/
-
-CREATE OR REPLACE TRIGGER houses_inc
-    BEFORE INSERT ON houses
-    FOR EACH ROW
-BEGIN
-    SELECT houses_seq.nextval
-    INTO :new.id
-    FROM dual;
-END;
-/
-
--- delete table offices from previous database
-DROP TABLE offices CASCADE CONSTRAINTS;
-/
-
 --create table for offices
 CREATE TABLE offices (
-  id INT NOT NULL PRIMARY KEY,
-  property_id INT NOT NULL,
+  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
+  announcement_id INT NOT NULL UNIQUE,
   
   number_of_floors INT NOT NULL,
 
   rooms INT NOT NULL,
   offices INT NOT NULL,
-  bathrooms INT NOT NULL,
+  bathrooms INT DEFAULT 1 NOT NULL ,
   construction_year INT NOT NULL,
-  basement BOOLEAN,
-  underground_garage BOOLEAN,
+  basement NUMBER(1),
+  underground_garage NUMBER(1),
 
-  CONSTRAINT fk_offices_property_id FOREIGN KEY (property_id) REFERENCES property(id)
+  CONSTRAINT fk_offices_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
 /
-
-DROP SEQUENCE PADB.offices_SEQ;
-/
-
-CREATE SEQUENCE offices_seq START WITH 1;
-/
-
-CREATE OR REPLACE TRIGGER offices_inc
-    BEFORE INSERT ON offices
-    FOR EACH ROW
-BEGIN
-    SELECT offices_seq.nextval
-    INTO :new.id
-    FROM dual;
-END;
-/
+--select * from USER_TRIGGERS;
+--select * from accounts;
+--desc accounts;
