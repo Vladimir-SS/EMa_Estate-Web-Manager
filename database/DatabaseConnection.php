@@ -63,7 +63,7 @@ class DatabaseConnection
         return self::$instance;
     }
 
-    public static function dataGetByID(string $tableName, int $id): array|false
+    public static function dataFindByID(string $tableName, int $id): array|false
     {
         $sql = "SELECT * FROM $tableName where id=$id";
         $stid = oci_parse(self::$conn, $sql);

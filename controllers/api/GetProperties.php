@@ -29,7 +29,7 @@ try {
     //     echo $model->password_check("hey hey") ? "1" : "0", "<br>";
     // }
 
-    $data = DatabaseConnection::getInstance()->dataGetByID("accounts", 2);
+    $data = DatabaseConnection::getInstance()->dataFindByID("accounts", 2);
 
     echo "<pre>";
     var_dump($data);
