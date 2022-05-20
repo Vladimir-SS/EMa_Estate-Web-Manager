@@ -11,8 +11,8 @@
   -webkit-text-fill-color: var(--text-normal);
 }
 
-.content__box__form .input-box path {
-  fill: gray;
+.content__box__form .input-box .icon {
+  color: gray;
 }
 
 .content__box__form .input-box:focus-within {
@@ -43,8 +43,8 @@
   color: var(--background-secondary);
 }
 
-.content__box__form .input-box:focus-within path {
-  fill: var(--background-primary);
+.content__box__form .input-box:focus-within .icon {
+  color: var(--background-primary);
 }
 
 .content__box--form {
@@ -52,6 +52,6 @@
   max-width: 600px;
 }
 
-.content__box--form .icon-field {
+.content__box--form .label {
   margin-bottom: 20px;
 }

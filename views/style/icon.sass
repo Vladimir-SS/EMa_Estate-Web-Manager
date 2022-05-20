@@ -10,24 +10,6 @@ $unit: $unit/2
     flex-wrap: wrap
     gap: $unit
 
-// .icon-field
-//     display: flex
-//     align-items: center
-//     gap: 10px
-
-// .icon-field--gmail
-//     background-color: #EA4335
-
-// .icon-field--facebook
-//     background-color: #45619D
-
-// .icon-field--social
-//     width: 100%
-//     color: var(--background-primary)
-
-//     path
-//         fill: white
-
 .label
     background: var(--background-primary-alt)
 
@@ -43,7 +25,20 @@ $unit: $unit/2
     &--flex
         display: flex
         align-items: center
-        gap: 5px
+        gap: 10px
+
+    &--social
+        width: 100%
+        color: var(--background-primary)
+
+        >.icon
+            font-size: 1.15em
+
+        &--google
+            background-color: #BB001B
+
+        &--facebook
+            background-color: #45619D
 
     > .icon
         margin-right: -0.1em

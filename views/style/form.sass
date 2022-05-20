@@ -15,8 +15,8 @@ $unit: $unit/2
                 &:-webkit-autofill
                     -webkit-text-fill-color: var(--text-normal)
 
-            path
-                fill: gray
+            .icon
+                color: gray
 
             &:focus-within
                 background: var(--interactive-accent)
@@ -30,12 +30,12 @@ $unit: $unit/2
                     &::placeholder
                         color: var(--background-secondary)
 
-                path
-                    fill: var(--background-primary)
+                .icon
+                    color: var(--background-primary)
 
 .content__box--form
     padding: $unit * 2
     max-width: 600px
 
-    .icon-field
+    .label
         margin-bottom: $unit

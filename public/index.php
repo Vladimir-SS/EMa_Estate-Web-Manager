@@ -7,6 +7,8 @@ $router = new Router();
 $router
     ->get("/", "Home")
     ->get("/home", "Home")
+    ->get("/login", "Login")
+    ->get("/signUp", "Register")
     ->get("/fonts", "Fonts")
     ->get("/404", "Error")
     ->get("/api/properties", "api/GetProperties")
