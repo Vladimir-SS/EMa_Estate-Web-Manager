@@ -1,3 +1,10 @@
+.content__box__form .double-input-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+
 .content__box__form .input-box {
   background: var(--background-secondary);
 }

@@ -7,10 +7,14 @@ class AccountModel extends Model
     {
         parent::__construct(
             [
-                "name" => (new Column())
+                "last_name" => (new Column())
                     ->add(Constrain::Required)
-                    ->add(Constrain::MinLength, 6)
-                    ->add(Constrain::MaxLength, 64),
+                    ->add(Constrain::MinLength, 3)
+                    ->add(Constrain::MaxLength, 32),
+                "first_name" => (new Column())
+                    ->add(Constrain::Required)
+                    ->add(Constrain::MinLength, 3)
+                    ->add(Constrain::MaxLength, 32),
                 "phone" => (new Column())
                     ->add(Constrain::Required)
                     ->add(Constrain::MaxLength, 16)

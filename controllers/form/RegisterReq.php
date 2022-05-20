@@ -19,6 +19,10 @@ var_dump($result);
 echo "<\pre>";
 
 if (empty($result)) {
-    //add in database
+    $conn = DatabaseConnection::getInstance(); // Should be moved
+    $conn->dataSave("accounts", $model->getData());
+    setcookie("user", "loggedIn", time() + (86400 * 30), "/");
+
+    $conn->close();
 } else {
 }
