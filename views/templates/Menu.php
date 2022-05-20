@@ -6,7 +6,7 @@
             <li><a href="search">Caută</a></li>
             <li><a href="new">Adaugă anunț nou</a></li>
             <li class="right"><a href="login">Conectează-te</a></li>
-            <li class="sign-up"><a href="signUp">Creează cont</a></li>
+            <li class="sign-up"><a href="register">Creează cont</a></li>
         </ul>
     </div>
 </div>

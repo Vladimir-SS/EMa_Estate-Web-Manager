@@ -21,8 +21,7 @@ class AccountModel extends Model
                     ->add(Constrain::MaxLength, 64),
                 "password_hash" => (new Column)
                     ->add(Constrain::Required),
-                "business_name" => (new Column)
-                    ->add(Constrain::Required),
+                "business_name" => (new Column),
                 "password_salt" => (new Column)
             ]
         );
@@ -36,7 +35,7 @@ class AccountModel extends Model
     }
 
 
-    public function calculateHash(string $password): AccountModel
+    public function generateHash(string $password): AccountModel
     {
         if (!isset($this->data["password_salt"]))
             throw new Exception("wrong password");

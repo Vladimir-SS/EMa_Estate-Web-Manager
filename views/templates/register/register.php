@@ -11,12 +11,12 @@
         Conectează-te cu contul tău Facebook
     </button>
 
-    <form class="content__box__form" action="/models/action_register.php" method="post">
+    <form class="content__box__form" action="/register" method="post">
 
         <p>Completează câmpurile de mai jos pentru a te înregistra.</p>
         <div class="label label--flex input-box">
             <span class="icon icon-person"></span>
-            <input class="input-box__input" type="text" placeholder="Nume si prenume" name="flname" required>
+            <input class="input-box__input" type="text" placeholder="Nume si prenume" name="name" required>
         </div>
 
         <div class="label label--flex input-box">
@@ -31,12 +31,12 @@
 
         <div class="label label--flex input-box">
             <span class="icon icon-pass"></span>
-            <input class="input-box__input" type="password" placeholder="Introdu parola" name="psw" required>
+            <input class="input-box__input" type="password" placeholder="Introdu parola" name="password" required>
         </div>
 
         <div class="label label--flex input-box">
             <span class="icon icon-pass"></span>
-            <input class="input-box__input" type="password" placeholder="Confirmă parola" name="psw" required>
+            <input class="input-box__input" type="password" placeholder="Confirmă parola" name="confirm-password" required>
         </div>
 
         <p>Ai deja cont?
@@ -51,7 +51,7 @@
         </div>
 
 
-        <button class="label label--flex label--important" type="submit" onclick>
+        <button class="label label--flex label--important" name="register" type="submit" onclick>
             <span class="icon icon-conn-arr"></span>
             Creează-ți contul
         </button>

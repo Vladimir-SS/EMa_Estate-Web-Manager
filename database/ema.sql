@@ -3,6 +3,9 @@
 DROP TABLE accounts CASCADE CONSTRAINTS;
 DROP TABLE announcements CASCADE CONSTRAINTS;
 DROP TABLE images CASCADE CONSTRAINTS;
+DROP TABLE buildings CASCADE CONSTRAINTS;
+DROP TABLE lands CASCADE CONSTRAINTS;
+DROP TABLE residentials CASCADE CONSTRAINTS;
 DROP TABLE apartments CASCADE CONSTRAINTS;
 DROP TABLE houses CASCADE CONSTRAINTS;
 DROP TABLE offices CASCADE CONSTRAINTS;
@@ -26,14 +29,13 @@ CREATE TABLE accounts (
 CREATE TABLE announcements (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   account_id INT NOT NULL,
-  title VARCHAR2(64) NOT NULL,
-  address VARCHAR2(128) NOT NULL,
+  title VARCHAR2(64) NOT NULL,  
   price INT NOT NULL,
   surface INT NOT NULL,
-  land NUMBER(1) NOT NULL,
-  building_state VARCHAR2(32) NOT NULL,
-  tranzaction_type VARCHAR2(64) NOT NULL, --rent BOOLEAN NOT NULL,
+  address VARCHAR2(128) NOT NULL,
+  transaction_type VARCHAR2(64) NOT NULL,
   description VARCHAR2(4000),
+
   created_at DATE,
   updated_at DATE,
   
@@ -52,71 +54,58 @@ END;
 CREATE TABLE images (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   announcement_id INT NOT NULL,
-  name VARCHAR2(64) NOT NULL,
   image BLOB NOT NULL,
-  
-  created_at DATE,
-  updated_at DATE,
 
   CONSTRAINT fk_images_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
 /
-CREATE OR REPLACE TRIGGER images_inc
-    BEFORE INSERT ON images
-    FOR EACH ROW
-BEGIN
-    :new.created_at := sysdate();
-    :new.updated_at := sysdate();
-END;
+--create table for buildings
+CREATE TABLE buildings (
+  announcement_id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
+  floor INT,
+  bathrooms INT DEFAULT 1,
+  parking_lots INT DEFAULT 1,
+  built_on DATE,
+
+  CONSTRAINT fk_buildings_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
+);
+/
+--create table for lands
+CREATE TABLE lands (
+  announcement_id INT PRIMARY KEY,
+
+  CONSTRAINT fk_lands_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
+);
+/
+--create table for residentials
+CREATE TABLE residentials (
+  building_id INT PRIMARY KEY,
+  rooms INT NOT NULL,
+
+  CONSTRAINT fk_residentials_building_id FOREIGN KEY (building_id) REFERENCES buildings(announcement_id)
+);
+/
+--create table for offices
+CREATE TABLE offices (
+  building_id INT PRIMARY KEY,
+
+  CONSTRAINT fk_offices_building_id FOREIGN KEY (building_id) REFERENCES buildings(announcement_id)
+);
 /
 --create table for apartments
 CREATE TABLE apartments (
-  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
-  announcement_id INT NOT NULL UNIQUE,
-  
-  floor INT NOT NULL,
-
-  rooms INT NOT NULL,
+  residential_id INT PRIMARY KEY,
   type VARCHAR2(32),
-  bathrooms INT DEFAULT 1 NOT NULL ,
-  construction_year INT NOT NULL,
-  elevator NUMBER(1),
-  parking_space NUMBER(1),
 
-  CONSTRAINT fk_apartments_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
+  CONSTRAINT fk_apartments_residential_id FOREIGN KEY (residential_id) REFERENCES residentials(building_id)
 );
 /
 --create table for houses
 CREATE TABLE houses (
-  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
-  announcement_id INT NOT NULL UNIQUE,
-  
-  number_of_floors INT NOT NULL,
-
-  rooms INT NOT NULL,
-  --type VARCHAR2(32),
-  bathrooms INT DEFAULT 1 NOT NULL,
-  construction_year INT NOT NULL,
+  residential_id INT PRIMARY KEY,
   basement NUMBER(1),
-  garage NUMBER(1),
 
-  CONSTRAINT fk_houses_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
-);
---create table for offices
-CREATE TABLE offices (
-  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
-  announcement_id INT NOT NULL UNIQUE,
-  
-  number_of_floors INT NOT NULL,
-
-  rooms INT NOT NULL,
-  offices INT NOT NULL,
-  bathrooms INT DEFAULT 1 NOT NULL ,
-  construction_year INT NOT NULL,
-  basement NUMBER(1),
-  underground_garage NUMBER(1),
-
-  CONSTRAINT fk_offices_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
+  CONSTRAINT fk_houses_residential_id FOREIGN KEY (residential_id) REFERENCES residentials(building_id)
 );
 /
 --select * from USER_TRIGGERS;
