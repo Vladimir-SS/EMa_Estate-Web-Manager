@@ -13,7 +13,8 @@ DROP TABLE offices CASCADE CONSTRAINTS;
 --create table for accounts
 CREATE TABLE accounts (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
-  name VARCHAR2(64) NOT NULL,
+  last_name VARCHAR2(32) NOT NULL,
+  first_name VARCHAR2(32) NOT NULL,
   phone VARCHAR2(16) NOT NULL,
   email VARCHAR2(64) NOT NULL,
   image BLOB,
@@ -24,6 +25,14 @@ CREATE TABLE accounts (
   created_at DATE,
   updated_at DATE
 );
+/
+CREATE OR REPLACE TRIGGER accounts_trigger
+    BEFORE INSERT ON accounts
+    FOR EACH ROW
+BEGIN
+    :new.created_at := sysdate();
+    :new.updated_at := sysdate();
+END;
 /
 --create table for announcement/property
 CREATE TABLE announcements (
@@ -42,7 +51,7 @@ CREATE TABLE announcements (
   CONSTRAINT fk_announcements_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 /
-CREATE OR REPLACE TRIGGER announcements_inc
+CREATE OR REPLACE TRIGGER announcements_trigger
     BEFORE INSERT ON announcements
     FOR EACH ROW
 BEGIN

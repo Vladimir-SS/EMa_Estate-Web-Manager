@@ -14,11 +14,17 @@
     <form class="content__box__form" action="/register" method="post">
 
         <p>Completează câmpurile de mai jos pentru a te înregistra.</p>
-        <div class="label label--flex input-box">
-            <span class="icon icon-person"></span>
-            <input class="input-box__input" type="text" placeholder="Nume si prenume" name="name" required>
-        </div>
+        <div class="double-input-row">
+            <div class="label label--flex input-box">
+                <span class="icon icon-person"></span>
+                <input class="input-box__input" type="text" placeholder="Nume" name="last_name" required>
+            </div>
 
+            <div class="label label--flex input-box">
+                <span class="icon icon-person"></span>
+                <input class="input-box__input" type="text" placeholder="Prenume" name="first_name" required>
+            </div>
+        </div>
         <div class="label label--flex input-box">
             <span class="icon icon-phone"></span>
             <input class="input-box__input" type="tel" placeholder="Telefon" name="phone" required>

@@ -1,7 +1,6 @@
 <?php
 
 include_once DIR_MODELS . "AccountModel.php";
-include_once DIR_BASE . "database/DatabaseConnection.php";
 
 $response = [];
 

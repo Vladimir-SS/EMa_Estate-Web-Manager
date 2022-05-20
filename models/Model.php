@@ -1,11 +1,13 @@
 <?php
 include_once DIR_BASE . "db_config.php";
 include_once DIR_MODELS . "Column.php";
+include_once DIR_BASE . "database/DatabaseConnection.php";
 
 class Model
 {
     private array $columns;
     protected array $data;
+    protected $querry;
     protected $conn;
 
     protected function __construct(array $columns)
@@ -16,7 +18,12 @@ class Model
 
     public function load(array $data): Model
     {
-        $this->data = $data;
+        $this->data = [];
+        foreach ($data as $key => &$value) {
+            if (isset($this->columns[$key])) {
+                $this->data[$key] = $value;
+            }
+        }
 
         return $this;
     }
