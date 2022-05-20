@@ -18,6 +18,13 @@ class Router
         return $this;
     }
 
+    public function post(String $route, string $page_name): Router
+    {
+        $this->pages["POST"][$route] = $page_name;
+
+        return $this;
+    }
+
     static private function get_path(): String
     {
         $path = $_SERVER['REQUEST_URI'] ?? "/";

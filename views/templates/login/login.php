@@ -27,7 +27,7 @@
         <p> <a class="hlink" href="#">Ați uitat parola?</a></p>
 
         <p>Nu ai cont?
-            <a class="hlink" href="/signUp"> Creează-ți cont</a>
+            <a class="hlink" href="/register"> Creează-ți cont</a>
         </p>
 
         <p class="term-and-cond__paragraph">Prin actiunea de conectare esti de acord cu

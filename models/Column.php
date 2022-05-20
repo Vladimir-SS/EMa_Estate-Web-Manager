@@ -38,11 +38,11 @@ enum Constrain
                 break;
 
             case Constrain::PhoneNumber:
-                if (!preg_match("/^\d{10}$/", $value)) return "exemplu: 0744 123 123";
+                if (!preg_match("/^\d{10}$/", $value)) return "Numarul de telefon nu este valid (Exemplu valid: 0744 123 123)";
                 break;
 
             case Constrain::Email:
-                if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) return "exemplu: popescu.ionel@gmail.com";
+                if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) return "Mail-ul nu este valid (Exemplu valid: popescu.ionel@gmail.com)";
                 break;
         }
 
