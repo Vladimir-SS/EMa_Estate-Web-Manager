@@ -1,5 +1,4 @@
 <?php
-
 enum Constrain
 {
     case MinValue;
@@ -9,6 +8,7 @@ enum Constrain
     case MinLength;
     case PhoneNumber;
     case Email;
+    case EmailOrPhone;
 
     public static function run(Constrain $c, ?string $value, ...$params): ?string
     {
@@ -44,13 +44,20 @@ enum Constrain
             case Constrain::Email:
                 if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) return "Mail-ul nu este valid (Exemplu valid: popescu.ionel@gmail.com)";
                 break;
+
+            case Constrain::EmailOrPhone:
+                if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) {
+                    if (!preg_match("/^\d{10}$/", $value))
+                        return "Mail-ul sau numarul de telefon introdus nu este valid";
+                }
+                break;
         }
 
         return null;
     }
 }
 
-class Column
+class AccountDO
 {
     private array $constraints;
     private int $type;
@@ -71,7 +78,7 @@ class Column
         return $this->type;
     }
 
-    public function add(Constrain $c, ...$params): Column
+    public function add(Constrain $c, ...$params): AccountDO
     {
         array_push($this->constraints, [$c, $params]);
         return $this;
