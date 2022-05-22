@@ -50,7 +50,6 @@ class Model
                 "value" => $value
             ];
         }
-
         return $data;
     }
 }
