@@ -13,6 +13,7 @@ $router
     ->get("/404", "Error")
     ->get("/api/properties", "api/GetProperties")
     ->post("/register", "form/RegisterReq")
+    ->post("/login", "form/LoginReq")
     ->run();
 
 // echo "<pre>";

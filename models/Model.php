@@ -1,14 +1,11 @@
 <?php
 include_once DIR_BASE . "db_config.php";
-include_once DIR_MODELS . "Column.php";
 include_once DIR_BASE . "database/DatabaseConnection.php";
 
 class Model
 {
     private array $columns;
-    protected array $data;
-    protected $querry;
-    protected $conn;
+    public array $data;
 
     protected function __construct(array $columns)
     {
@@ -46,8 +43,6 @@ class Model
     public function getData(): array
     {
         $data = [];
-
-
 
         foreach ($this->data as $key => $value) {
             $data[$key] = [

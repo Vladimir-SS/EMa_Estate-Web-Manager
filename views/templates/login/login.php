@@ -11,12 +11,12 @@
         Conectează-te cu contul tău Facebook
     </button>
 
-    <form class="content__box__form" action="/models/action_login.php" method="post">
+    <form class="content__box__form" action="/login" method="post">
 
         <p>Completeaza campurile de mai jos pentru a te conecta.</p>
         <div class="label label--flex input-box">
             <span class="icon icon-person"></span>
-            <input class="input-box__input" type="text" placeholder="E-mail sau Telefon" name="mail-or-phone" required>
+            <input class="input-box__input" type="text" placeholder="E-mail sau Telefon" name="email_or_phone" required>
         </div>
 
         <div class="label label--flex input-box">

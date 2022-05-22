@@ -1,6 +1,6 @@
 <div class="site-nav">
     <div class="site-nav-container responsive-container">
-        <?php /*include_once "svg/hamburger.svg"*/ ?>
+        <span id="hamburger-icon" onclick="hamburgerClickHandler(this)" class="icon icon-hamburger"></span>
         <ul id="nav-list" class="site-nav-container-list">
             <li><a href="/">Acasă</a></li>
             <li><a href="search">Caută</a></li>

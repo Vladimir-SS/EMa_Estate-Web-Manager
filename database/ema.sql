@@ -9,6 +9,7 @@ DROP TABLE residentials CASCADE CONSTRAINTS;
 DROP TABLE apartments CASCADE CONSTRAINTS;
 DROP TABLE houses CASCADE CONSTRAINTS;
 DROP TABLE offices CASCADE CONSTRAINTS;
+DROP TABLE accountCookies CASCADE CONSTRAINTS;
 
 --create table for accounts
 CREATE TABLE accounts (
@@ -18,7 +19,7 @@ CREATE TABLE accounts (
   phone VARCHAR2(16) NOT NULL,
   email VARCHAR2(64) NOT NULL,
   image BLOB,
-  password_hash VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   password_salt VARCHAR(20) NOT NULL,
   business_name VARCHAR2(32),
   
@@ -34,7 +35,16 @@ BEGIN
     :new.updated_at := sysdate();
 END;
 /
---create table for announcement/property
+--create table for accountCookies - remove cookies monthly
+CREATE TABLE accountCookies (
+  account_id INT NOT NULL,
+  cookie VARCHAR2(64) PRIMARY KEY,
+  expiration DATE,
+
+  CONSTRAINT fk_accountCookies_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+/
+--create table for announcements
 CREATE TABLE announcements (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   account_id INT NOT NULL,

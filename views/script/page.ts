@@ -6,3 +6,7 @@ const createIcon = (name: string) => {
 
     return iconElement;
 }
+
+const hamburgerClickHandler = () => {
+    document.getElementById("nav-list").classList.toggle("show");
+}
