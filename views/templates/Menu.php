@@ -5,8 +5,8 @@
             <li><a href="/">Acasă</a></li>
             <li><a href="search">Caută</a></li>
             <li><a href="new">Adaugă anunț nou</a></li>
-            <li class="right"><a href="login">Conectează-te</a></li>
-            <li class="sign-up"><a href="register">Creează cont</a></li>
+            <li id="login" class="right"><a href="login">Conectează-te</a></li>
+            <li id="register" class="sign-up"><a href="register">Creează cont</a></li>
         </ul>
     </div>
 </div>

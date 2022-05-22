@@ -12,6 +12,8 @@ $router
     ->get("/fonts", "Fonts")
     ->get("/404", "Error")
     ->get("/api/properties", "api/GetProperties")
+    ->get("/new", "New")
+    ->post("/new", "form/NewReq")
     ->post("/register", "form/RegisterReq")
     ->post("/login", "form/LoginReq")
     ->run();
