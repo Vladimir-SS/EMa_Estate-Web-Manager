@@ -12,8 +12,8 @@ $router
     ->get("/fonts", "Fonts")
     ->get("/404", "Error")
     ->get("/api/properties", "api/GetProperties")
-    ->get("/create-ad", "CreateAdd")
-    ->post("/create-ad", "form/CreateAddReq")
+    ->get("/create-ad", "CreateAd")
+    ->post("/create-ad", "form/CreateAdReq")
     ->post("/register", "form/RegisterReq")
     ->post("/login", "form/LoginReq")
     ->run();
