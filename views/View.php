@@ -21,6 +21,14 @@ class View
         return ob_get_clean();
     }
 
+    public static function render_content(String $file_name): HtmlContainer
+    {
+        return HtmlContainer::CustomTag("", "")
+            ->setPath(DIR_TEMPLATES)
+            ->setExtension("php")
+            ->add($file_name);
+    }
+
     public static function render_style(String $file_name): HtmlContainer
     {
         return HtmlContainer::HtmlElement("style")

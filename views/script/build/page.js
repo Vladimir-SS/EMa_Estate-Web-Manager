@@ -42,7 +42,7 @@ const loggedIn = () => {
         let liProfile = createLi("Profil", "/profile", "right");
         var ul = document.getElementById("nav-list");
         ul.appendChild(liProfile);
-        let liLogout = createLi("Deconectează-te", "/login", "right");
+        let liLogout = createLi("Deconectează-te", "/login", "");
         liLogout.setAttribute("onclick", "logout()");
         ul.appendChild(liLogout);
     }

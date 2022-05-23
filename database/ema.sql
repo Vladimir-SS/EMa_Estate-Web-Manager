@@ -1,3 +1,5 @@
+-- add statistici dupa datele din anunturi
+
 -- SELECT table_name FROM user_tables;
 -- drop old tables:
 DROP TABLE accounts CASCADE CONSTRAINTS;
