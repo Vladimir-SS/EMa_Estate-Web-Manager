@@ -11,8 +11,8 @@ if (!isset($_COOKIE['user'])) {
 } else {
     echo View::render_template("Page", [
         "title" => "Anunt",
-        "content" => View::render_template("New/new"),
-        "styles" => View::render_style("form")->add("icon")->add("login-register"),
-        "scripts" => ""
+        "content" => View::render_template("create-ad/create-ad"),
+        "styles" => View::render_style("form")->add("icon")->add("create-ad"),
+        "scripts" => View::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
     ]);
 }

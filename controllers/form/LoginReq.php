@@ -24,7 +24,10 @@ if ($id != false) {
     $salt = $data_mapper->getIdSalt($id);
     $passwordSP = $data_mapper->getPasswordById($id);
     if ($services->password_check($model->data["password"], $salt, $passwordSP)) {
-        setcookie("user", "loggedIn", time() + (86400 * 30), "/");
+        $cookie_value = random_bytes(60);
+        //$data_mapper->insertCookieId($id, $cookie_value, 30); // TODO
+        setcookie("user", $cookie_value, time() + (86400 * 30), "/");
+        // insert in database userid,cookie_value,30  
         header("Location: /home");
         die();
     }

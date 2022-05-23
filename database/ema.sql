@@ -9,7 +9,17 @@ DROP TABLE residentials CASCADE CONSTRAINTS;
 DROP TABLE apartments CASCADE CONSTRAINTS;
 DROP TABLE houses CASCADE CONSTRAINTS;
 DROP TABLE offices CASCADE CONSTRAINTS;
-DROP TABLE accountCookies CASCADE CONSTRAINTS;
+DROP TABLE account_cookies CASCADE CONSTRAINTS;
+-- drop old views:
+--DROP VIEW announcements_view;
+-- drop old functions
+DROP FUNCTION isExpired;
+
+DROP DIRECTORY AVATARDIR;
+
+--GRANT CREATE ANY DIRECTORY TO TW;
+--GRANT READ,WRITE ON DIRECTORY AVATARDIR TO TW;
+--GRANT DROP ANY DIRECTORY TO TW;
 
 --create table for accounts
 CREATE TABLE accounts (
@@ -26,23 +36,69 @@ CREATE TABLE accounts (
   created_at DATE,
   updated_at DATE
 );
+CREATE DIRECTORY AVATARDIR AS 'D:\xampp\htdocs\Proiect\EMa_Estate-Web-Manager';
 /
 CREATE OR REPLACE TRIGGER accounts_trigger
     BEFORE INSERT ON accounts
     FOR EACH ROW
+DECLARE
+  v_dir    VARCHAR2(10) := 'AVATARDIR';
+  v_file   VARCHAR2(20) := 'avatar.png';
+  v_bfile  BFILE;
+  v_blob   BLOB;
+
+  v_dest_offset INTEGER := 1;
+  v_src_offset  INTEGER := 1;
 BEGIN
+    v_bfile := BFILENAME(v_dir, v_file);
+    DBMS_LOB.fileopen(v_bfile, DBMS_LOB.file_readonly);
+    dbms_lob.createtemporary(v_blob, true);
+    DBMS_LOB.loadblobfromfile (
+    dest_lob    => v_blob,
+    src_bfile   => v_bfile,
+    amount      => DBMS_LOB.lobmaxsize,
+    dest_offset => v_dest_offset,
+    src_offset  => v_src_offset);
+
+    DBMS_LOB.fileclose(v_bfile);
+    :new.image := v_blob;
     :new.created_at := sysdate();
     :new.updated_at := sysdate();
 END;
 /
---create table for accountCookies - remove cookies monthly
-CREATE TABLE accountCookies (
+--create table for account_cookies
+CREATE TABLE account_cookies (
   account_id INT NOT NULL,
   cookie VARCHAR2(64) PRIMARY KEY,
   expiration DATE,
 
-  CONSTRAINT fk_accountCookies_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
+  CONSTRAINT fk_account_cookies_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
+/
+CREATE OR REPLACE FUNCTION isExpired ( p_expiration IN DATE)
+RETURN NUMBER AS
+   v_rezultat NUMBER := 0;
+BEGIN
+    v_rezultat := p_expiration - sysdate;
+    IF ( v_rezultat < 0) THEN
+        return 1;
+    ELSE
+        return 0;
+    END IF;
+END;
+/
+CREATE OR REPLACE TRIGGER account_cookies_trigger
+    BEFORE INSERT ON account_cookies
+    FOR EACH ROW
+DECLARE
+    v_count NUMBER;
+BEGIN
+    SELECT num_rows INTO v_count FROM USER_TABLES WHERE TABLE_NAME = 'account_cookies';
+    
+    IF ( v_count > 500000) THEN
+        DELETE FROM account_cookies WHERE isExpired(expiration) = 1;
+    END IF;
+END;
 /
 --create table for announcements
 CREATE TABLE announcements (
@@ -129,4 +185,5 @@ CREATE TABLE houses (
 /
 --select * from USER_TRIGGERS;
 --select * from accounts;
+--select * from account_cookies;
 --desc accounts;

@@ -88,6 +88,24 @@ class AccountDM
         return $row;
     }
 
+    public function insertCookieId($id, $cookie, $expiration)
+    {
+        DatabaseConnection::getConnection();
+
+        $sql = "INSERT INTO account_cookies (account_id, cookie, expiration) VALUES ($id,'$cookie',sysdate+$expiration);";
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            echo "<pre>";
+            var_dump($errors);
+            echo "</pre>";
+        }
+        oci_free_statement($stid);
+    }
+
     /**
      * Saves account data in the database
      *
@@ -111,7 +129,6 @@ class AccountDM
         }
 
         $sql = "INSERT INTO accounts (" . implode(",", $columns) . ") VALUES (" . implode(",", $tags) . ")";
-        echo $sql;
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
 
         foreach ($data as $key => &$value) {
