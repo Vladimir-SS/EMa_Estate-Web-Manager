@@ -7,7 +7,7 @@ if (isset($file_name)) {
 }
 
 if (isset($_COOKIE['user'])) {
-    if (is_jwt_valid($_COOKIE['user']) == TRUE) {
+    if (is_jwt_valid($_COOKIE['user']) == true) {
         header('Location: /home');
         die();
     }

@@ -40,8 +40,15 @@ function is_jwt_valid($jwt, $key = 'secret')
     $is_signature_valid = ($base64_url_signature === $signature_provided);
 
     if ($is_token_expired || !$is_signature_valid) {
-        return FALSE;
+        return false;
     } else {
-        return TRUE;
+        return true;
     }
+}
+
+function get_jwt_payload($jwt, $key = 'secret'): string
+{
+    $tokenParts = explode('.', $jwt);
+    $payload = base64_decode($tokenParts[1]);
+    return $payload;
 }

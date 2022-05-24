@@ -1,25 +1,19 @@
 <?php
 include_once DIR_MODELS . "Model.php";
-include_once DIR_MODELS . "account/AccountDO.php";
+include_once DIR_MODELS . "Announcement/AnnouncementDO.php";
 include_once DIR_BASE . "database/DatabaseConnection.php";
 
-class AccountDM
+class AnnouncementDM
 {
 
     public function __construct()
     {
     }
 
-    /**
-     * Finds id by email or phone
-     *
-     * @param  mixed $email_or_phone
-     * @return int|bool $id | false
-     */
-    public function findIdByEmailOrPhone(string $email_or_phone): int|bool
+    public function findIdByAccountIdAndTitle($account_id, $title): int
     {
         DatabaseConnection::getConnection();
-        $sql = "SELECT id FROM accounts WHERE email LIKE '$email_or_phone' OR phone LIKE '$email_or_phone'";
+        $sql = "SELECT id FROM announcements WHERE account_id = $account_id AND title LIKE '$title'";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -40,13 +34,24 @@ class AccountDM
         return $row;
     }
 
-    public function getIdSalt($id): string|bool
+    public function addImage($announcement_id, $blob, $name, $type)
     {
         DatabaseConnection::getConnection();
-        $sql = "SELECT password_salt FROM accounts WHERE id=$id";
+        $sql = "INSERT INTO images (announcement_id, name, type, image) VALUES ($announcement_id, '$name','$type',EMPTY_BLOB()) RETURNING image INTO :image";
+        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
+        $newlob = oci_new_descriptor(DatabaseConnection::$conn, OCI_D_LOB);
+        oci_bind_by_name($stmt, ":image", $newlob, -1, OCI_B_BLOB);
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        oci_execute($stmt, OCI_NO_AUTO_COMMIT);
+
+        // and just to make it more clear
+        if ($newlob->save($blob)) {
+            oci_commit(DatabaseConnection::$conn);
+        } else {
+            oci_rollback(DatabaseConnection::$conn);
+        }
+
+        $newlob->free();
 
         $errors = oci_error(DatabaseConnection::$conn);
 
@@ -55,46 +60,10 @@ class AccountDM
             var_dump($errors);
             echo "</pre>";
         }
-
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
-        }
-        oci_free_statement($stid);
-        // DatabaseConnection::close();
-        return $row;
+        oci_free_statement($stmt);
     }
 
-    public function getPasswordById($id): string|bool
-    {
-        DatabaseConnection::getConnection();
-        $sql = "SELECT password FROM accounts WHERE id=$id";
-
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
-        }
-
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
-        }
-        oci_free_statement($stid);
-        // DatabaseConnection::close();
-        return $row;
-    }
-
-    /**
-     * Saves account data in the database
-     *
-     * @param  mixed $data
-     * @return void
-     */
-    public function registerSave(array &$data)
+    public function createAnnouncement(array &$data)
     {
         DatabaseConnection::getConnection();
 
@@ -110,7 +79,7 @@ class AccountDM
             array_push($tags, $value["tag"]);
         }
 
-        $sql = "INSERT INTO accounts (" . implode(",", $columns) . ") VALUES (" . implode(",", $tags) . ")";
+        $sql = "INSERT INTO announcements (" . implode(",", $columns) . ") VALUES (" . implode(",", $tags) . ")";
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
 
         foreach ($data as $key => &$value) {

@@ -7,7 +7,7 @@ if (isset($file_name)) {
 }
 
 if (isset($_COOKIE['user'])) {
-    if (is_jwt_valid($_COOKIE['user']) == TRUE) {
+    if (is_jwt_valid($_COOKIE['user']) == true) {
         echo View::render_template("Page", [
             "title" => "Anunț",
             "content" => View::render_content("create-ad/create-ad"),

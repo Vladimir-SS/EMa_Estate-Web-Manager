@@ -26,10 +26,10 @@ class RegisterModel extends Model
                     ->add(Constrain::Required)
                     ->add(Constrain::Email)
                     ->add(Constrain::MaxLength, 64),
-                "password" => (new AccountDO)
+                "password" => (new AccountDO())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 8),
-                "password_salt" => (new AccountDO)
+                "password_salt" => (new AccountDO())
             ]
         );
     }

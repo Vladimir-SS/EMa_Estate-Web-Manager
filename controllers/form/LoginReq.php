@@ -16,7 +16,7 @@ if ($id != false) {
     $passwordSP = $data_mapper->getPasswordById($id);
     if ($services->password_check($model->data["password"], $salt, $passwordSP)) {
         $headers = array('alg' => 'HS256', 'typ' => 'JWT');
-        $payload = array('sub' => '1234567890', 'email_or_phone' => $_POST['email_or_phone'], 'admin' => false, 'exp' => (time() + (86400 * 30)));
+        $payload = array('id' => $id, 'email_or_phone' => $_POST['email_or_phone'], 'admin' => false, 'exp' => (time() + (86400 * 30)));
 
         $jwt = generate_jwt($headers, $payload);
 
@@ -28,4 +28,7 @@ if ($id != false) {
         header("Location: /login");
         die();
     }
+} else {
+    header("Location: /login");
+    die();
 }

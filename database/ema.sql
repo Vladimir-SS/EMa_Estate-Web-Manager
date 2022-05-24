@@ -1,5 +1,3 @@
--- add statistici dupa datele din anunturi
-
 -- SELECT table_name FROM user_tables;
 -- drop old tables:
 DROP TABLE accounts CASCADE CONSTRAINTS;
@@ -11,12 +9,8 @@ DROP TABLE residentials CASCADE CONSTRAINTS;
 DROP TABLE apartments CASCADE CONSTRAINTS;
 DROP TABLE houses CASCADE CONSTRAINTS;
 DROP TABLE offices CASCADE CONSTRAINTS;
-DROP TABLE account_cookies CASCADE CONSTRAINTS;
 -- drop old views:
---DROP VIEW announcements_view;
--- drop old functions
-DROP FUNCTION isExpired;
-
+--DROP VIEW announcements_view
 DROP DIRECTORY AVATARDIR;
 
 --GRANT CREATE ANY DIRECTORY TO TW;
@@ -28,8 +22,8 @@ CREATE TABLE accounts (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   last_name VARCHAR2(32) NOT NULL,
   first_name VARCHAR2(32) NOT NULL,
-  phone VARCHAR2(16) NOT NULL,
-  email VARCHAR2(64) NOT NULL,
+  phone VARCHAR2(16) NOT NULL UNIQUE,
+  email VARCHAR2(64) NOT NULL UNIQUE,
   image BLOB,
   password VARCHAR(255) NOT NULL,
   password_salt VARCHAR(20) NOT NULL,
@@ -68,40 +62,6 @@ BEGIN
     :new.updated_at := sysdate();
 END;
 /
---create table for account_cookies
-CREATE TABLE account_cookies (
-  account_id INT NOT NULL,
-  cookie VARCHAR2(64) PRIMARY KEY,
-  expiration DATE,
-
-  CONSTRAINT fk_account_cookies_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
-);
-/
-CREATE OR REPLACE FUNCTION isExpired ( p_expiration IN DATE)
-RETURN NUMBER AS
-   v_rezultat NUMBER := 0;
-BEGIN
-    v_rezultat := p_expiration - sysdate;
-    IF ( v_rezultat < 0) THEN
-        return 1;
-    ELSE
-        return 0;
-    END IF;
-END;
-/
-CREATE OR REPLACE TRIGGER account_cookies_trigger
-    BEFORE INSERT ON account_cookies
-    FOR EACH ROW
-DECLARE
-    v_count NUMBER;
-BEGIN
-    SELECT num_rows INTO v_count FROM USER_TABLES WHERE TABLE_NAME = 'account_cookies';
-    
-    IF ( v_count > 500000) THEN
-        DELETE FROM account_cookies WHERE isExpired(expiration) = 1;
-    END IF;
-END;
-/
 --create table for announcements
 CREATE TABLE announcements (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
@@ -119,6 +79,9 @@ CREATE TABLE announcements (
   CONSTRAINT fk_announcements_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 /
+ALTER TABLE announcements
+ADD CONSTRAINT announcements_unique_account_id_title UNIQUE (account_id, title);
+/
 CREATE OR REPLACE TRIGGER announcements_trigger
     BEFORE INSERT ON announcements
     FOR EACH ROW
@@ -131,6 +94,8 @@ END;
 CREATE TABLE images (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   announcement_id INT NOT NULL,
+  name VARCHAR2(32) NOT NULL,
+  type VARCHAR2(32) NOT NULL,
   image BLOB NOT NULL,
 
   CONSTRAINT fk_images_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
@@ -187,5 +152,6 @@ CREATE TABLE houses (
 /
 --select * from USER_TRIGGERS;
 --select * from accounts;
---select * from account_cookies;
+--select * from announcements;
+--select * from images;
 --desc accounts;

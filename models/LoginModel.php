@@ -15,7 +15,7 @@ class LoginModel extends Model
                     ->add(Constrain::EmailOrPhone)
                     ->add(Constrain::MinLength, 4)
                     ->add(Constrain::MaxLength, 64),
-                "password" => (new AccountDO)
+                "password" => (new AccountDO())
                     ->add(Constrain::Required),
             ]
         );
