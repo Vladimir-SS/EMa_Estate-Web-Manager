@@ -29,7 +29,7 @@ FilterOption.createLabelElement = () => {
 };
 FilterOption.createContentBoxElement = () => {
     let contentBoxElement = document.createElement("div");
-    contentBoxElement.className = "content-box";
+    contentBoxElement.className = "content__box";
     return contentBoxElement;
 };
 class DropdownFilterOption extends FilterOption {

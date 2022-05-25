@@ -1,4 +1,4 @@
-<div class="content-box content__box--form">
+<div class="content__box content__box--form">
 
     <form class="content__box__form" action="/create-ad" method="post" enctype="multipart/form-data">
         <h2>Adaugă titlu anunț*</h2>

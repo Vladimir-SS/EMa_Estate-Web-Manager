@@ -1,4 +1,4 @@
-<div class="content-box content__box--form">
+<div class="content__box content__box--form">
 
     <h2>Conectează-te</h2>
     <button class="label label--flex label--social label--social--google" type="button" onclick>

@@ -11,7 +11,7 @@ include DIR_VIEWS . "FilterOption/$option_type.php";
         ?>
     </div>
 
-    <ul class="content-box">
+    <ul class="content__box">
         <?php
         echo $option_content;
         ?>

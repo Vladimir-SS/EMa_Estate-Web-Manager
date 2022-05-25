@@ -15,7 +15,7 @@ class FilterOption {
 
     private static createContentBoxElement = () => {
         let contentBoxElement = document.createElement("div");
-        contentBoxElement.className = "content-box";
+        contentBoxElement.className = "content__box";
 
         return contentBoxElement;
     }

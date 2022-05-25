@@ -47,7 +47,7 @@ $unit: $unit/2
     position: relative
     //z-index: 4
 
-    > .content-box
+    > .content__box
         box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px
         padding: $unit/2 $border-radius
         display: none
@@ -64,11 +64,11 @@ $unit: $unit/2
 
     &.show
         z-index: 3
-        > .content-box
+        > .content__box
             display: block
 
     &--dropdown
-        > .content-box
+        > .content__box
             padding: 0
 
             > ul > li

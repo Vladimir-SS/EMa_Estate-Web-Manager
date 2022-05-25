@@ -41,8 +41,6 @@ if (empty($result)) {
                     $blob = addslashes(file_get_contents($_FILES["images"]["tmp_name"][$key]));
                     $data_mapper->addImage($id, $blob, $name, $type);
                 }
-            } else {
-                echo 'Error during file upload ' . $error;
             }
         }
     }
