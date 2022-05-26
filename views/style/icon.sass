@@ -85,3 +85,74 @@ $unit: $unit/2
 
         &.show> .label > .icon
             transform: scaleY(-1)
+
+    &--submit
+        grid-column: span 2
+        width: 100%
+
+        > .label--flex > .icon
+            order: -1
+
+    &--slider
+        --unit: " zzz"
+
+        > .label--important > span:first-child::after
+            content: var(--unit)
+
+        > .content-box
+            min-width: 300px
+
+            > .show-container
+                display: flex
+                justify-content: center
+                margin-top: $unit/2
+
+                &::before
+                    content: "-"
+                    order: 2
+                    padding: 0 $unit
+
+                > p::after
+                    content: var(--unit)
+
+                > p:last-child
+                    order: 3
+
+            > .slider-container
+                grid-column: span 2
+                position: relative
+                height: 35px
+
+                > input, &::before, .slider-container__track
+                    width: 100%
+                    position: absolute
+                    outline: none
+                    margin: auto
+                    top: 0
+                    bottom: 0
+
+                > .slider-container__track
+                    background: var(--interactive-accent)
+                    height: 4px
+                    border-radius: 5px
+
+                &::before
+                    background: var(--background-secondary-alt)
+                    content: ' '
+                    height: 4px
+                    border-radius: 5px
+
+                > input
+                    appearance: none
+                    pointer-events: none
+
+                    &::-webkit-slider-thumb
+                        border: none
+                        height: $unit
+                        width: $unit
+                        background: var(--interactive-accent)
+                        border-radius: 100%
+                        pointer-events: all
+                        cursor: pointer
+                        border: none
+                        appearance: none
