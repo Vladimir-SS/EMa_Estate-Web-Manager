@@ -219,3 +219,102 @@
   -webkit-transform: scaleY(-1);
           transform: scaleY(-1);
 }
+
+.filter-option--submit {
+  grid-column: span 2;
+  width: 100%;
+}
+
+.filter-option--submit > .label--flex > .icon {
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
+}
+
+.filter-option--slider {
+  --unit: " zzz";
+}
+
+.filter-option--slider > .label--important > span:first-child::after {
+  content: var(--unit);
+}
+
+.filter-option--slider > .content-box {
+  min-width: 300px;
+}
+
+.filter-option--slider > .content-box > .show-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 10px;
+}
+
+.filter-option--slider > .content-box > .show-container::before {
+  content: "-";
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+  padding: 0 20px;
+}
+
+.filter-option--slider > .content-box > .show-container > p::after {
+  content: var(--unit);
+}
+
+.filter-option--slider > .content-box > .show-container > p:last-child {
+  -webkit-box-ordinal-group: 4;
+      -ms-flex-order: 3;
+          order: 3;
+}
+
+.filter-option--slider > .content-box > .slider-container {
+  grid-column: span 2;
+  position: relative;
+  height: 35px;
+}
+
+.filter-option--slider > .content-box > .slider-container > input, .filter-option--slider > .content-box > .slider-container::before, .filter-option--slider > .content-box > .slider-container .slider-container__track {
+  width: 100%;
+  position: absolute;
+  outline: none;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.filter-option--slider > .content-box > .slider-container > .slider-container__track {
+  background: var(--interactive-accent);
+  height: 4px;
+  border-radius: 5px;
+}
+
+.filter-option--slider > .content-box > .slider-container::before {
+  background: var(--background-secondary-alt);
+  content: ' ';
+  height: 4px;
+  border-radius: 5px;
+}
+
+.filter-option--slider > .content-box > .slider-container > input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  pointer-events: none;
+}
+
+.filter-option--slider > .content-box > .slider-container > input::-webkit-slider-thumb {
+  border: none;
+  height: 20px;
+  width: 20px;
+  background: var(--interactive-accent);
+  border-radius: 100%;
+  pointer-events: all;
+  cursor: pointer;
+  border: none;
+  -webkit-appearance: none;
+          appearance: none;
+}
