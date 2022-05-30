@@ -46,7 +46,7 @@ function is_jwt_valid($jwt, $key = 'secret')
     }
 }
 
-function get_jwt_payload($jwt, $key = 'secret'): string
+function get_jwt_payload($jwt): string
 {
     $tokenParts = explode('.', $jwt);
     $payload = base64_decode($tokenParts[1]);

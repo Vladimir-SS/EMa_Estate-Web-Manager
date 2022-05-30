@@ -36,7 +36,7 @@ class AccountDM
             $row = oci_result($stid, 1);
         }
         oci_free_statement($stid);
-        // DatabaseConnection::close();
+        DatabaseConnection::close();
         return $row;
     }
 
@@ -60,7 +60,7 @@ class AccountDM
             $row = oci_result($stid, 1);
         }
         oci_free_statement($stid);
-        // DatabaseConnection::close();
+        DatabaseConnection::close();
         return $row;
     }
 
@@ -84,7 +84,7 @@ class AccountDM
             $row = oci_result($stid, 1);
         }
         oci_free_statement($stid);
-        // DatabaseConnection::close();
+        DatabaseConnection::close();
         return $row;
     }
 
@@ -126,5 +126,6 @@ class AccountDM
             echo "</pre>";
         }
         oci_free_statement($stid);
+        DatabaseConnection::close();
     }
 }

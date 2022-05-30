@@ -30,7 +30,7 @@ class AnnouncementDM
             $row = oci_result($stid, 1);
         }
         oci_free_statement($stid);
-        // DatabaseConnection::close();
+        DatabaseConnection::close();
         return $row;
     }
 
@@ -61,6 +61,7 @@ class AnnouncementDM
             echo "</pre>";
         }
         oci_free_statement($stmt);
+        DatabaseConnection::close();
     }
 
     public function createAnnouncement(array &$data)
@@ -95,5 +96,6 @@ class AnnouncementDM
             echo "</pre>";
         }
         oci_free_statement($stid);
+        DatabaseConnection::close();
     }
 }

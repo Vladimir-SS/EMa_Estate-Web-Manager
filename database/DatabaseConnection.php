@@ -74,6 +74,8 @@ class DatabaseConnection
 
     public static function close(): bool
     {
-        return !self::$conn ? true : oci_close(self::$conn);
+        $closed = !self::$conn ? true : oci_close(self::$conn);
+        self::$conn = null;
+        return $closed;
     }
 }
