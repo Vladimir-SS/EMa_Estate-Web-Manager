@@ -1,6 +1,7 @@
 <?php
 include_once DIR_BASE . "db_config.php";
 include_once DIR_BASE . "database/DatabaseConnection.php";
+include_once DIR_MODELS . "Constraint.php";
 
 class Model
 {
@@ -40,7 +41,7 @@ class Model
         return $rv;
     }
 
-    public function getData(): array
+    public function get_data(): array
     {
         $data = [];
 

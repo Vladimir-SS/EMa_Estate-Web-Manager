@@ -1,7 +1,5 @@
 <?php
 include_once DIR_MODELS . "Model.php";
-include_once DIR_MODELS . "Announcement/AnnouncementDO.php";
-include_once DIR_BASE . "database/DatabaseConnection.php";
 
 class AnnouncementDM
 {
@@ -10,9 +8,9 @@ class AnnouncementDM
     {
     }
 
-    public function findIdByAccountIdAndTitle($account_id, $title): int
+    public function find_id_by_account_id_and_title($account_id, $title): int
     {
-        DatabaseConnection::getConnection();
+        DatabaseConnection::get_connection();
         $sql = "SELECT id FROM announcements WHERE account_id = $account_id AND title LIKE '$title'";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
@@ -34,9 +32,9 @@ class AnnouncementDM
         return $row;
     }
 
-    public function addImage($announcement_id, $blob, $name, $type)
+    public function add_image($announcement_id, $blob, $name, $type)
     {
-        DatabaseConnection::getConnection();
+        DatabaseConnection::get_connection();
         $sql = "INSERT INTO images (announcement_id, name, type, image) VALUES ($announcement_id, '$name','$type',EMPTY_BLOB()) RETURNING image INTO :image";
         $stmt = oci_parse(DatabaseConnection::$conn, $sql);
         $newlob = oci_new_descriptor(DatabaseConnection::$conn, OCI_D_LOB);
@@ -64,9 +62,9 @@ class AnnouncementDM
         DatabaseConnection::close();
     }
 
-    public function createAnnouncement(array &$data)
+    public function create_announcement(array &$data)
     {
-        DatabaseConnection::getConnection();
+        DatabaseConnection::get_connection();
 
         foreach ($data as $key => &$value) {
             $value["tag"] = ":$key" . "_bv";

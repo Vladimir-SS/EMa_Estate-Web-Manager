@@ -1,21 +1,25 @@
 <?php
 include_once "file_config.php";
-include_once DIR_ROUTER . "Router.php";
+include_once DIR_CORE . "Router.php";
+include_once DIR_CONTROLLERS . "PageController.php";
+include_once DIR_CONTROLLERS . "AuthController.php";
+include_once DIR_CONTROLLERS . "CreateAdController.php";
 
-$router = new Router();
+
+$router = new Router(new Request(), new Response());
 
 $router
-    ->get("/", "Home")
-    ->get("/home", "Home")
-    ->get("/login", "Login")
-    ->get("/register", "Register")
+    ->get("/", [PageController::class, 'handle_home'])
+    ->get("/home", [PageController::class, 'handle_home'])
     ->get("/fonts", "Fonts")
     ->get("/404", "Error")
     ->get("/api/properties", "api/GetProperties")
-    ->get("/create-ad", "CreateAd")
-    ->post("/create-ad", "form/CreateAdReq")
-    ->post("/register", "form/RegisterReq")
-    ->post("/login", "form/LoginReq")
+    ->get("/create-ad", [CreateAdController::class, 'create_ad'])
+    ->post("/create-ad", [CreateAdController::class, 'create_ad'])
+    ->get("/register", [AuthController::class, 'register'])
+    ->get("/login", [AuthController::class, 'login'])
+    ->post("/register", [AuthController::class, 'register'])
+    ->post("/login", [AuthController::class, 'login'])
     ->run();
 
 // echo "<pre>";

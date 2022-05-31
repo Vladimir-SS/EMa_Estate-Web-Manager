@@ -1,7 +1,5 @@
 <?php
 include_once DIR_MODELS . "Model.php";
-include_once DIR_MODELS . "account/AccountDO.php";
-include_once DIR_BASE . "database/DatabaseConnection.php";
 
 class AccountDM
 {
@@ -16,9 +14,9 @@ class AccountDM
      * @param  mixed $email_or_phone
      * @return int|bool $id | false
      */
-    public function findIdByEmailOrPhone(string $email_or_phone): int|bool
+    public function find_id_by_email_or_phone(string $email_or_phone): int|bool
     {
-        DatabaseConnection::getConnection();
+        DatabaseConnection::get_connection();
         $sql = "SELECT id FROM accounts WHERE email LIKE '$email_or_phone' OR phone LIKE '$email_or_phone'";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
@@ -42,7 +40,7 @@ class AccountDM
 
     public function getIdSalt($id): string|bool
     {
-        DatabaseConnection::getConnection();
+        DatabaseConnection::get_connection();
         $sql = "SELECT password_salt FROM accounts WHERE id=$id";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
@@ -66,7 +64,7 @@ class AccountDM
 
     public function getPasswordById($id): string|bool
     {
-        DatabaseConnection::getConnection();
+        DatabaseConnection::get_connection();
         $sql = "SELECT password FROM accounts WHERE id=$id";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
@@ -94,9 +92,9 @@ class AccountDM
      * @param  mixed $data
      * @return void
      */
-    public function registerSave(array &$data)
+    public function register_save(array $data)
     {
-        DatabaseConnection::getConnection();
+        DatabaseConnection::get_connection();
 
         foreach ($data as $key => &$value) {
             $value["tag"] = ":$key" . "_bv";

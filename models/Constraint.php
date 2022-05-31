@@ -6,6 +6,9 @@ enum Constrain
     case Required;
     case MaxLength;
     case MinLength;
+    case PhoneNumber;
+    case Email;
+    case EmailOrPhone;
     case SafeChars;
 
     public static function run(Constrain $c, ?string $value, ...$params): ?string
@@ -35,6 +38,21 @@ enum Constrain
                 if (strlen($value) > $params[0]) return "dimensiunea maximă este $params[0]";
                 break;
 
+            case Constrain::PhoneNumber:
+                if (!preg_match("/^\d{10}$/", $value)) return "Numarul de telefon nu este valid (Exemplu valid: 0744 123 123)";
+                break;
+
+            case Constrain::Email:
+                if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) return "Mail-ul nu este valid (Exemplu valid: popescu.ionel@gmail.com)";
+                break;
+
+            case Constrain::EmailOrPhone:
+                if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) {
+                    if (!preg_match("/^\d{10}$/", $value))
+                        return "Mail-ul sau numarul de telefon introdus nu este valid";
+                }
+                break;
+
             case Constrain::SafeChars:
                 if (!preg_match("/^[^'*%]*$/", $value)) return "Datele introduse nu pot contine caracterele ', * sau %";
                 break;
@@ -44,7 +62,7 @@ enum Constrain
     }
 }
 
-class AnnouncementDO
+class Constraint
 {
     private array $constraints;
     private int $type;
@@ -65,7 +83,7 @@ class AnnouncementDO
         return $this->type;
     }
 
-    public function add(Constrain $c, ...$params): AnnouncementDO
+    public function add(Constrain $c, ...$params): Constraint
     {
         array_push($this->constraints, [$c, $params]);
         return $this;

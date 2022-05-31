@@ -9,7 +9,7 @@ class DatabaseConnection
     {
     }
 
-    public static function getConnection()
+    public static function get_connection()
     {
         if (is_null(DatabaseConnection::$conn)) {
             DatabaseConnection::$conn = oci_connect(DB_USER, DB_PASS);
