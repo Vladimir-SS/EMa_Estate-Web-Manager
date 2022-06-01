@@ -27,7 +27,7 @@ class PageController extends Controller
         }
 
         if (isset($_COOKIE['user'])) {
-            if (is_jwt_valid($_COOKIE['user']) == true) {
+            if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
                 echo View::render_template("Page", [
                     "title" => "Anunț",
                     "content" => View::render_content("create-ad/create-ad"),

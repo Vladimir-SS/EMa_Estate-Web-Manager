@@ -7,9 +7,11 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        $model = new RegisterModel();
+
         if ($request->is_post()) {
 
-            $model = new RegisterModel();
+
             $services = new AccountService();
 
             if (
@@ -17,29 +19,30 @@ class AuthController extends Controller
                 && isset($request->get_body()["confirm-password"])
                 && $request->get_body()["password"] !== $request->get_body()["confirm-password"]
             ) {
-                //die(json_encode(["errors" => "Parolele nu coincid!"]));
                 $model->errors['confirm-password'] = "Parolele nu coincid!";
             }
 
             $model->load($request->get_body());
             $errors = $model->validate();
 
-            // echo "<pre>";
-            // var_dump($model->errors);
-            // echo "</pre>";
-            // echo $errors['last_name'];
-
-            $model->data["password_salt"] = $services->generate_salt();
-            $model->data["password"] = $services->generate_hash($services->add_salt_and_pepper($request->get_body()["password"], $model->data["password_salt"]));
-
             if ($errors) {
                 $data_mapper = new AccountDM();
-                $data_mapper->register_save($model->get_data());
+
+                $data = $model->get_data();
+                unset($data["confirm-password"]);
+                $data["password_salt"]['type'] = 1;
+                $data["password_salt"]['value'] = $services->generate_salt();
+                $data["password"]['value'] = $services->generate_hash($services->add_salt_and_pepper($data["password"]['value'], $data["password_salt"]['value']));
+                $data_mapper->register_save($data);
                 header("Location: /login");
                 die();
             } else {
-                header("Location: /register");
-                die();
+                echo View::render_template("Page", [
+                    "title" => "Register",
+                    "content" => View::render_template("register/register", ['model' => $model]),
+                    "styles" => View::render_style("form")->add("icon")->add("login-register"),
+                    "scripts" => View::render_script("form")
+                ]);
             }
         } else {
             if (isset($file_name)) {
@@ -47,14 +50,14 @@ class AuthController extends Controller
             }
 
             if (isset($_COOKIE['user'])) {
-                if (is_jwt_valid($_COOKIE['user']) == true) {
+                if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
                     header('Location: /home');
                     die();
                 }
             } else {
                 echo View::render_template("Page", [
                     "title" => "Register",
-                    "content" => View::render_content("register/register"),
+                    "content" => View::render_template("register/register", ['model' => $model]),
                     "styles" => View::render_style("form")->add("icon")->add("login-register"),
                     "scripts" => View::render_script("form")
                 ]);
@@ -64,9 +67,9 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $model = new LoginModel();
         if ($request->is_post()) {
 
-            $model = new LoginModel();
             $services = new AccountService();
             $model->load($request->get_body());
             $result = $model->validate();
@@ -81,19 +84,27 @@ class AuthController extends Controller
                     $headers = array('alg' => 'HS256', 'typ' => 'JWT');
                     $payload = array('id' => $id, 'email_or_phone' => $request->get_body()['email_or_phone'], 'admin' => false, 'exp' => (time() + (86400 * 30)));
 
-                    $jwt = generate_jwt($headers, $payload);
+                    $jwt = JWT::generate_jwt($headers, $payload);
 
                     setcookie("user", $jwt, time() + (86400 * 30), "/"); // TODO: add httponly: true when you find a way to change pages form php
 
                     header("Location: /home");
                     die();
                 } else {
-                    header("Location: /login");
-                    die();
+                    echo View::render_template("Page", [
+                        "title" => "Login",
+                        "content" => View::render_template("login/login", ['model' => $model]),
+                        "styles" => View::render_style("form")->add("icon")->add("login-register"),
+                        "scripts" => ""
+                    ]);
                 }
             } else {
-                header("Location: /login");
-                die();
+                echo View::render_template("Page", [
+                    "title" => "Login",
+                    "content" => View::render_template("login/login", ['model' => $model]),
+                    "styles" => View::render_style("form")->add("icon")->add("login-register"),
+                    "scripts" => ""
+                ]);
             }
         } else {
             if (isset($file_name)) {
@@ -101,14 +112,14 @@ class AuthController extends Controller
             }
 
             if (isset($_COOKIE['user'])) {
-                if (is_jwt_valid($_COOKIE['user']) == true) {
+                if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
                     header('Location: /home');
                     die();
                 }
             } else {
                 echo View::render_template("Page", [
                     "title" => "Login",
-                    "content" => View::render_content("login/login"),
+                    "content" => View::render_template("login/login", ['model' => $model]),
                     "styles" => View::render_style("form")->add("icon")->add("login-register"),
                     "scripts" => ""
                 ]);

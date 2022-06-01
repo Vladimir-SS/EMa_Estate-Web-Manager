@@ -13,8 +13,8 @@ class Form
         echo '</form>';
     }
 
-    public function field(Model $model, $attribute, $placeholder = '')
+    public function field(Model $model, $attribute, $placeholder = '', $icon = '', $type = 'text')
     {
-        return new Field($model, $attribute, $placeholder);
+        return new Field($model, $attribute, $placeholder, $icon, $type);
     }
 }

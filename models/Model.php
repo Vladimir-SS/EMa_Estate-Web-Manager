@@ -12,7 +12,9 @@ class Model
     protected function __construct(array $columns)
     {
         $this->columns = $columns;
-        $this->data = [];
+        foreach ($this->columns as $key => $value) { // load empty data
+            $this->data[$key] = null;
+        }
     }
 
     public function load(array $data): Model

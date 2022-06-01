@@ -14,39 +14,20 @@
     </button>
 
     <?php $form = Form::begin('content__box__form', '/register', 'post') ?>
-    <!-- <form class="content__box__form" action="/register" method="post"> -->
 
     <p>Completează câmpurile de mai jos pentru a te înregistra.</p>
     <div class="double-input-row">
-        <div class="label label--flex input-box">
-            <span class="icon icon-person"></span>
-            <input class="input-box__input" type="text" placeholder="Nume" name="last_name" required>
-        </div>
-
-        <div class="label label--flex input-box">
-            <span class="icon icon-person"></span>
-            <input class="input-box__input" type="text" placeholder="Prenume" name="first_name" required>
-        </div>
+        <?php
+        echo $form->field($model, 'last_name', 'Nume', 'icon-person');
+        echo $form->field($model, 'first_name', 'Prenume', 'icon-person');
+        ?>
     </div>
-    <div class="label label--flex input-box">
-        <span class="icon icon-phone"></span>
-        <input class="input-box__input" type="tel" placeholder="Telefon" name="phone" required>
-    </div>
-
-    <div class="label label--flex input-box">
-        <span class="icon icon-mail"></span>
-        <input class="input-box__input" type="email" placeholder="E-mail" name="email" required>
-    </div>
-
-    <div class="label label--flex input-box">
-        <span class="icon icon-pass"></span>
-        <input class="input-box__input" type="password" placeholder="Introdu parola" name="password" required>
-    </div>
-
-    <div class="label label--flex input-box">
-        <span class="icon icon-pass"></span>
-        <input class="input-box__input" type="password" placeholder="Confirmă parola" name="confirm-password" required>
-    </div>
+    <?php
+    echo $form->field($model, 'phone', 'Telefon', 'icon-phone', 'tel');
+    echo $form->field($model, 'email', 'E-mail', 'icon-mail', 'email');
+    echo $form->field($model, 'password', 'Introdu parola', 'icon-pass', 'password');
+    echo $form->field($model, 'confirm-password', 'Confirmă parola', 'icon-pass', 'password');
+    ?>
 
     <p>Ai deja cont?
         <a class="hlink" href="/login"> Conectează-te</a>
@@ -58,7 +39,6 @@
             <a class="hlink" href="#">Termenii și Condițiile</a>, cât și <br> <a class="hlink" href="#">Politica de confidenţialitate</a>
         </p>
     </div>
-
 
     <button class="label label--flex label--important" name="register" type="submit" onclick>
         <span class="icon icon-conn-arr"></span>

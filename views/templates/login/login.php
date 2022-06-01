@@ -12,20 +12,15 @@
         Conectează-te cu contul tău Facebook
     </button>
     <?php $form = Form::begin('content__box__form', '/login', 'post') ?>
-    <!-- <form class="content__box__form" action="/login" method="post"> -->
 
     <p>Completeaza campurile de mai jos pentru a te conecta.</p>
-    <?php //echo $form->field($model, 'email_or_phone', 'E-mail sau Telefon') 
-    ?>
-    <div class="label label--flex input-box">
-        <span class="icon icon-person"></span>
-        <input class="input-box__input" type="text" placeholder="E-mail sau Telefon" name="email_or_phone" required>
-    </div>
+    <?php
 
-    <div class="label label--flex input-box">
-        <span class="icon icon-pass"></span>
-        <input class="input-box__input" type="password" placeholder="Introdu parola" name="password" required>
-    </div>
+    echo $form->field($model, 'email_or_phone', 'E-mail sau Telefon', 'icon-person');
+    echo $model->has_errors('email_or_phone') ? 'Error' : '';
+
+    echo $form->field($model, 'password', 'Introdu parola', 'icon-pass', 'password');
+    ?>
 
     <p> <a class="hlink" href="#">Ați uitat parola?</a></p>
 

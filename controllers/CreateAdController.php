@@ -13,27 +13,20 @@ class CreateAdController extends Controller
         if ($request->is_post()) {
 
             $temp_var_for_testing = $request->get_body();
-            $temp_var_for_testing['account_id'] = $request->get_body()['account_id'] = json_decode(get_jwt_payload($_COOKIE['user']))->id; // adds account_id value to the array before creating the AnnouncementModel
+            $temp_var_for_testing['account_id'] = $request->get_body()['account_id'] = json_decode(JWT::get_jwt_payload($_COOKIE['user']))->id; // adds account_id value to the array before creating the AnnouncementModel
 
             // Valori hardcoadate pana e gata filterul
             $temp_var_for_testing['price'] = 9999;
             $temp_var_for_testing['surface'] = 99;
             $temp_var_for_testing['transaction_type'] = 'inchiriat';
 
-            // echo "<pre>";
-            // var_dump($temp_var_for_testing);
-            // echo "</pre>";
-
             $model = new AnnouncementModel();
             $model->load($temp_var_for_testing); // should be $request->get_body() when the filter is done
             $result = $model->validate();
 
-            if (empty($result)) {
-                if (is_jwt_valid($_COOKIE['user']) == true) {
-                    $account_data = json_decode(get_jwt_payload($_COOKIE['user']));
-                    echo "<pre>";
-                    var_dump($account_data->id);
-                    echo "</pre>";
+            if ($result) {
+                if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
+                    $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
                     $data_mapper = new AnnouncementDM();
                     $data_mapper->create_announcement($model->get_data());
                     $id = $data_mapper->find_id_by_account_id_and_title($account_data->id, $request->get_body()['title']);
@@ -59,7 +52,7 @@ class CreateAdController extends Controller
             }
 
             if (isset($_COOKIE['user'])) {
-                if (is_jwt_valid($_COOKIE['user']) == true) {
+                if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
                     echo View::render_template("Page", [
                         "title" => "Anunț",
                         "content" => View::render_content("create-ad/create-ad"),

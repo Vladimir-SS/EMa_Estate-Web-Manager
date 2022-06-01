@@ -30,7 +30,6 @@ class AccountService
         return $password . $salt . ACCOUNT_PEPPER;
     }
 
-
     /**
      * Generates password hash
      *

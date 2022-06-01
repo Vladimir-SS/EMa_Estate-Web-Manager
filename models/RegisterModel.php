@@ -28,7 +28,9 @@ class RegisterModel extends Model
                 "password" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 8),
-                "password_salt" => (new Constraint())
+                "confirm-password" => (new Constraint())
+                    ->add(Constrain::Required)
+                    ->add(Constrain::MinLength, 8),
             ]
         );
     }
