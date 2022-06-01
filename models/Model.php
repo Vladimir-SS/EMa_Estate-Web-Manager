@@ -7,6 +7,7 @@ class Model
 {
     private array $columns;
     public array $data;
+    public array $errors = [];
 
     protected function __construct(array $columns)
     {
@@ -26,19 +27,18 @@ class Model
         return $this;
     }
 
-    public function validate(): array
+    public function validate()
     {
-        $rv = array();
 
-        foreach ($this->columns as $name => $column) {
+        foreach ($this->columns as $attribute => $column) {
 
-            $s = $column->validate($this->data[$name] ?? null);
+            $s = $column->validate($this->data[$attribute] ?? null);
 
             if (!empty($s))
-                array_push($rv, [$name => $s]);
+                $this->errors[$attribute] = $s; // array_push($this->errors, [$attribute => $s]);
         }
 
-        return $rv;
+        return empty($this->errors);
     }
 
     public function get_data(): array
@@ -52,5 +52,10 @@ class Model
             ];
         }
         return $data;
+    }
+
+    public function has_errors($attribute)
+    {
+        return $this->errors[$attribute] ?? false;
     }
 }

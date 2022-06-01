@@ -9,22 +9,30 @@ class AuthController extends Controller
     {
         if ($request->is_post()) {
 
+            $model = new RegisterModel();
+            $services = new AccountService();
+
             if (
                 isset($request->get_body()["password"])
                 && isset($request->get_body()["confirm-password"])
                 && $request->get_body()["password"] !== $request->get_body()["confirm-password"]
             ) {
-                die(json_encode(["errors" => "Parolele nu coincid!"]));
+                //die(json_encode(["errors" => "Parolele nu coincid!"]));
+                $model->errors['confirm-password'] = "Parolele nu coincid!";
             }
-            $model = new RegisterModel();
-            $services = new AccountService();
+
             $model->load($request->get_body());
-            $result = $model->validate();
+            $errors = $model->validate();
+
+            // echo "<pre>";
+            // var_dump($model->errors);
+            // echo "</pre>";
+            // echo $errors['last_name'];
 
             $model->data["password_salt"] = $services->generate_salt();
             $model->data["password"] = $services->generate_hash($services->add_salt_and_pepper($request->get_body()["password"], $model->data["password_salt"]));
 
-            if (empty($result)) {
+            if ($errors) {
                 $data_mapper = new AccountDM();
                 $data_mapper->register_save($model->get_data());
                 header("Location: /login");
