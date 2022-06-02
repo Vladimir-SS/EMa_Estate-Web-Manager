@@ -24,7 +24,7 @@
     </div>
     <?php
     echo $form->field($model, 'phone', 'Telefon', 'icon-phone', 'tel');
-    echo $form->field($model, 'email', 'E-mail', 'icon-mail', 'email');
+    echo $form->field($model, 'email', 'E-mail', 'icon-mail');
     echo $form->field($model, 'password', 'Introdu parola', 'icon-pass', 'password');
     echo $form->field($model, 'confirm-password', 'Confirmă parola', 'icon-pass', 'password');
     ?>

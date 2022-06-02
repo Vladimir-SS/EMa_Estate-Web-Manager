@@ -11,6 +11,7 @@ $router = new Router(new Request(), new Response());
 $router
     ->get("/", [PageController::class, 'handle_home'])
     ->get("/home", [PageController::class, 'handle_home'])
+    ->get("/search", [PageController::class, 'handle_search'])
     ->get("/fonts", "Fonts")
     ->get("/404", "Error")
     ->get("/api/properties", "api/GetProperties")
@@ -21,7 +22,3 @@ $router
     ->post("/register", [AuthController::class, 'register'])
     ->post("/login", [AuthController::class, 'login'])
     ->run();
-
-// echo "<pre>";
-// var_dump(Router::get_route());
-// echo "</pre>";

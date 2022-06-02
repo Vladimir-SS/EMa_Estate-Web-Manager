@@ -15,7 +15,7 @@ class LoginModel extends Model
                     ->add(Constrain::MinLength, 4)
                     ->add(Constrain::MaxLength, 64),
                 "password" => (new Constraint())
-                    ->add(Constrain::Required),
+                    ->add(Constrain::Required)
             ]
         );
     }

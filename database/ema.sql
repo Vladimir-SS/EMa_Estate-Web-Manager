@@ -107,7 +107,7 @@ ADD CONSTRAINT saves_unique_account_id_announcement_id UNIQUE (account_id, annou
 CREATE TABLE images (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   announcement_id INT NOT NULL,
-  name VARCHAR2(32) NOT NULL,
+  name VARCHAR2(255) NOT NULL,
   type VARCHAR2(32) NOT NULL,
   image BLOB NOT NULL,
 

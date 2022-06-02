@@ -20,6 +20,20 @@ class PageController extends Controller
         ]);
     }
 
+    public static function handle_search()
+    {
+        if (isset($file_name)) {
+            include DIR_CONTROLLERS . "RootFiles.php";
+        }
+
+        echo View::render_template("Page", [
+            "title" => "Caută anunțuri",
+            "content" => View::render_content("search/search"),
+            "styles" => View::render_style("icon")->add("item")->add("search"),
+            "scripts" => View::render_script("FilterOptionHandler")->add("FilterOption")->add("filter")
+        ]);
+    }
+
     public static function handle_create_ad()
     {
         if (isset($file_name)) {

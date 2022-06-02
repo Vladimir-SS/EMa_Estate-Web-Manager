@@ -1,0 +1,48 @@
+@import "config"
+@import "mixins"
+
+$unit: $unit/2
+
+.splited
+    display: flex
+    align-items: flex-start
+    gap: $unit
+    height: 100%
+
+.side-map
+    border-radius: $border-radius
+    background-image: url("../img/map.png")
+    background-repeat: no-repeat
+    position: sticky
+    top: 2 * $unit
+    height: 500px
+    width: 500px
+
+.pin-container
+    position: absolute
+
+    .pin
+        background: var(--interactive-accent)
+        padding: $unit/4 $unit
+        position: relative
+        border-radius: 4px
+        color: var(--background-primary)
+
+        &:before
+            $size: $unit*1
+            content: ''
+            position: absolute
+            width: $size
+            height: $size
+            border-radius: 4px
+            background: var(--interactive-accent)
+            z-index: -1
+            bottom: (4px - $size)/2
+            left: 0
+            right: 0
+            margin: 0 auto
+            transform: rotate(45deg)
+
+@include mobile
+    .side-map
+        display: none
