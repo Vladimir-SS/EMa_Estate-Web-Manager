@@ -62,7 +62,7 @@ class AnnouncementDM
         DatabaseConnection::close();
     }
 
-    public function create_announcement(array &$data)
+    public function create_announcement(array $data)
     {
         DatabaseConnection::get_connection();
 

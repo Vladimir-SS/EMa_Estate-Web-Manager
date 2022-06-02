@@ -1,41 +1,48 @@
+<?php include_once DIR_TEMPLATES . '/form/Form.php'; ?>
 <div class="content__box content__box--form">
 
-    <form class="content__box__form" action="/create-ad" method="post" enctype="multipart/form-data">
-        <h2>Adaugă titlu anunț*</h2>
-        <div class="label label--flex input-box">
-            <input class="input-box__input" type="text" placeholder="Ex. Apartament 3 camere Copou Bloc Nou" name="title" required>
-        </div>
+    <?php $form = Form::begin('content__box__form', '/create-ad', 'post', 'multipart/form-data') ?>
+    <h2>Adaugă titlu anunț*</h2>
+    <div class="label label--flex input-box">
+        <input class="input-box__input" type="text" placeholder="Ex. Apartament 3 camere Copou Bloc Nou" name="title" required>
+    </div>
 
-        <div class="label label--flex input-box">
-            <span class="icon icon-pin"></span>
-            <input class="input-box__input" type="text" placeholder="Introdu locația*" name="address" required>
-        </div>
+    <!-- <div class="label label--flex input-box">
+        <span class="icon icon-pin"></span>
+        <input class="input-box__input" type="text" placeholder="Introdu locația*" name="address" required>
+    </div> -->
 
-        <div class="content-filter">
-            <?php echo View::render_template("Filter")
-            ?>
-        </div>
+    <?php
+    //echo $form->field($model, 'title', 'Ex. Apartament 3 camere Copou Bloc Nou', 'TO DO: no icon field');
+    echo $form->field($model, 'address', 'Introdu locația*', 'icon-pin');
+    ?>
 
-        <h2>Imagini</h2>
+    <div class="content-filter">
+        <?php echo View::render_template("Filter")
+        ?>
+    </div>
 
-        <div class="images" id="images">
-            <!-- max 5 imagini -->
+    <h2>Imagini</h2>
 
-            <label class="images__add-img image-container" id="add_file" onclick="">
-                <span id="plus-icon" class="icon icon-plus"></span>
-                <input type="file" id="image-input" accept="image/*" name="images[]"> </input>
-            </label>
+    <div class="images" id="images">
+        <!-- max 5 imagini -->
 
-        </div>
+        <label class="images__add-img image-container" id="add_file" onclick="">
+            <span id="plus-icon" class="icon icon-plus"></span>
+            <input type="file" id="image-input" accept="image/*" name="images[]"> </input>
+        </label>
 
-        <h2>Descriere*</h2>
-        <textarea class="desc" maxlength="4000" name="description" placeholder="Descriere" required></textarea>
+    </div>
+
+    <h2>Descriere*</h2>
+    <textarea class="desc" maxlength="4000" name="description" placeholder="Descriere" required></textarea>
 
 
-        <button class="label label--flex label--important" type="submit" onclick>
-            <span class="icon icon-conn-arr"></span>
-            Creează anunț
-        </button>
+    <button class="label label--flex label--important" type="submit" onclick>
+        <span class="icon icon-conn-arr"></span>
+        Creează anunț
+    </button>
 
-    </form>
+    <?php Form::end() ?>
+
 </div>

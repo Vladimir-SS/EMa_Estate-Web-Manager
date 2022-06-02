@@ -10,6 +10,8 @@ class CreateAdController extends Controller
 
     public static function create_ad(Request $request)
     {
+        $model = new AnnouncementModel();
+
         if ($request->is_post()) {
 
             $temp_var_for_testing = $request->get_body();
@@ -20,11 +22,10 @@ class CreateAdController extends Controller
             $temp_var_for_testing['surface'] = 99;
             $temp_var_for_testing['transaction_type'] = 'inchiriat';
 
-            $model = new AnnouncementModel();
             $model->load($temp_var_for_testing); // should be $request->get_body() when the filter is done
-            $result = $model->validate();
+            $no_errors = $model->validate();
 
-            if ($result) {
+            if ($no_errors) {
                 if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
                     $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
                     $data_mapper = new AnnouncementDM();
@@ -32,8 +33,11 @@ class CreateAdController extends Controller
                     $id = $data_mapper->find_id_by_account_id_and_title($account_data->id, $request->get_body()['title']);
 
                     foreach ($_FILES["images"]["error"] as $key => $error) {
+
                         if ($error == UPLOAD_ERR_OK) {
+
                             if (!empty($_FILES["images"]["name"][$key])) {
+
                                 $name = $_FILES["images"]["name"][$key];
                                 $type = $_FILES["images"]["type"][$key];
                                 $blob = addslashes(file_get_contents($_FILES["images"]["tmp_name"][$key]));
@@ -42,27 +46,28 @@ class CreateAdController extends Controller
                         }
                     }
                 }
-            } else {
-                header("Location: /create-ad");
-                die();
             }
+            echo View::render_template("Page", [
+                "title" => "Anunț",
+                "content" => View::render_template("create-ad/create-ad", ['model' => $model]),
+                "styles" => View::render_style("form")->add("icon")->add("create-ad"),
+                "scripts" => View::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
+            ]);
+            die();
         } else {
+
             if (isset($file_name)) {
                 include DIR_CONTROLLERS . "RootFiles.php";
             }
 
-            if (isset($_COOKIE['user'])) {
-                if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
-                    echo View::render_template("Page", [
-                        "title" => "Anunț",
-                        "content" => View::render_content("create-ad/create-ad"),
-                        "styles" => View::render_style("form")->add("icon")->add("create-ad"),
-                        "scripts" => View::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
-                    ]);
-                } else {
-                    header('Location: /login');
-                    die();
-                }
+            if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
+                echo View::render_template("Page", [
+                    "title" => "Anunț",
+                    "content" => View::render_template("create-ad/create-ad", ['model' => $model]),
+                    "styles" => View::render_style("form")->add("icon")->add("create-ad"),
+                    "scripts" => View::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
+                ]);
+                die();
             } else {
                 header('Location: /login');
                 die();

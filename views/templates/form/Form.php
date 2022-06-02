@@ -3,9 +3,9 @@ include_once DIR_TEMPLATES . '/form/Field.php';
 
 class Form
 {
-    public static function begin($class, $action, $method)
+    public static function begin($class, $action, $method, $enctype = 'application/x-www-form-urlencoded')
     {
-        echo sprintf('<form class="%s" action="%s" method="%s">', $class, $action, $method);
+        echo sprintf('<form class="%s" action="%s" method="%s" enctype="%s">', $class, $action, $method, $enctype);
         return new Form();
     }
     public static function end()
