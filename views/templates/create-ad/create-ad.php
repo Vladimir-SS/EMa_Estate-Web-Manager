@@ -3,17 +3,9 @@
 
     <?php $form = Form::begin('content__box__form', '/create-ad', 'post', 'multipart/form-data') ?>
     <h2>Adaugă titlu anunț*</h2>
-    <div class="label label--flex input-box">
-        <input class="input-box__input" type="text" placeholder="Ex. Apartament 3 camere Copou Bloc Nou" name="title" required>
-    </div>
-
-    <!-- <div class="label label--flex input-box">
-        <span class="icon icon-pin"></span>
-        <input class="input-box__input" type="text" placeholder="Introdu locația*" name="address" required>
-    </div> -->
 
     <?php
-    //echo $form->field($model, 'title', 'Ex. Apartament 3 camere Copou Bloc Nou', 'TO DO: no icon field');
+    echo $form->field($model, 'title', 'Ex. Apartament 3 camere Copou Bloc Nou')->get_simple_input();;
     echo $form->field($model, 'address', 'Introdu locația*', 'icon-pin');
     ?>
 
@@ -35,7 +27,9 @@
     </div>
 
     <h2>Descriere*</h2>
-    <textarea class="desc" maxlength="4000" name="description" placeholder="Descriere" required></textarea>
+    <?php
+    echo $form->field($model, 'description', 'Descriere')->get_textarea();
+    ?>
 
 
     <button class="label label--flex label--important" type="submit" onclick>

@@ -26,24 +26,31 @@ class CreateAdController extends Controller
             $no_errors = $model->validate();
 
             if ($no_errors) {
-                if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
-                    $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
-                    $data_mapper = new AnnouncementDM();
-                    $data_mapper->create_announcement($model->get_data());
-                    $id = $data_mapper->find_id_by_account_id_and_title($account_data->id, $request->get_body()['title']);
+                $data_mapper = new AnnouncementDM();
+                if ($data_mapper->check_existence_title($model->get_data()['title']['value'])) {
+                    $model->errors['title'] = "Titlu deja folosit";
+                } else {
+                    if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
+                        $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
+                        $data_mapper->create_announcement($model->get_data());
+                        $id = $data_mapper->find_id_by_account_id_and_title($account_data->id, $request->get_body()['title']);
 
-                    foreach ($_FILES["images"]["error"] as $key => $error) {
+                        foreach ($_FILES["images"]["error"] as $key => $error) {
 
-                        if ($error == UPLOAD_ERR_OK) {
+                            if ($error == UPLOAD_ERR_OK) {
 
-                            if (!empty($_FILES["images"]["name"][$key])) {
+                                if (!empty($_FILES["images"]["name"][$key])) {
 
-                                $name = $_FILES["images"]["name"][$key];
-                                $type = $_FILES["images"]["type"][$key];
-                                $blob = addslashes(file_get_contents($_FILES["images"]["tmp_name"][$key]));
-                                $data_mapper->add_image($id, $blob, $name, $type);
+                                    $name = $_FILES["images"]["name"][$key];
+                                    $type = $_FILES["images"]["type"][$key];
+                                    $blob = addslashes(file_get_contents($_FILES["images"]["tmp_name"][$key]));
+                                    $data_mapper->add_image($id, $blob, $name, $type);
+                                }
                             }
                         }
+                    } else {
+                        header('Location: /login');
+                        die();
                     }
                 }
             }

@@ -41,6 +41,11 @@
   color: var(--background-primary);
 }
 
+.content__box__form .desc--is-invalid {
+  border: 1px solid red;
+  margin-bottom: 0;
+}
+
 .content__box__form .icon-field--setter {
   margin-bottom: 0;
 }
