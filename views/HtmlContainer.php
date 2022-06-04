@@ -16,31 +16,31 @@ class HtmlContainer
         $this->extension = "";
     }
 
-    public static function HtmlElement(string $tag): HtmlContainer
+    public static function html_element(string $tag): HtmlContainer
     {
         return new HtmlContainer("<$tag>", "</$tag>");
     }
 
-    public static function CustomTag(string $open_tag, string $close_tag): HtmlContainer
+    public static function custom_tag(string $open_tag, string $close_tag): HtmlContainer
     {
         return new HtmlContainer($open_tag, $close_tag);
     }
 
     public function add(string $file): HtmlContainer
     {
-        $this->content .= View::render_file($this->path . $file . $this->extension);
+        $this->content .= Renderer::render_file($this->path . $file . $this->extension);
 
         return $this;
     }
 
-    public function setPath(string $path): HtmlContainer
+    public function set_path(string $path): HtmlContainer
     {
         $this->path = $path;
 
         return $this;
     }
 
-    public function setExtension(string $extension): HtmlContainer
+    public function set_extension(string $extension): HtmlContainer
     {
         $this->extension = ".$extension";
 

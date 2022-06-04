@@ -1,55 +1,41 @@
 <?php
-include_once DIR_VIEWS . "HtmlContainer.php";
+
+include_once DIR_VIEWS . "Renderer.php";
 
 class View
 {
-    public static function render_file(String $file_path)
-    {
-        ob_start();
-        include $file_path;
+    private string $title = 'Pagină inexistentă';
+    private string $content;
+    private string $styles = '';
+    private string $scripts = '';
 
-        return ob_get_clean();
+    public function render()
+    {
+        echo Renderer::render_template("Page", [
+            "title" => $this->title,
+            "content" =>  $this->content,
+            "styles" =>  $this->styles,
+            "scripts" =>  $this->scripts
+        ]);
     }
 
-    public static function render_template(String $template_name, array $props = array())
+    public function set_title(string $title)
     {
-        extract($props);
-
-        ob_start();
-        include DIR_TEMPLATES . $template_name . '.php';
-
-        return ob_get_clean();
+        $this->title = $title;
     }
 
-    public static function render_content(String $file_name): HtmlContainer
+    public function set_content($content)
     {
-        return HtmlContainer::CustomTag("", "")
-            ->setPath(DIR_TEMPLATES)
-            ->setExtension("php")
-            ->add($file_name);
+        $this->content = $content;
     }
 
-    public static function render_style(String $file_name): HtmlContainer
+    public function set_styles(string $styless)
     {
-        return HtmlContainer::HtmlElement("style")
-            ->setPath(DIR_VIEWS . "style/build/")
-            ->setExtension("css")
-            ->add($file_name);
+        $this->styles = $styless;
     }
 
-    public static function render_script(String $file_name): HtmlContainer
+    public function set_scripts($scripts)
     {
-        return HtmlContainer::HtmlElement("script")
-            ->setPath(DIR_VIEWS . "script/build/")
-            ->setExtension("js")
-            ->add($file_name);
-    }
-
-    public static function render_vector(String $file_name)
-    {
-        return HtmlContainer::CustomTag("", "")
-            ->setPath(DIR_VIEWS . "svg/")
-            ->setExtension("svg")
-            ->add($file_name);
+        $this->scripts = $scripts;
     }
 }

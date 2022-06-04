@@ -1,14 +1,19 @@
 <?php
 
 include_once DIR_CONTROLLERS . "Controller.php";
+include_once DIR_CORE . "middlewares/AuthMiddleware.php";
 include_once DIR_VIEWS . "View.php";
 include_once DIR_CONTROLLERS . "JWT.php";
 include_once DIR_MODELS . "AnnouncementModel.php";
 
 class CreateAdController extends Controller
 {
+    public function __construct()
+    {
+        $this->register_middleware(new AuthMiddleware(['create_ad']));
+    }
 
-    public static function create_ad(Request $request)
+    public function create_ad(Request $request)
     {
         $model = new AnnouncementModel();
 
@@ -54,31 +59,43 @@ class CreateAdController extends Controller
                     }
                 }
             }
-            echo View::render_template("Page", [
-                "title" => "Anunț",
-                "content" => View::render_template("create-ad/create-ad", ['model' => $model]),
-                "styles" => View::render_style("form")->add("icon")->add("create-ad"),
-                "scripts" => View::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
-            ]);
-            die();
+            // echo Renderer::render_template("Page", [
+            //     "title" => "Anunț",
+            //     "content" => Renderer::render_template("create-ad/create-ad", ['model' => $model]),
+            //     "styles" => Renderer::render_style("form")->add("icon")->add("create-ad"),
+            //     "scripts" => Renderer::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
+            // ]);
+            // die();
+            return $this->render(
+                "Anunț",
+                Renderer::render_template("create-ad/create-ad", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("create-ad"),
+                Renderer::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
+            );
         } else {
 
             if (isset($file_name)) {
                 include DIR_CONTROLLERS . "RootFiles.php";
             }
 
-            if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
-                echo View::render_template("Page", [
-                    "title" => "Anunț",
-                    "content" => View::render_template("create-ad/create-ad", ['model' => $model]),
-                    "styles" => View::render_style("form")->add("icon")->add("create-ad"),
-                    "scripts" => View::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
-                ]);
-                die();
-            } else {
-                header('Location: /login');
-                die();
-            }
+            // if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
+            //     echo Renderer::render_template("Page", [
+            //         "title" => "Anunț",
+            //         "content" => Renderer::render_template("create-ad/create-ad", ['model' => $model]),
+            //         "styles" => Renderer::render_style("form")->add("icon")->add("create-ad"),
+            //         "scripts" => Renderer::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
+            //     ]);
+            //     die();
+            // } else {
+            //     header('Location: /login');
+            //     die();
+            // }
+            return $this->render(
+                "Anunț",
+                Renderer::render_template("create-ad/create-ad", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("create-ad"),
+                Renderer::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
+            );
         }
     }
 }

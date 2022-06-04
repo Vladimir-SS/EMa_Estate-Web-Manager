@@ -10,7 +10,7 @@
     ?>
 
     <div class="content-filter">
-        <?php echo View::render_template("Filter")
+        <?php echo Renderer::render_template("Filter")
         ?>
     </div>
 

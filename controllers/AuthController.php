@@ -1,10 +1,16 @@
 <?php
 include_once DIR_CONTROLLERS . "Controller.php";
+include_once DIR_CORE . "middlewares/LoggedMiddleware.php";
 include_once DIR_MODELS . "LoginModel.php";
 include_once DIR_MODELS . "RegisterModel.php";
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->register_middleware(new LoggedMiddleware(['login', 'register']));
+    }
+
     public function register(Request $request)
     {
         $model = new RegisterModel();
@@ -49,29 +55,41 @@ class AuthController extends Controller
                     die();
                 }
             }
-            echo View::render_template("Page", [
-                "title" => "Register",
-                "content" => View::render_template("register/register", ['model' => $model]),
-                "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                "scripts" => View::render_script("form")
-            ]);
-            die();
+            // echo Renderer::render_template("Page", [
+            //     "title" => "Register",
+            //     "content" => Renderer::render_template("register/register", ['model' => $model]),
+            //     "styles" => Renderer::render_style("form")->add("icon")->add("login-register"),
+            //     "scripts" => Renderer::render_script("form")
+            // ]);
+            // die();
+            return $this->render(
+                "Register",
+                Renderer::render_template("register/register", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("login-register"),
+                Renderer::render_script("form")
+            );
         } else {
             if (isset($file_name)) {
                 include DIR_CONTROLLERS . "RootFiles.php";
             }
 
-            if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
-                header('Location: /home');
-                die();
-            }
-            echo View::render_template("Page", [
-                "title" => "Register",
-                "content" => View::render_template("register/register", ['model' => $model]),
-                "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                "scripts" => View::render_script("form")
-            ]);
-            die();
+            // if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
+            //     header('Location: /home');
+            //     die();
+            // }
+            // echo Renderer::render_template("Page", [
+            //     "title" => "Register",
+            //     "content" => Renderer::render_template("register/register", ['model' => $model]),
+            //     "styles" => Renderer::render_style("form")->add("icon")->add("login-register"),
+            //     "scripts" => Renderer::render_script("form")
+            // ]);
+            //die();
+            return $this->render(
+                "Register",
+                Renderer::render_template("register/register", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("login-register"),
+                Renderer::render_script("form")
+            );
         }
     }
 
@@ -105,30 +123,42 @@ class AuthController extends Controller
                     }
                 }
             }
-            echo View::render_template("Page", [
-                "title" => "Login",
-                "content" => View::render_template("login/login", ['model' => $model]),
-                "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                "scripts" => ""
-            ]);
-            die();
+            // echo Renderer::render_template("Page", [
+            //     "title" => "Login",
+            //     "content" => Renderer::render_template("login/login", ['model' => $model]),
+            //     "styles" => Renderer::render_style("form")->add("icon")->add("login-register"),
+            //     "scripts" => ""
+            // ]);
+            // die();
+            return $this->render(
+                "Login",
+                Renderer::render_template("login/login", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("login-register"),
+                Renderer::render_script("form")
+            );
         } else {
             if (isset($file_name)) {
                 include DIR_CONTROLLERS . "RootFiles.php";
             }
 
-            if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
-                header('Location: /home');
-                die();
-            }
+            // if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
+            //     header('Location: /home');
+            //     die();
+            // }
 
-            echo View::render_template("Page", [
-                "title" => "Login",
-                "content" => View::render_template("login/login", ['model' => $model]),
-                "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                "scripts" => ""
-            ]);
-            die();
+            return $this->render(
+                "Login",
+                Renderer::render_template("login/login", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("login-register")
+            );
+
+            // echo Renderer::render_template("Page", [
+            //     "title" => "Login",
+            //     "content" => Renderer::render_template("login/login", ['model' => $model]),
+            //     "styles" => Renderer::render_style("form")->add("icon")->add("login-register"),
+            //     "scripts" => ""
+            // ]);
+            // die();
         }
     }
 }

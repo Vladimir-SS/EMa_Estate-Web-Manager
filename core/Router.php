@@ -2,6 +2,7 @@
 
 include_once DIR_CORE . "Request.php";
 include_once DIR_CORE . "Response.php";
+include_once DIR_CORE . "exceptions/NotFoundException.php";
 
 class Router
 {
@@ -41,11 +42,7 @@ class Router
         return $this;
     }
 
-    // public function resolve()
-    // {
-    // }
-
-    public function run()
+    public function resolve()
     {
         $path = $this->request->get_path();
         extract(self::split_path($this->request->get_path())); // ??
@@ -54,14 +51,25 @@ class Router
         $callback = $this->routes[$method][$path] ?? false;
 
         if ($callback === false) {
-            $this->response->status_code(404);
-            $path = "/404";
-            $callback = "Error";
+            // $this->response->status_code(404);
+            // $path = "/error";
+            // $callback = "Error";
+            throw new NotFoundException();
         }
         if (is_string($callback)) {
             include_once DIR_CONTROLLERS . $callback . ".php";
         } else if (is_array($callback)) {
-            $callback[0] = new $callback[0]();
+
+            $controller = new $callback[0]();
+
+            Application::$app->controller = $controller;
+            Application::$app->controller->action = $callback[1];
+
+            $callback[0] = $controller;
+
+            foreach ($controller->get_middlewares() as $middleware) {
+                $middleware->execute();
+            }
 
             call_user_func($callback, $this->request);
         }
