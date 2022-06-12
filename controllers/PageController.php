@@ -16,7 +16,7 @@ class PageController extends Controller
             "title" => "Acasă",
             "content" => View::render_content("home/Filter")->add("home/items"),
             "styles" => View::render_style("icon")->add("home")->add("item"),
-            "scripts" => View::render_script("FilterOptionHandler")->add("FilterOption")->add("filter")
+            "scripts" => View::render_script("filter")->add("filterPage")
         ]);
     }
 

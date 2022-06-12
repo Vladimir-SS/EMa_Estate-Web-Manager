@@ -3,10 +3,12 @@ E necesara o aplicatie Web menita a gestiona eficient tranzactiile imobiliare. S
 
 Design: https://www.figma.com/file/MgwuSLcZmdNURq57CIeqev/Page?node-id=0%3A1
 
+
 Start server:
 ```bash
 php -c php.ini -S localhost:8000 -t . ./public/index.php
 ```
+
 
 Compile typescript:
 ```bash
