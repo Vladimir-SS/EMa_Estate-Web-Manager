@@ -91,6 +91,8 @@ class Constraint
 
     public function validate(?string $val): ?string
     {
+        if (!in_array(Constrain::Required, $this->constraints) && empty($val)) // if val not required and empty don't check constraints
+            return null;
 
         foreach ($this->constraints as [$c, $params]) {
             $s = Constrain::run($c, $val, ...$params);
