@@ -1,89 +1,59 @@
+interface ItemData {
+    title: string
+    description: string
+    imageURL: string
+    rooms: number
+    garages: number
+}
+
 class Item {
 
-    private container;
-    private infoContainer;
-    private infoIcons;
-    private imageContainer;
+    public static createInfoContainer() {
+        const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
 
+        const titleAndPrice = createSimpleElement('h2', 'accent');
+        const description = createSimpleElement('p', 'flex-1');
+        const address = createSimpleElement('p', 'secondary icon-text');
+        address.appendChild(createSimpleElement('span', 'icon icon-pin'));
 
-    private titleAndPrice;
-    private surface;
-    private address;
-    private description;
-    private rooms;
-    private bathrooms;
-    private parking_lots;
-    private imgURL;
+        infoContainer.append(titleAndPrice, description, address, Item.createInfoIcons());
 
-
-    private image;
-
-    public createItemTemplate() {
-        this.container = this.createItemElement('div', 'content__box content__box--item');
-        this.imageContainer = this.createItemElement('div', 'image-container image-container--animated');
-        this.image = this.createItemElement('div', 'image');
-        this.setImage(this.imgURL);
-
-        this.imageContainer.appendChild(this.image);
-
-        this.createInfoContainer();
-
-        this.container.append(this.imageContainer, this.infoContainer);
-
+        return infoContainer;
     }
 
-    public createInfoContainer() {
-        this.infoContainer = this.createItemElement('div', 'content__box--item__info flex-1');
+    public static createInfoIcons() {
+        const infoIcons = createSimpleElement('div', 'content__box--item__info__icons');
 
-        this.titleAndPrice = this.createItemElement('h2', 'accent');
-        this.description = this.createItemElement('p', 'flex-1');
-        this.address = this.createItemElement('p', 'secondary icon-text');
-        this.address.appendChild(this.createItemElement('span', 'icon icon-pin'));
-        this.createInfoIcons();
+        let basicIcons = createSimpleElement('div', 'content__box--item__info__icons__basic');
 
-        this.infoContainer.append(this.titleAndPrice, this.description, this.address, this.infoIcons);
-    }
+        const surface = createSimpleElement('p', 'icon-text')
+        const bathrooms = createSimpleElement('p', 'icon-text');
+        const parking_lots = createSimpleElement('p', 'icon-text');
+        const rooms = createSimpleElement('p', 'icon-text');
 
-    public createInfoIcons() {
-        this.infoIcons = this.createItemElement('div', 'content__box--item__info__icons');
+        surface.appendChild(createSimpleElement('span', 'icon icon-space'));
+        bathrooms.appendChild(createSimpleElement('span', 'icon icon-bath'));
+        parking_lots.appendChild(createSimpleElement('span', 'icon icon-garage'));
+        rooms.appendChild(createSimpleElement('span', 'icon icon-room'));
 
-        let basicIcons = this.createItemElement('div', 'content__box--item__info__icons__basic');
+        basicIcons.append(surface, bathrooms, parking_lots, rooms);
 
-        this.surface = this.createItemElement('p', 'icon-text')
-        this.bathrooms = this.createItemElement('p', 'icon-text');
-        this.parking_lots = this.createItemElement('p', 'icon-text');
-        this.rooms = this.createItemElement('p', 'icon-text');
-
-        this.surface.appendChild(this.createItemElement('span', 'icon icon-space'));
-        this.bathrooms.appendChild(this.createItemElement('span', 'icon icon-bath'));
-        this.parking_lots.appendChild(this.createItemElement('span', 'icon icon-garage'));
-        this.rooms.appendChild(this.createItemElement('span', 'icon icon-room'));
-
-        basicIcons.append(this.surface, this.bathrooms, this.parking_lots, this.rooms);
-
-        let saveButton = this.createItemElement('div', 'save-button');
+        const saveButton = createSimpleElement('div', 'save-button');
         saveButton.setAttribute('onclick', 'saveButtonClickHandler(this)');
-        saveButton.appendChild(this.createItemElement('span', 'icon icon-save'));
-        this.infoIcons.append(basicIcons, saveButton);
+        saveButton.appendChild(createSimpleElement('span', 'icon icon-save'));
+        infoIcons.append(basicIcons, saveButton);
+
+        return infoIcons;
     }
 
-    // public createCubbyItemTemplate() {
+    public static create(data: ItemData) {
+        const container = createSimpleElement('div', 'content__box content__box--item');
+        const imageContainer = createSimpleElement('div', 'image-container image-container--animated');
+        const image = createSimpleElement('div', 'image');
+        image.style.backgroundImage = 'url( ' + data.imageURL + ' )';
 
-    // }
+        imageContainer.appendChild(image);
 
-    public fillItemTemplate(data) {
-
+        container.append(imageContainer, Item.createInfoContainer());
     }
-
-    public setImage(imgURL) {
-        this.image.style.backgroundImage = 'url( ' + imgURL + ' )';
-    }
-
-    private createItemElement(tag, containerClass) {
-        let container = document.createElement(tag);
-        container.setAttribute('class', containerClass);
-        return container;
-    }
-
-    public
 }
