@@ -7,7 +7,7 @@ include DIR_VIEWS . "FilterOption/$option_type.php";
     <div class="label icon-field" onclick="OptionHandler.revealOption(this)">
         <?php
         echo $option_name;
-        echo View::render_vector($option_vector);
+        echo Renderer::render_vector($option_vector);
         ?>
     </div>
 

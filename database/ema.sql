@@ -37,7 +37,7 @@ CREATE TABLE accounts (
 CREATE DIRECTORY AVATARDIR AS 'D:\xampp\htdocs\Proiect\EMa_Estate-Web-Manager';
 /
 CREATE OR REPLACE TRIGGER accounts_trigger
-    BEFORE INSERT ON accounts
+    BEFORE INSERT OR UPDATE ON accounts
     FOR EACH ROW
 DECLARE
   v_dir    VARCHAR2(10) := 'AVATARDIR';
@@ -48,20 +48,26 @@ DECLARE
   v_dest_offset INTEGER := 1;
   v_src_offset  INTEGER := 1;
 BEGIN
-    v_bfile := BFILENAME(v_dir, v_file);
-    DBMS_LOB.fileopen(v_bfile, DBMS_LOB.file_readonly);
-    dbms_lob.createtemporary(v_blob, true);
-    DBMS_LOB.loadblobfromfile (
-    dest_lob    => v_blob,
-    src_bfile   => v_bfile,
-    amount      => DBMS_LOB.lobmaxsize,
-    dest_offset => v_dest_offset,
-    src_offset  => v_src_offset);
-
-    DBMS_LOB.fileclose(v_bfile);
-    :new.image := v_blob;
+--    v_bfile := BFILENAME(v_dir, v_file);
+--    DBMS_LOB.fileopen(v_bfile, DBMS_LOB.file_readonly);
+--    dbms_lob.createtemporary(v_blob, true);
+--    DBMS_LOB.loadblobfromfile (
+--    dest_lob    => v_blob,
+--    src_bfile   => v_bfile,
+--    amount      => DBMS_LOB.lobmaxsize,
+--    dest_offset => v_dest_offset,
+--    src_offset  => v_src_offset);
+--
+--    DBMS_LOB.fileclose(v_bfile);
+--    :new.image := v_blob;
+IF INSERTING THEN
     :new.created_at := sysdate();
     :new.updated_at := sysdate();
+    END IF;
+IF UPDATING THEN
+    :new.updated_at := sysdate();
+END IF;
+
 END;
 /
 --create table for announcements
@@ -107,7 +113,7 @@ ADD CONSTRAINT saves_unique_account_id_announcement_id UNIQUE (account_id, annou
 CREATE TABLE images (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   announcement_id INT NOT NULL,
-  name VARCHAR2(32) NOT NULL,
+  name VARCHAR2(255) NOT NULL,
   type VARCHAR2(32) NOT NULL,
   image BLOB NOT NULL,
 
@@ -217,5 +223,6 @@ CREATE TABLE buildings (
 
 --select * from USER_TRIGGERS;
 --select * from accounts;
-
+--select * from announcements;
+--select * from images;
 --desc accounts;

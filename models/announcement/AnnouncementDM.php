@@ -42,7 +42,6 @@ class AnnouncementDM
 
         oci_execute($stmt, OCI_NO_AUTO_COMMIT);
 
-        // and just to make it more clear
         if ($newlob->save($blob)) {
             oci_commit(DatabaseConnection::$conn);
         } else {
@@ -62,7 +61,37 @@ class AnnouncementDM
         DatabaseConnection::close();
     }
 
-    public function create_announcement(array &$data)
+    /**
+     * Checks if the title already exists in the database
+     * 
+     * @param $title
+     * @return int|bool 1 if exists 0 if not | false in case of error
+     */
+    public function check_existence_title($title): int|bool
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT count(*) FROM announcements WHERE title='$title'";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            echo "<pre>";
+            var_dump($errors);
+            echo "</pre>";
+        }
+
+        if (($row = oci_fetch($stid)) != false) {
+            $row = oci_result($stid, 1);
+        }
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $row;
+    }
+
+    public function create_announcement(array $data)
     {
         DatabaseConnection::get_connection();
 

@@ -17,7 +17,6 @@
     <?php
 
     echo $form->field($model, 'email_or_phone', 'E-mail sau Telefon', 'icon-person');
-    echo $model->has_errors('email_or_phone') ? 'Error' : '';
 
     echo $form->field($model, 'password', 'Introdu parola', 'icon-pass', 'password');
     ?>

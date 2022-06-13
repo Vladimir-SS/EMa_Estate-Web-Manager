@@ -54,6 +54,14 @@
   color: var(--background-primary);
 }
 
+.content__box__form .input-box--is-invalid {
+  border-color: red;
+}
+
+.content__box__form .input-box--is-invalid .icon {
+  color: red;
+}
+
 .content__box--form {
   padding: 40px;
   max-width: 600px;
@@ -61,4 +69,13 @@
 
 .content__box--form .label {
   margin-bottom: 20px;
+}
+
+.content__box--form .label--error {
+  margin-bottom: 0;
+  color: red;
+}
+
+.error {
+  color: red;
 }

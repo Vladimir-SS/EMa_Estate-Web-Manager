@@ -1,0 +1,45 @@
+@import "config"
+@import "mixins"
+
+.content
+    display: flex
+    align-items: flex-start
+    gap: $unit
+
+    &__left
+        .carousel
+            height: 600px
+
+        .description
+            height: 600px
+
+        .map
+            height: 600px
+
+    &__right
+        position: sticky
+        top: $unit
+
+.content__box--profile
+    display: grid
+    grid-template-rows: 1fr auto auto auto
+    grid-template-columns: auto auto
+    column-gap: $unit/2
+
+    &__img
+        background: black //!! remove in production
+        grid-row: span 3
+        height: $unit*3
+        width: $unit*3
+        border-radius: $border-radius
+
+    .secondary
+        margin-bottom: 0
+
+    .label--important
+        grid-column: span 2
+        margin-top: $unit/2
+
+.horizontal-buttons
+    display: flex
+    gap: 10px

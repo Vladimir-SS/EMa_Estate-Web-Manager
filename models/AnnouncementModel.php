@@ -8,7 +8,7 @@ class AnnouncementModel extends Model
     {
         parent::__construct(
             [
-                "account_id" => (new Constraint())
+                "account_id" => (new Constraint()) // to be removed when the filter is done
                     ->add(Constrain::Required),
                 "title" => (new Constraint())
                     ->add(Constrain::Required)

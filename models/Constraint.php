@@ -15,7 +15,7 @@ enum Constrain
     {
         switch ($c) {
             case Constrain::Required:
-                if (empty($value)) return "este necesar";
+                if (empty($value)) return "Câmpul este necesar";
                 break;
 
             case true:
@@ -23,33 +23,33 @@ enum Constrain
                     return null;
 
             case Constrain::MinValue:
-                if ($params[0] > $value) return "valoarea minimă este $params[0]";
+                if ($params[0] > $value) return "Valoare sub limita minimă ( minim:$params[0])";
                 break;
 
             case Constrain::MaxValue:
-                if ($params[0] < $value) return "valoarea maximă este $params[0]";
+                if ($params[0] < $value) return "Valoare peste limita maximă ( maxim:$params[0])";
                 break;
 
             case Constrain::MinLength:
-                if (strlen($value) < $params[0]) return "dimensiunea minimă este $params[0]";
+                if (strlen($value) < $params[0]) return "Text prea scurt ( minim:$params[0])";
                 break;
 
             case Constrain::MaxLength:
-                if (strlen($value) > $params[0]) return "dimensiunea maximă este $params[0]";
+                if (strlen($value) > $params[0]) return "Text prea lung ( maxim: $params[0])";
                 break;
 
             case Constrain::PhoneNumber:
-                if (!preg_match("/^\d{10}$/", $value)) return "Numarul de telefon nu este valid (Exemplu valid: 0744 123 123)";
+                if (!preg_match("/^\d{10}$/", $value)) return "Număr de telefon valid ( Ex valid: 0744 123 123)";
                 break;
 
             case Constrain::Email:
-                if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) return "Mail-ul nu este valid (Exemplu valid: popescu.ionel@gmail.com)";
+                if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) return "Email valid ( Ex valid: abc@mail.com)";
                 break;
 
             case Constrain::EmailOrPhone:
                 if (!preg_match("/^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/", $value)) {
                     if (!preg_match("/^\d{10}$/", $value))
-                        return "Mail-ul sau numarul de telefon introdus nu este valid";
+                        return "Email sau număr de telefon invalid";
                 }
                 break;
 
@@ -91,6 +91,8 @@ class Constraint
 
     public function validate(?string $val): ?string
     {
+        if (!in_array(Constrain::Required, $this->constraints) && empty($val)) // if val not required and empty don't check constraints
+            return null;
 
         foreach ($this->constraints as [$c, $params]) {
             $s = Constrain::run($c, $val, ...$params);

@@ -1,16 +1,21 @@
 <?php
 include_once DIR_CONTROLLERS . "Controller.php";
+include_once DIR_CORE . "middlewares/LoggedMiddleware.php";
 include_once DIR_MODELS . "LoginModel.php";
 include_once DIR_MODELS . "RegisterModel.php";
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->register_middleware(new LoggedMiddleware(['login', 'register']));
+    }
+
     public function register(Request $request)
     {
         $model = new RegisterModel();
 
         if ($request->is_post()) {
-
 
             $services = new AccountService();
 
@@ -23,45 +28,51 @@ class AuthController extends Controller
             }
 
             $model->load($request->get_body());
-            $errors = $model->validate();
+            $no_errors = $model->validate();
 
-            if ($errors) {
+            if ($no_errors) {
                 $data_mapper = new AccountDM();
 
-                $data = $model->get_data();
-                unset($data["confirm-password"]);
-                $data["password_salt"]['type'] = 1;
-                $data["password_salt"]['value'] = $services->generate_salt();
-                $data["password"]['value'] = $services->generate_hash($services->add_salt_and_pepper($data["password"]['value'], $data["password_salt"]['value']));
-                $data_mapper->register_save($data);
-                header("Location: /login");
-                die();
-            } else {
-                echo View::render_template("Page", [
-                    "title" => "Register",
-                    "content" => View::render_template("register/register", ['model' => $model]),
-                    "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                    "scripts" => View::render_script("form")
-                ]);
+                if ($data_mapper->check_existence_email($model->get_data()['email']['value']) > 0) {
+                    $no_errors = false;
+                    $model->errors['email'] = "Email deja înregistrat";
+                }
+                if ($data_mapper->check_existence_phone($model->get_data()['phone']['value']) > 0) {
+                    $no_errors = false;
+                    $model->errors['phone'] = "Număr de telefon deja înregistrat";
+                }
+
+                if ($no_errors) {
+
+                    $data = $model->get_data();
+                    unset($data["confirm-password"]);
+                    $data["password_salt"]['type'] = 1;
+                    $data["password_salt"]['value'] = $services->generate_salt();
+                    $data["password"]['value'] = $services->generate_hash($services->add_salt_and_pepper($data["password"]['value'], $data["password_salt"]['value']));
+                    $data_mapper->register_save($data);
+
+                    header("Location: /login");
+                    die();
+                }
             }
+
+            return $this->render(
+                "Register",
+                Renderer::render_template("register/register", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("login-register"),
+                Renderer::render_script("form")
+            );
         } else {
             if (isset($file_name)) {
                 include DIR_CONTROLLERS . "RootFiles.php";
             }
 
-            if (isset($_COOKIE['user'])) {
-                if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
-                    header('Location: /home');
-                    die();
-                }
-            } else {
-                echo View::render_template("Page", [
-                    "title" => "Register",
-                    "content" => View::render_template("register/register", ['model' => $model]),
-                    "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                    "scripts" => View::render_script("form")
-                ]);
-            }
+            return $this->render(
+                "Register",
+                Renderer::render_template("register/register", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("login-register"),
+                Renderer::render_script("form")
+            );
         }
     }
 
@@ -72,58 +83,45 @@ class AuthController extends Controller
 
             $services = new AccountService();
             $model->load($request->get_body());
-            $result = $model->validate();
-            $data_mapper = new AccountDM();
+            $no_errors = $model->validate();
 
-            $id = $data_mapper->find_id_by_email_or_phone($request->get_body()['email_or_phone']);
+            if ($no_errors) {
+                $data_mapper = new AccountDM();
 
-            if ($id != false) {
-                $salt = $data_mapper->getIdSalt($id);
-                $passwordSP = $data_mapper->getPasswordById($id);
-                if ($services->password_check($model->data["password"], $salt, $passwordSP)) {
-                    $headers = array('alg' => 'HS256', 'typ' => 'JWT');
-                    $payload = array('id' => $id, 'email_or_phone' => $request->get_body()['email_or_phone'], 'admin' => false, 'exp' => (time() + (86400 * 30)));
+                $id = $data_mapper->find_id_by_email_or_phone($request->get_body()['email_or_phone']);
 
-                    $jwt = JWT::generate_jwt($headers, $payload);
+                if ($id != false) {
+                    $salt = $data_mapper->get_salt_by_id($id);
+                    $passwordSP = $data_mapper->get_password_by_id($id);
+                    if ($services->password_check($model->data["password"], $salt, $passwordSP)) {
+                        $headers = array('alg' => 'HS256', 'typ' => 'JWT');
+                        $payload = array('id' => $id, 'email_or_phone' => $request->get_body()['email_or_phone'], 'admin' => false, 'exp' => (time() + (86400 * 30)));
 
-                    setcookie("user", $jwt, time() + (86400 * 30), "/"); // TODO: add httponly: true when you find a way to change pages form php
+                        $jwt = JWT::generate_jwt($headers, $payload);
 
-                    header("Location: /home");
-                    die();
-                } else {
-                    echo View::render_template("Page", [
-                        "title" => "Login",
-                        "content" => View::render_template("login/login", ['model' => $model]),
-                        "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                        "scripts" => ""
-                    ]);
+                        setcookie("user", $jwt, time() + (86400 * 30), "/"); // TODO: add httponly: true when you find a way to change pages form php
+
+                        header("Location: /home");
+                        die();
+                    }
                 }
-            } else {
-                echo View::render_template("Page", [
-                    "title" => "Login",
-                    "content" => View::render_template("login/login", ['model' => $model]),
-                    "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                    "scripts" => ""
-                ]);
             }
+            return $this->render(
+                "Login",
+                Renderer::render_template("login/login", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("login-register"),
+                Renderer::render_script("form")
+            );
         } else {
             if (isset($file_name)) {
                 include DIR_CONTROLLERS . "RootFiles.php";
             }
 
-            if (isset($_COOKIE['user'])) {
-                if (JWT::is_jwt_valid($_COOKIE['user']) == true) {
-                    header('Location: /home');
-                    die();
-                }
-            } else {
-                echo View::render_template("Page", [
-                    "title" => "Login",
-                    "content" => View::render_template("login/login", ['model' => $model]),
-                    "styles" => View::render_style("form")->add("icon")->add("login-register"),
-                    "scripts" => ""
-                ]);
-            }
+            return $this->render(
+                "Login",
+                Renderer::render_template("login/login", ['model' => $model]),
+                Renderer::render_style("form")->add("icon")->add("login-register")
+            );
         }
     }
 }
