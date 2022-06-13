@@ -22,7 +22,7 @@ class CreateAdController extends Controller
             $temp_var_for_testing = $request->get_body();
             $temp_var_for_testing['account_id'] = $request->get_body()['account_id'] = json_decode(JWT::get_jwt_payload($_COOKIE['user']))->id; // adds account_id value to the array before creating the AnnouncementModel
 
-            // Valori hardcoadate pana e gata filterul
+            // Valori hardcodate pana e gata filterul
             $temp_var_for_testing['price'] = 9999;
             $temp_var_for_testing['surface'] = 99;
             $temp_var_for_testing['transaction_type'] = 'inchiriat';
@@ -63,7 +63,7 @@ class CreateAdController extends Controller
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['model' => $model]),
                 Renderer::render_style("form")->add("icon")->add("create-ad"),
-                Renderer::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
+                Renderer::render_script("create-ad")->add("filter")->add("filterPage")
             );
         } else {
 
@@ -74,7 +74,7 @@ class CreateAdController extends Controller
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['model' => $model]),
                 Renderer::render_style("form")->add("icon")->add("create-ad"),
-                Renderer::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
+                Renderer::render_script("create-ad")->add("filter")->add("filterPage")
             );
         }
     }

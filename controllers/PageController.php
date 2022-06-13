@@ -32,7 +32,7 @@ class PageController extends Controller
             "Caută anunțuri",
             Renderer::render_content("search/search"),
             Renderer::render_style("icon")->add("item")->add("search"),
-            Renderer::render_script("FilterOptionHandler")->add("FilterOption")->add("filter")
+            Renderer::render_script("filter")->add("filterPage")
         );
     }
 }
