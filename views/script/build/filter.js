@@ -7,7 +7,7 @@ class FilterOption {
             this.labelElement.appendChild(createIcon(iconName));
         };
         this.getParameters = () => {
-            return null;
+            return {};
         };
         this.name = name;
         let element = document.createElement("div");
@@ -78,7 +78,10 @@ class DropdownFilterOption extends FilterOption {
             linked.forEach(el => el.style.removeProperty("display"));
         };
         this.getParameters = () => {
-            return "";
+            if (this.labelElement.classList.contains("label--important"))
+                return {
+                    [this.name]: this.options[this.chosenOptionIndex].element.textContent
+                };
         };
     }
     static create(name, optionList) {
@@ -130,23 +133,26 @@ FilterOptionHandler.add = (option) => {
     return FilterOptionHandler;
 };
 FilterOptionHandler.submit = () => {
-    let params = "?" + _a.filterOptions
-        .map(o => o.getParameters())
-        .filter(o => o)
-        .join("&");
-    console.log(params);
+    return _a.filterOptions
+        .filter(op => op.element.style.display != "none")
+        .map(op => op.getParameters())
+        .reduce((previus, current) => {
+        return Object.assign(Object.assign({}, previus), current);
+    }, {});
 };
 
 class SliderFilterOption extends FilterOption {
     constructor(name, labelText, unit) {
         super(name);
-        this.openRight = false;
-        this.set = (min, max) => {
-            this.values = SliderFilterOption.calcValues(min, max);
+        this.resetSliders = () => {
             this.slider1.max = this.slider2.max = (this.values.length - 1).toString();
             this.slider2.value = this.slider2.max;
             this.slider1.value = '0';
             this.sliderOnInputEventHandler(null);
+        };
+        this.set = (min, max) => {
+            this.values = SliderFilterOption.calcValues(min, max);
+            this.resetSliders();
             return this;
         };
         this.getMinMax = () => {
@@ -212,6 +218,27 @@ class SliderFilterOption extends FilterOption {
             showContainerElement.append(this.showSmaller, this.showBigger);
             return showContainerElement;
         };
+        this.getParameters = () => {
+            const { min, max } = this.getMinMax();
+            const minValue = this.values[min];
+            const maxValue = this.values[max];
+            if (min !== 0 && max !== this.values.length - 1)
+                return {
+                    [`${this.name}Max`]: maxValue,
+                    [`${this.name}Min`]: minValue
+                };
+            else if (min !== 0)
+                return {
+                    [`${this.name}Min`]: minValue
+                };
+            else if (max !== this.values.length - 1)
+                return {
+                    [`${this.name}Max`]: maxValue,
+                    [`${this.name}Min`]: minValue
+                };
+            else
+                return {};
+        };
         this.defaultLabelText = labelText;
         this.setLabelTextIcon(labelText, "left-right-arrow");
         this.element.classList.add("filter-option--slider");
@@ -219,7 +246,8 @@ class SliderFilterOption extends FilterOption {
         this.contentBoxElement.append(this.createShowContainer(), this.createSlideContainer());
     }
     openRightDomain() {
-        this.openRight = true;
+        this.values.push(this.values[this.values.length - 1] + "+");
+        this.resetSliders();
         return this;
     }
 }
@@ -244,6 +272,8 @@ class SubmitFilterOption extends FilterOption {
         this.setLabelTextIcon("Caută acum anunțuri", "magnifying-glass");
         this.labelElement.classList.add("label--important");
         this.element.classList.add("filter-option--submit");
-        this.labelElement.onclick = FilterOptionHandler.submit;
+        this.labelElement.onclick = () => {
+            console.log(FilterOptionHandler.submit());
+        };
     }
 }

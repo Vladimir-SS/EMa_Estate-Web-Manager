@@ -6,6 +6,8 @@ class SubmitFilterOption extends FilterOption {
         this.labelElement.classList.add("label--important");
         this.element.classList.add("filter-option--submit");
 
-        this.labelElement.onclick = FilterOptionHandler.submit;
+        this.labelElement.onclick = () => {
+            console.log(FilterOptionHandler.submit());
+        }
     }
 }

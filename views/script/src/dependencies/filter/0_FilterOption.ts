@@ -3,7 +3,7 @@ class FilterOption {
     protected labelElement: HTMLDivElement;
     protected contentBoxElement: HTMLDivElement;
     protected textNode: HTMLSpanElement;
-    protected name: String;
+    protected name: string;
 
     private static createLabelElement = () => {
         let labelElement = document.createElement("div");
@@ -27,8 +27,8 @@ class FilterOption {
         this.labelElement.appendChild(createIcon(iconName));
     }
 
-    public getParameters = (): string => {
-        return null;
+    public getParameters = (): Object => {
+        return {};
     }
 
     constructor(name: string) {

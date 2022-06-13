@@ -32,11 +32,12 @@ class FilterOptionHandler {
     }
 
     static submit = () => {
-        let params = "?" + this.filterOptions
-            .map(o => o.getParameters())
-            .filter(o => o)
-            .join("&");
 
-        console.log(params);
+        return this.filterOptions
+            .filter(op => op.element.style.display != "none")
+            .map(op => op.getParameters())
+            .reduce((previus, current) => {
+                return { ...previus, ...current }
+            }, {});
     }
 }

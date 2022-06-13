@@ -7,7 +7,7 @@ class FilterOption {
             this.labelElement.appendChild(createIcon(iconName));
         };
         this.getParameters = () => {
-            return null;
+            return {};
         };
         this.name = name;
         let element = document.createElement("div");

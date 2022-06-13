@@ -92,6 +92,10 @@ class DropdownFilterOption extends FilterOption {
     }
 
     override  getParameters = () => {
-        return "";
+
+        if (this.labelElement.classList.contains("label--important"))
+            return {
+                [this.name]: this.options[this.chosenOptionIndex].element.textContent
+            }
     }
 }

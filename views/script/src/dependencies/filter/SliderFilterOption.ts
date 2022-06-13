@@ -1,16 +1,12 @@
-
-
 class SliderFilterOption extends FilterOption {
     private values: string[];
     private defaultLabelText: string;
-    private openRight: boolean = false;
 
     private showBigger: HTMLParagraphElement;
     private showSmaller: HTMLParagraphElement;
     private slider1: HTMLInputElement;
     private slider2: HTMLInputElement;
     private tracker: HTMLDivElement;
-
 
     private static calcValues = (min: number, max: number): string[] => {
         let
@@ -37,14 +33,18 @@ class SliderFilterOption extends FilterOption {
         return rv.map(val => val.toString());
     }
 
-    public set = (min: number, max: number) => {
-
-        this.values = SliderFilterOption.calcValues(min, max);
-
+    private resetSliders = () => {
         this.slider1.max = this.slider2.max = (this.values.length - 1).toString();
         this.slider2.value = this.slider2.max;
         this.slider1.value = '0';
         this.sliderOnInputEventHandler(null);
+
+    }
+
+    public set = (min: number, max: number) => {
+
+        this.values = SliderFilterOption.calcValues(min, max);
+        this.resetSliders();
 
         return this;
     }
@@ -133,7 +133,8 @@ class SliderFilterOption extends FilterOption {
     }
 
     public openRightDomain() {
-        this.openRight = true;
+        this.values.push(this.values[this.values.length - 1] + "+");
+        this.resetSliders();
 
         return this;
     }
@@ -147,5 +148,28 @@ class SliderFilterOption extends FilterOption {
         this.element.style.setProperty("--unit", `" ${unit}"`);
 
         this.contentBoxElement.append(this.createShowContainer(), this.createSlideContainer());
+    }
+
+    public override getParameters = () => {
+        const { min, max } = this.getMinMax();
+
+        const minValue = this.values[min];
+        const maxValue = this.values[max];
+
+        if (min !== 0 && max !== this.values.length - 1)
+            return {
+                [`${this.name}Max`]: maxValue,
+                [`${this.name}Min`]: minValue
+            }
+        else if (min !== 0)
+            return {
+                [`${this.name}Min`]: minValue
+            }
+        else if (max !== this.values.length - 1)
+            return {
+                [`${this.name}Max`]: maxValue,
+                [`${this.name}Min`]: minValue
+            }
+        else return {};
     }
 }
