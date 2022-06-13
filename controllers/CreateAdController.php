@@ -66,9 +66,12 @@ class CreateAdController extends Controller
                 Renderer::render_script("filter")->add("createAd")
             );
         } else {
-            if (isset($file_name)) {
-                include DIR_CONTROLLERS . "RootFiles.php";
+
+            $file_name = Application::$app->router->get_file_name();
+            if ($file_name !== '') {
+                Response::file_response(DIR_BASE . 'resources/' . $file_name);
             }
+
             return $this->render(
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['model' => $model]),

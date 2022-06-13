@@ -5,8 +5,8 @@
     <h2>Adaugă titlu anunț*</h2>
 
     <?php
-    echo $form->field($model, 'title', 'Ex. Apartament 3 camere Copou Bloc Nou')->get_simple_input();;
-    echo $form->field($model, 'address', 'Introdu locația*', 'icon-pin');
+    echo $form->field($model, 'TITLE', 'Ex. Apartament 3 camere Copou Bloc Nou')->get_simple_input();;
+    echo $form->field($model, 'ADDRESS', 'Introdu locația*', 'icon-pin');
     ?>
 
     <div class="content-filter">
@@ -28,7 +28,7 @@
 
     <h2>Descriere*</h2>
     <?php
-    echo $form->field($model, 'description', 'Descriere')->get_textarea();
+    echo $form->field($model, 'DESCRIPTION', 'Descriere')->get_textarea();
     ?>
 
 

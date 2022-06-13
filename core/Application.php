@@ -29,15 +29,10 @@ class Application
         try {
             echo $this->router->resolve();
         } catch (Exception $e) {
+            $this->router->get_response()->status_code($e->getCode());
             $this->view->set_content(Renderer::render_template("_error", ['exception' => $e]));
             $this->view->set_title("Error");
             $this->view->render();
-            // echo Renderer::render_template("Page", [
-            //     "title" => "Pagină inexistentă",
-            //     "content" => Renderer::render_template("_error", ['exception' => $e]),
-            //     "styles" => "",
-            //     "scripts" => ""
-            // ]);
         }
     }
 }

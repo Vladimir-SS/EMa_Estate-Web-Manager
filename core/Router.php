@@ -8,7 +8,8 @@ class Router
 {
     private array $routes;
     private Request $request;
-    private Response $reponse;
+    private Response $response;
+    private string $file_name = '';
 
     public function __construct(Request $request, Response $reponse)
     {
@@ -47,6 +48,9 @@ class Router
         $path = $this->request->get_path();
         extract(self::split_path($this->request->get_path())); // ??
 
+        if (isset($file_name))
+            $this->file_name = $file_name;
+
         $method = $this->request->get_method();
         $callback = $this->routes[$method][$path] ?? false;
 
@@ -70,5 +74,15 @@ class Router
 
             call_user_func($callback, $this->request);
         }
+    }
+
+    public function get_response()
+    {
+        return $this->response;
+    }
+
+    public function get_file_name()
+    {
+        return $this->file_name;
     }
 }

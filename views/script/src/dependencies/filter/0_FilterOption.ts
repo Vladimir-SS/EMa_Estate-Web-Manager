@@ -9,7 +9,6 @@ class FilterOption {
         let labelElement = document.createElement("div");
         labelElement.className = `label label--flex`;
         labelElement.setAttribute("onclick", "");
-
         return labelElement;
     }
 
