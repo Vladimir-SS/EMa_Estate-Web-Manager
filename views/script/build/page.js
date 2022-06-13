@@ -1,8 +1,10 @@
-DocumentHandler.ready();
+function createSimpleElement(tagName, classes) {
+    const container = document.createElement(tagName);
+    container.setAttribute('class', classes);
+    return container;
+}
 const createIcon = (name) => {
-    let iconElement = document.createElement("span");
-    iconElement.className = `icon icon-${name}`;
-    return iconElement;
+    return createSimpleElement("span", `icon icon-${name}`);
 };
 const hamburgerClickHandler = () => {
     document.getElementById("nav-list").classList.toggle("show");
@@ -48,3 +50,4 @@ const loggedIn = () => {
     }
 };
 DocumentHandler.whenReady(loggedIn);
+DocumentHandler.ready();

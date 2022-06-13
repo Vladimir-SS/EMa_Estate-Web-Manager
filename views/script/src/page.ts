@@ -1,10 +1,11 @@
-DocumentHandler.ready();
+function createSimpleElement<K extends keyof HTMLElementTagNameMap>(tagName: K, classes: string): HTMLElementTagNameMap[K] {
+    const container = document.createElement(tagName);
+    container.setAttribute('class', classes);
+    return container;
+}
 
 const createIcon = (name: string) => {
-    let iconElement = document.createElement("span");
-    iconElement.className = `icon icon-${name}`;
-
-    return iconElement;
+    return createSimpleElement("span", `icon icon-${name}`);
 }
 
 const hamburgerClickHandler = () => {
@@ -60,3 +61,4 @@ const loggedIn = () => {
     }
 }
 DocumentHandler.whenReady(loggedIn);
+DocumentHandler.ready();

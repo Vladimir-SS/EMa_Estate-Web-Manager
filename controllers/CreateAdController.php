@@ -10,7 +10,7 @@ class CreateAdController extends Controller
 {
     public function __construct()
     {
-        $this->register_middleware(new AuthMiddleware(['create_ad']));
+        //$this->register_middleware(new AuthMiddleware(['create_ad']));
     }
 
     public function create_ad(Request $request)
@@ -63,7 +63,7 @@ class CreateAdController extends Controller
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['model' => $model]),
                 Renderer::render_style("form")->add("icon")->add("create-ad"),
-                Renderer::render_script("create-ad")->add("filter")->add("filterPage")
+                Renderer::render_script("filter")->add("createAd")
             );
         } else {
 
@@ -76,7 +76,7 @@ class CreateAdController extends Controller
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['model' => $model]),
                 Renderer::render_style("form")->add("icon")->add("create-ad"),
-                Renderer::render_script("create-ad")->add("filter")->add("filterPage")
+                Renderer::render_script("filter")->add("createAd")
             );
         }
     }
