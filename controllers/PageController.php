@@ -12,8 +12,9 @@ class PageController extends Controller
 
     public function handle_home()
     {
-        if (isset($file_name)) {
-            include DIR_CONTROLLERS . "RootFiles.php";
+        $file_name = Application::$app->router->get_file_name();
+        if ($file_name !== '') {
+            Response::file_response(DIR_BASE . 'resources/' . $file_name);
         }
         return $this->render(
             "Acasă",
@@ -25,9 +26,11 @@ class PageController extends Controller
 
     public function handle_search()
     {
-        if (isset($file_name)) {
-            include DIR_CONTROLLERS . "RootFiles.php";
+        $file_name = Application::$app->router->get_file_name();
+        if ($file_name !== '') {
+            Response::file_response(DIR_BASE . 'resources/' . $file_name);
         }
+
         return $this->render(
             "Caută anunțuri",
             Renderer::render_content("search/search"),

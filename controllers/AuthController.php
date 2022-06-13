@@ -63,8 +63,10 @@ class AuthController extends Controller
                 Renderer::render_script("form")
             );
         } else {
-            if (isset($file_name)) {
-                include DIR_CONTROLLERS . "RootFiles.php";
+
+            $file_name = Application::$app->router->get_file_name();
+            if ($file_name !== '') {
+                Response::file_response(DIR_BASE . 'resources/' . $file_name);
             }
 
             return $this->render(
@@ -88,14 +90,14 @@ class AuthController extends Controller
             if ($no_errors) {
                 $data_mapper = new AccountDM();
 
-                $id = $data_mapper->find_id_by_email_or_phone($request->get_body()['email_or_phone']);
+                $id = $data_mapper->find_id_by_email_or_phone($request->get_body()['EMAIL_OR_PHONE']);
 
                 if ($id != false) {
                     $salt = $data_mapper->get_salt_by_id($id);
                     $passwordSP = $data_mapper->get_password_by_id($id);
-                    if ($services->password_check($model->data["password"], $salt, $passwordSP)) {
+                    if ($services->password_check($model->data['PASSWORD'], $salt, $passwordSP)) {
                         $headers = array('alg' => 'HS256', 'typ' => 'JWT');
-                        $payload = array('id' => $id, 'email_or_phone' => $request->get_body()['email_or_phone'], 'admin' => false, 'exp' => (time() + (86400 * 30)));
+                        $payload = array('id' => $id, 'email_or_phone' => $request->get_body()['EMAIL_OR_PHONE'], 'admin' => false, 'exp' => (time() + (86400 * 30)));
 
                         $jwt = JWT::generate_jwt($headers, $payload);
 
@@ -113,8 +115,10 @@ class AuthController extends Controller
                 Renderer::render_script("form")
             );
         } else {
-            if (isset($file_name)) {
-                include DIR_CONTROLLERS . "RootFiles.php";
+
+            $file_name = Application::$app->router->get_file_name();
+            if ($file_name !== '') {
+                Response::file_response(DIR_BASE . 'resources/' . $file_name);
             }
 
             return $this->render(

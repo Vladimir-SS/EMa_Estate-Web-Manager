@@ -73,9 +73,12 @@ class ProfileController extends Controller
                 Renderer::render_script("avatar-loader")
             );
         } else {
-            if (isset($file_name)) {
-                include DIR_CONTROLLERS . "RootFiles.php";
+
+            $file_name = Application::$app->router->get_file_name();
+            if ($file_name !== '') {
+                Response::file_response(DIR_BASE . 'resources/' . $file_name);
             }
+
             $data_mapper = new AccountDM();
             $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
             if (($data = $data_mapper->get_data_by_id($account_data->id)) != false) {
