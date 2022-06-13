@@ -3,25 +3,17 @@ var icon = document.getElementById('plus-icon');
 
 const createInput = (): Element => {
 
-    let input = document.createElement('input');
+    const input = document.createElement('input');
     input.type = "file";
     input.accept = "image/*";
     input.name = "images[]";
     input.addEventListener("change", handleFiles, false);
 
-    let labelInput = document.createElement('label');
-    labelInput.setAttribute('class', 'images__add-img image-container');
-    labelInput.id = 'add_file';
+    const labelInput = createSimpleElement('label', 'images__add-img image-container');
     labelInput.setAttribute('onclick', '');
-    labelInput.appendChild(icon);
-    labelInput.appendChild(input);
+    labelInput.append(icon, input);
 
     return labelInput;
-}
-
-const rm = function remove(el) {
-    var element = el;
-    element.remove();
 }
 
 const image_input = document.getElementById("image-input");
