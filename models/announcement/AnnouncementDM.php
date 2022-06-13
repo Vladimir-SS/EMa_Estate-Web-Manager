@@ -42,7 +42,6 @@ class AnnouncementDM
 
         oci_execute($stmt, OCI_NO_AUTO_COMMIT);
 
-        // and just to make it more clear
         if ($newlob->save($blob)) {
             oci_commit(DatabaseConnection::$conn);
         } else {

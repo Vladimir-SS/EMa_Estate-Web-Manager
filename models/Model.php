@@ -19,7 +19,7 @@ class Model
 
     public function load(array $data): Model
     {
-        $this->data = [];
+        //$this->data = [];
         foreach ($data as $key => &$value) {
             if (isset($this->columns[$key])) {
                 $this->data[$key] = $value;

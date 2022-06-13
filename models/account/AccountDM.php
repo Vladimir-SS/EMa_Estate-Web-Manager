@@ -7,6 +7,68 @@ class AccountDM
     public function __construct()
     {
     }
+    public function get_data_by_id($id): array| bool
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT last_name, first_name, email, phone, business_name, created_at, image FROM accounts WHERE id = $id";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            echo "<pre>";
+            var_dump($errors);
+            echo "</pre>";
+        }
+
+        $row = oci_fetch_array($stid);
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $row;
+    }
+
+    public function update_account_data($id, array $data)
+    {
+        DatabaseConnection::get_connection();
+
+        foreach ($data as $key => &$value) {
+            $value["tag"] = ":$key" . "_bv";
+        }
+
+        $sql = "UPDATE accounts SET " . implode(
+            ", ",
+            array_map(
+                function ($k, $v) {
+                    return $v["value"] ? ($k . "= " . $v["tag"]) : ($k . "= " . $k);
+                },
+                array_keys($data),
+                array_values($data)
+            )
+        );
+        echo $sql;
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+
+        foreach ($data as $key => &$value) {
+            if ($value['value']) {
+                oci_bind_by_name($stid, $value["tag"], $value["value"], -1, $value["type"]);
+            }
+        }
+
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            echo "<pre>";
+            var_dump($errors);
+            echo "</pre>";
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+    }
 
     /**
      * Finds id by email or phone

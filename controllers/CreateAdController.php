@@ -59,13 +59,6 @@ class CreateAdController extends Controller
                     }
                 }
             }
-            // echo Renderer::render_template("Page", [
-            //     "title" => "Anunț",
-            //     "content" => Renderer::render_template("create-ad/create-ad", ['model' => $model]),
-            //     "styles" => Renderer::render_style("form")->add("icon")->add("create-ad"),
-            //     "scripts" => Renderer::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
-            // ]);
-            // die();
             return $this->render(
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['model' => $model]),
@@ -77,19 +70,6 @@ class CreateAdController extends Controller
             if (isset($file_name)) {
                 include DIR_CONTROLLERS . "RootFiles.php";
             }
-
-            // if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
-            //     echo Renderer::render_template("Page", [
-            //         "title" => "Anunț",
-            //         "content" => Renderer::render_template("create-ad/create-ad", ['model' => $model]),
-            //         "styles" => Renderer::render_style("form")->add("icon")->add("create-ad"),
-            //         "scripts" => Renderer::render_script("create-ad")->add("FilterOptionHandler")->add("FilterOption")->add("filter")
-            //     ]);
-            //     die();
-            // } else {
-            //     header('Location: /login');
-            //     die();
-            // }
             return $this->render(
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['model' => $model]),
