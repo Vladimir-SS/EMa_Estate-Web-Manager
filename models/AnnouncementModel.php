@@ -8,31 +8,31 @@ class AnnouncementModel extends Model
     {
         parent::__construct(
             [
-                "account_id" => (new Constraint()) // to be removed when the filter is done
+                "ACCOUNT_ID" => (new Constraint()) // to be removed when the filter is done
                     ->add(Constrain::Required),
-                "title" => (new Constraint())
+                "TITLE" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 4)
                     ->add(Constrain::MaxLength, 64)
                     ->add(Constrain::SafeChars),
-                "price" => (new Constraint())
+                "PRICE" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinValue, 0)
                     ->add(Constrain::MaxValue, 9999999),
-                "surface" => (new Constraint())
+                "SURFACE" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinValue, 0)
                     ->add(Constrain::MaxValue, 999999),
-                "address" => (new Constraint())
+                "ADDRESS" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 6)
                     ->add(Constrain::MaxLength, 128)
                     ->add(Constrain::SafeChars),
-                "transaction_type" => (new Constraint())
+                "TRANSACTION_TYPE" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 2)
                     ->add(Constrain::MaxLength, 64),
-                "description" => (new Constraint())
+                "DESCRIPTION" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 10)
                     ->add(Constrain::MaxLength, 4000)

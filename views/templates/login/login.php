@@ -16,9 +16,9 @@
     <p>Completeaza campurile de mai jos pentru a te conecta.</p>
     <?php
 
-    echo $form->field($model, 'email_or_phone', 'E-mail sau Telefon', 'icon-person');
+    echo $form->field($model, 'EMAIL_OR_PHONE', 'E-mail sau Telefon', 'icon-person');
 
-    echo $form->field($model, 'password', 'Introdu parola', 'icon-pass', 'password');
+    echo $form->field($model, 'PASSWORD', 'Introdu parola', 'icon-pass', 'password');
     ?>
 
     <p> <a class="hlink" href="#">Ați uitat parola?</a></p>

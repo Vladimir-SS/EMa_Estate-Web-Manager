@@ -9,12 +9,12 @@ class LoginModel extends Model
     {
         parent::__construct(
             [
-                "email_or_phone" => (new Constraint())
+                "EMAIL_OR_PHONE" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::EmailOrPhone)
                     ->add(Constrain::MinLength, 4)
                     ->add(Constrain::MaxLength, 64),
-                "password" => (new Constraint())
+                "PASSWORD" => (new Constraint())
                     ->add(Constrain::Required)
             ]
         );
