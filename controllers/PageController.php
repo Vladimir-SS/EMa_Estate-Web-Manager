@@ -20,7 +20,7 @@ class PageController extends Controller
             "Acasă",
             Renderer::render_content("home/Filter")->add("home/items"),
             Renderer::render_style("icon")->add("home")->add("item"),
-            Renderer::render_script("filter")->add("filterPage")
+            Renderer::render_script("filter")->add("filterPage")->add("Item")->add("getItems")
         );
     }
 
@@ -35,7 +35,7 @@ class PageController extends Controller
             "Caută anunțuri",
             Renderer::render_content("search/search"),
             Renderer::render_style("icon")->add("item")->add("search"),
-            Renderer::render_script("filter")->add("filterPage")
+            Renderer::render_script("filter")->add("filterPage")->add("Item")->add("getItems")
         );
     }
 }

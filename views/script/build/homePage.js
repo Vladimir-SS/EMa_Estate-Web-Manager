@@ -1,2 +1,0 @@
-DocumentHandler.whenReady(() => {
-});

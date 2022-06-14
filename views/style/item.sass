@@ -35,9 +35,7 @@ $unit: $unit / 2
             span
                 height: $font-size * 0.9
                 width: $font-size * 0.9
-
-                path
-                    fill: var(--text-faint)
+                color: var(--text-normal)
 
         &__icons
             display: flex
@@ -52,12 +50,9 @@ $unit: $unit / 2
 
                 .icon-text
                     gap: $unit/2
-                    svg
+                    span
                         top: -0.01em
                         height: 1.5em
-
-                        path
-                            fill: var(--interactive-accent)
 
                     &:nth-child(2)
                         margin-left: auto

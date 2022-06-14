@@ -59,7 +59,7 @@ class AnnouncementDM
 
         $row = oci_fetch_assoc($stid);
         if ($row != false) {
-            $row['IMAGE'] = base64_encode($row['IMAGE']->load());
+            $row['IMAGE'] = $row['IMAGE']->load();
         }
 
         oci_free_statement($stid);

@@ -42,10 +42,7 @@
 .content__box--item__info .secondary span {
   height: 14.4px;
   width: 14.4px;
-}
-
-.content__box--item__info .secondary span path {
-  fill: var(--text-faint);
+  color: var(--text-normal);
 }
 
 .content__box--item__info__icons {
@@ -71,13 +68,9 @@
   gap: 10px;
 }
 
-.content__box--item__info__icons__basic .icon-text svg {
+.content__box--item__info__icons__basic .icon-text span {
   top: -0.01em;
   height: 1.5em;
-}
-
-.content__box--item__info__icons__basic .icon-text svg path {
-  fill: var(--interactive-accent);
 }
 
 .content__box--item__info__icons__basic .icon-text:nth-child(2) {
