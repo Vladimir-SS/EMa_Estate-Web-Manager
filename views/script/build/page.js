@@ -6,6 +6,12 @@ function createSimpleElement(tagName, classes) {
 const createIcon = (name) => {
     return createSimpleElement("span", `icon icon-${name}`);
 };
+const saveButtonClickHandler = (element) => {
+    element.classList.toggle("save-button--is-saved");
+    const child = element.firstChild;
+    child.classList.toggle('icon-saved');
+    child.classList.toggle('icon-save');
+};
 const hamburgerClickHandler = () => {
     document.getElementById("nav-list").classList.toggle("show");
 };

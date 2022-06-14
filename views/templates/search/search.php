@@ -6,8 +6,6 @@
         </div>
 
         <div id="items">
-            <!-- <?php echo Renderer::render_content("item")->add("item")->add("item")->add("item")->add("item")->add("item");
-                    ?> -->
         </div>
     </div>
     <div class="side-map">

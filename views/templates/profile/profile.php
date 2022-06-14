@@ -59,8 +59,6 @@
                 <h2>Anunțurile tale</h2>
             </div>
             <div id="items">
-                <?php echo Renderer::render_content("item")->add("item")->add("item")->add("item")->add("item")->add("item");
-                ?>
             </div>
         </div>
     </div>

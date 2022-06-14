@@ -35,7 +35,8 @@ class PageController extends Controller
             "Caută anunțuri",
             Renderer::render_content("search/search"),
             Renderer::render_style("icon")->add("item")->add("search"),
-            Renderer::render_script("filter")->add("filterPage")->add("Item")->add("getItems")
+            // Renderer::render_script("filter")->add("filterPage")->add("Item")->add("getItems")->add("searchPage")
+            Renderer::render_scripts("filter", "filterPage", "Item", "getItems", "searchPage")
         );
     }
 }

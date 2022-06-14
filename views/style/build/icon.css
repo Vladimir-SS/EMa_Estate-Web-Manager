@@ -19,80 +19,88 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-hamburger:before {
+.icon-saved:before {
   content: "\e900";
 }
 
-.icon-magnifying-glass:before {
+.icon-hamburger:before {
   content: "\e901";
 }
 
-.icon-conn-arr:before {
+.icon-magnifying-glass:before {
+  content: "\e902";
+}
+
+.icon-error:before {
   content: "\e903";
 }
 
-.icon-contact:before {
+.icon-conn-arr:before {
   content: "\e904";
 }
 
-.icon-eye-closed:before {
+.icon-contact:before {
   content: "\e905";
 }
 
-.icon-garage:before {
+.icon-eye-closed:before {
   content: "\e906";
 }
 
-.icon-instagram:before {
+.icon-garage:before {
   content: "\e907";
 }
 
-.icon-mail:before {
+.icon-instagram:before {
   content: "\e908";
 }
 
-.icon-pass:before {
+.icon-mail:before {
   content: "\e909";
 }
 
-.icon-person:before {
+.icon-pass:before {
   content: "\e90a";
 }
 
-.icon-phone:before {
+.icon-person:before {
   content: "\e90b";
 }
 
-.icon-pin:before {
+.icon-phone:before {
   content: "\e90c";
 }
 
-.icon-plus:before {
+.icon-pin:before {
   content: "\e90d";
 }
 
-.icon-room:before {
+.icon-plus:before {
   content: "\e90e";
 }
 
-.icon-save:before {
+.icon-room:before {
   content: "\e90f";
 }
 
-.icon-space:before {
+.icon-save:before {
   content: "\e910";
 }
 
-.icon-down-arrow:before {
+.icon-space:before {
   content: "\e911";
 }
 
-.icon-bath:before {
+.icon-down-arrow:before {
   content: "\e912";
 }
 
-.icon-left-right-arrow:before {
+.icon-bath:before {
   content: "\e913";
+}
+
+.icon-left-right-arrow1:before {
+  content: "\e914";
 }
 
 .icon-checkbox-checked:before {
@@ -109,14 +117,6 @@
 
 .icon-facebook:before {
   content: "\ea90";
-}
-
-.icon-error:before {
-  content: "\e902";
-}
-
-.icon-left-right-arrow1:before {
-  content: "\e914";
 }
 
 .content-filter {

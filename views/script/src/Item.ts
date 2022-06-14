@@ -25,18 +25,22 @@ interface ImageData {
 
 class Item {
 
+    private static PRICE_TYPE: string = ' RON';
+
     public static createInfoContainer(data: ItemData) {
         const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
 
-        const titleAndPrice = createSimpleElement('h2', 'accent');
-        titleAndPrice.innerHTML = data.TITLE + ' ' + data.PRICE;
-        const description = createSimpleElement('p', 'flex-1');
-        description.innerText = data.DESCRIPTION;
+        const price = createSimpleElement('h2', 'accent');
+        price.innerHTML = data.PRICE + Item.PRICE_TYPE;
+        const title = createSimpleElement('p', 'text-wrap');
+        title.innerText = data.TITLE;
         const address = createSimpleElement('p', 'secondary icon-text');
-
         address.appendChild(createSimpleElement('span', 'icon icon-pin'));
-        address.appendChild(document.createTextNode(data.ADDRESS));
-        infoContainer.append(titleAndPrice, description, address, Item.createInfoIcons(data));
+
+        var addr = createSimpleElement('p', 'text-wrap');
+        addr.innerText = data.ADDRESS;
+        address.appendChild(addr);
+        infoContainer.append(price, title, address, Item.createInfoIcons(data));
 
         return infoContainer;
     }
@@ -75,9 +79,10 @@ class Item {
         const container = createSimpleElement('div', 'content__box content__box--item');
         const imageContainer = createSimpleElement('div', 'image-container image-container--animated');
         const image = createSimpleElement('div', 'image');
-
-        image.style.backgroundImage = 'url( "data: ' + data.IMAGE.TYPE + '; base64, ' + data.IMAGE.IMAGE + '" ) ';
-        imageContainer.appendChild(image);
+        if (typeof data.IMAGE !== 'undefined' && data.IMAGE !== null) {
+            image.style.backgroundImage = 'url( "data: ' + data.IMAGE.TYPE + '; base64, ' + data.IMAGE.IMAGE + '" ) ';
+            imageContainer.appendChild(image);
+        }
 
         container.append(imageContainer, Item.createInfoContainer(data));
 
