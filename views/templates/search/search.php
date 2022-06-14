@@ -4,8 +4,9 @@
             <?php echo Renderer::render_content("Filter")
             ?>
         </div>
-
-        <div id="items">
+        <div id="slider">
+            <div id="items">
+            </div>
         </div>
     </div>
     <div class="side-map">

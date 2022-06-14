@@ -22,6 +22,7 @@ $app->router
     ->get("/login", [AuthController::class, 'login'])
     ->post("/register", [AuthController::class, 'register'])
     ->post("/login", [AuthController::class, 'login'])
-    ->get("/api/items", [ItemsController::class, 'get_items']);
+    ->get("/api/items", [ItemsController::class, 'get_items'])
+    ->get("/api/items/filter", [ItemsController::class, 'get_filtered_items']);
 
 $app->run();

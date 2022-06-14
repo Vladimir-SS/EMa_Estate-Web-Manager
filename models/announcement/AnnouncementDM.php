@@ -1,5 +1,6 @@
 <?php
 include_once DIR_MODELS . "Model.php";
+include_once DIR_CORE . "exceptions/InternalException.php";
 
 class AnnouncementDM
 {
@@ -19,9 +20,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         $data = [];
@@ -52,9 +51,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         $row = oci_fetch_assoc($stid);
@@ -78,9 +75,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         $row = oci_fetch_assoc($stid);
@@ -88,6 +83,29 @@ class AnnouncementDM
         oci_free_statement($stid);
         DatabaseConnection::close();
         return $row;
+    }
+
+    public function get_announcements_count()
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT count(*) FROM announcements";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        if (($count = oci_fetch($stid)) != false) {
+            $count = oci_result($stid, 1);
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $count;
     }
 
     public function find_id_by_account_id_and_title($account_id, $title): int
@@ -101,9 +119,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -135,9 +151,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
         oci_free_statement($stmt);
         DatabaseConnection::close();
@@ -160,9 +174,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -200,9 +212,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
         oci_free_statement($stid);
         DatabaseConnection::close();

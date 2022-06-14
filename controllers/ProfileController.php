@@ -90,7 +90,7 @@ class ProfileController extends Controller
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'image' => $image]),
                 Renderer::render_style("form")->add("icon")->add("item")->add("search")->add("profile"),
-                Renderer::render_script("avatar-loader")->add("Item")->add("getItems")
+                Renderer::render_script("avatar-loader")->add("Item")
             );
         }
     }
