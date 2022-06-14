@@ -4,36 +4,39 @@ class FilterOptionHandler {
     private static filterOptions: FilterOption[] = [];
 
     public static closeLastElement = () => {
-        if (this.lastFilterOption === null)
+        if (FilterOptionHandler.lastFilterOption == null)
             return;
-        this.lastFilterOption.element.classList.remove("show");
-        this.lastFilterOption = null;
+
+        FilterOptionHandler.lastFilterOption.element.classList.remove("show");
+        FilterOptionHandler.lastFilterOption = null;
     }
 
     public static labelOnClickEventHandler = (option: FilterOption) => {
-        if (this.lastFilterOption) {
-            let isSameObject = this.lastFilterOption === option;
+        if (FilterOptionHandler.lastFilterOption) {
+            let isSameObject = FilterOptionHandler.lastFilterOption === option;
 
-            this.closeLastElement();
+            FilterOptionHandler.closeLastElement();
 
             if (isSameObject)
                 return;
 
         }
         option.element.classList.add("show");
-        this.lastFilterOption = option;
+        FilterOptionHandler.lastFilterOption = option;
     }
 
     public static add = (option: FilterOption) => {
-        this.filterOptions.push(option);
-        this.filterElement.appendChild(option.element);
+
+        FilterOptionHandler.filterOptions.push(option);
+        if (FilterOptionHandler.filterElement != null)
+            FilterOptionHandler.filterElement.appendChild(option.element);
 
         return FilterOptionHandler;
     }
 
     static submit = () => {
 
-        return this.filterOptions
+        return FilterOptionHandler.filterOptions
             .filter(op => op.element.style.display != "none")
             .map(op => op.getParameters())
             .reduce((previus, current) => {

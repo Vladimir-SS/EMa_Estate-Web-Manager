@@ -1,64 +1,39 @@
 class DropdownFilterOption extends FilterOption {
-    constructor() {
-        super(...arguments);
+    constructor(name, optionList) {
+        super(name);
         this.chosenOptionIndex = 0;
-        this.createOptionItem = (text) => {
-            let element = document.createElement("li");
-            element.innerHTML = text;
-            element.setAttribute("onclick", "");
-            return element;
-        };
-        this.createOptionList = (optionList) => {
+        this.onChange = (__index, __text) => { };
+        this.createOptionList = () => {
             let listElement = document.createElement("ul");
-            this.options = optionList.map(op => {
-                let text, linked;
-                if (typeof (op) === 'string') {
-                    text = op;
-                    linked = [];
-                }
-                else {
-                    text = op.text;
-                    linked = op.linked;
-                }
-                const element = this.createOptionItem(text);
-                return { element, linked };
-            });
-            this.options.forEach((op, index) => {
-                op.element.onclick = () => this.optionItemHandler(index);
-                listElement.append(op.element);
-                op.linked.forEach(el => el.style.display = "none");
+            this.options.forEach((text, index) => {
+                const element = DropdownFilterOption.createOptionItem(text);
+                element.onclick = () => this.optionItemHandler(index);
+                listElement.append(element);
             });
             return listElement;
         };
         this.optionItemHandler = (index) => {
-            this.options[this.chosenOptionIndex]
-                .linked.forEach(el => el.style.display = "none");
             this.chosenOptionIndex = index;
-            const option = this.options[index];
-            const { element, linked } = option;
-            this.textNode.textContent = element.innerHTML;
+            this.textNode.textContent = this.options[index];
             this.labelElement.classList.add("label--important");
             FilterOptionHandler.closeLastElement();
-            linked.forEach(el => el.style.removeProperty("display"));
+            const op = this.getCurrentOption();
+            this.onChange(op.index, op.text);
         };
         this.getParameters = () => {
             if (this.labelElement.classList.contains("label--important"))
-                return {
-                    [this.name]: this.options[this.chosenOptionIndex].element.textContent
-                };
+                return this.getCurrentOption().text;
+            return {};
         };
-    }
-    static create(name, optionList) {
-        const instance = new DropdownFilterOption(name);
-        instance.setLabelTextIcon("", "down-arrow");
-        instance.contentBoxElement.appendChild(instance.createOptionList(optionList));
-        instance.element.classList.add("filter-option--dropdown");
-        instance.optionItemHandler(0);
-        return instance;
+        this.options = optionList;
+        this.setLabelTextIcon("", "down-arrow");
+        this.contentBoxElement.appendChild(this.createOptionList());
+        this.element.classList.add("filter-option--dropdown");
+        this.optionItemHandler(0);
     }
     static createWithDefault(name, optionList, defaultPlaceholder) {
-        const instance = this.create(name, [defaultPlaceholder, ...optionList]);
-        let child = instance.options[0].element;
+        const instance = new DropdownFilterOption(name, [defaultPlaceholder, ...optionList]);
+        const child = instance.element.getElementsByTagName("ul")[0].firstChild;
         child.onclick = () => {
             instance.optionItemHandler(0);
             instance.labelElement.classList.remove("label--important");
@@ -66,4 +41,16 @@ class DropdownFilterOption extends FilterOption {
         child.onclick(null);
         return instance;
     }
+    getCurrentOption() {
+        return {
+            index: this.chosenOptionIndex,
+            text: this.options[this.chosenOptionIndex]
+        };
+    }
 }
+DropdownFilterOption.createOptionItem = (text) => {
+    let element = document.createElement("li");
+    element.innerHTML = text;
+    element.setAttribute("onclick", "");
+    return element;
+};

@@ -7,7 +7,7 @@
 }
 
 .icon {
-  font-family: 'icomoon' !important;
+  font-family: 'icomoon', 'Inter', sans-serif !important;
   speak: never;
   font-style: normal;
   font-weight: normal;

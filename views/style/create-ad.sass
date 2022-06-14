@@ -8,35 +8,50 @@ $unit: $unit /2
     &__form
         .images
             display: flex
+            flex-wrap: wrap
             gap: $unit
             margin-bottom: $unit
 
-        .images__add-img
             $unit: $unit*1.5
-            display: flex
-            background: var(--background-primary-alt)
-            height: $unit*3
-            width: $unit*3
-            border-radius: $border-radius
-            align-items: center
-            justify-content: center
-            input
-                display: none
+
+            &__add-img
+                display: flex
+                background: var(--background-primary-alt)
+                width: $unit*3
+                align-items: center
+                justify-content: center
+                order: 2
+
+                input
+                    display: none
+
+            &__add-img, img
+                height: $unit*3
+                border-radius: $border-radius
+
+            img
+                max-width: 100%
 
         .desc
             padding: $unit
             height: 200px
             width: 100%
-            background: var(--background-secondary)
-            border-radius: $border-radius
             resize: none
-            margin-bottom: $unit
+
             &:focus-within
                 background: var(--interactive-accent)
                 color: var(--background-primary)
+
+                &::placeholder
+                    color: var(--background-primary)
+
             &--is-invalid
                 border: 1px solid red
                 margin-bottom: 0
 
         .icon-field--setter
             margin-bottom: 0
+
+#dropdown-container
+    display: flex
+    gap: $unit
