@@ -6,11 +6,17 @@ Design: https://www.figma.com/file/MgwuSLcZmdNURq57CIeqev/Page?node-id=0%3A1
 
 Start server:
 ```bash
-php -c php.ini -S localhost:8000 -t . ./public/index.php
+cd public; php -c ../php.ini -S localhost:8000
 ```
 
 
 Compile typescript:
 ```bash
 npx tsc -w
+```
+
+Compile for public;
+
+```bash
+cd ../gulp-watcher; npx gulp production
 ```
