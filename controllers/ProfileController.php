@@ -69,8 +69,8 @@ class ProfileController extends Controller
             return $this->render(
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'image' => $image]),
-                Renderer::render_style("form")->add("icon")->add("item")->add("search")->add("profile"),
-                Renderer::render_script("avatar-loader")
+                Renderer::render_styles("form", "icon", "item", "search", "profile"),
+                Renderer::render_scripts("avatar-loader")
             );
         } else {
             $data_mapper = new AccountDM();
@@ -83,8 +83,8 @@ class ProfileController extends Controller
             return $this->render(
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'image' => $image]),
-                Renderer::render_style("form")->add("icon")->add("item")->add("search")->add("profile"),
-                Renderer::render_script("avatar-loader")->add("Item")
+                Renderer::render_styles("form", "icon", "item", "search", "profile"),
+                Renderer::render_scripts("avatar-loader", "Item")
             );
         }
     }
