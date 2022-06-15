@@ -95,15 +95,15 @@ class CreateAdController extends Controller
             return $this->render(
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
-                Renderer::render_style("form")->add("icon")->add("create-ad"),
-                Renderer::render_script("filter")->add("createAdPage")
+                Renderer::render_styles("form", "icon", "create-ad"),
+                Renderer::render_scripts("filter", "createAdPage")
             );
         } else {
             return $this->render(
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
-                Renderer::render_style("form")->add("icon")->add("create-ad"),
-                Renderer::render_script("filter")->add("createAdPage")
+                Renderer::render_styles("form", "icon", "create-ad"),
+                Renderer::render_scripts("filter", "createAdPage")
             );
         }
     }
