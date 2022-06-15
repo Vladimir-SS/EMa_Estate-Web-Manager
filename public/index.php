@@ -1,5 +1,6 @@
 <?php
-include_once "file_config.php";
+include_once "../file_config.php";
+
 include_once DIR_CORE . "Application.php";
 include_once DIR_CONTROLLERS . "PageController.php";
 include_once DIR_CONTROLLERS . "AuthController.php";
@@ -15,7 +16,7 @@ $app->router
     ->get("/search", [PageController::class, 'handle_search'])
     ->get("/profile", [ProfileController::class, 'profile'])
     ->post("/profile", [ProfileController::class, 'profile'])
-    ->get("/fonts", "Fonts")
+    //->get("/fonts", "Fonts")
     ->get("/create-ad", [CreateAdController::class, 'create_ad'])
     ->post("/create-ad", [CreateAdController::class, 'create_ad'])
     ->get("/register", [AuthController::class, 'register'])

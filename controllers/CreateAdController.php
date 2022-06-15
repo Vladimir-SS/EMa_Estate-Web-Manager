@@ -71,8 +71,8 @@ class CreateAdController extends Controller
             return $this->render(
                 "Anunț",
                 Renderer::render_template("create-ad/create-ad", ['model' => $model]),
-                Renderer::render_style("form")->add("icon")->add("create-ad"),
-                Renderer::render_script("filter")->add("createAdPage")
+                Renderer::render_styles("form", "icon", "create-ad"),
+                Renderer::render_scripts("filter", "createAdPage")
             );
         }
     }

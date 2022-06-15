@@ -1,5 +1,4 @@
 <?php
-include_once DIR_VIEWS . "HtmlContainer.php";
 
 class Renderer
 {
@@ -21,44 +20,30 @@ class Renderer
         return ob_get_clean();
     }
 
-    public static function render_content(String $file_name): HtmlContainer
+    public static function render_content(String ...$files): String
     {
-        return HtmlContainer::custom_tag("", "")
-            ->set_path(DIR_TEMPLATES)
-            ->set_extension("php")
-            ->add($file_name);
+        $rv = "";
+        foreach ($files as $file)
+            $rv .= Renderer::render_file(DIR_TEMPLATES . "$file.php");
+
+        return $rv;
     }
 
-    public static function render_style(String $file_name): HtmlContainer
+    public static function render_styles(String ...$files): String
     {
-        return HtmlContainer::html_element("style")
-            ->set_path(DIR_VIEWS . "style/build/")
-            ->set_extension("css")
-            ->add($file_name);
+        $rv = "";
+        foreach ($files as $file)
+            $rv .= "<link rel=\"stylesheet\" href=\"styles/$file.css\">";
+
+        return $rv;
     }
 
-    public static function render_script(String $file_name): HtmlContainer
+    public static function render_scripts(String ...$files): String
     {
-        return HtmlContainer::html_element("script")
-            ->set_path(DIR_VIEWS . "script/build/")
-            ->set_extension("js")
-            ->add($file_name);
-    }
+        $rv = "";
+        foreach ($files as $file)
+            $rv .= "<script src=\"scripts/$file.js\"></script>";
 
-    public static function render_scripts(...$files)
-    {
-        $data = "";
-        foreach ($files as $file_name) {
-            $data .= self::render_script($file_name);
-        }
-        return $data;
-    }
-
-    public static function render_vector(String $file_name)
-    {
-        return HtmlContainer::custom_tag("", "")
-            ->set_path(DIR_VIEWS . "svg/")
-            ->set_extension("svg")
-            ->add($file_name);
+        return $rv;
     }
 }

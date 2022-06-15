@@ -59,21 +59,15 @@ class AuthController extends Controller
             return $this->render(
                 "Register",
                 Renderer::render_template("register/register", ['model' => $model]),
-                Renderer::render_style("form")->add("icon")->add("login-register"),
-                Renderer::render_script("form")
+                Renderer::render_styles("form", "icon", "login-register"),
+                Renderer::render_scripts("form")
             );
         } else {
-
-            $file_name = Application::$app->router->get_file_name();
-            if ($file_name !== '') {
-                Response::file_response(DIR_BASE . 'resources/' . $file_name);
-            }
-
             return $this->render(
                 "Register",
                 Renderer::render_template("register/register", ['model' => $model]),
-                Renderer::render_style("form")->add("icon")->add("login-register"),
-                Renderer::render_script("form")
+                Renderer::render_styles("form", "icon", "login-register"),
+                Renderer::render_scripts("form")
             );
         }
     }
@@ -111,20 +105,14 @@ class AuthController extends Controller
             return $this->render(
                 "Login",
                 Renderer::render_template("login/login", ['model' => $model]),
-                Renderer::render_style("form")->add("icon")->add("login-register"),
-                Renderer::render_script("form")
+                Renderer::render_styles("form", "icon", "login-register"),
+                Renderer::render_scripts("form")
             );
         } else {
-
-            $file_name = Application::$app->router->get_file_name();
-            if ($file_name !== '') {
-                Response::file_response(DIR_BASE . 'resources/' . $file_name);
-            }
-
             return $this->render(
                 "Login",
                 Renderer::render_template("login/login", ['model' => $model]),
-                Renderer::render_style("form")->add("icon")->add("login-register")
+                Renderer::render_styles("form", "icon", "login-register")
             );
         }
     }
