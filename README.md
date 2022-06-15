@@ -6,7 +6,8 @@ Design: https://www.figma.com/file/MgwuSLcZmdNURq57CIeqev/Page?node-id=0%3A1
 
 Start server:
 ```bash
-cd public; php -c ../php.ini -S localhost:8000
+cd public
+php -c ../php.ini -S localhost:8000
 ```
 
 
@@ -18,5 +19,6 @@ npx tsc -w
 Compile for public;
 
 ```bash
-cd ../gulp-watcher; npx gulp production
+cd ../ema-compiler
+npx gulp development
 ```
