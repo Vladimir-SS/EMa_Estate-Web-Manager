@@ -45,6 +45,15 @@ class Renderer
             ->add($file_name);
     }
 
+    public static function render_scripts(...$files)
+    {
+        $data = "";
+        foreach ($files as $file_name) {
+            $data .= self::render_script($file_name);
+        }
+        return $data;
+    }
+
     public static function render_vector(String $file_name)
     {
         return HtmlContainer::custom_tag("", "")

@@ -9,6 +9,19 @@ $unit: $unit/2
     gap: $unit
     height: 100%
 
+.slider-buttons
+    display: flex
+    align-items: center
+    margin: $unit $unit
+    gap: 10px
+    button
+
+        background: var(--background-primary)
+        border: 1px solid var(--background-secondary-alt)
+        border-radius: $border-radius
+        &:hover
+            transform: scale(1.1)
+
 .side-map
     border-radius: $border-radius
     background-image: url("../img/map.png")

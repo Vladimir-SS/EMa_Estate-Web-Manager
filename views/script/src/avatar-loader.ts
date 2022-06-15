@@ -1,7 +1,6 @@
 function avatarLoader() {
     var avatarElement = document.getElementById('avatar');
-    let imgURL = URL.createObjectURL(new Blob([atob(avatarElement.innerText)])); // ???????????
-    avatarElement.style.backgroundImage = 'url( ' + imgURL + ' )';
+    avatarElement.style.backgroundImage = 'url( "data: image/jpeg; base64, ' + avatarElement.innerText + '" ) ';
     avatarElement.innerText = "";
 }
 

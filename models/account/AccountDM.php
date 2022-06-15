@@ -1,5 +1,6 @@
 <?php
 include_once DIR_MODELS . "Model.php";
+include_once DIR_CORE . "exceptions/InternalException.php";
 
 class AccountDM
 {
@@ -18,9 +19,7 @@ class AccountDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         $row = oci_fetch_array($stid);
@@ -61,9 +60,7 @@ class AccountDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         oci_free_statement($stid);
@@ -87,9 +84,7 @@ class AccountDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -117,9 +112,7 @@ class AccountDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -146,9 +139,7 @@ class AccountDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -176,9 +167,7 @@ class AccountDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -206,9 +195,7 @@ class AccountDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -252,9 +239,7 @@ class AccountDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
         oci_free_statement($stid);
         DatabaseConnection::close();

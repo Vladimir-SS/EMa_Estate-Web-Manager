@@ -122,7 +122,7 @@ CREATE TABLE images (
 /
 --create table for buildings
 CREATE TABLE buildings (
-  announcement_id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
+  announcement_id INT PRIMARY KEY,
   floor INT,
   bathrooms INT DEFAULT 1,
   parking_lots INT DEFAULT 1,
@@ -223,6 +223,11 @@ CREATE TABLE buildings (
 
 --select * from USER_TRIGGERS;
 --select * from accounts;
+--select * from buildings;
 --select * from announcements;
+--INSERT INTO buildings VALUES(21,2,3,1,sysdate,'decomandat','32',4,0);
+--commit;
 --select * from images;
 --desc accounts;
+
+--SELECT * FROM announcements a left join buildings b on a.id = b.announcement_id; 

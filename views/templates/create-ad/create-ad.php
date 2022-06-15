@@ -52,7 +52,7 @@
 
     <h2>Descriere*</h2>
     <?php
-    echo $form->field($model, 'description', 'Descriere')->get_textarea();
+    echo $form->field($model, 'DESCRIPTION', 'Descriere')->get_textarea();
     ?>
 
     <button class="label label--flex label--important" type="submit" onclick>

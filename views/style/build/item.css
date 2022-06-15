@@ -40,12 +40,7 @@
 }
 
 .content__box--item__info .secondary span {
-  height: 14.4px;
-  width: 14.4px;
-}
-
-.content__box--item__info .secondary span path {
-  fill: var(--text-faint);
+  color: var(--text-normal);
 }
 
 .content__box--item__info__icons {
@@ -71,15 +66,6 @@
   gap: 10px;
 }
 
-.content__box--item__info__icons__basic .icon-text svg {
-  top: -0.01em;
-  height: 1.5em;
-}
-
-.content__box--item__info__icons__basic .icon-text svg path {
-  fill: var(--interactive-accent);
-}
-
 .content__box--item__info__icons__basic .icon-text:nth-child(2) {
   margin-left: auto;
 }
@@ -91,21 +77,13 @@
   transition: transform .2s, -webkit-transform .2s;
 }
 
-.content__box--item__info__icons .save-button svg {
-  height: 100%;
-}
-
-.content__box--item__info__icons .save-button svg path:nth-child(2) {
-  fill: var(--text-normal);
-}
-
 .content__box--item__info__icons .save-button:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
 
-.content__box--item__info__icons .save-button--is-saved svg path:nth-child(1), .content__box--item__info__icons .save-button--is-saved svg path:nth-child(2) {
-  fill: var(--interactive-accent);
+.content__box--item__info__icons .save-button--is-saved span {
+  color: var(--interactive-accent);
 }
 
 .items-container {
@@ -150,4 +128,9 @@
 
 .chubby-items .content__box--item__info .icon-text:last-child {
   margin-left: auto;
+}
+
+.text-wrap {
+  overflow-wrap: break-word;
+  max-width: 240px;
 }

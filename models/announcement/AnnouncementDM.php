@@ -1,11 +1,111 @@
 <?php
 include_once DIR_MODELS . "Model.php";
+include_once DIR_CORE . "exceptions/InternalException.php";
 
 class AnnouncementDM
 {
 
     public function __construct()
     {
+    }
+
+    public function get_announcements($count, $index = 0)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT id,account_id,title,price,surface,address,transaction_type,description,land,created_at,updated_at FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $data = [];
+
+        for ($i = 0; $i <= $count; $i++) {
+            if (($row = oci_fetch_assoc($stid)) != false) {
+                $row['IMAGE'] = $this->get_image($row['ID']);
+                if ($row['LAND'] == 0) {
+                    $row['BUILDING'] = $this->get_building($row['ID']);
+                }
+                $data[$i] = $row;
+            }
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $data;
+    }
+
+    public function get_image($id)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT name,type,image FROM images WHERE announcement_id = $id";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $row = oci_fetch_assoc($stid);
+        if ($row != false) {
+            $row['IMAGE'] = $row['IMAGE']->load();
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $row;
+    }
+
+    public function get_building($id)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT * FROM buildings WHERE announcement_id = $id";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $row = oci_fetch_assoc($stid);
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $row;
+    }
+
+    public function get_announcements_count()
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT count(*) FROM announcements";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        if (($count = oci_fetch($stid)) != false) {
+            $count = oci_result($stid, 1);
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $count;
     }
 
     public function find_id_by_account_id_and_title($account_id, $title): int
@@ -19,9 +119,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -53,9 +151,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
         oci_free_statement($stmt);
         DatabaseConnection::close();
@@ -78,9 +174,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
 
         if (($row = oci_fetch($stid)) != false) {
@@ -118,9 +212,7 @@ class AnnouncementDM
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
-            echo "<pre>";
-            var_dump($errors);
-            echo "</pre>";
+            throw new InternalException($errors);
         }
         oci_free_statement($stid);
         DatabaseConnection::close();

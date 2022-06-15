@@ -8,6 +8,13 @@ const createIcon = (name: string) => {
     return createSimpleElement("span", `icon icon-${name}`);
 }
 
+const saveButtonClickHandler = (element: HTMLDivElement) => {
+    element.classList.toggle("save-button--is-saved");
+    const child = element.firstChild as HTMLElement;
+    child.classList.toggle('icon-saved');
+    child.classList.toggle('icon-save');
+}
+
 const hamburgerClickHandler = () => {
     document.getElementById("nav-list").classList.toggle("show");
 }
