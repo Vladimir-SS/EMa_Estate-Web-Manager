@@ -34,13 +34,11 @@ class SliderItems {
         var xmlHttpRequest = new XMLHttpRequest();
         let obj;
         let url = `/api/items?count=${this.count}&index=${this.count * (parseInt(no) - 1)}`;
-        console.log(url);
         xmlHttpRequest.open('GET', url, true);
         xmlHttpRequest.onreadystatechange = () => {
             if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
                 obj = JSON.parse(xmlHttpRequest.responseText);
                 delete obj['COUNT'];
-                console.log(obj);
                 let i = 0;
                 for (const key in obj) {
                     if (Object.prototype.hasOwnProperty.call(obj, key)) {
@@ -52,7 +50,6 @@ class SliderItems {
                 }
                 while (i < SliderItems.items.length) {
                     SliderItems.items[i].getContainer().remove();
-                    console.log("Removiiin");
                     this.itemsCount--;
                     i++;
                 }

@@ -40,6 +40,17 @@ class CreateAd {
             console.log(key, value);
         }
 
+        var xmlHttpRequest = new XMLHttpRequest();
+        let url = '/create-ad';
+        xmlHttpRequest.open('POST', url, true);
+        xmlHttpRequest.send(formData);
+
+        xmlHttpRequest.onreadystatechange = function () {
+            if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
+                alert(xmlHttpRequest.responseText);
+            }
+        }
+
         console.log("submit")
     }
 
@@ -50,6 +61,7 @@ class CreateAd {
         CreateAd.uploadedFiles.forEach((file, index) => event.formData.set(`image${index}`, file));
 
         console.log("formData");
+
     }
 }
 

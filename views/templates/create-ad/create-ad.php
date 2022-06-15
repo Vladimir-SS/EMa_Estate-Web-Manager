@@ -5,11 +5,11 @@
     <h2>Adaugă titlu anunț*</h2>
 
     <?php
-    echo $form->field($model, 'title', 'Ex. Apartament 3 camere Copou Bloc Nou')->get_simple_input();
-    echo $form->field($model, 'address', 'Introdu locația*', 'icon-pin');
+    echo $form->field($model, 'TITLE', 'Ex. Apartament 3 camere Copou Bloc Nou')->get_simple_input();
+    echo $form->field($model, 'ADDRESS', 'Introdu locația*', 'icon-pin');
     //TODO: add curency
-    echo $form->field($model, 'price', 'Preț')->get_simple_input();
-    echo $form->field($model, 'surface', "Suprafață")->get_simple_input();
+    echo $form->field($model, 'PRICE', 'Preț')->get_simple_input();
+    echo $form->field($model, 'SURFACE', "Suprafață")->get_simple_input();
     ?>
 
     <fieldset id="dropdown-container">
@@ -20,22 +20,22 @@
         <fieldset id="residential-specific">
             <!-- rooms, floor -->
             <?php
-            echo $form->field($model, 'rooms', "Numărul de camere")->get_simple_input();
-            echo $form->field($model, 'floor', "Etaj")->get_simple_input();
+            echo $form->field($model, 'ROOMS', "Numărul de camere")->get_simple_input();
+            echo $form->field($model, 'FLOOR', "Etaj")->get_simple_input();
             ?>
         </fieldset>
         <fieldset id="building-specific">
             <!-- bathrooms, parking_lots, built_on -->
             <?php
-            echo $form->field($model, 'bathrooms', "Numărul de băi")->get_simple_input();
-            echo $form->field($model, 'parking_lots', "Numărul locurilor de parcare")->get_simple_input();
-            echo $form->field($model, 'built_on', "Anul de construcție al clădirii")->get_simple_input();
+            echo $form->field($model, 'BATHROOMS', "Numărul de băi")->get_simple_input();
+            echo $form->field($model, 'PARKING_LOTS', "Numărul locurilor de parcare")->get_simple_input();
+            echo $form->field($model, 'BUILT_ON', "Anul de construcție al clădirii")->get_simple_input();
             ?>
         </fieldset>
         <fieldset id="house-specific">
             <!-- basement, floor-->
             <?php
-            echo $form->field($model, 'floor', "Numărul de etaje")->get_simple_input();
+            echo $form->field($model, 'FLOOR', "Numărul de etaje")->get_simple_input();
             ?>
         </fieldset>
 

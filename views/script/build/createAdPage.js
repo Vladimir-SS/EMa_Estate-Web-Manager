@@ -31,6 +31,15 @@ CreateAd.submitHandler = (event) => {
     for (var [key, value] of formData.entries()) {
         console.log(key, value);
     }
+    var xmlHttpRequest = new XMLHttpRequest();
+    let url = '/create-ad';
+    xmlHttpRequest.open('POST', url, true);
+    xmlHttpRequest.send(formData);
+    xmlHttpRequest.onreadystatechange = function () {
+        if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
+            alert(xmlHttpRequest.responseText);
+        }
+    };
     console.log("submit");
 };
 CreateAd.formDataHandler = (event) => {
