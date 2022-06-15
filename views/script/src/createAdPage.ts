@@ -1,7 +1,10 @@
 class CreateAd {
     public static addImageInputElement: HTMLElement;
     public static imagesElement: HTMLElement;
+    public static typeDropDown: DropdownFilterOption;
+    public static apartamentTypeDropDown: DropdownFilterOption;
     private static uploadedFiles: File[] = [];
+
 
     public static addImage = (alt: string, url: string) => {
         const el = document.createElement('img');
@@ -32,35 +35,14 @@ class CreateAd {
         }
     }
 
-    public static submitHandler = (event: SubmitEvent) => {
-        event.preventDefault();
-        const formData = new FormData(event.target as HTMLFormElement);
-
-        for (var [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
-
-        var xmlHttpRequest = new XMLHttpRequest();
-        let url = '/create-ad';
-        xmlHttpRequest.open('POST', url, true);
-        xmlHttpRequest.send(formData);
-
-        xmlHttpRequest.onreadystatechange = function () {
-            if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-                alert(xmlHttpRequest.responseText);
-            }
-        }
-
-        console.log("submit")
-    }
-
     public static formDataHandler = (event: FormDataEvent) => {
-        console.log(event);
 
         event.formData.delete('images');
         CreateAd.uploadedFiles.forEach((file, index) => event.formData.set(`image${index}`, file));
-
-        console.log("formData");
+        const type = CreateAd.typeDropDown.getCurrentOption();
+        event.formData.set('TYPE', type.index.toString());
+        if (type.index == 1) // type: Apartment
+            event.formData.set('AP_TYPE', CreateAd.apartamentTypeDropDown.getCurrentOption().index.toString());
 
     }
 }
@@ -83,7 +65,7 @@ DocumentHandler.whenReady(() => {
     const buildingSpecific = document.getElementById("building-specific");
     const dropDownContainer = document.getElementById("dropdown-container");
 
-    const apartamentTypeDropDown = DropdownFilterOption.createWithDefault(
+    CreateAd.apartamentTypeDropDown = DropdownFilterOption.createWithDefault(
         "type",
         ["Decomandat", "Nedecomandat", "Semidecomandat", "Circular"],
         "Alege tipul apartamentului"
@@ -91,27 +73,27 @@ DocumentHandler.whenReady(() => {
 
     const typeLinked = [
         [],
-        [residentialSpecific, buildingSpecific, apartamentTypeDropDown.element],
+        [residentialSpecific, buildingSpecific, CreateAd.apartamentTypeDropDown.element],
         [buildingSpecific, houseSpecific],
         [buildingSpecific],
         []
     ]
 
-    const typeDropDown = DropdownFilterOption.createWithDefault(
+    CreateAd.typeDropDown = DropdownFilterOption.createWithDefault(
         "type",
         ["Apartament", "Casă", "Office", "Teren"],
         "Alege tipul proprietății");
 
     let lastIndex = 0;
-    typeDropDown.onChange = (index, __text) => {
+    CreateAd.typeDropDown.onChange = (index, __text) => {
         typeLinked[lastIndex].forEach(disableElement);
         typeLinked[index].forEach(enableElement);
         lastIndex = index;
     }
     typeLinked.forEach(list => list.forEach(disableElement));
-    FilterOptionHandler.add(typeDropDown);
+    FilterOptionHandler.add(CreateAd.typeDropDown);
 
-    dropDownContainer.append(typeDropDown.element, apartamentTypeDropDown.element);
+    dropDownContainer.append(CreateAd.typeDropDown.element, CreateAd.apartamentTypeDropDown.element);
 
 
     CreateAd.addImageInputElement = document.getElementById("add-image-input");
@@ -119,6 +101,5 @@ DocumentHandler.whenReady(() => {
     CreateAd.addImageInputElement.addEventListener("change", CreateAd.addImageHandler, true);
 
     const formElement = document.getElementsByTagName("form")[0];
-    formElement.addEventListener("submit", CreateAd.submitHandler);
     formElement.addEventListener("formdata", CreateAd.formDataHandler);
 })

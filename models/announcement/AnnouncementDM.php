@@ -12,7 +12,7 @@ class AnnouncementDM
     public function get_announcements($count, $index = 0)
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT id,account_id,title,price,surface,address,transaction_type,description,land,created_at,updated_at FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
+        $sql = "SELECT id,account_id,title,price,surface,address,transaction_type,description,is_land,created_at,updated_at FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -28,7 +28,7 @@ class AnnouncementDM
         for ($i = 0; $i <= $count; $i++) {
             if (($row = oci_fetch_assoc($stid)) != false) {
                 $row['IMAGE'] = $this->get_image($row['ID']);
-                if ($row['LAND'] == 0) {
+                if ($row['IS_LAND'] == 0) {
                     $row['BUILDING'] = $this->get_building($row['ID']);
                 }
                 $data[$i] = $row;
@@ -163,13 +163,13 @@ class AnnouncementDM
      * @param $title
      * @return int|bool 1 if exists 0 if not | false in case of error
      */
-    public function check_existence_title($title): int|bool
+    public function check_existence_title($title, $id): int|bool
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT count(*) FROM announcements WHERE title='$title'";
+        $sql = "SELECT count(*) FROM announcements WHERE title='$title' AND account_id=$id";
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stmt);
 
         $errors = oci_error(DatabaseConnection::$conn);
 
@@ -177,10 +177,10 @@ class AnnouncementDM
             throw new InternalException($errors);
         }
 
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
+        if (($row = oci_fetch($stmt)) != false) {
+            $row = oci_result($stmt, 1);
         }
-        oci_free_statement($stid);
+        oci_free_statement($stmt);
         DatabaseConnection::close();
         return $row;
     }
@@ -201,20 +201,25 @@ class AnnouncementDM
             array_push($tags, $value["tag"]);
         }
 
-        $sql = "INSERT INTO announcements (" . implode(",", $columns) . ") VALUES (" . implode(",", $tags) . ")";
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        $sql = "INSERT INTO announcements (" . implode(",", $columns) . ") VALUES (" . implode(",", $tags) . ") RETURNING id INTO :id";
+        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
 
         foreach ($data as $key => &$value) {
-            oci_bind_by_name($stid, $value["tag"], $value["value"], -1, $value["type"]);
+            oci_bind_by_name($stmt, $value["tag"], $value["value"], -1, $value["type"]);
         }
-        oci_execute($stid);
+
+        oci_bind_by_name($stmt, ":id", $id, -1, OCI_B_INT);
+
+        oci_execute($stmt);
 
         $errors = oci_error(DatabaseConnection::$conn);
 
         if ($errors) {
             throw new InternalException($errors);
         }
-        oci_free_statement($stid);
+        oci_free_statement($stmt);
         DatabaseConnection::close();
+
+        return $id;
     }
 }

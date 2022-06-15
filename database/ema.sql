@@ -80,7 +80,7 @@ CREATE TABLE announcements (
   address VARCHAR2(128) NOT NULL,
   transaction_type VARCHAR2(64) NOT NULL,
   description VARCHAR2(4000),
-  land NUMBER(1) DEFAULT 0,
+  is_land NUMBER(1) DEFAULT 0,
 
   created_at DATE,
   updated_at DATE,

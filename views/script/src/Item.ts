@@ -7,6 +7,7 @@ interface ItemData {
     SURFACE: string
     DESCRIPTION: string
     IMAGE: ImageData
+    IS_LAND: string
 
     BUILDING: BuildingData
 }
@@ -43,6 +44,9 @@ class Item {
 
     public constructor(data: ItemData) {
         this.data = data;
+        if (this.data.IS_LAND == "1") {
+            this.data.BUILDING = { BATHROOMS: "", PARKING_LOTS: "", ROOMS: "" };
+        }
         this.create();
     }
 
@@ -105,7 +109,7 @@ class Item {
         this.container = createSimpleElement('div', 'content__box content__box--item');
         this.imageContainer = createSimpleElement('div', 'image-container image-container--animated');
         this.image = createSimpleElement('div', 'image');
-        if (typeof this.data.IMAGE !== 'undefined' && this.data.IMAGE !== null) {
+        if (typeof this.data.IMAGE.IMAGE !== 'undefined' && this.data.IMAGE.IMAGE !== null) {
             this.image.style.backgroundImage = 'url( "data: ' + this.data.IMAGE.TYPE + '; base64, ' + this.data.IMAGE.IMAGE + '" ) ';
             this.imageContainer.appendChild(this.image);
         }
@@ -118,7 +122,7 @@ class Item {
     public changeData(data: ItemData) {
         this.data = data;
 
-        if (typeof data.IMAGE !== 'undefined' && data.IMAGE !== null) {
+        if (typeof this.data.IMAGE.IMAGE !== 'undefined' && this.data.IMAGE.IMAGE !== null) {
             this.image.style.backgroundImage = 'url( "data: ' + data.IMAGE.TYPE + '; base64, ' + data.IMAGE.IMAGE + '" ) ';
         } else {
             this.image.style.backgroundImage = null;
