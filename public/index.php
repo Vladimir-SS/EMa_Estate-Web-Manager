@@ -8,6 +8,7 @@ include_once DIR_CONTROLLERS . "CreateAdController.php";
 include_once DIR_CONTROLLERS . "ProfileController.php";
 include_once DIR_CONTROLLERS . "ItemPageController.php";
 include_once DIR_CONTROLLERS . "api/ItemsController.php";
+include_once DIR_CONTROLLERS . "api/ItemImageController.php";
 
 $app = new Application();
 
@@ -17,7 +18,6 @@ $app->router
     ->get("/search", [PageController::class, 'handle_search'])
     ->get("/profile", [ProfileController::class, 'profile'])
     ->post("/profile", [ProfileController::class, 'profile'])
-    //->get("/fonts", "Fonts")
     ->get("/create-ad", [CreateAdController::class, 'create_ad'])
     ->post("/create-ad", [CreateAdController::class, 'create_ad'])
     ->get("/register", [AuthController::class, 'register'])
@@ -26,7 +26,8 @@ $app->router
     ->post("/login", [AuthController::class, 'login'])
     ->get("/item", [ItemPageController::class, 'generate_item_page'])
     ->get("/api/items", [ItemsController::class, 'get_items'])
-    ->get("/api/items/filter", [ItemsController::class, 'get_filtered_items']);
+    ->get("/api/items/filter", [ItemsController::class, 'get_filtered_items'])
+    ->get("/api/items/image", [ItemImageController::class, 'get_image']);
 
 
 $app->run();

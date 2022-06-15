@@ -1,7 +1,22 @@
+
+const avatarElement = document.getElementById("avatar");
+const el = document.getElementById('avatarImage') as HTMLImageElement;
+avatarElement.appendChild(el);
+
+const addImageHandler = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const files = target.files;
+    const file = files[0];
+    const imgURL = URL.createObjectURL(file);
+
+    el.src = imgURL;
+    el.alt = file.name;
+
+}
+
 function avatarLoader() {
-    var avatarElement = document.getElementById('avatar');
-    avatarElement.style.backgroundImage = 'url( "data: image/jpeg; base64, ' + avatarElement.innerText + '" ) ';
-    avatarElement.innerText = "";
+    let addImageInputElement = document.getElementById("add-image-input");
+    addImageInputElement.addEventListener("change", addImageHandler, true);
 }
 
 DocumentHandler.whenReady(avatarLoader);

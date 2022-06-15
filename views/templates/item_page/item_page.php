@@ -17,7 +17,7 @@
         <p>Agent Imobiliar</p>
         <p class="secondary"> Pe Estence din Februarie 2018 </p>
         <div class="icon-field icon-field--important">
-            <?php include "../shared/svg/phone.svg" ?>
+            <span class="icon icon-phone"></span>
             0744 704 733
         </div>
     </div>

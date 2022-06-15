@@ -3,11 +3,11 @@
 
     <div class="content__box">
         <div class="content__box--profile">
-            <div class="content__box--profile__img" id="avatar">
-                <?php
-                $data = $image ?? $image->load();
-                echo base64_encode($data);
-                ?>
+            <div class="images">
+                <label class="images__add-img image-container" id="avatar" onclick="">
+                    <input id="add-image-input" type="file" accept="image/*" name="image">
+                    <img id="avatarImage" src="" alt="">
+                </label>
             </div>
             <?php
             echo sprintf(
