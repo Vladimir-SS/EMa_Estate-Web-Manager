@@ -47,7 +47,7 @@ class Field
             </div>',
             $this->type,
             $this->placeholder,
-            $this->model->get_data()[$this->attribute]['value'],
+            '', //$this->model->get_data()[$this->attribute]['value'],
             $this->attribute
         );
     }
@@ -57,20 +57,20 @@ class Field
         if ($this->model->has_errors($this->attribute))
             return sprintf(
                 '<div> 
-                <textarea class="desc desc--is-invalid" maxlength="4000" placeholder="%s" name="%s" >%s</textarea>
+                <textarea class="label desc desc--is-invalid" maxlength="4000" placeholder="%s" name="%s" >%s</textarea>
                 %s
             </div>',
                 $this->placeholder,
                 $this->attribute,
-                $this->model->get_data()[$this->attribute]['value'],
+                '', //$this->model->get_data()[$this->attribute]['value'],
                 $this->error_message()
             );
 
         return sprintf(
-            '<textarea class="desc" maxlength="4000" placeholder="%s" name="%s" >%s</textarea>',
+            '<textarea class="label desc" maxlength="4000" placeholder="%s" name="%s" >%s</textarea>',
             $this->placeholder,
             $this->attribute,
-            $this->model->get_data()[$this->attribute]['value']
+            '', //$this->model->get_data()[$this->attribute]['value'],
         );
     }
 
@@ -87,7 +87,7 @@ class Field
                 </div>',
                 $this->type,
                 $this->placeholder,
-                $this->model->get_data()[$this->attribute]['value'],
+                '', //$this->model->get_data()[$this->attribute]['value'],
                 $this->attribute,
                 $this->error_message()
             );
@@ -100,7 +100,7 @@ class Field
             $this->icon,
             $this->type,
             $this->placeholder,
-            $this->model->get_data()[$this->attribute]['value'],
+            '', //$this->model->get_data()[$this->attribute]['value'],
             $this->attribute
         );
     }

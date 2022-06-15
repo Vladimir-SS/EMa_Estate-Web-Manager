@@ -1,33 +1,32 @@
-var _a;
 class FilterOptionHandler {
 }
-_a = FilterOptionHandler;
 FilterOptionHandler.lastFilterOption = null;
 FilterOptionHandler.filterElement = document.getElementById("filter");
 FilterOptionHandler.filterOptions = [];
 FilterOptionHandler.closeLastElement = () => {
-    if (_a.lastFilterOption === null)
+    if (FilterOptionHandler.lastFilterOption == null)
         return;
-    _a.lastFilterOption.element.classList.remove("show");
-    _a.lastFilterOption = null;
+    FilterOptionHandler.lastFilterOption.element.classList.remove("show");
+    FilterOptionHandler.lastFilterOption = null;
 };
 FilterOptionHandler.labelOnClickEventHandler = (option) => {
-    if (_a.lastFilterOption) {
-        let isSameObject = _a.lastFilterOption === option;
-        _a.closeLastElement();
+    if (FilterOptionHandler.lastFilterOption) {
+        let isSameObject = FilterOptionHandler.lastFilterOption === option;
+        FilterOptionHandler.closeLastElement();
         if (isSameObject)
             return;
     }
     option.element.classList.add("show");
-    _a.lastFilterOption = option;
+    FilterOptionHandler.lastFilterOption = option;
 };
 FilterOptionHandler.add = (option) => {
-    _a.filterOptions.push(option);
-    _a.filterElement.appendChild(option.element);
+    FilterOptionHandler.filterOptions.push(option);
+    if (FilterOptionHandler.filterElement != null)
+        FilterOptionHandler.filterElement.appendChild(option.element);
     return FilterOptionHandler;
 };
 FilterOptionHandler.submit = () => {
-    return _a.filterOptions
+    return FilterOptionHandler.filterOptions
         .filter(op => op.element.style.display != "none")
         .map(op => op.getParameters())
         .reduce((previus, current) => {

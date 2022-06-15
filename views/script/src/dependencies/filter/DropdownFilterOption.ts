@@ -1,20 +1,15 @@
-interface DropdownStringOption {
+
+interface DropdownOption {
+    index: number;
     text: string;
-    linked: HTMLElement[];
-}
-
-type DropdownOption = string | DropdownStringOption;
-
-interface DropdownElementOption {
-    element: HTMLElement;
-    linked: HTMLElement[];
 }
 
 class DropdownFilterOption extends FilterOption {
     private chosenOptionIndex: number = 0;
-    private options: DropdownElementOption[];
+    private options: string[];
+    public onChange: (index: number, text: string) => void = (__index, __text) => { };
 
-    private createOptionItem = (text: string) => {
+    private static createOptionItem = (text: string) => {
         let element = document.createElement("li");
         element.innerHTML = text;
         element.setAttribute("onclick", "");
@@ -22,64 +17,44 @@ class DropdownFilterOption extends FilterOption {
         return element;
     }
 
-    private createOptionList = (optionList: DropdownOption[]) => {
+    private createOptionList = () => {
         let listElement = document.createElement("ul");
 
-        this.options = optionList.map(op => {
-            let
-                text: string,
-                linked: HTMLElement[];
-
-            if (typeof (op) === 'string') {
-                text = op;
-                linked = [];
-            } else {
-                text = op.text;
-                linked = op.linked;
-            }
-
-            const element = this.createOptionItem(text);
-            return { element, linked };
-        })
-
-        this.options.forEach((op, index) => {
-            op.element.onclick = () => this.optionItemHandler(index);
-            listElement.append(op.element);
-            op.linked.forEach(el => el.style.display = "none");
+        this.options.forEach((text, index) => {
+            const element = DropdownFilterOption.createOptionItem(text);
+            element.onclick = () => this.optionItemHandler(index);
+            listElement.append(element);
         })
 
         return listElement;
     }
 
-    private optionItemHandler = (index: number) => {
-        this.options[this.chosenOptionIndex]
-            .linked.forEach(el => el.style.display = "none");
-        this.chosenOptionIndex = index;
-        const option = this.options[index];
-        const { element, linked } = option;
 
-        this.textNode.textContent = element.innerHTML;
+    private optionItemHandler = (index: number) => {
+        this.chosenOptionIndex = index;
+
+        this.textNode.textContent = this.options[index];
         this.labelElement.classList.add("label--important")
         FilterOptionHandler.closeLastElement();
 
-        linked.forEach(el => el.style.removeProperty("display"));
+        const op = this.getCurrentOption();
+        this.onChange(op.index, op.text);
     }
 
-    public static create(name: string, optionList: DropdownOption[]) {
-        const instance = new DropdownFilterOption(name);
-        instance.setLabelTextIcon("", "down-arrow");
+    public constructor(name: string, optionList: string[]) {
+        super(name);
+        this.options = optionList;
+        this.setLabelTextIcon("", "down-arrow");
 
-        instance.contentBoxElement.appendChild(instance.createOptionList(optionList));
-        instance.element.classList.add("filter-option--dropdown")
+        this.contentBoxElement.appendChild(this.createOptionList());
+        this.element.classList.add("filter-option--dropdown")
 
-        instance.optionItemHandler(0);
-
-        return instance;
+        this.optionItemHandler(0);
     }
 
-    static createWithDefault(name: string, optionList: DropdownOption[], defaultPlaceholder: string) {
-        const instance = this.create(name, [defaultPlaceholder, ...optionList]);
-        let child = instance.options[0].element;
+    static createWithDefault(name: string, optionList: string[], defaultPlaceholder: string) {
+        const instance = new DropdownFilterOption(name, [defaultPlaceholder, ...optionList]);
+        const child = instance.element.getElementsByTagName("ul")[0].firstChild as HTMLElement;
 
         child.onclick = () => {
             instance.optionItemHandler(0);
@@ -91,11 +66,17 @@ class DropdownFilterOption extends FilterOption {
         return instance;
     }
 
-    override  getParameters = () => {
+    public getCurrentOption(): DropdownOption {
+        return {
+            index: this.chosenOptionIndex,
+            text: this.options[this.chosenOptionIndex]
+        }
+    }
 
+    override  getParameters = () => {
         if (this.labelElement.classList.contains("label--important"))
-            return {
-                [this.name]: this.options[this.chosenOptionIndex].element.textContent
-            }
+            return this.getCurrentOption().text;
+
+        return {}
     }
 }
