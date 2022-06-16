@@ -46,7 +46,7 @@ class Router
     public function resolve()
     {
         $path = $this->request->get_path();
-        extract(self::split_path($this->request->get_path())); // ??
+        extract(self::split_path($this->request->get_path()));
 
         if (isset($file_name))
             $this->file_name = $file_name;
