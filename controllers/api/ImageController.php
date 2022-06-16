@@ -1,6 +1,7 @@
 <?php
 include_once DIR_CONTROLLERS . "Controller.php";
 include_once DIR_VIEWS . "View.php";
+include_once DIR_CORE . "exceptions/NotFoundException.php";
 
 class ImageController extends Controller
 {
@@ -10,12 +11,16 @@ class ImageController extends Controller
 
     public function get_image(Request $request)
     {
-        $id = 1;
+        $data = $request->get_body();
 
         $data_mapper = new AnnouncementDM();
-        $row = $data_mapper->get_image($id);
+        $row = $data_mapper->get_image($data['id']);
 
-        header('Content-Type: ' . $row['TYPE']);
-        die(base64_decode($row['IMAGE']));
+        if ($row) {
+            header('Content-Type: ' . $row['TYPE']);
+            die(base64_decode($row['IMAGE']));
+        } else {
+            echo "No data found";
+        }
     }
 }

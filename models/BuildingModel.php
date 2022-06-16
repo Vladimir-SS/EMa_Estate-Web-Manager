@@ -18,12 +18,9 @@ class BuildingModel extends Model
                 "PARKING_LOTS" => (new Constraint())
                     ->add(Constrain::MinValue, 0)
                     ->add(Constrain::MaxValue, 99),
-                "BUILT_ON" => (new Constraint()),
-                "TYPE" => (new Constraint())
-                    ->add(Constrain::Required)
-                    ->add(Constrain::MinLength, 2)
-                    ->add(Constrain::MaxLength, 32)
-                    ->add(Constrain::SafeChars),
+                "BUILT_IN" => (new Constraint())
+                    ->add(Constrain::MinValue, 1950)
+                    ->add(Constrain::MaxValue, 2024),
                 "AP_TYPE" => (new Constraint())
                     ->add(Constrain::MinLength, 2)
                     ->add(Constrain::MaxLength, 32)

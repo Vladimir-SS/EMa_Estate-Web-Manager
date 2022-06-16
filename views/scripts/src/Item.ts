@@ -9,12 +9,14 @@ interface BaseData {
      * 3 - "Teren"
      */
     type: number
+    transactionType: string
     address: string
     title: string
     description: string
     price: string
     surface: number
     imageURL: string
+
 }
 
 interface BuildingData extends BaseData {
@@ -68,6 +70,7 @@ class Item {
     private static PRICE_TYPE: string = ' RON';
 
     public static createInfoContainer(data: BaseData, iconsElement: HTMLElement) {
+
         const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
         const { price, title, address } = data;
 

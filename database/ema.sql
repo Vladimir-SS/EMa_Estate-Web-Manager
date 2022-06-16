@@ -74,13 +74,13 @@ END;
 CREATE TABLE announcements (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   account_id INT NOT NULL,
-  title VARCHAR2(64) NOT NULL,  
+  title VARCHAR2(64) NOT NULL, 
+  type VARCHAR2(32) DEFAULT 'land',
   price INT NOT NULL,
   surface INT NOT NULL,
   address VARCHAR2(128) NOT NULL,
   transaction_type VARCHAR2(64) NOT NULL,
   description VARCHAR2(4000),
-  is_land NUMBER(1) DEFAULT 0,
 
   created_at DATE,
   updated_at DATE,
@@ -126,8 +126,7 @@ CREATE TABLE buildings (
   floor INT,
   bathrooms INT DEFAULT 1,
   parking_lots INT DEFAULT 1,
-  built_on DATE,
-  type VARCHAR2(32) NOT NULL,
+  built_in INT,
   ap_type VARCHAR2(32),
   rooms INT,
   basement NUMBER(1),
@@ -225,7 +224,6 @@ CREATE TABLE buildings (
 --select * from accounts;
 --select * from buildings;
 --select * from announcements;
---INSERT INTO buildings VALUES(21,2,3,1,sysdate,'decomandat','32',4,0);
 --commit;
 --select * from images;
 --desc accounts;

@@ -75,7 +75,7 @@ class ProfileController extends Controller
                 throw new Exception("Couldn't find account");
             }
             $model->load($data);
-            $image = $data['IMAGE']->load();
+            $image = $data['IMAGE'] ? $data['IMAGE']->load() : " ";;
             if (!empty($_FILES)) {
                 $image = file_get_contents($_FILES['image']["tmp_name"]);
                 $image = base64_encode($image);
@@ -91,7 +91,7 @@ class ProfileController extends Controller
             $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
             if (($data = $data_mapper->get_data_by_id($account_data->id)) != false) {
                 $model->load($data);
-                $image = $data['IMAGE']->load();
+                $image = $data['IMAGE'] ? $data['IMAGE']->load() : " ";
             } else {
                 throw new Exception("Couldn't find account");
             }
