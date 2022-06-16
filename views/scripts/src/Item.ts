@@ -1,142 +1,136 @@
-interface ItemData {
-    ID: string
-    ACCOUNT_ID: string
-    ADDRESS: string
-    TITLE: string
-    PRICE: string
-    SURFACE: string
-    DESCRIPTION: string
-    IMAGE: ImageData
-    TYPE: string
+interface BaseData {
+    id: number
+    /**
+     * Type
+     * 
+     * 0 - "Apartament"
+     * 1 - "Casă"
+     * 2 - "Office"
+     * 3 - "Teren"
+     */
+    type: number
+    transactionType: string
+    address: string
+    title: string
+    description: string
+    price: string
+    surface: number
+    imageURL: string
 
-    BUILDING: BuildingData
 }
 
-interface BuildingData {
-    BATHROOMS: string
-    PARKING_LOTS: string
-    ROOMS: string
+interface BuildingData extends BaseData {
+    bathrooms: number
+    parkingLots: number
+    builtIn: number
 }
 
-interface ImageData {
-    IMAGE: string
-    NAME: string
-    TYPE: string
+interface ResidentialData extends BuildingData {
+    rooms: number
+    floor: number
+}
+
+interface ApartmentData extends ResidentialData {
+    /**
+     * Apartment Type
+     * 
+     * 0 - "Decomandat"
+     * 1 - "Nedecomandat"
+     * 2 - "Semidecomandat"
+     * 3 - "Circular"
+     */
+    type: 0
+    apartmentType: number
+}
+
+interface HouseData extends BuildingData {
+    type: 1
+    floors: number
+}
+
+interface OfficeData extends BuildingData {
+    type: 2
+}
+
+interface LandData extends BaseData {
+    type: 3
+}
+
+type ItemData = ApartmentData | HouseData | OfficeData | LandData;
+
+interface IconsData {
+    bathrooms?: number
+    surface: number
+    rooms?: number
+    parkingLots?: number
 }
 
 class Item {
 
-    protected data: ItemData;
     private static PRICE_TYPE: string = ' RON';
 
-    private container: HTMLDivElement;
-    private imageContainer: HTMLDivElement;
-    private image: HTMLDivElement;
+    public static createInfoContainer(data: BaseData, iconsElement: HTMLElement) {
 
-    private price: HTMLHeadingElement;
-    private title: HTMLParagraphElement;
-    private addressParagraph: HTMLParagraphElement;
-
-    private surfaceText: Text;
-    private bathroomsText: Text;
-    private parkingLotsText: Text;
-    private roomsText: Text;
-
-    public constructor(data: ItemData) {
-        this.data = data;
-        if (this.data.TYPE == "land") {
-            this.data.BUILDING = { BATHROOMS: "", PARKING_LOTS: "", ROOMS: "" };
-        }
-        this.create();
-    }
-
-    public createInfoContainer() {
         const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
+        const { price, title, address } = data;
 
-        this.price = createSimpleElement('h2', 'accent');
-        this.price.innerHTML = this.data.PRICE + Item.PRICE_TYPE;
-        this.title = createSimpleElement('p', 'text-wrap');
-        this.title.innerText = this.data.TITLE;
-        const address = createSimpleElement('p', 'secondary icon-text');
+        const priceElement = createSimpleElement('h2', 'accent');
+        priceElement.textContent = price + Item.PRICE_TYPE;
 
-        address.appendChild(createSimpleElement('span', 'icon icon-pin'));
+        const titleElement = createSimpleElement('p', 'text-wrap');
+        titleElement.textContent = title;
 
-        this.addressParagraph = createSimpleElement('p', 'text-wrap');
-        this.addressParagraph.innerText = this.data.ADDRESS;
+        const addressElement = createSimpleElement('p', 'secondary icon-text');
+        addressElement.appendChild(createSimpleElement('span', 'icon icon-pin'));
+        const addressParagraph = createSimpleElement('p', 'text-wrap');
+        addressParagraph.textContent = address;
+        addressElement.appendChild(addressParagraph);
 
-        address.appendChild(this.addressParagraph);
-        infoContainer.append(this.price, this.title, address, this.createInfoIcons(this.data));
+        infoContainer.append(priceElement, titleElement, addressElement, iconsElement);
 
         return infoContainer;
     }
 
-    public createInfoIcons(data: ItemData) {
-        const infoIcons = createSimpleElement('div', 'content__box--item__info__icons');
+    public static createInfoIconsElement(data: IconsData) {
+        const infoIconsElement = createSimpleElement('div', 'content__box--item__info__icons');
+        const basicIconsContainer = createSimpleElement('div', 'content__box--item__info__icons__basic');
+        const { surface, bathrooms, rooms, parkingLots } = data;
 
-        let basicIcons = createSimpleElement('div', 'content__box--item__info__icons__basic');
+        const aux: [number, string][] = [
+            [surface, 'space'],
+            [bathrooms, 'space'],
+            [rooms, 'space'],
+            [parkingLots, 'space']
+        ];
 
-        const surface = createSimpleElement('p', 'icon-text');
-        const bathrooms = createSimpleElement('p', 'icon-text');
-        const parkingLots = createSimpleElement('p', 'icon-text');
-        const rooms = createSimpleElement('p', 'icon-text');
+        aux.forEach(([val, iconName]) => {
+            const el = createSimpleElement('p', 'icon-text');
+            if (val != null) {
+                el.appendChild(createIcon(iconName));
+                el.innerHTML += val;
+            }
 
-        surface.appendChild(createSimpleElement('span', 'icon icon-space'));
-        bathrooms.appendChild(createSimpleElement('span', 'icon icon-bath'));
-        parkingLots.appendChild(createSimpleElement('span', 'icon icon-garage'));
-        rooms.appendChild(createSimpleElement('span', 'icon icon-room'));
-
-        this.surfaceText = document.createTextNode(data.SURFACE);
-        this.bathroomsText = document.createTextNode(data.BUILDING.BATHROOMS);
-        this.parkingLotsText = document.createTextNode(data.BUILDING.PARKING_LOTS);
-        this.roomsText = document.createTextNode(data.BUILDING.ROOMS);
-
-        surface.appendChild(this.surfaceText);
-        bathrooms.appendChild(this.bathroomsText);
-        parkingLots.appendChild(this.parkingLotsText);
-        rooms.appendChild(this.roomsText);
-
-        basicIcons.append(surface, bathrooms, parkingLots, rooms);
+            basicIconsContainer.appendChild(el);
+        });
 
         const saveButton = createSimpleElement('div', 'save-button');
-        saveButton.setAttribute('onclick', 'saveButtonClickHandler(this)');
+        saveButton.onclick = () => saveButtonClickHandler(saveButton);
         saveButton.appendChild(createSimpleElement('span', 'icon icon-save'));
-        infoIcons.append(basicIcons, saveButton);
+        infoIconsElement.append(basicIconsContainer, saveButton);
 
-        return infoIcons;
+        return infoIconsElement;
     }
 
-    public create() {
-        this.container = createSimpleElement('div', 'content__box content__box--item');
-        this.imageContainer = createSimpleElement('div', 'image-container image-container--animated');
-        this.image = createSimpleElement('div', 'image');
-        if (typeof this.data.IMAGE.IMAGE !== 'undefined' && this.data.IMAGE.IMAGE !== null) {
-            this.image.style.backgroundImage = 'url( "data: ' + this.data.IMAGE.TYPE + '; base64, ' + this.data.IMAGE.IMAGE + '" ) ';
-            this.imageContainer.appendChild(this.image);
-        }
+    public static create(data: ItemData) {
+        const container = createSimpleElement('div', 'content__box content__box--item');
+        const imageContainer = createSimpleElement('div', 'image-container image-container--animated');
+        const imageElement = createSimpleElement('div', 'image');
 
-        this.container.append(this.imageContainer, this.createInfoContainer());
+        const { imageURL } = data;
+        imageElement.style.backgroundImage = `url("${imageURL}")`;
+        imageContainer.appendChild(imageElement);
 
-        return this.container;
-    }
-
-    public changeData(data: ItemData) {
-        this.data = data;
-
-        if (typeof this.data.IMAGE.IMAGE !== 'undefined' && this.data.IMAGE.IMAGE !== null) {
-            this.image.style.backgroundImage = 'url( "data: ' + data.IMAGE.TYPE + '; base64, ' + data.IMAGE.IMAGE + '" ) ';
-        } else {
-            this.image.style.backgroundImage = null;
-        }
-
-        this.surfaceText.textContent = data.SURFACE;
-        this.bathroomsText.textContent = data.BUILDING.BATHROOMS;
-        this.parkingLotsText.textContent = data.BUILDING.PARKING_LOTS;
-        this.roomsText.textContent = data.BUILDING.ROOMS;
-
-        this.addressParagraph.innerText = data.ADDRESS;
-    }
-
-    public getContainer() {
-        return this.container;
+        container.append(imageContainer, Item.createInfoContainer(data, Item.createInfoIconsElement(data)));
+        return container;
     }
 }
