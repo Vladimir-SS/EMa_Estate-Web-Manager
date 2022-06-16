@@ -6,7 +6,10 @@
             <div class="images">
                 <label class="images__add-img image-container" id="avatar" onclick="">
                     <input id="add-image-input" type="file" accept="image/*" name="image">
-                    <img id="avatarImage" src="" alt="">
+                    <img id="avatarImage" src="<?php
+                                                if (!empty($image)) {
+                                                    echo "data:image/jpeg; base64, $image";
+                                                } ?>" alt="avatar">
                 </label>
             </div>
             <?php
@@ -24,7 +27,7 @@
         </div>
 
         <div class="content__box--form">
-            <?php $form = Form::begin('content__box__form', '/profile', 'post') ?>
+            <?php $form = Form::begin('content__box__form', '/profile', 'post', 'multipart/form-data') ?>
             <div class="double-input-row">
                 <?php
                 echo $form->field($model, 'LAST_NAME', $model->get_data()['LAST_NAME']['value'], 'icon-person');

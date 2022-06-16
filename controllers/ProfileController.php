@@ -16,13 +16,12 @@ class ProfileController extends Controller
     public function profile(Request $request)
     {
         $model = new ProfileModel();
-        $image = "";
+        $image = '';
         if ($request->is_post()) {
             $services = new AccountService();
 
             $data_mapper = new AccountDM();
             $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
-
             if (
                 isset($request->get_body()['PASSWORD'])
                 && isset($request->get_body()['CONFIRM_PASSWORD'])
@@ -33,30 +32,40 @@ class ProfileController extends Controller
 
             $model->load($request->get_body());
             $no_errors = $model->validate();
-
             if ($no_errors) {
 
-                if ($data_mapper->check_existence_email($model->get_data()['EMAIL']['value']) > 0) {
+                if ($data_mapper->check_existence_email($model->get_data()['EMAIL']['value'], $account_data->id) > 0) {
                     $no_errors = false;
                     $model->errors['EMAIL'] = "Email deja folosit";
                 }
-                if ($data_mapper->check_existence_phone($model->get_data()['PHONE']['value']) > 0) {
+                if ($data_mapper->check_existence_phone($model->get_data()['PHONE']['value'], $account_data->id) > 0) {
                     $no_errors = false;
                     $model->errors['PHONE'] = "Număr de telefon deja folosit";
                 }
-
                 if ($no_errors) {
 
                     $data = $model->get_data();
                     $salt = $data_mapper->get_salt_by_id($account_data->id);
                     $passwordSP = $data_mapper->get_password_by_id($account_data->id);
                     if ($services->password_check($model->data['OLD_PASSWORD'], $salt, $passwordSP)) {
-
                         unset($data['CONFIRM_PASSWORD']);
                         unset($data['OLD_PASSWORD']);
                         unset($data['CREATED_AT']);
-                        $data['PASSWORD']['value'] = $services->generate_hash($services->add_salt_and_pepper($data['PASSWORD']['value'], $salt));
+                        if (!empty($data['PASSWORD']['value'])) {
+                            $data['PASSWORD']['value'] = $services->generate_hash($services->add_salt_and_pepper($data['PASSWORD']['value'], $salt));
+                        } else {
+                            unset($data['PASSWORD']);
+                        }
+
                         $data_mapper->update_account_data($account_data->id, $data);
+                        if (!empty($_FILES)) {
+
+                            if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
+                                $blob = file_get_contents($_FILES['image']["tmp_name"]);
+                                $blob = base64_encode($blob);
+                                $data_mapper->update_account_image($account_data->id, $blob);
+                            }
+                        }
                     }
                 }
             }
@@ -66,6 +75,11 @@ class ProfileController extends Controller
                 throw new Exception("Couldn't find account");
             }
             $model->load($data);
+            $image = $data['IMAGE']->load();
+            if (!empty($_FILES)) {
+                $image = file_get_contents($_FILES['image']["tmp_name"]);
+                $image = base64_encode($image);
+            }
             return $this->render(
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'image' => $image]),
@@ -77,6 +91,7 @@ class ProfileController extends Controller
             $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
             if (($data = $data_mapper->get_data_by_id($account_data->id)) != false) {
                 $model->load($data);
+                $image = $data['IMAGE']->load();
             } else {
                 throw new Exception("Couldn't find account");
             }

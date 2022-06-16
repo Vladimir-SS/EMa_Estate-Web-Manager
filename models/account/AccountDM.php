@@ -46,7 +46,6 @@ class AccountDM
                 array_values($data)
             )
         );
-        echo $sql;
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
 
         foreach ($data as $key => &$value) {
@@ -64,6 +63,33 @@ class AccountDM
         }
 
         oci_free_statement($stid);
+        DatabaseConnection::close();
+    }
+
+    public function update_account_image($id, $image)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "UPDATE accounts SET image = EMPTY_BLOB() WHERE id = $id RETURNING image INTO :image";
+        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
+        $newlob = oci_new_descriptor(DatabaseConnection::$conn, OCI_D_LOB);
+        oci_bind_by_name($stmt, ":image", $newlob, -1, OCI_B_BLOB);
+
+        oci_execute($stmt, OCI_NO_AUTO_COMMIT);
+
+        if ($newlob->save($image)) {
+            oci_commit(DatabaseConnection::$conn);
+        } else {
+            oci_rollback(DatabaseConnection::$conn);
+        }
+
+        $newlob->free();
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+        oci_free_statement($stmt);
         DatabaseConnection::close();
     }
 
@@ -156,10 +182,10 @@ class AccountDM
      * @param  mixed $email
      * @return int|bool 1 if exists 0 if not | false in case of error
      */
-    public function check_existence_email($email): int|bool
+    public function check_existence_email($email, $id = -1): int|bool
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT count(*) FROM accounts WHERE email='$email'";
+        $sql = "SELECT count(*) FROM accounts WHERE email='$email'" . (($id != -1) ? " AND id!= $id" : '');;
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -184,11 +210,10 @@ class AccountDM
      * @param  mixed $phone
      * @return int|bool 1 if exists 0 if not | false in case of error
      */
-    public function check_existence_phone($phone): int|bool
+    public function check_existence_phone($phone, $id = -1): int|bool
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT count(*) FROM accounts WHERE phone='$phone'";
-
+        $sql = "SELECT count(*) FROM accounts WHERE phone='$phone'" . (($id != -1) ? " AND id!= $id" : '');
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
 

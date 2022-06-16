@@ -8,7 +8,7 @@ include_once DIR_CONTROLLERS . "CreateAdController.php";
 include_once DIR_CONTROLLERS . "ProfileController.php";
 include_once DIR_CONTROLLERS . "ItemPageController.php";
 include_once DIR_CONTROLLERS . "api/ItemsController.php";
-include_once DIR_CONTROLLERS . "api/ItemImageController.php";
+include_once DIR_CONTROLLERS . "api/ImageController.php";
 
 $app = new Application();
 
@@ -27,7 +27,7 @@ $app->router
     ->get("/item", [ItemPageController::class, 'generate_item_page'])
     ->get("/api/items", [ItemsController::class, 'get_items'])
     ->get("/api/items/filter", [ItemsController::class, 'get_filtered_items'])
-    ->get("/api/items/image", [ItemImageController::class, 'get_image']);
+    ->get("/api/items/image", [ImageController::class, 'get_image']);
 
 
 $app->run();

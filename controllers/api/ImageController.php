@@ -2,7 +2,7 @@
 include_once DIR_CONTROLLERS . "Controller.php";
 include_once DIR_VIEWS . "View.php";
 
-class ItemImageController extends Controller
+class ImageController extends Controller
 {
     public function __construct()
     {
