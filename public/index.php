@@ -27,7 +27,8 @@ $app->router
     ->get("/item", [ItemPageController::class, 'generate_item_page'])
     ->get("/api/items", [ItemsController::class, 'get_items'])
     ->get("/api/items/filter", [ItemsController::class, 'get_filtered_items'])
-    ->get("/api/items/image", [ImageController::class, 'get_image']);
+    ->get("/api/items/image", [ImageController::class, 'get_image'])
+    ->get("/api/profile/image", [ImageController::class, 'get_profile_image']);
 
 
 $app->run();

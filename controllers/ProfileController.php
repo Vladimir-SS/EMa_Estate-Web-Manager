@@ -16,7 +16,8 @@ class ProfileController extends Controller
     public function profile(Request $request)
     {
         $model = new ProfileModel();
-        $image = '';
+        $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
+        $id = $account_data->id;
         if ($request->is_post()) {
             $services = new AccountService();
 
@@ -82,7 +83,7 @@ class ProfileController extends Controller
             }
             return $this->render(
                 "Profil",
-                Renderer::render_template("profile/profile", ['model' => $model, 'image' => $image]),
+                Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
                 Renderer::render_scripts("avatar-loader")
             );
@@ -97,7 +98,7 @@ class ProfileController extends Controller
             }
             return $this->render(
                 "Profil",
-                Renderer::render_template("profile/profile", ['model' => $model, 'image' => $image]),
+                Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
                 Renderer::render_scripts("avatar-loader", "Item")
             );

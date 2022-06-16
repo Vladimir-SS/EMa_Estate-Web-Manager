@@ -23,4 +23,19 @@ class ImageController extends Controller
             echo "No data found";
         }
     }
+
+    public function get_profile_image(Request $request)
+    {
+        $data = $request->get_body();
+
+        $data_mapper = new AccountDM();
+        $row = $data_mapper->get_image($data['id']);
+
+        if ($row) {
+            header('Content-Type: ' . $row['IMAGE_TYPE']);
+            die(base64_decode($row['IMAGE']));
+        } else {
+            echo "No data found";
+        }
+    }
 }

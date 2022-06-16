@@ -26,6 +26,7 @@ CREATE TABLE accounts (
   phone VARCHAR2(16) NOT NULL UNIQUE,
   email VARCHAR2(64) NOT NULL UNIQUE,
   image BLOB,
+  image_type VARCHAR2(32),
   password VARCHAR(255) NOT NULL,
   password_salt VARCHAR(20) NOT NULL,
   business_name VARCHAR2(32),

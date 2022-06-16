@@ -28,6 +28,30 @@ class AccountDM
         return $row;
     }
 
+    public function get_image($id)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT image_type,image FROM accounts WHERE id = $id";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $row = oci_fetch_assoc($stid);
+        if ($row != false) {
+            $row['IMAGE'] = $row['IMAGE']->load();
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $row;
+    }
+
     public function update_account_data($id, array $data)
     {
         DatabaseConnection::get_connection();
@@ -45,7 +69,7 @@ class AccountDM
                 array_keys($data),
                 array_values($data)
             )
-        );
+        ) . " WHERE id=$id";
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
 
         foreach ($data as $key => &$value) {
