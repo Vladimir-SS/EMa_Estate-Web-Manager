@@ -9,7 +9,7 @@ include_once DIR_MODELS . "BuildingModel.php";
 
 class CreateAdController extends Controller
 {
-    private $types = ["Apartament", "Casă", "Office"];
+    private $types = ["land", "apartment", "house", "office", "land"];
     private $ap_types = [
         "Nespecificat", "Decomandat", "Nedecomandat", "Semidecomandat", "Circular",
     ];
@@ -31,18 +31,14 @@ class CreateAdController extends Controller
 
             // Valori hardcodate pana e gata filterul
             $temp['TRANSACTION_TYPE'] = 'inchiriat';
-            $temp['IS_LAND'] = 0;
-
-            if ($temp['TYPE'] == 0 || $temp['TYPE'] == 4) { // no type or land
-                $temp['IS_LAND'] = 1;
-            }
+            $temp['TYPE'] = $this->types[$temp['TYPE']];
 
             $announcement_model->load($temp);
 
             $no_errors_announcement = $announcement_model->validate();
             $no_errors_building = true;
 
-            if ($announcement_model->get_data()['IS_LAND']['value'] == 0) {
+            if ($announcement_model->get_data()['TYPE']['value'] === $this->types[1]) {
                 $temp = $request->get_body();
                 $temp['TYPE'] = $this->types[$temp['TYPE']];
                 if (isset($temp['AP_TYPE'])) {
@@ -79,8 +75,7 @@ class CreateAdController extends Controller
                                 }
                             }
                         }
-                        if ($announcement_model->get_data()['IS_LAND']['value'] == 0) {
-
+                        if ($announcement_model->get_data()['TYPE']['value'] !== $this->types[4]) {
                             $temp['ANNOUNCEMENT_ID'] = $announcement_id;
                             $building_model->load($temp);
                             $data_mapper = new BuildingDM();

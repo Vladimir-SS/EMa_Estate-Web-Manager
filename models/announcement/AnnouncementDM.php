@@ -12,7 +12,7 @@ class AnnouncementDM
     public function get_announcements($count, $index = 0)
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT id,account_id,title,price,surface,address,transaction_type,description,is_land,created_at,updated_at FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
+        $sql = "SELECT id,title,price,surface,address,transaction_type,description,type FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -27,17 +27,57 @@ class AnnouncementDM
 
         for ($i = 0; $i <= $count; $i++) {
             if (($row = oci_fetch_assoc($stid)) != false) {
-                $row['IMAGE'] = $this->get_image($row['ID']);
-                if ($row['IS_LAND'] == 0) {
-                    $row['BUILDING'] = $this->get_building($row['ID']);
+
+                if ($row['TYPE'] !== "land") {
+                    $row = array_merge($row, $this->get_building($row['ID'], $row['TYPE']));
                 }
+                $row = array_change_key_case($row, CASE_LOWER);
+                $row['transactionType'] = $row['transaction_type'];
+                unset($row['transaction_type']);
+
+                $row['imgURL'] = "api/items/image?id=" . $row['id'];
                 $data[$i] = $row;
+            } else {
+                break;
             }
         }
 
         oci_free_statement($stid);
         DatabaseConnection::close();
         return $data;
+    }
+
+    public function get_building($id, $type)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT * FROM buildings WHERE announcement_id = $id";;
+        if ($type === "house") {
+            $sql = "SELECT floor,bathrooms,basement,built_in,parking_lots FROM buildings WHERE announcement_id = $id";
+        } elseif ($type === "office") {
+            $sql = "SELECT floor,bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
+        } elseif ($type === "apartment") {
+            $sql = "SELECT ap_type,floor,bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
+        }
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $row = oci_fetch_assoc($stid);
+        $row = array_change_key_case($row, CASE_LOWER);
+        if ($type === "apartment") {
+            $row['apartmentType'] = $row['ap_type'];
+            unset($row['ap_type']);
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $row;
     }
 
     public function get_image($id)
@@ -58,27 +98,6 @@ class AnnouncementDM
         if ($row != false) {
             $row['IMAGE'] = $row['IMAGE']->load();
         }
-
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $row;
-    }
-
-    public function get_building($id)
-    {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT * FROM buildings WHERE announcement_id = $id";
-
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        $row = oci_fetch_assoc($stid);
 
         oci_free_statement($stid);
         DatabaseConnection::close();

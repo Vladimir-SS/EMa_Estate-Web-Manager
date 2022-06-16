@@ -7,7 +7,7 @@ interface ItemData {
     SURFACE: string
     DESCRIPTION: string
     IMAGE: ImageData
-    IS_LAND: string
+    TYPE: string
 
     BUILDING: BuildingData
 }
@@ -44,7 +44,7 @@ class Item {
 
     public constructor(data: ItemData) {
         this.data = data;
-        if (this.data.IS_LAND == "1") {
+        if (this.data.TYPE == "land") {
             this.data.BUILDING = { BATHROOMS: "", PARKING_LOTS: "", ROOMS: "" };
         }
         this.create();
