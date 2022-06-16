@@ -28,7 +28,7 @@
     </div>
 
     <?php
-    echo Renderer::render_scripts("DocumentHandler", "page");
+    echo Renderer::render_scripts("page");
     echo $scripts;
     ?>
 </body>
