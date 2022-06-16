@@ -4,10 +4,12 @@ interface DropdownOption {
     text: string;
 }
 
+type DropdownOnChangeFunction = (index: number, text: string) => void;
+
 class DropdownFilterOption extends FilterOption {
     private chosenOptionIndex: number = 0;
     private options: string[];
-    public onChange: (index: number, text: string) => void = (__index, __text) => { };
+    public onChangeFunc: DropdownOnChangeFunction = (__index, __text) => { };
 
     private static createOptionItem = (text: string) => {
         let element = document.createElement("li");
@@ -38,7 +40,16 @@ class DropdownFilterOption extends FilterOption {
         FilterOptionHandler.closeLastElement();
 
         const op = this.getCurrentOption();
-        this.onChange(op.index, op.text);
+        this.onChangeFunc(op.index, op.text);
+
+        console.log("clicked", index);
+
+    }
+
+    public onChange = (func: DropdownOnChangeFunction) => {
+        this.onChangeFunc = func;
+        console.log("hmm");
+        this.optionItemHandler(this.chosenOptionIndex);
     }
 
     public constructor(name: string, optionList: string[]) {

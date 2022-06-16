@@ -84,13 +84,14 @@ DocumentHandler.whenReady(() => {
         ["Apartament", "Casă", "Office", "Teren"],
         "Alege tipul proprietății");
 
+
+    typeLinked.forEach(list => list.forEach(disableElement));
     let lastIndex = 0;
-    CreateAd.typeDropDown.onChange = (index, __text) => {
+    CreateAd.typeDropDown.onChange((index, __text) => {
         typeLinked[lastIndex].forEach(disableElement);
         typeLinked[index].forEach(enableElement);
         lastIndex = index;
-    }
-    typeLinked.forEach(list => list.forEach(disableElement));
+    });
     FilterOptionHandler.add(CreateAd.typeDropDown);
 
     dropDownContainer.append(CreateAd.typeDropDown.element, CreateAd.apartamentTypeDropDown.element);

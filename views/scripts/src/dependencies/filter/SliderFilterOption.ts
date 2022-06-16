@@ -139,6 +139,13 @@ class SliderFilterOption extends FilterOption {
         return this;
     }
 
+    public openLeftDomain() {
+        this.values = "-" + [this.values[0], ...this.values];
+        this.resetSliders();
+
+        return this;
+    }
+
     constructor(name: string, labelText: string, unit: string) {
         super(name);
         this.defaultLabelText = labelText;
