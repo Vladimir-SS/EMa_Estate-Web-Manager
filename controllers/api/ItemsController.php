@@ -17,6 +17,7 @@ class ItemsController extends Controller
         }
         $data = $data_mapper->get_announcements($this->count, $this->index);
         //$data['COUNT'] = $data_mapper->get_announcements_count();]
+        //echo '<pre>';
         echo json_encode($data, JSON_PRETTY_PRINT);
     }
 

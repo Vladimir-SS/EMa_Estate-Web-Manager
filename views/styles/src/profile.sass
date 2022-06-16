@@ -22,16 +22,29 @@
 
 .content__box--profile
     display: grid
-    grid-template-rows: 1fr auto auto auto
+    grid-template-rows: auto auto
     grid-template-columns: auto auto
     column-gap: $unit/2
 
-    &__img
-        background: black //!! remove in production
-        grid-row: span 3
-        height: $unit*3
-        width: $unit*3
-        border-radius: $border-radius
+    &__avatar
+        grid-row: span 2
+        &__add-img
+            display: flex
+            background: var(--background-primary-alt)
+            width: $unit*3
+            align-items: center
+            justify-content: center
+            order: 2
+
+        input
+            display: none
+
+        &__add-img, img
+            height: $unit*3
+            border-radius: $border-radius
+
+        img
+            max-width: 100%
 
     .secondary
         margin-bottom: 0
@@ -43,29 +56,3 @@
 .horizontal-buttons
     display: flex
     gap: 10px
-
-.images
-    display: flex
-    flex-wrap: wrap
-    gap: $unit
-    margin-bottom: $unit
-
-    $unit: $unit*1.5
-
-    &__add-img
-        display: flex
-        background: var(--background-primary-alt)
-        width: $unit*3
-        align-items: center
-        justify-content: center
-        order: 2
-
-        input
-            display: none
-
-    &__add-img, img
-        height: $unit*3
-        border-radius: $border-radius
-
-    img
-        max-width: 100%

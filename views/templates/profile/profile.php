@@ -3,8 +3,8 @@
 
     <div class="content__box">
         <div class="content__box--profile">
-            <div class="images">
-                <label class="images__add-img image-container" id="avatar" onclick="">
+            <div class="content__box--profile__avatar">
+                <label class="content__box--profile__avatar__add-img image-container" id="avatar" onclick="">
                     <input id="add-image-input" type="file" accept="image/*" name="image">
                     <img id="avatarImage" src="<?php
                                                 if (!empty($image)) {
@@ -23,7 +23,7 @@
                 echo '<p>Agent Imobiliar</p>'
             ?>
 
-            <p class="secondary"> Pe Estence din Februarie 2018 </p>
+            <p class="secondary"> Pe Estence din <?php echo date('d-m-Y', strtotime($model->get_data()['CREATED_AT']['value'])); ?></p>
         </div>
 
         <div class="content__box--form">

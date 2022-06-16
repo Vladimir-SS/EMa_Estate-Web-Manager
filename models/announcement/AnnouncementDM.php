@@ -27,15 +27,14 @@ class AnnouncementDM
 
         for ($i = 0; $i <= $count; $i++) {
             if (($row = oci_fetch_assoc($stid)) != false) {
-
-                if ($row['TYPE'] !== "land") {
-                    $row = array_merge($row, $this->get_building($row['ID'], $row['TYPE']));
-                }
                 $row = array_change_key_case($row, CASE_LOWER);
+                if ($row['type'] !== "land") {
+                    $row = array_merge($row, $this->get_building($row['id'], $row['type']));
+                }
                 $row['transactionType'] = $row['transaction_type'];
                 unset($row['transaction_type']);
 
-                $row['imgURL'] = "api/items/image?id=" . $row['id'];
+                $row['imageURL'] = "api/items/image?id=" . $row['id'];
                 $data[$i] = $row;
             } else {
                 break;
@@ -70,10 +69,17 @@ class AnnouncementDM
 
         $row = oci_fetch_assoc($stid);
         $row = array_change_key_case($row, CASE_LOWER);
-        if ($type === "apartment") {
+        if ($type === "house") {
+            $row['floors'] = $row['floor'];
+            unset($row['floor']);
+        } elseif ($type === "apartment") {
             $row['apartmentType'] = $row['ap_type'];
             unset($row['ap_type']);
         }
+        $row['builtIn'] = $row['built_in'];
+        unset($row['built_in']);
+        $row['parkingLots'] = $row['parking_lots'];
+        unset($row['parking_lots']);
 
         oci_free_statement($stid);
         DatabaseConnection::close();
