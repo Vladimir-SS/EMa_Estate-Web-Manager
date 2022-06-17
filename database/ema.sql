@@ -7,10 +7,10 @@ DROP TABLE announcements CASCADE CONSTRAINTS;
 DROP TABLE images CASCADE CONSTRAINTS;
 DROP TABLE buildings CASCADE CONSTRAINTS;
 DROP TABLE saves CASCADE CONSTRAINTS;
-purge recyclebin;
+--purge recyclebin;
 -- drop old views:
 --DROP VIEW announcements_view
-DROP DIRECTORY AVATARDIR;
+--DROP DIRECTORY AVATARDIR;
 
 --GRANT EXECUTE ON UTL_FILE TO TW;
 --GRANT CREATE ANY DIRECTORY TO TW;
@@ -30,12 +30,11 @@ CREATE TABLE accounts (
   password VARCHAR(255) NOT NULL,
   password_salt VARCHAR(20) NOT NULL,
   business_name VARCHAR2(32),
-  
   created_at DATE,
   updated_at DATE
 );
 
-CREATE DIRECTORY AVATARDIR AS 'D:\xampp\htdocs\Proiect\EMa_Estate-Web-Manager';
+--CREATE DIRECTORY AVATARDIR AS 'C:\xampp\htdocs\Proiect\EMa_Estate-Web-Manager';
 /
 CREATE OR REPLACE TRIGGER accounts_trigger
     BEFORE INSERT OR UPDATE ON accounts
@@ -45,7 +44,6 @@ DECLARE
   v_file   VARCHAR2(20) := 'avatar.png';
   v_bfile  BFILE;
   v_blob   BLOB;
-
   v_dest_offset INTEGER := 1;
   v_src_offset  INTEGER := 1;
 BEGIN
@@ -58,7 +56,6 @@ BEGIN
 --    amount      => DBMS_LOB.lobmaxsize,
 --    dest_offset => v_dest_offset,
 --    src_offset  => v_src_offset);
---
 --    DBMS_LOB.fileclose(v_bfile);
 --    :new.image := v_blob;
 IF INSERTING THEN
@@ -82,10 +79,8 @@ CREATE TABLE announcements (
   address VARCHAR2(128) NOT NULL,
   transaction_type VARCHAR2(64) NOT NULL,
   description VARCHAR2(4000),
-
   created_at DATE,
   updated_at DATE,
-  
   CONSTRAINT fk_announcements_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 /
@@ -117,7 +112,6 @@ CREATE TABLE images (
   name VARCHAR2(255) NOT NULL,
   type VARCHAR2(32) NOT NULL,
   image BLOB NOT NULL,
-
   CONSTRAINT fk_images_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
 /
@@ -131,7 +125,6 @@ CREATE TABLE buildings (
   ap_type VARCHAR2(32),
   rooms INT,
   basement NUMBER(1),
-
   CONSTRAINT fk_buildings_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
 
