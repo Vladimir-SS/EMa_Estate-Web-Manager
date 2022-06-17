@@ -11,7 +11,7 @@ class AccountDM
     public function get_data_by_id($id): array| bool
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT last_name, first_name, email, phone, business_name, created_at, image FROM accounts WHERE id = $id";
+        $sql = "SELECT last_name, first_name, email, phone, business_name, created_at FROM accounts WHERE id = $id";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -22,7 +22,7 @@ class AccountDM
             throw new InternalException($errors);
         }
 
-        $row = oci_fetch_array($stid);
+        $row = oci_fetch_assoc($stid);
         oci_free_statement($stid);
         DatabaseConnection::close();
         return $row;

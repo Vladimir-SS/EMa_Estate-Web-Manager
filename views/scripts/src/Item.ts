@@ -8,6 +8,7 @@ interface BaseData {
      * 2 - "Office"
      * 3 - "Teren"
      */
+    accountID: number
     type: number
     transactionType: string
     address: string
@@ -72,12 +73,13 @@ class Item {
     public static createInfoContainer(data: BaseData, iconsElement: HTMLElement) {
 
         const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
-        const { price, title, address } = data;
+        const { price, title, address, id } = data;
 
         const priceElement = createSimpleElement('h2', 'accent');
         priceElement.textContent = price + Item.PRICE_TYPE;
 
-        const titleElement = createSimpleElement('p', 'text-wrap');
+        const titleElement = createSimpleElement('a', 'hlink text-wrap') as HTMLAnchorElement;
+        titleElement.href = `/item?id=${id}`;
         titleElement.textContent = title;
 
         const addressElement = createSimpleElement('p', 'secondary icon-text');
@@ -98,9 +100,9 @@ class Item {
 
         const aux: [number, string][] = [
             [surface, 'space'],
-            [bathrooms, 'space'],
-            [rooms, 'space'],
-            [parkingLots, 'space']
+            [bathrooms, 'bath'],
+            [rooms, 'room'],
+            [parkingLots, 'garage']
         ];
 
         aux.forEach(([val, iconName]) => {

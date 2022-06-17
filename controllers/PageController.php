@@ -18,7 +18,7 @@ class PageController extends Controller
         // }
         return $this->render(
             "Acasă",
-            Renderer::render_content("home/Filter", "home/items"),
+            Renderer::render_content("home/Filter", "home/items", "footer"),
             Renderer::render_styles("icon", "home", "item"),
             Renderer::render_scripts("filter", "filterPage", "Item", "homePage")
         );

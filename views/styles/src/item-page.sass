@@ -21,25 +21,31 @@
 
 .content__box--profile
     display: grid
-    grid-template-rows: 1fr auto auto auto
+    grid-template-rows: auto auto
     grid-template-columns: auto auto
+    column-gap: $unit/2
 
-    &__img
-        background: black //!! remove in production
+    &__avatar
+        height: 100%
+        width: 100%
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+
         grid-row: span 3
         height: $unit*3
         width: $unit*3
         border-radius: $border-radius
-
+        @include transition(transform)
     .secondary
         margin-bottom: 0
 
-    .icon-field--important
+    .label--important
         grid-column: span 2
         margin-top: $unit/2
 
-        svg
-            animation: phone-animation 1.4s infinite ease-in-out
+        // span
+        //     animation: phone-animation 1.4s infinite ease-in-out
 
 .content__box--property
 
@@ -75,24 +81,24 @@
                 &::before
                     content: none
 
-@keyframes phone-animation
-    0%
-        transform: rotate(0)
+// @keyframes phone-animation
+//     0%
+//         transform: rotate(0)
 
-    10%
-        transform: rotate(-25deg)
+//     10%
+//         transform: rotate(-25deg)
 
-    20%
-        transform: rotate(25deg)
+//     20%
+//         transform: rotate(25deg)
 
-    30%
-        transform: rotate(-25deg)
+//     30%
+//         transform: rotate(-25deg)
 
-    40%
-        transform: rotate(25deg)
+//     40%
+//         transform: rotate(25deg)
 
-    50%
-        transform: rotate(0)
+//     50%
+//         transform: rotate(0)
 
-    100%
-        transform: rotate(0)
+//     100%
+//         transform: rotate(0)
