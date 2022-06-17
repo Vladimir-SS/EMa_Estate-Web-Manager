@@ -10,14 +10,12 @@ DROP TABLE saves CASCADE CONSTRAINTS;
 purge recyclebin;
 -- drop old views:
 --DROP VIEW announcements_view
-DROP DIRECTORY AVATARDIR;
-
+--DROP DIRECTORY AVATARDIR;
 --GRANT EXECUTE ON UTL_FILE TO TW;
 --GRANT CREATE ANY DIRECTORY TO TW;
 --GRANT READ,WRITE ON DIRECTORY AVATARDIR TO TW;
 --GRANT DROP ANY DIRECTORY TO TW;
 --grant execute on sys.dbms_crypto to TW;
-
 --create table for accounts
 CREATE TABLE accounts (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
@@ -30,12 +28,10 @@ CREATE TABLE accounts (
   password VARCHAR(255) NOT NULL,
   password_salt VARCHAR(20) NOT NULL,
   business_name VARCHAR2(32),
-  
   created_at DATE,
   updated_at DATE
 );
-
-CREATE DIRECTORY AVATARDIR AS 'D:\xampp\htdocs\Proiect\EMa_Estate-Web-Manager';
+--CREATE DIRECTORY AVATARDIR AS 'D:\xampp\htdocs\Proiect\EMa_Estate-Web-Manager';
 /
 CREATE OR REPLACE TRIGGER accounts_trigger
     BEFORE INSERT OR UPDATE ON accounts
@@ -45,7 +41,6 @@ DECLARE
   v_file   VARCHAR2(20) := 'avatar.png';
   v_bfile  BFILE;
   v_blob   BLOB;
-
   v_dest_offset INTEGER := 1;
   v_src_offset  INTEGER := 1;
 BEGIN
@@ -68,7 +63,6 @@ IF INSERTING THEN
 IF UPDATING THEN
     :new.updated_at := sysdate();
 END IF;
-
 END;
 /
 --create table for announcements
@@ -82,10 +76,8 @@ CREATE TABLE announcements (
   address VARCHAR2(128) NOT NULL,
   transaction_type VARCHAR2(64) NOT NULL,
   description VARCHAR2(4000),
-
   created_at DATE,
   updated_at DATE,
-  
   CONSTRAINT fk_announcements_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 /
@@ -117,7 +109,6 @@ CREATE TABLE images (
   name VARCHAR2(255) NOT NULL,
   type VARCHAR2(32) NOT NULL,
   image BLOB NOT NULL,
-
   CONSTRAINT fk_images_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
 /
@@ -131,10 +122,8 @@ CREATE TABLE buildings (
   ap_type VARCHAR2(32),
   rooms INT,
   basement NUMBER(1),
-
   CONSTRAINT fk_buildings_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
-
 --SET SERVEROUTPUT ON;
 --DECLARE
 --  TYPE varr IS VARRAY(1000) OF varchar2(255);
