@@ -33,29 +33,21 @@ interface ResidentialData extends BuildingData {
 }
 
 interface ApartmentData extends ResidentialData {
-    /**
-     * Apartment Type
-     * 
-     * 0 - "Decomandat"
-     * 1 - "Nedecomandat"
-     * 2 - "Semidecomandat"
-     * 3 - "Circular"
-     */
-    type: 0
-    apartmentType: number
+    type: "apartment"
+    apartmentType: string
 }
 
 interface HouseData extends BuildingData {
-    type: 1
+    type: "house"
     floors: number
 }
 
 interface OfficeData extends BuildingData {
-    type: 2
+    type: "office"
 }
 
 interface LandData extends BaseData {
-    type: 3
+    type: "land"
 }
 
 type ItemData = ApartmentData | HouseData | OfficeData | LandData;
