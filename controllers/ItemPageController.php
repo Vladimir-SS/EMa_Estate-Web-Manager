@@ -18,10 +18,10 @@ class ItemPageController extends Controller
         $announcement_model = new AnnouncementModel();
         $building_model = new BuildingModel();
         return $this->render(
-            "Register",
+            "Item view",
             Renderer::render_template("item_page/item_page",  ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
             Renderer::render_styles("form", "icon", "item-page"),
-            Renderer::render_scripts("createAdPage")
+            Renderer::render_scripts("ProfileContainer", "Slideshow", "ItemInfo", "itemPage")
         );
     }
 }

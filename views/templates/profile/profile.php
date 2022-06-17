@@ -3,13 +3,10 @@
 
     <div class="content__box">
         <div class="content__box--profile">
-            <div class="images">
-                <label class="images__add-img image-container" id="avatar" onclick="">
+            <div class="content__box--profile__avatar">
+                <label class="content__box--profile__avatar__add-img image-container" id="avatar" onclick="">
                     <input id="add-image-input" type="file" accept="image/*" name="image">
-                    <img id="avatarImage" src="<?php
-                                                if (!empty($image)) {
-                                                    echo "data:image/jpeg; base64, $image";
-                                                } ?>" alt="avatar">
+                    <img id="avatarImage" src="/api/profile/image?id=<?php echo $id ?>" alt="avatar">
                 </label>
             </div>
             <?php
@@ -19,11 +16,14 @@
                 $model->get_data()['FIRST_NAME']['value'],
                 $model->get_data()['BUSINESS_NAME']['value']
             );
-            if ($model->get_data()['BUSINESS_NAME']['value'] != null)
-                echo '<p>Agent Imobiliar</p>'
+            if ($model->get_data()['BUSINESS_NAME']['value'] != null) {
+                echo '<p>Agent Imobiliar</p>';
+            } else {
+                echo '<p>Persoană fizică</p>';
+            }
             ?>
 
-            <p class="secondary"> Pe Estence din Februarie 2018 </p>
+            <p class="secondary"> Pe Estence din <?php echo date('d-m-Y', strtotime($model->get_data()['CREATED_AT']['value'])); ?></p>
         </div>
 
         <div class="content__box--form">

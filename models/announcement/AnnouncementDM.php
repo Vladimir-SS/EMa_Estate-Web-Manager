@@ -9,10 +9,41 @@ class AnnouncementDM
     {
     }
 
+    public function get_announcement_by_id($id)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT id,account_id,title,price,surface,address,transaction_type,description,type FROM announcements WHERE id= $id";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+        $row = oci_fetch_assoc($stid);
+
+        $row = array_change_key_case($row, CASE_LOWER);
+        if ($row['type'] !== "land") {
+            $row = array_merge($row, $this->get_building($row['id'], $row['type']));
+        }
+        $row['transactionType'] = $row['transaction_type'];
+        unset($row['transaction_type']);
+        $row['accountID'] = $row['account_id'];
+        unset($row['account_id']);
+
+        $row['imagesURLs'] = $this->get_announcement_images_urls($row['id']);
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $row;
+    }
+
     public function get_announcements($count, $index = 0)
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT id,account_id,title,price,surface,address,transaction_type,description,is_land,created_at,updated_at FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
+        $sql = "SELECT id,title,price,surface,address,transaction_type,description,type FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -27,11 +58,17 @@ class AnnouncementDM
 
         for ($i = 0; $i <= $count; $i++) {
             if (($row = oci_fetch_assoc($stid)) != false) {
-                $row['IMAGE'] = $this->get_image($row['ID']);
-                if ($row['IS_LAND'] == 0) {
-                    $row['BUILDING'] = $this->get_building($row['ID']);
+                $row = array_change_key_case($row, CASE_LOWER);
+                if ($row['type'] !== "land") {
+                    $row = array_merge($row, $this->get_building($row['id'], $row['type']));
                 }
+                $row['transactionType'] = $row['transaction_type'];
+                unset($row['transaction_type']);
+
+                $row['imageURL'] = "api/items/image?announcement_id=" . $row['id'];
                 $data[$i] = $row;
+            } else {
+                break;
             }
         }
 
@@ -40,10 +77,50 @@ class AnnouncementDM
         return $data;
     }
 
-    public function get_image($id)
+    public function get_building($id, $type)
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT name,type,image FROM images WHERE announcement_id = $id";
+        $sql = "SELECT * FROM buildings WHERE announcement_id = $id";;
+        if ($type === "house") {
+            $sql = "SELECT floor,bathrooms,basement,built_in,parking_lots FROM buildings WHERE announcement_id = $id";
+        } elseif ($type === "office") {
+            $sql = "SELECT floor,bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
+        } elseif ($type === "apartment") {
+            $sql = "SELECT ap_type,floor,bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
+        }
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $row = oci_fetch_assoc($stid);
+        $row = array_change_key_case($row, CASE_LOWER);
+        if ($type === "house") {
+            $row['floors'] = $row['floor'];
+            unset($row['floor']);
+        } elseif ($type === "apartment") {
+            $row['apartmentType'] = $row['ap_type'];
+            unset($row['ap_type']);
+        }
+        $row['builtIn'] = $row['built_in'];
+        unset($row['built_in']);
+        $row['parkingLots'] = $row['parking_lots'];
+        unset($row['parking_lots']);
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $row;
+    }
+
+    public function get_image($announcement_id)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT name,type,image FROM images WHERE announcement_id = $announcement_id";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -64,10 +141,10 @@ class AnnouncementDM
         return $row;
     }
 
-    public function get_building($id)
+    public function get_image_by_id($id)
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT * FROM buildings WHERE announcement_id = $id";
+        $sql = "SELECT name,type,image FROM images WHERE id = $id";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -79,10 +156,40 @@ class AnnouncementDM
         }
 
         $row = oci_fetch_assoc($stid);
+        if ($row != false) {
+            $row['IMAGE'] = $row['IMAGE']->load();
+        }
 
         oci_free_statement($stid);
         DatabaseConnection::close();
         return $row;
+    }
+
+    public function get_announcement_images_urls($announcement_id)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT id FROM images WHERE announcement_id = $announcement_id";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $imagesURLs = [];
+        $index = 0;
+
+        while (($row = oci_fetch_assoc($stid)) != false) {
+            $imagesURLs[$index] = "api/items/image?id=" . $row['ID'];
+            $index++;
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $imagesURLs;
     }
 
     public function get_announcements_count()

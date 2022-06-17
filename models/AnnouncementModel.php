@@ -37,9 +37,11 @@ class AnnouncementModel extends Model
                     ->add(Constrain::MinLength, 10)
                     ->add(Constrain::MaxLength, 4000)
                     ->add(Constrain::SafeChars),
-                "IS_LAND" => (new Constraint())
-                    ->add(Constrain::MinValue, 0)
-                    ->add(Constrain::MaxValue, 1)
+                "TYPE" => (new Constraint())
+                    ->add(Constrain::Required)
+                    ->add(Constrain::MinLength, 2)
+                    ->add(Constrain::MaxLength, 32)
+                    ->add(Constrain::SafeChars),
             ]
         );
     }

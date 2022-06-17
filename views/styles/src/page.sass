@@ -84,17 +84,22 @@ p
 
         @include transition(transform)
 
+.hlink
+    color: var(--interactive-accent)
+
+.text-wrap
+    overflow-wrap: break-word
+    max-width: 12 * $unit
+
 .icon-text
     display: flex
     align-items: center
     gap: 0.2em
 
-    svg
+    span
         position: relative
         height: 1em
-
-        path
-            fill: var(--text-normal)
+        color: var(--text-normal)
 
 [onclick]
     cursor: pointer

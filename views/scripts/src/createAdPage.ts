@@ -36,7 +36,6 @@ class CreateAd {
     }
 
     public static formDataHandler = (event: FormDataEvent) => {
-
         event.formData.delete('images');
         CreateAd.uploadedFiles.forEach((file, index) => event.formData.set(`image${index}`, file));
         const type = CreateAd.typeDropDown.getOption();

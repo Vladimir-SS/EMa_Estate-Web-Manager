@@ -29,7 +29,7 @@
             <?php
             echo $form->field($building_model, 'BATHROOMS', "Numărul de băi")->get_simple_input();
             echo $form->field($building_model, 'PARKING_LOTS', "Numărul locurilor de parcare")->get_simple_input();
-            echo $form->field($building_model, 'BUILT_ON', "Anul de construcție al clădirii")->get_simple_input();
+            echo $form->field($building_model, 'BUILT_IN', "Anul de construcție al clădirii")->get_simple_input();
             ?>
         </fieldset>
         <fieldset id="house-specific">

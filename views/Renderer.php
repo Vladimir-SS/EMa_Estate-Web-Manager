@@ -33,7 +33,7 @@ class Renderer
     {
         $rv = "";
         foreach ($files as $file)
-            $rv .= "<link rel=\"stylesheet\" href=\"styles/$file.css\">";
+            $rv .= "<link rel=\"stylesheet\" href=\"/styles/$file.css\">";
 
         return $rv;
     }
@@ -42,7 +42,7 @@ class Renderer
     {
         $rv = "";
         foreach ($files as $file)
-            $rv .= "<script src=\"scripts/$file.js\"></script>";
+            $rv .= "<script src=\"/scripts/$file.js\"></script>";
 
         return $rv;
     }

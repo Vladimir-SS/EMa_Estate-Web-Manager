@@ -16,10 +16,10 @@ class ProfileController extends Controller
     public function profile(Request $request)
     {
         $model = new ProfileModel();
-        $image = '';
+        $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
+        $id = $account_data->id;
         if ($request->is_post()) {
             $services = new AccountService();
-
             $data_mapper = new AccountDM();
             $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
             if (
@@ -66,6 +66,8 @@ class ProfileController extends Controller
                                 $data_mapper->update_account_image($account_data->id, $blob);
                             }
                         }
+                    } else {
+                        $model->errors['OLD_PASSWORD'] = "Parolă greșită";
                     }
                 }
             }
@@ -75,14 +77,13 @@ class ProfileController extends Controller
                 throw new Exception("Couldn't find account");
             }
             $model->load($data);
-            $image = $data['IMAGE']->load();
             if (!empty($_FILES)) {
                 $image = file_get_contents($_FILES['image']["tmp_name"]);
                 $image = base64_encode($image);
             }
             return $this->render(
                 "Profil",
-                Renderer::render_template("profile/profile", ['model' => $model, 'image' => $image]),
+                Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
                 Renderer::render_scripts("avatar-loader")
             );
@@ -91,13 +92,12 @@ class ProfileController extends Controller
             $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
             if (($data = $data_mapper->get_data_by_id($account_data->id)) != false) {
                 $model->load($data);
-                $image = $data['IMAGE']->load();
             } else {
                 throw new Exception("Couldn't find account");
             }
             return $this->render(
                 "Profil",
-                Renderer::render_template("profile/profile", ['model' => $model, 'image' => $image]),
+                Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
                 Renderer::render_scripts("avatar-loader", "Item")
             );
