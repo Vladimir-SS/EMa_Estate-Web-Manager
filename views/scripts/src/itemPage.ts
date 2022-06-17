@@ -1,6 +1,7 @@
 DocumentHandler.whenReady(() => {
 
     const profileElement = document.getElementsByClassName("content__right")[0];
+    const decriptionContainer = document.getElementsByClassName("content__box description")[0];
 
     var xmlHttpRequest = new XMLHttpRequest();
 
@@ -11,8 +12,11 @@ DocumentHandler.whenReady(() => {
     xmlHttpRequest.onreadystatechange = () => {
         if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
             item = JSON.parse(xmlHttpRequest.responseText);
-            console.log(item);
             profileElement.appendChild(ItemInfo.create(item));
+            const descriptionElement = createSimpleElement('p', '');
+            descriptionElement.textContent = item.description;
+            decriptionContainer.appendChild(descriptionElement);
+            Slideshow.create(item.imagesURLs);
 
             let profile: ProfileData;
 
@@ -20,7 +24,6 @@ DocumentHandler.whenReady(() => {
             xmlHttpRequest.onreadystatechange = () => {
                 if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
                     profile = JSON.parse(xmlHttpRequest.responseText);
-                    console.log(profile);
                     profileElement.appendChild(ProfileContainer.create(profile));
                 }
             }

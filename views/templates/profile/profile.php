@@ -16,8 +16,11 @@
                 $model->get_data()['FIRST_NAME']['value'],
                 $model->get_data()['BUSINESS_NAME']['value']
             );
-            if ($model->get_data()['BUSINESS_NAME']['value'] != null)
-                echo '<p>Agent Imobiliar</p>'
+            if ($model->get_data()['BUSINESS_NAME']['value'] != null) {
+                echo '<p>Agent Imobiliar</p>';
+            } else {
+                echo '<p>Persoană fizică</p>';
+            }
             ?>
 
             <p class="secondary"> Pe Estence din <?php echo date('d-m-Y', strtotime($model->get_data()['CREATED_AT']['value'])); ?></p>

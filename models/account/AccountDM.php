@@ -64,7 +64,7 @@ class AccountDM
             ", ",
             array_map(
                 function ($k, $v) {
-                    return $v["value"] ? ($k . "= " . $v["tag"]) : ($k . "= " . $k);
+                    return $v["value"] ? ($k . "= " . $v["tag"]) : (($k === 'BUSINESS_NAME') ? ($k . "= NULL") : ($k . "= " . $k));
                 },
                 array_keys($data),
                 array_values($data)

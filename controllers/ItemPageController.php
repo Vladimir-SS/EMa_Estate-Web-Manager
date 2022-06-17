@@ -21,7 +21,7 @@ class ItemPageController extends Controller
             "Item view",
             Renderer::render_template("item_page/item_page",  ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
             Renderer::render_styles("form", "icon", "item-page"),
-            Renderer::render_scripts("ProfileContainer", "ItemInfo", "itemPage")
+            Renderer::render_scripts("ProfileContainer", "Slideshow", "ItemInfo", "itemPage")
         );
     }
 }

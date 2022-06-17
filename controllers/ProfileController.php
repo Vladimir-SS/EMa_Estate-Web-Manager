@@ -20,7 +20,6 @@ class ProfileController extends Controller
         $id = $account_data->id;
         if ($request->is_post()) {
             $services = new AccountService();
-
             $data_mapper = new AccountDM();
             $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
             if (
@@ -67,6 +66,8 @@ class ProfileController extends Controller
                                 $data_mapper->update_account_image($account_data->id, $blob);
                             }
                         }
+                    } else {
+                        $model->errors['OLD_PASSWORD'] = "Parolă greșită";
                     }
                 }
             }

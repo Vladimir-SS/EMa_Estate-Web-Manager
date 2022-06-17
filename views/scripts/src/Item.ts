@@ -17,6 +17,7 @@ interface BaseData {
     price: string
     surface: number
     imageURL: string
+    imagesURLs: string[]
 
 }
 
