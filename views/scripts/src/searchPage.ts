@@ -1,53 +1,69 @@
-const itemsElement = document.getElementById('items');
+type DropdownMap = { [key in keyof typeof Options.dropdown]: string[] };
 
-const resizeHandler = () => {
-    if (window.innerWidth <= 1220)
-        itemsElement.classList.add('chubby-items');
-    else
-        itemsElement.classList.remove('chubby-items');
-}
+class SearchHandler {
 
-const toApiParams = (): string => {
+    public static itemsElement = document.getElementById('items');
 
-    //ce?? Nu e cod duplicat...
-    const dropdownParams = Object.entries(Options.dropdown)
-        .filter(([__key, op]) => op.element.style.display != "none" && op.isSelected())
-        .map(([key, op]) => `${key}=${op.getOption().index}`);
+    private static dropdownMapToString: DropdownMap = {
+        apType: ["", "detached", "semi-detached", "non-detached", "circular", "open-space"],
+        type: ["apartment", "house", "office", "land"],
+        by: ["", "individual", "company"],
+        transaction: ["rent", "sell"]
+    };
 
-    const sliderParams = Object.entries(Options.slider)
-        .filter(([__key, op]) => op.element.style.display != "none" && op.isSelected())
-        .map(([key, op]) => Object.entries(op.getOption()).map(([minmax, value]) => `${key}${minmax}=${value}`).join("&")
-        );
+    public static resizeHandler() {
+        if (window.innerWidth <= 1220)
+            SearchHandler.itemsElement.classList.add('chubby-items');
+        else
+            SearchHandler.itemsElement.classList.remove('chubby-items');
+    }
 
-    return "?" + [...dropdownParams, ...sliderParams].join("&");
-}
+    public static toApiParams(): string {
 
-const getItems = () => {
-    console.log(toApiParams());
-    window.history.replaceState(null, null, Options.toGetParams());
-  
-    var xmlHttpRequest = new XMLHttpRequest();
-    let obj: ItemData[];
-    xmlHttpRequest.open('GET', '/api/items' + toApiParams(), true);
-    xmlHttpRequest.onreadystatechange = () => {
-        if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-            obj = JSON.parse(xmlHttpRequest.responseText);
-            let items = document.getElementById('items');
-            for (const key in obj) {
-                if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                    items.appendChild(Item.create(obj[key]));
+        const dropdownParams = Object.entries(Options.dropdown)
+            .filter(([__key, op]) => op.element.style.display != "none" && op.isSelected())
+            .map(([key, op]) => `${key}=${SearchHandler.dropdownMapToString[key][op.getOption().index]}`);
+
+
+        const sliderParams = Object.entries(Options.slider)
+            .filter(([__key, op]) => op.element.style.display != "none" && op.isSelected())
+            .map(([key, op]) => Object.entries(op.getOption()).map(([minmax, value]) => `${key}${minmax}=${value}`).join("&")
+            );
+
+        return "?" + [...dropdownParams, ...sliderParams].join("&");
+    }
+
+    public static getItems() {
+        var xmlHttpRequest = new XMLHttpRequest();
+        let obj: ItemData[];
+        xmlHttpRequest.open('GET', '/api/items/filter' + SearchHandler.toApiParams(), true);
+        xmlHttpRequest.onreadystatechange = () => {
+            if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
+                obj = JSON.parse(xmlHttpRequest.responseText);
+                let items = document.getElementById('items');
+                for (const key in obj) {
+                    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                        items.appendChild(Item.create(obj[key]));
+                    }
                 }
             }
         }
+        xmlHttpRequest.send();
     }
-    xmlHttpRequest.send();
+
 }
 
-Options.onSubmit = getItems;
+Options.onSubmit = () => {
+    window.history.replaceState(null, null, Options.toGetParams());
+
+    const items = document.getElementById('items');
+    items.innerHTML = "";
+    SearchHandler.getItems();
+};
 
 DocumentHandler.whenReady(() => {
-    resizeHandler();
-    getItems();
+    SearchHandler.resizeHandler();
+    SearchHandler.getItems();
 })
 
-window.addEventListener('resize', resizeHandler);
+window.addEventListener('resize', SearchHandler.resizeHandler);

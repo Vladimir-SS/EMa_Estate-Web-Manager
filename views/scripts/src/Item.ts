@@ -1,15 +1,7 @@
 interface BaseData {
     id: number
-    /**
-     * Type
-     * 
-     * 0 - "Apartament"
-     * 1 - "Casă"
-     * 2 - "Office"
-     * 3 - "Teren"
-     */
     accountID: number
-    type: number
+    type: string
     transactionType: string
     address: string
     title: string

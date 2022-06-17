@@ -1,9 +1,25 @@
 class CreateAd {
     public static addImageInputElement: HTMLElement;
     public static imagesElement: HTMLElement;
-    public static typeDropDown: DropdownFilterOption;
-    public static apartamentTypeDropDown: DropdownFilterOption;
     private static uploadedFiles: File[] = [];
+
+    public static dropdownOptions: { [key: string]: DropdownFilterOption } = {
+        apType: DropdownFilterOption.createWithDefault(
+            ["Decomandat", "Semidecomandat", "Nedecomandat", "Circular", "Open-Space"],
+            "Alege tipul apartamentului"
+        ),
+        type: DropdownFilterOption.createWithDefault(
+            ["Apartament", "Casă", "Office", "Teren"],
+            "Alege tipul proprietății"
+        ),
+        transaction: DropdownFilterOption.createWithDefault(["Închiriere", "Cumpărare"], "Alege tipul anunțului")
+    }
+
+    private static dropdownMapToString: DropdownMap = {
+        apType: ["", "detached", "semi-detached", "non-detached", "circular", "open-space"],
+        type: ["", "apartment", "house", "office", "land"],
+        transaction: ["", "rent", "sell"]
+    };
 
 
     public static addImage = (alt: string, url: string) => {
@@ -38,10 +54,11 @@ class CreateAd {
     public static formDataHandler = (event: FormDataEvent) => {
         event.formData.delete('images');
         CreateAd.uploadedFiles.forEach((file, index) => event.formData.set(`image${index}`, file));
-        const type = CreateAd.typeDropDown.getOption();
+        const type = CreateAd.dropdownOptions.type.getOption();
         event.formData.set('TYPE', type.index.toString());
         if (type.index == 1) // type: Apartment
-            event.formData.set('AP_TYPE', CreateAd.apartamentTypeDropDown.getOption().index.toString());
+            event.formData.set('AP_TYPE', CreateAd.dropdownOptions.apType.getOption().index.toString());
+        event.formData.set('TRANSACTION_TYPE', CreateAd.dropdownOptions.transaction.getOption().index.toString());
 
     }
 }
@@ -64,36 +81,30 @@ DocumentHandler.whenReady(() => {
     const buildingSpecific = document.getElementById("building-specific");
     const dropDownContainer = document.getElementById("dropdown-container");
 
-    CreateAd.apartamentTypeDropDown = DropdownFilterOption.createWithDefault(
-        ["Decomandat", "Nedecomandat", "Semidecomandat", "Circular"],
-        "Alege tipul apartamentului"
-    );
-
     const typeLinked = [
         [],
-        [residentialSpecific, buildingSpecific, CreateAd.apartamentTypeDropDown.element],
+        [residentialSpecific, buildingSpecific, CreateAd.dropdownOptions.apType.element],
         [buildingSpecific, houseSpecific],
         [buildingSpecific],
         []
     ]
 
-    CreateAd.typeDropDown = DropdownFilterOption.createWithDefault(
-        ["Apartament", "Casă", "Office", "Teren"],
-        "Alege tipul proprietății"
-    );
-
 
     typeLinked.forEach(list => list.forEach(disableElement));
     let lastIndex = 0;
-    CreateAd.typeDropDown.onChange((index, __text) => {
+    CreateAd.dropdownOptions.type.onChange((index, __text) => {
         typeLinked[lastIndex].forEach(disableElement);
         typeLinked[index].forEach(enableElement);
         lastIndex = index;
     });
-    FilterOptionHandler.add(CreateAd.typeDropDown);
+    Object.values(CreateAd.dropdownOptions).forEach(op => FilterOptionHandler.add(op))
 
-    dropDownContainer.append(CreateAd.typeDropDown.element, CreateAd.apartamentTypeDropDown.element);
-
+    //vreau o ordine
+    dropDownContainer.append(
+        CreateAd.dropdownOptions.type.element,
+        CreateAd.dropdownOptions.apType.element,
+        CreateAd.dropdownOptions.transaction.element
+    );
 
     CreateAd.addImageInputElement = document.getElementById("add-image-input");
     CreateAd.imagesElement = document.getElementById("images");

@@ -19,12 +19,17 @@ class DropdownFilterOption extends FilterOption {
         return element;
     }
 
-    private createOptionList = () => {
+    public chooseOption(index: number) {
+        const child = this.element.getElementsByTagName("ul")[0].children[index] as HTMLElement;
+        child.onclick(null);
+    }
+
+    private createOptionList() {
         let listElement = document.createElement("ul");
 
         this.options.forEach((text, index) => {
             const element = DropdownFilterOption.createOptionItem(text);
-            element.onclick = () => this.chooseOption(index);
+            element.onclick = () => this.onClickEventHandler(index);
             listElement.append(element);
         })
 
@@ -32,7 +37,7 @@ class DropdownFilterOption extends FilterOption {
     }
 
 
-    public chooseOption = (index: number) => {
+    public onClickEventHandler = (index: number) => {
         this.chosenOptionIndex = index;
 
         this.textNode.textContent = this.options[index];
@@ -56,7 +61,7 @@ class DropdownFilterOption extends FilterOption {
         this.contentBoxElement.appendChild(this.createOptionList());
         this.element.classList.add("filter-option--dropdown")
 
-        this.chooseOption(0);
+        this.onClickEventHandler(0);
     }
 
     static createWithDefault(optionList: string[], defaultPlaceholder: string) {
@@ -64,7 +69,7 @@ class DropdownFilterOption extends FilterOption {
         const child = instance.element.getElementsByTagName("ul")[0].firstChild as HTMLElement;
 
         child.onclick = () => {
-            instance.chooseOption(0);
+            instance.onClickEventHandler(0);
             instance.labelElement.classList.remove("label--important");
         };
 

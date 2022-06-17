@@ -10,9 +10,8 @@ include_once DIR_MODELS . "BuildingModel.php";
 class CreateAdController extends Controller
 {
     private $types = ["land", "apartment", "house", "office", "land"];
-    private $ap_types = [
-        "Nespecificat", "Decomandat", "Nedecomandat", "Semidecomandat", "Circular",
-    ];
+    private $ap_types = ["", "detached", "semi-detached", "non-detached", "circular", "open-space"];
+    private $transaction_types = ["rent", "rent", "sell"];
 
     public function __construct()
     {
@@ -29,8 +28,7 @@ class CreateAdController extends Controller
             $temp = $request->get_body();
             $temp['ACCOUNT_ID'] = $request->get_body()['ACCOUNT_ID'] = json_decode(JWT::get_jwt_payload($_COOKIE['user']))->id; // adds account_id value to the array before creating the AnnouncementModel
 
-            // Valori hardcodate pana e gata filterul
-            $temp['TRANSACTION_TYPE'] = 'inchiriat';
+            $temp['TRANSACTION_TYPE'] = $this->transaction_types[$temp['TRANSACTION_TYPE']];
             $temp['TYPE'] = $this->types[$temp['TYPE']];
 
             $announcement_model->load($temp);

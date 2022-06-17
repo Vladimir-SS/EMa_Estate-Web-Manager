@@ -99,7 +99,11 @@ class AuthController extends Controller
 
                         header("Location: /home");
                         die();
+                    } else {
+                        $model->errors['PASSWORD'] = "Parola sau emailul/numărul de telefon greșit";
                     }
+                } else {
+                    $model->errors['EMAIL_OR_PHONE'] = "Nu există cont cu emailul/numărul de telefon introdus";
                 }
             }
             return $this->render(

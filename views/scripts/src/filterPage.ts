@@ -10,7 +10,7 @@ class Options {
             "Tip"
         ),
         type: new DropdownFilterOption(["Apartament", "Casă", "Office", "Teren"]),
-        by: DropdownFilterOption.createWithDefault(["Proprietar", "Firmă", "Dezvoltator"], "Oricine"),
+        by: DropdownFilterOption.createWithDefault(["Proprietar", "Agent Imobiliar"], "Oricine"),
         transaction: new DropdownFilterOption(["Închiriere", "Cumpărare"])
     }
 
@@ -21,7 +21,7 @@ class Options {
         builtIn: new SliderFilterOption("Anul Construcției", "").set(1950, 2022).openRightDomain().openLeftDomain(),
     }
 
-    //scris () => Options.onSubmit() ca poate se schimba onSubmit-ul
+    //scris () => Options.onSubmit() inse schimba onSubmit-ul
     public static submitButton = new SubmitFilterOption(() => Options.onSubmit());
 
     private static changeAllOnType() {

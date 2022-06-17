@@ -6,6 +6,11 @@ class ItemsController extends Controller
     private $count = 10;
     private $index = 0;
 
+    private $types = ["apartment", "house", "office", "land"];
+    private $ap_types = [
+        "Nespecificat", "Decomandat", "Nedecomandat", "Semidecomandat", "Circular", "Open-space"
+    ];
+
     public function get_items(Request $request)
     {
         $data_mapper = new AnnouncementDM();
@@ -39,5 +44,9 @@ class ItemsController extends Controller
 
     public function get_filtered_items(Request $request)
     {
+        $filter = $request->get_body();
+        $data_mapper = new AnnouncementDM();
+        $data = $data_mapper->get_filtered_announcements($filter, 20);
+        echo json_encode($data, JSON_PRETTY_PRINT);
     }
 }

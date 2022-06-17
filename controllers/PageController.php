@@ -31,7 +31,7 @@ class PageController extends Controller
             Renderer::render_content("search/search"),
             Renderer::render_styles("icon", "item", "search"),
             // Renderer::render_script("filter")->add("filterPage")->add("Item")->add("getItems")->add("searchPage")
-            Renderer::render_scripts("filter", "filterPage", "Item", "searchPage", "SliderItems")
+            Renderer::render_scripts("filter", "filterPage", "Item", "searchPage")
         );
     }
 }

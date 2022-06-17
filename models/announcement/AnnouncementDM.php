@@ -9,6 +9,139 @@ class AnnouncementDM
     {
     }
 
+    public function get_filtered_announcements($filter, $count)
+    {
+        DatabaseConnection::get_connection();
+
+        $sql = "SELECT a.id,a.title,a.price,a.surface,a.address,a.transaction_type,a.description,a.type, b.floor,b.bathrooms,b.basement,b.built_in,b.parking_lots,b.ap_type,b.rooms FROM announcements a LEFT JOIN buildings b ON a.id = b.announcement_id WHERE" . $this->get_announcements_filters_string($filter);
+
+        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stmt);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $data = [];
+
+        for ($i = 0; $i <= $count; $i++) {
+            if (($row = oci_fetch_assoc($stmt)) != false) {
+                $row = array_change_key_case($row, CASE_LOWER);
+                if ($row['type'] === "land") {
+                    unset($row['ap_type']);
+                    unset($row['basement']);
+                    unset($row['parking_lots']);
+                    unset($row['bathrooms']);
+                    unset($row['rooms']);
+                    unset($row['floor']);
+                    unset($row['built_in']);
+                } else {
+                    $row['builtIn'] = $row['built_in'];
+                    unset($row['built_in']);
+                    $row['parkingLots'] = $row['parking_lots'];
+                    unset($row['parking_lots']);
+
+                    if ($row['type'] === "house") {
+                        $row['floors'] = $row['floor'];
+                        unset($row['floor']);
+                        unset($row['ap_type']);
+                    } elseif ($row['type'] === "apartment") {
+                        $row['apartmentType'] = $row['ap_type'];
+                        unset($row['ap_type']);
+                        unset($row['basement']);
+                    } elseif ($row['type'] === "office") {
+                        unset($row['rooms']);
+                        unset($row['basement']);
+                        unset($row['ap_type']);
+                        unset($row['floor']);
+                    }
+                }
+
+                $row['transactionType'] = $row['transaction_type'];
+                unset($row['transaction_type']);
+
+                $row['imageURL'] = "api/items/image?announcement_id=" . $row['id'];
+                $data[$i] = $row;
+            } else {
+                break;
+            }
+        }
+
+        oci_free_statement($stmt);
+        DatabaseConnection::close();
+
+        return $data;
+    }
+
+    public function get_announcements_filters_string($filter): string
+    {
+        $filters = [];
+        if (isset($filter['type'])) {
+            $temp = $filter['type'];
+            array_push($filters, " a.type = '$temp'");
+        }
+
+        if (isset($filter['priceMin'])) {
+            $temp = $filter['priceMin'];
+            array_push($filters, " a.price > $temp");
+        }
+
+        if (isset($filter['priceMax'])) {
+            $temp = $filter['priceMax'];
+            array_push($filters, " a.price < $temp");
+        }
+
+        if (isset($filter['priceMax'])) {
+            $temp = $filter['priceMax'];
+            array_push($filters, " a.price < $temp");
+        }
+
+        if (isset($filter['transaction'])) {
+            $temp = $filter['transaction'];
+            array_push($filters, " a.transaction_type = '$temp'");
+        }
+
+        if (isset($filter['roomsMin'])) {
+            $temp = $filter['roomsMin'];
+            array_push($filters, " b.rooms > $temp");
+        }
+
+        if (isset($filter['roomsMax'])) {
+            $temp = $filter['roomsMax'];
+            array_push($filters, " b.rooms < $temp");
+        }
+
+        if (isset($filter['bathroomsMin'])) {
+            $temp = $filter['bathroomsMin'];
+            array_push($filters, " b.bathrooms > $temp");
+        }
+
+        if (isset($filter['bathroomsMax'])) {
+            $temp = $filter['bathroomsMax'];
+            array_push($filters, " b.bathrooms < $temp");
+        }
+
+        if (isset($filter['builtInMin'])) {
+            $temp = $filter['builtInMin'];
+            array_push($filters, " b.built_in > $temp");
+        }
+
+        if (isset($filter['builtInMax'])) {
+            $temp = $filter['builtInMax'];
+            array_push($filters, " b.built_in < $temp");
+        }
+
+        if (isset($filter['apType'])) {
+            $temp = $filter['apType'];
+            array_push($filters, " b.ap_type = '$temp'");
+        }
+
+        $filters = implode(" AND ", $filters);
+        return $filters;
+    }
+
     public function get_announcement_by_id($id)
     {
         DatabaseConnection::get_connection();
@@ -82,11 +215,11 @@ class AnnouncementDM
         DatabaseConnection::get_connection();
         $sql = "SELECT * FROM buildings WHERE announcement_id = $id";;
         if ($type === "house") {
-            $sql = "SELECT floor,bathrooms,basement,built_in,parking_lots FROM buildings WHERE announcement_id = $id";
+            $sql = "SELECT floor,bathrooms,basement,built_in,parking_lots,rooms FROM buildings WHERE announcement_id = $id";
         } elseif ($type === "office") {
-            $sql = "SELECT floor,bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
+            $sql = "SELECT bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
         } elseif ($type === "apartment") {
-            $sql = "SELECT ap_type,floor,bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
+            $sql = "SELECT ap_type,floor,bathrooms,parking_lots,built_in,rooms FROM buildings WHERE announcement_id = $id";
         }
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
