@@ -1,3 +1,6 @@
+
+interface GETParameters { [key: string]: string }
+
 class DocumentHandler {
     private static pipeline: (() => void)[] = [];
 
@@ -25,5 +28,19 @@ class DocumentHandler {
         else
             document.addEventListener("DOMContentLoaded", func);
 
+    }
+
+    private static GETParamsToObj(params: string): GETParameters {
+        return params.split("&")
+            .map(p => p.split("="))
+            .reduce((prev, [key, op]) => {
+                prev[key] = op;
+                return prev;
+            }, {});
+    }
+
+    public static getGETParameters() {
+        const params = window.location.search.substr(1);
+        return (params != null && params !== "") ? this.GETParamsToObj(params) : {};
     }
 }

@@ -45,6 +45,7 @@ $unit: $unit/2
 
 .filter-option
     position: relative
+    user-select: none
     //z-index: 4
 
     > .content__box
@@ -86,12 +87,8 @@ $unit: $unit/2
         &.show> .label > .icon
             transform: scaleY(-1)
 
-    &--submit
-        grid-column: span 2
-        width: 100%
-
-        > .label--flex > .icon
-            order: -1
+    &--submit > .label--flex > .icon
+        order: -1
 
     &--slider
         --unit: " zzz"

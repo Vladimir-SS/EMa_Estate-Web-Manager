@@ -33,14 +33,4 @@ class FilterOptionHandler {
 
         return FilterOptionHandler;
     }
-
-    static submit = () => {
-
-        return FilterOptionHandler.filterOptions
-            .filter(op => op.element.style.display != "none")
-            .map(op => op.getParameters())
-            .reduce((previus, current) => {
-                return { ...previus, ...current }
-            }, {});
-    }
 }

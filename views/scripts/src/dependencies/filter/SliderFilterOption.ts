@@ -1,3 +1,8 @@
+interface SliderOption {
+    Min?: string
+    Max?: string
+}
+
 class SliderFilterOption extends FilterOption {
     private values: string[];
     private defaultLabelText: string;
@@ -27,29 +32,35 @@ class SliderFilterOption extends FilterOption {
             vStart = min + (step - min % step),
             vEnd = max - max % step;
 
-        let rv: number[] = [min, ...Array((vEnd - vStart) / step).fill(null).map((_, i) => vStart + step * i)];
-        if (rv[length - 1] != max)
+        let rv: number[] = [min, ...Array((vEnd - vStart) / step + 1).fill(null).map((_, i) => vStart + step * i)];
+        if (rv[rv.length - 1] != max)
             rv.push(max);
         return rv.map(val => val.toString());
     }
 
     private resetSliders = () => {
         this.slider1.max = this.slider2.max = (this.values.length - 1).toString();
-        this.slider2.value = this.slider2.max;
-        this.slider1.value = '0';
-        this.sliderOnInputEventHandler(null);
-
+        this.setSliderPosition('0', this.slider2.max);
     }
 
-    public set = (min: number, max: number) => {
-
+    public set(min: number, max: number) {
         this.values = SliderFilterOption.calcValues(min, max);
         this.resetSliders();
 
         return this;
     }
 
-    private getMinMax = () => {
+    public setSliderPosition(pos1: string, pos2: string) {
+        this.slider1.value = pos1;
+        this.slider2.value = pos2;
+
+        this.sliderOnInputEventHandler(null);
+        this.sliderOnChangeEventHandler(null);
+    }
+
+    public getSliderPosition = (): [string, string] => [this.slider1.value, this.slider2.value]
+
+    private getMinMax() {
         const val1: number = Number(this.slider1.value);
         const val2: number = Number(this.slider2.value);
         return {
@@ -140,14 +151,14 @@ class SliderFilterOption extends FilterOption {
     }
 
     public openLeftDomain() {
-        this.values = "-" + [this.values[0], ...this.values];
+        this.values = ["-" + this.values[0], ...this.values];
         this.resetSliders();
 
         return this;
     }
 
-    constructor(name: string, labelText: string, unit: string) {
-        super(name);
+    constructor(labelText: string, unit: string) {
+        super();
         this.defaultLabelText = labelText;
 
         this.setLabelTextIcon(labelText, "left-right-arrow");
@@ -157,7 +168,7 @@ class SliderFilterOption extends FilterOption {
         this.contentBoxElement.append(this.createShowContainer(), this.createSlideContainer());
     }
 
-    public override getParameters = () => {
+    public getOption(): SliderOption {
         const { min, max } = this.getMinMax();
 
         const minValue = this.values[min];
@@ -165,18 +176,23 @@ class SliderFilterOption extends FilterOption {
 
         if (min !== 0 && max !== this.values.length - 1)
             return {
-                [`${this.name}Max`]: maxValue,
-                [`${this.name}Min`]: minValue
+                Max: maxValue,
+                Min: minValue
             }
         else if (min !== 0)
             return {
-                [`${this.name}Min`]: minValue
+                Min: minValue
             }
         else if (max !== this.values.length - 1)
             return {
-                [`${this.name}Max`]: maxValue,
-                [`${this.name}Min`]: minValue
+                Max: maxValue,
+                Min: minValue
             }
         else return {};
+    }
+
+    public isSelected() {
+        const { min, max } = this.getMinMax();
+        return (min !== 0) || (max !== this.values.length - 1);
     }
 }

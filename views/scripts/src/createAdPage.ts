@@ -39,10 +39,10 @@ class CreateAd {
 
         event.formData.delete('images');
         CreateAd.uploadedFiles.forEach((file, index) => event.formData.set(`image${index}`, file));
-        const type = CreateAd.typeDropDown.getCurrentOption();
+        const type = CreateAd.typeDropDown.getOption();
         event.formData.set('TYPE', type.index.toString());
         if (type.index == 1) // type: Apartment
-            event.formData.set('AP_TYPE', CreateAd.apartamentTypeDropDown.getCurrentOption().index.toString());
+            event.formData.set('AP_TYPE', CreateAd.apartamentTypeDropDown.getOption().index.toString());
 
     }
 }
@@ -66,7 +66,6 @@ DocumentHandler.whenReady(() => {
     const dropDownContainer = document.getElementById("dropdown-container");
 
     CreateAd.apartamentTypeDropDown = DropdownFilterOption.createWithDefault(
-        "type",
         ["Decomandat", "Nedecomandat", "Semidecomandat", "Circular"],
         "Alege tipul apartamentului"
     );
@@ -80,9 +79,9 @@ DocumentHandler.whenReady(() => {
     ]
 
     CreateAd.typeDropDown = DropdownFilterOption.createWithDefault(
-        "type",
         ["Apartament", "Casă", "Office", "Teren"],
-        "Alege tipul proprietății");
+        "Alege tipul proprietății"
+    );
 
 
     typeLinked.forEach(list => list.forEach(disableElement));

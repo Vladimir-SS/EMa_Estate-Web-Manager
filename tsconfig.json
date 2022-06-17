@@ -5,7 +5,7 @@
         "noEmitOnError": true,
         "noImplicitAny": false,
         "removeComments": true,
-        "target": "es6",
+        "target": "es2017",
         "outDir": "views/scripts/build",
         "rootDir": "views/scripts/src"
     }

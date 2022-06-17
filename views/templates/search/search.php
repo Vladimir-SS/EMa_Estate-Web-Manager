@@ -1,6 +1,6 @@
 <div class="splited">
     <div class="flex-1">
-        <div class="content-filter">
+        <div class="content__box content-filter">
             <?php echo Renderer::render_content("Filter")
             ?>
         </div>
