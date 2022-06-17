@@ -24,6 +24,7 @@ const toApiParams = (): string => {
 
 const getItems = () => {
     console.log(toApiParams());
+    window.history.replaceState(null, null, Options.toGetParams());
 }
 
 Options.onSubmit = getItems;
