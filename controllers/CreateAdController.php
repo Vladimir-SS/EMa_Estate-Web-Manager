@@ -85,19 +85,15 @@ class CreateAdController extends Controller
                     }
                 }
             }
-            return $this->render(
-                "Anunț",
-                Renderer::render_template("create-ad/create-ad", ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
-                Renderer::render_styles("form", "icon", "create-ad"),
-                Renderer::render_scripts("filter", "createAdPage")
-            );
-        } else {
-            return $this->render(
-                "Anunț",
-                Renderer::render_template("create-ad/create-ad", ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
-                Renderer::render_styles("form", "icon", "create-ad"),
-                Renderer::render_scripts("filter", "createAdPage")
-            );
         }
+
+        return $this->render(
+            "Anunț",
+            Renderer::render_template("create-ad/create-ad", ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
+            Renderer::render_styles("form", "icon", "create-ad") .
+                '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">',
+            '<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>' .
+                Renderer::render_scripts("filter", "createAdPage")
+        );
     }
 }

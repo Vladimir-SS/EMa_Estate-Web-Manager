@@ -63,3 +63,6 @@
     <?php Form::end() ?>
 
 </div>
+
+
+<div id="map" class="content__box"></div>

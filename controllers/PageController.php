@@ -25,8 +25,11 @@ class PageController extends Controller
         return $this->render(
             "Caută anunțuri",
             Renderer::render_content("search/search"),
-            Renderer::render_styles("icon", "item", "search"),
-            Renderer::render_scripts("filter", "filterPage", "Item", "searchPage")
+            Renderer::render_styles("icon", "item", "search") .
+                '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">',
+            // Renderer::render_script("filter")->add("filterPage")->add("Item")->add("getItems")->add("searchPage")
+            Renderer::render_scripts("filter", "filterPage", "Item", "searchPage") .
+                '<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>'
         );
     }
 }
