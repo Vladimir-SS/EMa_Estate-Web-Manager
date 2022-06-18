@@ -69,8 +69,6 @@ class AddressMap {
 
         AddressMap.map.on('click', (event) => {
             const [lon, lat] = ol.proj.toLonLat((event as any).coordinate);
-            // var locTxt = "Latitude: " + lat + " Longitude: " + lon;
-            // document.getElementById('coords').innerHTML = locTxt;
             const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
 
             fetch(url)
@@ -81,7 +79,7 @@ class AddressMap {
                         return;
 
                     AddressMap.lastSearch = display_name;
-                    AddressMap.changeCenter(lon, lat);
+                    AddressMap.marker.setGeometry(new ol.geom.Point(ol.proj.fromLonLat([lon, lat])));
                     CreateAd.addressElement.value = display_name;
                 })
         });
