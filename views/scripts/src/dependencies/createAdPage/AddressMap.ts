@@ -1,5 +1,7 @@
 class AddressMap {
 
+    public static coordinates: { lat: number, lon: number } = null;
+
     private static view = new ol.View({
         center: ol.proj.fromLonLat([27.568014, 47.178197]),
         zoom: 17
@@ -11,6 +13,7 @@ class AddressMap {
     private static changeCenter(lon: number, lat: number) {
         AddressMap.view.setCenter(ol.proj.fromLonLat([lon, lat]));
         AddressMap.marker.setGeometry(new ol.geom.Point(ol.proj.fromLonLat([lon, lat])));
+        AddressMap.coordinates = { lat, lon };
     }
 
     private static searchingNow: boolean = false;
@@ -35,7 +38,7 @@ class AddressMap {
                         AddressMap.changeCenter(lon, lat);
                 }
                 setTimeout(() => AddressMap.searchingNow = false, 3000);
-            }).catch((reason) => console.log(reason));
+            }).catch((__reason) => AddressMap.coordinates = null);
     }
 
     public static map = new ol.Map({
@@ -83,7 +86,7 @@ class AddressMap {
                     AddressMap.lastSearch = display_name;
                     AddressMap.changeCenter(lon, lat);
                     CreateAd.addressElement.value = display_name;
-                })
+                }).catch((__reason) => AddressMap.coordinates = null)
         });
 
     }

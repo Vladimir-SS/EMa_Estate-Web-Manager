@@ -31,7 +31,6 @@ class Model
 
     public function validate()
     {
-
         foreach ($this->columns as $attribute => $column) {
 
             $s = $column->validate($this->data[$attribute] ?? null);

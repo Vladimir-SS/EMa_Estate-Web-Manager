@@ -6,7 +6,6 @@ class Renderer
     {
         ob_start();
         include $file_path;
-
         return ob_get_clean();
     }
 

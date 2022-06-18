@@ -4,16 +4,18 @@ include_once DIR_CORE . "exceptions/InternalException.php";
 
 class AnnouncementDM
 {
-
-    public function __construct()
-    {
-    }
-
+    /**
+     * Checks if the title already exists in the database
+     * 
+     * @param $filter  - filter URLparams array
+     * @param $count   - maximum number of announcements to be returned
+     * @return array
+     */
     public function get_filtered_announcements($filter, $count)
     {
         DatabaseConnection::get_connection();
 
-        $sql = "SELECT a.id,a.title,a.price,a.surface,a.address,a.transaction_type,a.description,a.type, b.floor,b.bathrooms,b.basement,b.built_in,b.parking_lots,b.ap_type,b.rooms FROM announcements a LEFT JOIN buildings b ON a.id = b.announcement_id WHERE" . $this->get_announcements_filters_string($filter);
+        $sql = "SELECT a.id,a.title,a.price,a.surface,a.address,a.lon,a.lat,a.transaction_type,a.description,a.type, b.floor,b.bathrooms,b.basement,b.built_in,b.parking_lots,b.ap_type,b.rooms FROM announcements a LEFT JOIN buildings b ON a.id = b.announcement_id WHERE" . $this->get_announcements_filters_string($filter);
 
         $stmt = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stmt);
@@ -75,6 +77,12 @@ class AnnouncementDM
         return $data;
     }
 
+    /**
+     * Creates a string for the filter array ( <column_name> <comparator> <filter_value> AND ...)
+     * 
+     * @param $filter  - filter URLparams array
+     * @return string
+     */
     public function get_announcements_filters_string($filter): string
     {
         $filters = [];
@@ -142,10 +150,16 @@ class AnnouncementDM
         return $filters;
     }
 
+    /**
+     * Get an announcement by id
+     * 
+     * @param $id
+     * @return array
+     */
     public function get_announcement_by_id($id)
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT id,account_id,title,price,surface,address,transaction_type,description,type FROM announcements WHERE id= $id";
+        $sql = "SELECT id,account_id,title,price,surface,address,lon,lat,transaction_type,description,type FROM announcements WHERE id= $id";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -172,11 +186,16 @@ class AnnouncementDM
         DatabaseConnection::close();
         return $row;
     }
-
-    public function get_announcements_of_id($id)
+    /**
+     * Get all announcements posted by an user
+     * 
+     * @param $account_id
+     * @return array
+     */
+    public function get_announcements_of_id($account_id)
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT id,title,price,surface,address,transaction_type,description,type FROM announcements WHERE account_id = $id";
+        $sql = "SELECT id,title,price,surface,address,lon,lat,transaction_type,description,type FROM announcements WHERE account_id = $account_id";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -206,10 +225,17 @@ class AnnouncementDM
         return $data;
     }
 
+    /**
+     * Returns announcements
+     * 
+     * @param $count   - maximum number of announcements to be returned
+     * @param $index   - the starting index
+     * @return array
+     */
     public function get_announcements($count, $index = 0)
     {
         DatabaseConnection::get_connection();
-        $sql = "SELECT id,title,price,surface,address,transaction_type,description,type FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
+        $sql = "SELECT id,title,price,surface,address,lon,lat,transaction_type,description,type FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
 
         $stid = oci_parse(DatabaseConnection::$conn, $sql);
         oci_execute($stid);
@@ -434,6 +460,7 @@ class AnnouncementDM
      * Checks if the title already exists in the database
      * 
      * @param $title
+     * @param $id
      * @return int|bool 1 if exists 0 if not | false in case of error
      */
     public function check_existence_title($title, $id): int|bool
@@ -494,6 +521,32 @@ class AnnouncementDM
         DatabaseConnection::close();
 
         return $id;
+    }
+
+    public function get_close_located_items($latMin, $latMax, $lonMin, $lonMax)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT id, lat, lon, price, type FROM announcements WHERE lat <= $latMax AND lat >= $latMin AND lon <= $lonMax AND lon >= $lonMin";
+        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stmt);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $data = [];
+
+        while (($row = oci_fetch_assoc($stmt)) != false) {
+            $row = array_change_key_case($row, CASE_LOWER);
+
+            $row['imageURL'] = "api/items/image?announcement_id=" . $row['id'];
+            array_push($data, $row);
+        }
+        oci_free_statement($stmt);
+        DatabaseConnection::close();
+        return $data;
     }
 
     public function delete_announcement_of_id($account_id, $announcement_id)

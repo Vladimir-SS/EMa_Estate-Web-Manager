@@ -3,7 +3,6 @@ include_once DIR_MODELS . "account/AccountDM.php";
 
 class ProfileDataController extends Controller
 {
-
     public function get_profile_data(Request $request)
     {
         $data_mapper = new AccountDM();

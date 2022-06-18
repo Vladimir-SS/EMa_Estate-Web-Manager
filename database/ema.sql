@@ -25,33 +25,17 @@ CREATE TABLE accounts (
   updated_at DATE
 );
 /
-CREATE OR REPLACE TRIGGER accounts_trigger BEFORE
-    INSERT OR UPDATE OR DELETE ON accounts
-    FOR EACH ROW
-BEGIN
-    IF inserting THEN
-        :new.created_at := sysdate();
-        :new.updated_at := sysdate();
-    END IF;
-
-    IF updating THEN
-        :new.updated_at := sysdate();
-    END IF;
-    
-    IF deleting THEN
-        DELETE FROM announcements WHERE account_id = :OLD.id;
-    END IF;
-END;
-/
 --create table for announcements
 CREATE TABLE announcements (
   id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
   account_id INT NOT NULL,
-  title VARCHAR2(64) NOT NULL, 
+  title VARCHAR2(128) NOT NULL, 
   type VARCHAR2(32) DEFAULT 'land',
   price INT NOT NULL,
   surface INT NOT NULL,
-  address VARCHAR2(128) NOT NULL,
+  address VARCHAR2(255) NOT NULL,
+  lat FLOAT NOT NULL,
+  lon FLOAT NOT NULL,
   transaction_type VARCHAR2(64) NOT NULL,
   description VARCHAR2(4000),
   created_at DATE,
@@ -61,22 +45,6 @@ CREATE TABLE announcements (
 /
 ALTER TABLE announcements
 ADD CONSTRAINT announcements_unique_account_id_title UNIQUE (account_id, title);
-/
-CREATE OR REPLACE TRIGGER announcements_trigger BEFORE
-    INSERT OR DELETE ON announcements
-    FOR EACH ROW
-BEGIN
-    IF inserting THEN
-        :new.created_at := sysdate();
-        :new.updated_at := sysdate();
-    END IF;
-    
-    IF deleting THEN
-        DELETE FROM saves WHERE announcement_id = :OLD.id;
-        DELETE FROM images WHERE announcement_id = :OLD.id;
-        DELETE FROM buildings WHERE announcement_id = :OLD.id;
-    END IF;
-END;
 /
 --create table for saves
 CREATE TABLE saves (
@@ -110,7 +78,41 @@ CREATE TABLE buildings (
   basement NUMBER(1),
   CONSTRAINT fk_buildings_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
 );
+/
+CREATE OR REPLACE TRIGGER accounts_trigger BEFORE
+    INSERT OR UPDATE OR DELETE ON accounts
+    FOR EACH ROW
+BEGIN
+    IF inserting THEN
+        :new.created_at := sysdate();
+        :new.updated_at := sysdate();
+    END IF;
 
+    IF updating THEN
+        :new.updated_at := sysdate();
+    END IF;
+    
+    IF deleting THEN
+        DELETE FROM announcements WHERE account_id = :OLD.id;
+    END IF;
+END;
+/
+CREATE OR REPLACE TRIGGER announcements_trigger BEFORE
+    INSERT OR DELETE ON announcements
+    FOR EACH ROW
+BEGIN
+    IF inserting THEN
+        :new.created_at := sysdate();
+        :new.updated_at := sysdate();
+    END IF;
+    
+    IF deleting THEN
+        DELETE FROM saves WHERE announcement_id = :OLD.id;
+        DELETE FROM images WHERE announcement_id = :OLD.id;
+        DELETE FROM buildings WHERE announcement_id = :OLD.id;
+    END IF;
+END;
+/
 --select * from USER_TRIGGERS;
 --select * from accounts;
 --select * from buildings;

@@ -27,6 +27,7 @@ $app->router
     ->post("/login", [AuthController::class, 'login'])
     ->get("/item", [ItemPageController::class, 'generate_item_page'])
     ->get("/api/items", [ItemsController::class, 'get_items'])
+    ->get("/api/items/near", [ItemsController::class, 'get_close_located_items'])
     ->get("/api/item", [ItemsController::class, 'get_item'])
     ->get("/api/items/filter", [ItemsController::class, 'get_filtered_items'])
     ->get("/api/items/image", [ImageController::class, 'get_image'])
@@ -34,6 +35,5 @@ $app->router
     ->get("/api/profile/items", [ProfileDataController::class, 'get_profile_items'])
     ->get("/api/profile", [ProfileDataController::class, 'get_profile_data'])
     ->delete("/profile", [ProfileController::class, 'delete_item']);
-
 
 $app->run();

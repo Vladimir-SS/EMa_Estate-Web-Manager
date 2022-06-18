@@ -5,10 +5,6 @@ class DatabaseConnection
 {
     public static $conn = NULL;
 
-    private function __construct()
-    {
-    }
-
     public static function get_connection()
     {
         if (is_null(DatabaseConnection::$conn)) {
@@ -20,18 +16,6 @@ class DatabaseConnection
         }
         return DatabaseConnection::$conn;
     }
-
-    // public static function dataFindByID(string $tableName, int $id): array|false
-    // {
-    //     $sql = "SELECT * FROM $tableName where id=$id";
-    //     $stid = oci_parse(self::$conn, $sql);
-    //     oci_execute($stid);
-
-    //     $row = oci_fetch_array($stid, OCI_ASSOC);
-    //     oci_free_statement($stid);
-
-    //     return $row;
-    // }
 
     public static function close(): bool
     {

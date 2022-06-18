@@ -4,11 +4,11 @@ include_once DIR_CORE . "exceptions/InternalException.php";
 
 class BuildingDM
 {
-
-    public function __construct()
-    {
-    }
-
+    /**
+     * Creates new building in database
+     * 
+     * @param $data array
+     */
     public function create_building(array $data)
     {
         DatabaseConnection::get_connection();

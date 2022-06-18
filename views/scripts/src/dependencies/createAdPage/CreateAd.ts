@@ -22,9 +22,6 @@ class CreateAd {
         transaction: ["", "rent", "sell"]
     };
 
-
-
-
     public static addImage = (alt: string, url: string) => {
         const el = document.createElement('img');
         el.src = url;
@@ -62,6 +59,9 @@ class CreateAd {
         if (type.index == 1) // type: Apartment
             event.formData.set('AP_TYPE', CreateAd.dropdownOptions.apType.getOption().index.toString());
         event.formData.set('TRANSACTION_TYPE', CreateAd.dropdownOptions.transaction.getOption().index.toString());
-
+        if (AddressMap.coordinates != null) {
+            event.formData.set('LAT', AddressMap.coordinates.lat.toString());
+            event.formData.set('LON', AddressMap.coordinates.lon.toString());
+        }
     }
 }

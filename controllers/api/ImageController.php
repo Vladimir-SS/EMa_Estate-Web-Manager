@@ -5,10 +5,6 @@ include_once DIR_CORE . "exceptions/NotFoundException.php";
 
 class ImageController extends Controller
 {
-    public function __construct()
-    {
-    }
-
     public function get_image(Request $request)
     {
         $data_mapper = new AnnouncementDM();

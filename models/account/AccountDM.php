@@ -201,9 +201,10 @@ class AccountDM
     }
 
     /**
-     * Checks if the email exists in the database
+     * Checks if the email exists in the database and the id is different if it exists
      * 
-     * @param  mixed $email
+     * @param mixed $email
+     * @param $id
      * @return int|bool 1 if exists 0 if not | false in case of error
      */
     public function check_existence_email($email, $id = -1): int|bool
@@ -229,9 +230,10 @@ class AccountDM
     }
 
     /**
-     * Checks if the phone number exists in the database
+     * Checks if the phone number exists in the database and the id is different if it exists
      * 
-     * @param  mixed $phone
+     * @param mixed $phone
+     * @param $id
      * @return int|bool 1 if exists 0 if not | false in case of error
      */
     public function check_existence_phone($phone, $id = -1): int|bool

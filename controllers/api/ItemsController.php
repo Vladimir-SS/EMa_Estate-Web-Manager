@@ -6,11 +6,6 @@ class ItemsController extends Controller
     private $count = 10;
     private $index = 0;
 
-    // private $types = ["apartment", "house", "office", "land"];
-    // private $ap_types = [
-    //     "Nespecificat", "Decomandat", "Nedecomandat", "Semidecomandat", "Circular", "Open-space"
-    // ];
-
     public function get_items(Request $request)
     {
         $data_mapper = new AnnouncementDM();
@@ -37,6 +32,29 @@ class ItemsController extends Controller
             die();
         }
         echo "No id found in request body";
+    }
+
+    public function get_close_located_items(Request $request)
+    {
+        $data_mapper = new AnnouncementDM();
+        if ((!empty($request->get_body()['lat'])
+                && !empty($request->get_body()['lon']))
+            &&  is_float($request->get_body()['lat'])
+            && is_float($request->get_body()['lon'])
+        ) {
+            $latMin = $request->get_body()['lat'] + -0.015;
+            $latMax = $request->get_body()['lat'] + 0.015;
+            $lonMin = $request->get_body()['lon'] - 0.005;
+            $lonMax = $request->get_body()['lon'] + 0.005;
+            $data = $data_mapper->get_close_located_items($latMin, $latMax, $lonMin, $lonMax);
+            if ($data) {
+                echo json_encode($data, JSON_PRETTY_PRINT);
+            } else {
+                echo json_encode([]);
+            }
+            die();
+        }
+        echo json_encode([]);
     }
 
     public function get_filtered_items(Request $request)

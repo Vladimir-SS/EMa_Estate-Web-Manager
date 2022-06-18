@@ -4,6 +4,7 @@ include_once DIR_CONTROLLERS . "Controller.php";
 include_once DIR_VIEWS . "View.php";
 include_once DIR_CORE . "middlewares/AuthMiddleware.php";
 include_once DIR_MODELS . "ProfileModel.php";
+include_once DIR_CORE . "exceptions/UnauthorizedException.php";
 
 class ProfileController extends Controller
 {
@@ -74,7 +75,7 @@ class ProfileController extends Controller
             if (($data = $data_mapper->get_data_by_id($account_data->id)) != false) {
                 $model->load($data);
             } else {
-                throw new Exception("Couldn't find account");
+                throw new UnauthorizedException();
             }
             $model->load($data);
             if (!empty($_FILES)) {
@@ -93,7 +94,7 @@ class ProfileController extends Controller
             if (($data = $data_mapper->get_data_by_id($account_data->id)) != false) {
                 $model->load($data);
             } else {
-                throw new Exception("Couldn't find account");
+                throw new UnauthorizedException();
             }
             return $this->render(
                 "Profil",

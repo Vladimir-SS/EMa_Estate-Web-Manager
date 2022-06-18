@@ -67,7 +67,7 @@ class Field
             );
 
         return sprintf(
-            '<textarea class="label desc" maxlength="4000" placeholder="%s" name="%s" >%s</textarea>',
+            '<textarea class="label desc" maxlength="3000" placeholder="%s" name="%s" >%s</textarea>',
             $this->placeholder,
             $this->attribute,
             $this->model->get_data()[$this->attribute]['value'],

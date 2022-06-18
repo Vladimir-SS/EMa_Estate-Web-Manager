@@ -8,7 +8,7 @@ class AnnouncementModel extends Model
     {
         parent::__construct(
             [
-                "ACCOUNT_ID" => (new Constraint()) // to be removed when the filter is done
+                "ACCOUNT_ID" => (new Constraint())
                     ->add(Constrain::Required),
                 "TITLE" => (new Constraint())
                     ->add(Constrain::Required)
@@ -28,6 +28,8 @@ class AnnouncementModel extends Model
                     ->add(Constrain::MinLength, 6)
                     ->add(Constrain::MaxLength, 128)
                     ->add(Constrain::SafeChars),
+                "LAT" => (new Constraint()),
+                "LON" => (new Constraint()),
                 "TRANSACTION_TYPE" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 2)
@@ -35,7 +37,7 @@ class AnnouncementModel extends Model
                 "DESCRIPTION" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 10)
-                    ->add(Constrain::MaxLength, 4000)
+                    ->add(Constrain::MaxLength, 3000)
                     ->add(Constrain::SafeChars),
                 "TYPE" => (new Constraint())
                     ->add(Constrain::Required)

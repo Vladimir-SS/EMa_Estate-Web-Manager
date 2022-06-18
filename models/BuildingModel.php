@@ -8,7 +8,7 @@ class BuildingModel extends Model
     {
         parent::__construct(
             [
-                "ANNOUNCEMENT_ID" => (new Constraint()), // to be removed when the filter is done
+                "ANNOUNCEMENT_ID" => (new Constraint()),
                 "BATHROOMS" => (new Constraint())
                     ->add(Constrain::MinValue, 0)
                     ->add(Constrain::MaxValue, 99),
