@@ -39,3 +39,7 @@
 
     <?php Form::end() ?>
 </div>
+
+<div class="background-image">
+    <img src="/images/building.png" alt="Building">
+</div>
