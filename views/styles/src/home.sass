@@ -2,23 +2,61 @@
 @import "mixins"
 @import "footer"
 
-$unit: $unit/2
+.content-container
+    padding-top: 0 !important
+    overflow-x: hidden
 
-.filter-container
-    display: inline-block
+.site-nav
+    z-index: 5
+    position: relative
 
-.filter-alignment
-    display: grid
+.filter-parallax
+    display: flex
     gap: $unit
-    justify-items: start
-    grid-template-columns: auto auto
+    padding-top: $unit
 
-    > .icon-field:last-child
-        grid-column: span 2
+    > #parallax-container //.parallax
+        position: relative
 
-    .filter-option--submit
-        grid-column: span 2
-        width: 100%
+        > .parallax //.parallax__group
+            position: absolute
+            width: 100%
+
+            &:nth-child(1)
+                top: -140px
+
+            &:nth-child(2)
+                top: 20px
+                left: 320px
+
+            &:nth-child(3)
+                top: -40px
+                left: 690px
+
+            &:nth-child(4)
+                top: 180px
+                left: 1000px
+
+    > .filter-container
+        display: inline-block
+
+        > .filter-alignment
+            display: grid
+            gap: $unit/2
+            justify-items: start
+            grid-template-columns: auto auto
+
+            > .icon-field:last-child
+                grid-column: span 2
+
+            > .filter-option--submit
+                grid-column: span 2
+                width: 100%
 
 .icon-field--important[type="search"]
     width: 100%
+
+.items-container
+    z-index: 5
+    position: relative
+    border-radius: 0

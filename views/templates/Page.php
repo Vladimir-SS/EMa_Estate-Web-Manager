@@ -20,7 +20,7 @@
 <body>
     <div class="page-container">
         <?php echo Renderer::render_template("Menu") ?>
-        <div class="content-container responsive-container">
+        <div class="content-container">
             <div class="content">
                 <?php echo $content; ?>
             </div>
