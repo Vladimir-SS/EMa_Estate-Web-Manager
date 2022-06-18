@@ -85,7 +85,7 @@ class ProfileController extends Controller
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
-                Renderer::render_scripts("avatar-loader", "Item")
+                Renderer::render_scripts("avatar-loader", "Item", "profilePage")
             );
         } else {
             $data_mapper = new AccountDM();

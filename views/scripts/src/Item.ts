@@ -67,7 +67,7 @@ class Item {
         titleElement.href = `/item?id=${id}`;
         titleElement.textContent = title;
 
-        const addressElement = createSimpleElement('p', 'secondary icon-text');
+        const addressElement = createSimpleElement('div', 'secondary icon-text');
         addressElement.appendChild(createSimpleElement('span', 'icon icon-pin'));
         const addressParagraph = createSimpleElement('p', 'text-wrap');
         addressParagraph.textContent = address;
@@ -137,7 +137,7 @@ class Item {
         titleElement.href = `/item?id=${id}`;
         titleElement.textContent = title;
 
-        const addressElement = createSimpleElement('p', 'secondary icon-text');
+        const addressElement = createSimpleElement('div', 'secondary icon-text');
         addressElement.appendChild(createSimpleElement('span', 'icon icon-pin'));
         const addressParagraph = createSimpleElement('p', 'text-wrap');
         addressParagraph.textContent = address;
