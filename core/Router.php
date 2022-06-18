@@ -43,6 +43,13 @@ class Router
         return $this;
     }
 
+    public function delete(String $route, $callback): Router
+    {
+        $this->routes["delete"][$route] = $callback;
+
+        return $this;
+    }
+
     public function resolve()
     {
         $path = $this->request->get_path();

@@ -40,10 +40,9 @@ class SearchHandler {
         xmlHttpRequest.onreadystatechange = () => {
             if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
                 obj = JSON.parse(xmlHttpRequest.responseText);
-                let items = document.getElementById('items');
                 for (const key in obj) {
                     if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                        items.appendChild(Item.create(obj[key]));
+                        SearchHandler.itemsElement.appendChild(Item.create(obj[key]));
                     }
                 }
             }

@@ -58,7 +58,7 @@
     <div class="flex-1">
         <div class="content__box">
             <div class="horizontal-buttons">
-                <h2>Anunțuri salvate</h2>
+                <!-- <h2>Anunțuri salvate</h2> -->
                 <h2>Anunțurile tale</h2>
             </div>
             <div id="items">

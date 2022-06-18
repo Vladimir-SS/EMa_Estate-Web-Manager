@@ -120,4 +120,49 @@ class Item {
         container.append(imageContainer, Item.createInfoContainer(data, Item.createInfoIconsElement(data)));
         return container;
     }
+
+    public static createDeletableInfoContainer(data: BaseData, iconsElement: HTMLElement, deleteEl: HTMLSpanElement) {
+
+        const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
+        const { price, title, address, id } = data;
+
+        const priceContainer = createSimpleElement('div', 'deletable-item');
+
+        const priceElement = createSimpleElement('h2', 'accent');
+        priceElement.textContent = price + Item.PRICE_TYPE;
+
+        priceContainer.append(priceElement, deleteEl);
+
+        const titleElement = createSimpleElement('a', 'hlink text-wrap') as HTMLAnchorElement;
+        titleElement.href = `/item?id=${id}`;
+        titleElement.textContent = title;
+
+        const addressElement = createSimpleElement('p', 'secondary icon-text');
+        addressElement.appendChild(createSimpleElement('span', 'icon icon-pin'));
+        const addressParagraph = createSimpleElement('p', 'text-wrap');
+        addressParagraph.textContent = address;
+        addressElement.appendChild(addressParagraph);
+
+        infoContainer.append(priceContainer, titleElement, addressElement, iconsElement);
+
+        return infoContainer;
+    }
+
+    public static createDeletable(data: ItemData, handler) {
+        const container = createSimpleElement('div', 'content__box content__box--item');
+        container.id = 'item' + data.id;
+        const imageContainer = createSimpleElement('div', 'image-container image-container--animated');
+        const imageElement = createSimpleElement('div', 'image');
+
+        const { imageURL } = data;
+        imageElement.style.backgroundImage = `url("${imageURL}")`;
+        imageContainer.appendChild(imageElement);
+
+        const deleteEl = createSimpleElement('span', 'icon icon-delete');
+        deleteEl.onclick = handler;
+
+
+        container.append(imageContainer, Item.createDeletableInfoContainer(data, Item.createInfoIconsElement(data), deleteEl));
+        return container;
+    }
 }

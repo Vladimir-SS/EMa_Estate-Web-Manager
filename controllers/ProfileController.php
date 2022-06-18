@@ -85,7 +85,7 @@ class ProfileController extends Controller
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
-                Renderer::render_scripts("avatar-loader")
+                Renderer::render_scripts("avatar-loader", "Item")
             );
         } else {
             $data_mapper = new AccountDM();
@@ -99,8 +99,22 @@ class ProfileController extends Controller
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
-                Renderer::render_scripts("avatar-loader", "Item")
+                Renderer::render_scripts("avatar-loader", "Item", "profilePage")
             );
         }
+    }
+
+    public function delete_item(Request $request)
+    {
+        $data_mapper = new AnnouncementDM();
+        if (!Application::isGuest()) {
+            $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
+            if (isset($request->get_body()['announcement_id'])) {
+                $result = $data_mapper->delete_announcement_of_id($account_data->id, $request->get_body()['announcement_id']);
+                echo json_encode($result);
+                die();
+            }
+        }
+        echo json_encode("false");
     }
 }

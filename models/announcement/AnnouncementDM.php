@@ -173,6 +173,39 @@ class AnnouncementDM
         return $row;
     }
 
+    public function get_announcements_of_id($id)
+    {
+        DatabaseConnection::get_connection();
+        $sql = "SELECT id,title,price,surface,address,transaction_type,description,type FROM announcements WHERE account_id = $id";
+
+        $stid = oci_parse(DatabaseConnection::$conn, $sql);
+        oci_execute($stid);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+
+        $data = [];
+
+        while (($row = oci_fetch_assoc($stid)) != false) {
+            $row = array_change_key_case($row, CASE_LOWER);
+            if ($row['type'] !== "land") {
+                $row = array_merge($row, $this->get_building($row['id'], $row['type']));
+            }
+            $row['transactionType'] = $row['transaction_type'];
+            unset($row['transaction_type']);
+
+            $row['imageURL'] = "api/items/image?announcement_id=" . $row['id'];
+            array_push($data, $row);
+        }
+
+        oci_free_statement($stid);
+        DatabaseConnection::close();
+        return $data;
+    }
+
     public function get_announcements($count, $index = 0)
     {
         DatabaseConnection::get_connection();
@@ -461,5 +494,25 @@ class AnnouncementDM
         DatabaseConnection::close();
 
         return $id;
+    }
+
+    public function delete_announcement_of_id($account_id, $announcement_id)
+    {
+        DatabaseConnection::get_connection();
+
+        $sql = "DELETE FROM announcements WHERE account_id = $account_id AND id = $announcement_id";
+        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
+
+        $result = oci_execute($stmt);
+
+        $errors = oci_error(DatabaseConnection::$conn);
+
+        if ($errors) {
+            throw new InternalException($errors);
+        }
+        oci_free_statement($stmt);
+        DatabaseConnection::close();
+
+        return $result;
     }
 }

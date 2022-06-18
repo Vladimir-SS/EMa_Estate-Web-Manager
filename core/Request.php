@@ -28,6 +28,11 @@ class Request
         return $this->get_method() == 'post';
     }
 
+    public function is_delete()
+    {
+        return $this->get_method() == 'delete';
+    }
+
     public function get_body()
     {
         $body = [];
@@ -42,6 +47,10 @@ class Request
             foreach ($_POST as $key => $value) {
                 $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
+        }
+
+        if ($this->get_method() === 'delete') {
+            parse_str(file_get_contents("php://input"), $body);
         }
 
         return $body;

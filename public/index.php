@@ -31,7 +31,9 @@ $app->router
     ->get("/api/items/filter", [ItemsController::class, 'get_filtered_items'])
     ->get("/api/items/image", [ImageController::class, 'get_image'])
     ->get("/api/profile/image", [ImageController::class, 'get_profile_image'])
-    ->get("/api/profile", [ProfileDataController::class, 'get_profile_data']);
+    ->get("/api/profile/items", [ProfileDataController::class, 'get_profile_items'])
+    ->get("/api/profile", [ProfileDataController::class, 'get_profile_data'])
+    ->delete("/profile", [ProfileController::class, 'delete_item']);
 
 
 $app->run();
