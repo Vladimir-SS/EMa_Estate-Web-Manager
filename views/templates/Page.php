@@ -18,10 +18,10 @@
 </head>
 
 <body>
-    <div class="page-container">
+    <div class="page-container ">
         <?php echo Renderer::render_template("Menu") ?>
         <div class="content-container">
-            <div class="content">
+            <div class="content responsive-container">
                 <?php echo $content; ?>
             </div>
         </div>

@@ -18,9 +18,10 @@ class Slideshow {
         slideshowContainer.append(prevElement, nextElement);
 
         for (let index = 0; index < data.length; index++) {
-            const imageContainer = createSimpleElement('div', 'slide fade');
-            const image = createSimpleElement('img', '');
-            image.src = data[index];
+            const imageContainer = createSimpleElement('div', 'slide fade image-container image-container--animated');
+            const image = createSimpleElement('div', 'image');
+            // image.src = data[index];
+            image.style.backgroundImage = `url("${data[index]}")`;
             imageContainer.appendChild(image);
             imageContainer.style.display = (index == 0) ? 'flex' : 'none';
 
@@ -68,7 +69,7 @@ class Slideshow {
         }
         console.log(current);
         const el = slides[current] as HTMLElement;
-        el.style.display = "block";
+        el.style.display = "flex";
         dots[current].className += " active";
     }
 }

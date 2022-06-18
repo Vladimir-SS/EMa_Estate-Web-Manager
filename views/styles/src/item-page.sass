@@ -11,15 +11,14 @@
 
             .slideshow-container
                 position: relative
-                height: 600px
-
                 .slide
-                    max-width: 600px
-                    max-height: 600px
+                    height: 60vh
+                    border-radius: $border-radius
                 .prev, .next
                     cursor: pointer
                     position: absolute
-                    top: 40%
+                    top: 50%
+                    z-index: 10
                     border-radius: $border-radius
                     background-color: var(--background-secondary-alt)
                     color: var(--text-normal)
@@ -30,13 +29,10 @@
                 .prev:hover, .next:hover
                     background-color: var(--interactive-accent)
                     color: var(--background-primary)
-                img
-                    width: 100%
-                    object-fit: cover
-                    height: 100%
             .dots
+                margin-top: 10px
                 display: flex
-                align-items: center
+                justify-content: center
                 .dot
                     cursor: pointer
                     height: 20px
@@ -44,10 +40,11 @@
                     margin: 0 4px
                     background-color: var(--background-secondary-alt)
                     border-radius: 50%
-                    display: inline-block
-                //transition: background-color 0.6s ease
+                    display: flex
+                    flex-direction: column
+                    transition: background-color 0.6s ease
                 .active, .dot:hover
-                    background-color: #717171
+                    background-color: gray
 
         .description
 
