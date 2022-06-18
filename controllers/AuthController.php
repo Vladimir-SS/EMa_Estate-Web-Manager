@@ -95,7 +95,7 @@ class AuthController extends Controller
 
                         $jwt = JWT::generate_jwt($headers, $payload);
 
-                        setcookie("user", $jwt, time() + (86400 * 30), "/"); // TODO: add httponly: true when you find a way to change pages form php
+                        setcookie("user", $jwt, time() + (86400 * 30), "/");
 
                         header("Location: /home");
                         die();
