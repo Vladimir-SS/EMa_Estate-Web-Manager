@@ -9,11 +9,11 @@
             </div>
         </div>
     </div>
-    <div class="side-map">
-        <div class="pin-container">
+    <div id="map" class="side-map">
+        <!-- <div class="pin-container">
             <div class="pin">
                 123 000
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

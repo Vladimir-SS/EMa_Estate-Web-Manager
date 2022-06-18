@@ -52,6 +52,26 @@ class SearchHandler {
 
 }
 
+class MapHandler {
+    private static mapElement;
+
+    public static init() {
+        //const aux = new TileLayer
+        var map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([37.41, 8.82]),
+                zoom: 4
+            })
+        });
+    }
+}
+
 Options.onSubmit = () => {
     window.history.replaceState(null, null, Options.toGetParams());
 
@@ -63,6 +83,8 @@ Options.onSubmit = () => {
 DocumentHandler.whenReady(() => {
     SearchHandler.resizeHandler();
     SearchHandler.getItems();
+
+    MapHandler.init();
 })
 
 window.addEventListener('resize', SearchHandler.resizeHandler);
