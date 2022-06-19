@@ -7,6 +7,7 @@
     Design: https://www.figma.com/file/MgwuSLcZmdNURq57CIeqev/Page?node-id=0%3A1
     C4 Diagram: https://drive.google.com/file/d/1rgzeKE8oLMw3d9o57hZfLW9svb4mI4m4/view?usp=sharing
     C4 Diagram SVG: https://drive.google.com/file/d/1Cbz6OK1aGAnhhoCDQAUHgx9eqIh_58nO/view?usp=sharing
+    DB-Diagram: https://drive.google.com/file/d/1PkayucyTL7Cpm0jkeUCr5ysG6UDfpLbO/view?usp=sharing
   </p>
   
   
