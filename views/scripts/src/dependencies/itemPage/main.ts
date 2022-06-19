@@ -74,7 +74,7 @@ DocumentHandler.whenReady(() => {
             const itemInfo = ItemInfo.create(item);
             profileElement.appendChild(itemInfo);
             const descriptionElement = createSimpleElement('p', '');
-            descriptionElement.textContent = item.description;
+            descriptionElement.innerHTML = item.description;
             decriptionContainer.appendChild(descriptionElement);
             Slideshow.create(item.imagesURLs);
             ItemPage.getProfileData(profileElement, item.accountID);

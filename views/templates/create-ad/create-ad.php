@@ -44,10 +44,6 @@
     <h2>Imagini</h2>
 
     <div class="images" id="images">
-        <!-- <label class="label images__add-img image-container" onclick="">
-            <span id="plus-icon" class="icon icon-plus"></span>
-            <input id="add-image-input" type="file" accept="image/*" name="images" multiple>
-        </label> -->
         <?php
         if ($image_error) {
             echo sprintf(
