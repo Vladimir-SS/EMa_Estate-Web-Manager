@@ -31,6 +31,7 @@ class Application
         } catch (Exception $e) {
             $this->router->get_response()->status_code($e->getCode());
             $this->view->set_content(Renderer::render_template("_error", ['exception' => $e]));
+            $this->view->set_styles(Renderer::render_styles("icon"));
             $this->view->set_title("Error");
             $this->view->render();
         }

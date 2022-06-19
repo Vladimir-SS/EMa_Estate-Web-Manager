@@ -45,6 +45,7 @@ DocumentHandler.whenReady(() => {
     CreateAd.addImageInputElement = document.getElementById("add-image-input");
     CreateAd.imagesElement = document.getElementById("images");
     CreateAd.addImageInputElement.addEventListener("change", CreateAd.addImageHandler, true);
+    CreateAd.imageError = document.getElementById('image-error');
 
     const formElement = document.getElementsByTagName("form")[0];
     formElement.addEventListener("formdata", CreateAd.formDataHandler);

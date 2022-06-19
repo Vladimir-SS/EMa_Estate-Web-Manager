@@ -2,6 +2,7 @@ class CreateAd {
     public static addressElement = document.getElementsByName("ADDRESS")[0] as HTMLInputElement;
     public static addImageInputElement: HTMLElement;
     public static imagesElement: HTMLElement;
+    public static imageError: HTMLElement;
     private static uploadedFiles: File[] = [];
 
     public static dropdownOptions: { [key: string]: DropdownFilterOption } = {
@@ -34,18 +35,25 @@ class CreateAd {
         const target = event.target as HTMLInputElement;
         const files = target.files;
 
+        if (CreateAd.imageError) {
+            const labelElement = createSimpleElement('label', 'label images__add-img image-container clickable')
+            const iconPlusElement = createSimpleElement('span', 'icon icon-plus');
+            iconPlusElement.id = 'icon-plus';
+
+            labelElement.append(iconPlusElement, CreateAd.addImageInputElement);
+            CreateAd.imagesElement.innerHTML = "";
+            CreateAd.imagesElement.appendChild(labelElement);
+        }
+
         for (let i = 0; i < files.length; ++i) {
             const file = files[i];
             const imgURL = URL.createObjectURL(file);
             this.uploadedFiles.push(file);
 
-            console.log(this.uploadedFiles);
-
             CreateAd.addImage(file.name, imgURL);
 
             if (this.uploadedFiles.length === 10) {
                 this.addImageInputElement.parentElement.style.display = "none";
-                console.log("remove");
                 return;
             }
         }

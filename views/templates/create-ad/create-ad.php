@@ -44,10 +44,29 @@
     <h2>Imagini</h2>
 
     <div class="images" id="images">
-        <label class="label images__add-img image-container" onclick="">
+        <!-- <label class="label images__add-img image-container" onclick="">
             <span id="plus-icon" class="icon icon-plus"></span>
             <input id="add-image-input" type="file" accept="image/*" name="images" multiple>
-        </label>
+        </label> -->
+        <?php
+        if ($image_error) {
+            echo sprintf(
+                '<div id="image-error"> 
+                        <label class="label label--error images__add-img image-container" onclick="">
+                            <span id="plus-icon" class="icon icon-plus"></span>
+                            <input id="add-image-input" type="file" accept="image/*" name="images" multiple>
+                        </label>
+                        <span class="error"> %s </span> 
+                    </div>',
+                $image_error
+            );
+        } else {
+            echo    '<label class="label images__add-img image-container" onclick="">
+                        <span id="plus-icon" class="icon icon-plus"></span>
+                        <input id="add-image-input" type="file" accept="image/*" name="images" multiple>
+                </label>';
+        }
+        ?>
     </div>
 
     <h2>Descriere*</h2>
@@ -64,4 +83,3 @@
 
 </div>
 <div id="map" class="content__box"></div>
-

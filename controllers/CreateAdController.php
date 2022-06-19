@@ -22,6 +22,7 @@ class CreateAdController extends Controller
     {
         $announcement_model = new AnnouncementModel();
         $building_model = new BuildingModel();
+        $image_error = false;
 
         if ($request->is_post()) {
 
@@ -48,7 +49,12 @@ class CreateAdController extends Controller
                 $building_model->load($temp);
                 $no_errors_building = $building_model->validate();
             }
-            if ($no_errors_announcement && $no_errors_building) {
+
+            if (empty($_FILES)) {
+                $image_error = "Anunțul trebuie să aibă măcar o imagine";
+            }
+
+            if ($no_errors_announcement && $no_errors_building && $image_error === false) {
                 if (empty($temp['LAT']) || empty($temp['LON'])) {
                     $announcement_model->errors['ADDRESS'] = "Adresă invalidă";
                 } else {
@@ -56,38 +62,33 @@ class CreateAdController extends Controller
                     if ($data_mapper->check_existence_title($announcement_model->get_data()['TITLE']['value'],      $announcement_model->get_data()['ACCOUNT_ID']['value']) != 0) {
                         $announcement_model->errors['TITLE'] = "Titlu deja folosit";
                     } else {
-                        if (isset($_COOKIE['user']) && JWT::is_jwt_valid($_COOKIE['user']) == true) {
-                            $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
-                            $announcement_id = $data_mapper->create_announcement($announcement_model->get_data());
-                            $id = $data_mapper->find_id_by_account_id_and_title($account_data->id, $request->get_body()['TITLE']);
+                        $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
+                        $announcement_id = $data_mapper->create_announcement($announcement_model->get_data());
+                        $id = $data_mapper->find_id_by_account_id_and_title($account_data->id, $request->get_body()['TITLE']);
 
-                            if (!empty($_FILES)) {
-                                foreach ($_FILES as $key => $value) {
-                                    if ($value['error'] == UPLOAD_ERR_OK) {
+                        if (!empty($_FILES)) {
+                            foreach ($_FILES as $key => $value) {
+                                if ($value['error'] == UPLOAD_ERR_OK) {
 
-                                        if (!empty($value["name"])) {
-                                            $name = $value["name"];
-                                            $type = $value["type"];
-                                            $blob = file_get_contents($value["tmp_name"]);
+                                    if (!empty($value["name"])) {
+                                        $name = $value["name"];
+                                        $type = $value["type"];
+                                        $blob = file_get_contents($value["tmp_name"]);
 
-                                            $blob = base64_encode($blob);
-                                            $data_mapper->add_image($id, $blob, $name, $type);
-                                        }
+                                        $blob = base64_encode($blob);
+                                        $data_mapper->add_image($id, $blob, $name, $type);
                                     }
                                 }
                             }
-                            if ($announcement_model->get_data()['TYPE']['value'] !== $this->types[4]) {
-                                $temp['ANNOUNCEMENT_ID'] = $announcement_id;
-                                $building_model->load($temp);
-                                $data_mapper = new BuildingDM();
-                                $data_mapper->create_building($building_model->get_data());
-                            }
-                            header("Location: /item?id=$id");
-                            die();
-                        } else {
-                            header('Location: /login');
-                            die();
                         }
+                        if ($announcement_model->get_data()['TYPE']['value'] !== $this->types[4]) {
+                            $temp['ANNOUNCEMENT_ID'] = $announcement_id;
+                            $building_model->load($temp);
+                            $data_mapper = new BuildingDM();
+                            $data_mapper->create_building($building_model->get_data());
+                        }
+                        header("Location: /item?id=$id");
+                        die();
                     }
                 }
             }
@@ -95,7 +96,7 @@ class CreateAdController extends Controller
 
         return $this->render(
             "Creare anunț",
-            Renderer::render_template("create-ad/create-ad", ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
+            Renderer::render_template("create-ad/create-ad", ['announcement_model' => $announcement_model, 'building_model' => $building_model, 'image_error' => $image_error]),
             Renderer::render_styles("form", "icon", "create-ad") .
                 '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">',
             '<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>' .

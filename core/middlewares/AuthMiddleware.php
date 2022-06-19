@@ -1,6 +1,6 @@
 <?php
 include_once DIR_CORE . "middlewares/Middleware.php";
-include_once DIR_CORE . "exceptions/ForbiddenException.php";
+//include_once DIR_CORE . "exceptions/ForbiddenException.php";
 
 class AuthMiddleware extends Middleware
 {
@@ -14,8 +14,11 @@ class AuthMiddleware extends Middleware
     public function execute()
     {
         if (Application::isGuest()) {
-            if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions))
-                throw new ForbiddenException();
+            if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
+                header('Location: /login');
+                die();
+                // throw new ForbiddenException();
+            }
         }
     }
 }

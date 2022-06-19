@@ -57,7 +57,7 @@ class Field
         if ($this->model->has_errors($this->attribute))
             return sprintf(
                 '<div> 
-                <textarea class="label desc desc--is-invalid" maxlength="4000" placeholder="%s" name="%s" >%s</textarea>
+                <textarea class="label label--error desc" maxlength="4000" placeholder="%s" name="%s" >%s</textarea>
                 %s
             </div>',
                 $this->placeholder,
