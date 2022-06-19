@@ -31,28 +31,6 @@ $unit: $unit/2
     width: 500px
     //z-index: -1
 
-.pin-container
-    .pin
-        background: var(--interactive-accent)
-        padding: $unit/4 $unit
-        position: relative
-        border-radius: 4px
-        color: var(--background-primary)
-
-        &:before
-            $size: $unit*1
-            content: ''
-            position: absolute
-            width: $size
-            height: $size
-            border-radius: 4px
-            background: var(--interactive-accent)
-            z-index: -1
-            bottom: (4px - $size)/2
-            left: 0
-            right: 0
-            margin: 0 auto
-            transform: rotate(45deg)
 
 .filter-alignment
     display: flex

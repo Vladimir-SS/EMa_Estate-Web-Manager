@@ -24,7 +24,7 @@ class PageController extends Controller
                 '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">',
             // Renderer::render_script("filter")->add("filterPage")->add("Item")->add("getItems")->add("searchPage")
             '<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>' .
-                Renderer::render_scripts("filter", "filterPage", "Item", "searchPage")
+                Renderer::render_scripts("filter", "filterPage", "Item", "ProximityMapHandler", "searchPage")
 
         );
     }
