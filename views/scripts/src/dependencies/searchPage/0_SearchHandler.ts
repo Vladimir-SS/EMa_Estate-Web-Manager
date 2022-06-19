@@ -10,7 +10,6 @@ class SearchHandler {
         by: ["", "individual", "company"],
         transaction: ["rent", "sell"]
     };
-    static curency = " Ron";
 
     public static resizeHandler() {
         if (window.innerWidth <= 1220)
@@ -42,7 +41,7 @@ class SearchHandler {
         toIcon.setAttribute("onclick", "");
         SearchHandler.itemsElement.appendChild(item);
 
-        toIcon.onclick = () => MapHandler.setTo(itemData.lon, itemData.lat);
+        toIcon.onclick = () => ProximityMapHandler.setTo(itemData.lon, itemData.lat);
     }
 
     public static getItems() {

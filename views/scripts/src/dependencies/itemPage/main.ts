@@ -49,9 +49,7 @@ class ItemPage {
         xmlHttpRequest.open('GET', `/api/weather?lon=${lon}&lat=${lat}`, true);
         xmlHttpRequest.onreadystatechange = () => {
             if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-                console.log(JSON.parse(xmlHttpRequest.responseText));
                 const weatherData: WeatherData = JSON.parse(xmlHttpRequest.responseText);
-                console.log(weatherData);
                 itemInfo.appendChild(ItemInfo.addAditionalInfo(weatherData));
             }
         }
@@ -81,8 +79,10 @@ DocumentHandler.whenReady(() => {
             Slideshow.create(item.imagesURLs);
             ItemPage.getProfileData(profileElement, item.accountID);
             ItemPage.getWeatherData(itemInfo, item.lon, item.lat);
+            ProximityMapHandler.setTo(item.lon, item.lat);
         }
     }
     xmlHttpRequest.send();
 
 })
+

@@ -4,8 +4,7 @@
     <div class="content__box description">
         <h2>Descriere</h2>
     </div>
-    <div class="content__box map">
-        <p>TEST</p>
+    <div id="map" class="content__box">
     </div>
 </div>
 <div class="content__right">
