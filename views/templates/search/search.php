@@ -9,11 +9,6 @@
             </div>
         </div>
     </div>
-    <div id="map" class="side-map">
-        <!-- <div class="pin-container">
-            <div class="pin">
-                123 000
-            </div>
-        </div> -->
+    <div id="map" class="content__box">
     </div>
 </div>

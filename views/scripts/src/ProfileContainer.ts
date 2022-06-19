@@ -18,10 +18,10 @@ class ProfileContainer {
         avatarContainer.style.backgroundImage = `url("${imageURL}")`;
 
         const nameElement = createSimpleElement('h2', '');
-        nameElement.textContent = lastName + ' ' + firstName + (businessName == undefined ? '' : ' (' + businessName + ')');
+        nameElement.textContent = lastName + ' ' + firstName + (businessName == null ? '' : ' (' + businessName + ')');
 
         const typeElement = createSimpleElement('p', '');
-        typeElement.textContent = (businessName == undefined) ? 'Persoana fizică' : 'Agent Imobiliar';
+        typeElement.textContent = (businessName == null) ? 'Persoana fizică' : 'Agent Imobiliar';
 
         const joinedElement = createSimpleElement('p', 'secondary');
         joinedElement.textContent = `Pe Estence din ${createdAt}`;
