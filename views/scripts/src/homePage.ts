@@ -6,7 +6,7 @@ class Home {
     public static ticking: boolean = false;
 
     private static parallaxImages = [...document.getElementById("parallax-container").children] as [HTMLElement];
-    public static parallaxSpeed = [1.1, 0.8, 1.1, 0.6];
+    public static parallaxSpeed = [1.3, 0.8, 1.1, 1];
 
 
     public static scrollHandler(scrollPos: number) {

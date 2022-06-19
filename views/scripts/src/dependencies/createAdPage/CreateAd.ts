@@ -13,7 +13,7 @@ class CreateAd {
             ["Apartament", "Casă", "Office", "Teren"],
             "Alege tipul proprietății"
         ),
-        transaction: DropdownFilterOption.createWithDefault(["Închiriere", "Cumpărare"], "Alege tipul anunțului")
+        transaction: DropdownFilterOption.createWithDefault(["Închiriere", "Vânzare"], "Alege tipul anunțului")
     }
 
     private static dropdownMapToString: DropdownMap = {
