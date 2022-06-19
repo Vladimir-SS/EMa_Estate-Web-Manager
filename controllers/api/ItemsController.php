@@ -8,11 +8,12 @@ class ItemsController extends Controller
 
     public function get_items(Request $request)
     {
+        header('Content-Type: application/json; charset=UTF-8');
         $data_mapper = new AnnouncementDM();
-        if (isset($request->get_body()['count'])) {
+        if (isset($request->get_body()['count']) && is_numeric($request->get_body()['count'])) {
             $this->count = $request->get_body()['count'];
         }
-        if (isset($request->get_body()['index'])) {
+        if (isset($request->get_body()['index']) && is_numeric($request->get_body()['index'])) {
             $this->index = $request->get_body()['index'];
         }
         $data = $data_mapper->get_announcements($this->count, $this->index);
@@ -21,17 +22,18 @@ class ItemsController extends Controller
 
     public function get_item(Request $request)
     {
+        header('Content-Type: application/json; charset=UTF-8');
         $data_mapper = new AnnouncementDM();
-        if (isset($request->get_body()['id'])) {
+        if (isset($request->get_body()['id']) && is_numeric($request->get_body()['id'])) {
             $data = $data_mapper->get_announcement_by_id($request->get_body()['id']);
             if ($data) {
                 echo json_encode($data, JSON_PRETTY_PRINT);
             } else {
-                echo "No data found";
+                echo json_encode([]);
             }
             die();
         }
-        echo "No id found in request body";
+        echo json_encode(["err" => "No id found in request body"]);
     }
 
     public function get_close_located_items(Request $request)

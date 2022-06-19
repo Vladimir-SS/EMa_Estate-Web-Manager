@@ -18,7 +18,7 @@ class Slideshow {
         slideshowContainer.append(prevElement, nextElement);
 
         for (let index = 0; index < data.length; index++) {
-            const imageContainer = createSimpleElement('div', 'slide fade image-container image-container--animated');
+            const imageContainer = createSimpleElement('div', 'slide fade image-container');
             const image = createSimpleElement('div', 'image');
             image.style.backgroundImage = `url("${data[index]}")`;
             imageContainer.appendChild(image);
