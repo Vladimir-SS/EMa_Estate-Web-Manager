@@ -17,23 +17,19 @@ class MapHandler {
         minZoom: 16
     });
 
-    /*
-    <div class="pin-container">
-                            <div class="pin">
-                                123 000
-                            </div>
-                        </div>
-    */
-
     private static createPinElement(data: PinData) {
         const pinElement = createSimpleElement('div', "pin");
         pinElement.textContent = parseMoney(data.price) + SearchHandler.curency;
+        const typeElement = createSimpleElement('p', "type");
+        typeElement.textContent = data.type
+        const imageElement = createSimpleElement('div', "image");
+        imageElement.style.backgroundImage = `url(${data.imageURL});`
 
-        const title = createSimpleElement('p', "title");
         const extraiInfoElement = createSimpleElement('div', "extraInfo");
+        extraiInfoElement.append(typeElement, imageElement);
 
         const containerElement = createSimpleElement('div', "pin-container");
-        containerElement.appendChild(pinElement);
+        containerElement.append(pinElement, extraiInfoElement);
 
         return containerElement;
     }

@@ -8,8 +8,6 @@ class Home {
 
     public static scrollHandler(scrollPos: number) {
         Home.parallaxImages.forEach((image, index) => image.style.marginTop = `${Math.floor(Home.parallaxSpeed[index] * scrollPos)}px`);
-
-        console.log(Home.parallaxImages);
     }
 
     public static addItems() {
