@@ -37,8 +37,6 @@ class Home {
 
 
 document.addEventListener('scroll', (__e) => {
-
-
     if (!Home.ticking) {
         window.requestAnimationFrame(() => {
             Home.scrollHandler(window.scrollY);

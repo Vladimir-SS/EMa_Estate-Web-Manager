@@ -87,9 +87,9 @@ class SliderFilterOption extends FilterOption {
             else if (min !== 0 && max !== maxIndex)
                 labelText = `${minValue} - ${maxValue}`;
             else if (min !== 0)
-                labelText = `> ${minValue}`;
+                labelText = `minim ${minValue}`;
             else
-                labelText = `< ${maxValue}`;
+                labelText = `maxim ${maxValue}`;
             this.labelElement.classList.add("label--important");
         }
         this.textNode.textContent = labelText;
@@ -144,14 +144,14 @@ class SliderFilterOption extends FilterOption {
     }
 
     public openRightDomain() {
-        this.values.push(this.values[this.values.length - 1] + "+");
+        this.values.push("*");
         this.resetSliders();
 
         return this;
     }
 
     public openLeftDomain() {
-        this.values = ["-" + this.values[0], ...this.values];
+        this.values = ["*", ...this.values];
         this.resetSliders();
 
         return this;
