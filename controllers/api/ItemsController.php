@@ -41,13 +41,14 @@ class ItemsController extends Controller
         $data_mapper = new AnnouncementDM();
         if ((!empty($request->get_body()['lat'])
                 && !empty($request->get_body()['lon']))
-            &&  is_float($request->get_body()['lat'])
-            && is_float($request->get_body()['lon'])
+            &&  is_numeric($request->get_body()['lat'])
+            && is_numeric($request->get_body()['lon'])
         ) {
-            $latMin = $request->get_body()['lat'] + -0.015;
+            $latMin = $request->get_body()['lat'] - 0.015;
             $latMax = $request->get_body()['lat'] + 0.015;
             $lonMin = $request->get_body()['lon'] - 0.005;
             $lonMax = $request->get_body()['lon'] + 0.005;
+
             $data = $data_mapper->get_close_located_items($latMin, $latMax, $lonMin, $lonMax);
             if ($data) {
                 echo json_encode($data, JSON_PRETTY_PRINT);
@@ -56,7 +57,7 @@ class ItemsController extends Controller
             }
             die();
         }
-        echo json_encode([]);
+        echo json_encode(["err" => "Incorrect parameters"]);
     }
 
     public function get_filtered_items(Request $request)

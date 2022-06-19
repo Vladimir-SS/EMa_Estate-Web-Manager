@@ -6,11 +6,12 @@ interface BaseData {
     address: string
     title: string
     description: string
-    price: string
+    price: number
     surface: number
     imageURL: string
     imagesURLs: string[]
-
+    lon: number,
+    lat: number
 }
 
 interface BuildingData extends BaseData {
@@ -53,7 +54,7 @@ interface IconsData {
 
 class Item {
 
-    private static PRICE_TYPE: string = ' RON';
+    private static PRICE_TYPE: string = ' Ron';
 
     public static createInfoContainer(data: BaseData, iconsElement: HTMLElement) {
 
@@ -61,7 +62,7 @@ class Item {
         const { price, title, address, id } = data;
 
         const priceElement = createSimpleElement('h2', 'accent');
-        priceElement.textContent = price + Item.PRICE_TYPE;
+        priceElement.textContent = parseMoney(price) + Item.PRICE_TYPE;
 
         const titleElement = createSimpleElement('a', 'hlink text-wrap') as HTMLAnchorElement;
         titleElement.href = `/item?id=${id}`;
@@ -129,7 +130,7 @@ class Item {
         const priceContainer = createSimpleElement('div', 'deletable-item');
 
         const priceElement = createSimpleElement('h2', 'accent');
-        priceElement.textContent = price + Item.PRICE_TYPE;
+        priceElement.textContent = parseMoney(price) + Item.PRICE_TYPE;
 
         priceContainer.append(priceElement, deleteEl);
 

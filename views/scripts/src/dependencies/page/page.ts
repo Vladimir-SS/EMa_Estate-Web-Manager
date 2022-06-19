@@ -8,6 +8,22 @@ const createIcon = (name: string) => {
     return createSimpleElement("span", `icon icon-${name}`);
 }
 
+const parseMoney = (n: number) => {
+    const s = n.toString();
+    let rv = "";
+    let l = 0;
+    let u = s.length % 3;
+    if (u == 0)
+        u = 3;
+    while (u <= s.length) {
+        rv += s.slice(l, u) + " ";
+        l = u;
+        u += 3;
+    }
+
+    return rv.slice(0, -1);
+}
+
 const saveButtonClickHandler = (element: HTMLDivElement) => {
     element.classList.toggle("save-button--is-saved");
     const child = element.firstChild as HTMLElement;

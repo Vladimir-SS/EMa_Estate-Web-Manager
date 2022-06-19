@@ -10,6 +10,7 @@ class SearchHandler {
         by: ["", "individual", "company"],
         transaction: ["rent", "sell"]
     };
+    static curency = " Ron";
 
     public static resizeHandler() {
         if (window.innerWidth <= 1220)
@@ -33,12 +34,24 @@ class SearchHandler {
         return "?" + [...dropdownParams, ...sliderParams].join("&");
     }
 
+    private static addItem(itemData: ItemData) {
+        const item = Item.create(itemData)
+
+        const toIcon = createIcon("next");
+        item.appendChild(toIcon);
+        toIcon.setAttribute("onclick", "");
+        SearchHandler.itemsElement.appendChild(item);
+
+        toIcon.onclick = () => MapHandler.setTo(itemData.lon, itemData.lat);
+    }
+
     public static getItems() {
         const url = '/api/items/filter' + SearchHandler.toApiParams();
 
         fetch(url)
             .then(response => response.json())
-            .then(data => data.forEach(val => SearchHandler.itemsElement.appendChild(Item.create(val)))
+            .then(data =>
+                data.forEach(val => SearchHandler.addItem(val))
             )
     }
 }

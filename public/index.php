@@ -10,6 +10,7 @@ include_once DIR_CONTROLLERS . "ItemPageController.php";
 include_once DIR_CONTROLLERS . "api/ItemsController.php";
 include_once DIR_CONTROLLERS . "api/ImageController.php";
 include_once DIR_CONTROLLERS . "api/ProfileDataController.php";
+include_once DIR_CONTROLLERS . "api/WeatherApi.php";
 
 $app = new Application();
 
@@ -34,6 +35,7 @@ $app->router
     ->get("/api/profile/image", [ImageController::class, 'get_profile_image'])
     ->get("/api/profile/items", [ProfileDataController::class, 'get_profile_items'])
     ->get("/api/profile", [ProfileDataController::class, 'get_profile_data'])
+    ->get("/api/weather", [WeatherApiController::class, 'get_weather_data'])
     ->delete("/profile", [ProfileController::class, 'delete_item']);
 
 $app->run();

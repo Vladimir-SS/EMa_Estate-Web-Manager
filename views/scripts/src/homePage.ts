@@ -1,6 +1,3 @@
-
-
-
 class Home {
 
     public static ticking: boolean = false;
@@ -33,8 +30,6 @@ class Home {
         xmlHttpRequest.send();
     }
 }
-
-
 
 document.addEventListener('scroll', (__e) => {
     if (!Home.ticking) {

@@ -26,7 +26,7 @@ class ProfileContainer {
         const joinedElement = createSimpleElement('p', 'secondary');
         joinedElement.textContent = `Pe Estence din ${createdAt}`;
 
-        const phoneContainer = createSimpleElement('div', 'label label--important');
+        const phoneContainer = createSimpleElement('div', 'label label--flex label--important');
         phoneContainer.appendChild(createSimpleElement('span', 'icon icon-phone'));
         phoneContainer.appendChild(document.createTextNode(phone));
 
