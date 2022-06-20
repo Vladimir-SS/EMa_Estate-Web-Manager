@@ -48,18 +48,19 @@
 
         .description
 
-#map
-    height: 600px
-
     &__right
         position: sticky
         top: $unit
+
+#map
+    height: 600px
 
 .content__box--profile
     display: grid
     grid-template-rows: auto auto
     grid-template-columns: auto auto
     column-gap: $unit/2
+    justify-content: start
 
     &__avatar
         background-size: cover
@@ -110,13 +111,6 @@
                 &::before
                     content: none
 
-        p.surface
-
-            &::after
-                content: '2'
-                vertical-align: super
-                font-size: smaller
-
 .fade
     animation-name: fade
     animation-duration: 0.5s
@@ -146,3 +140,16 @@
 
     100%
         transform: rotate(0)
+
+@include mobile
+    .content
+        flex-direction: column
+        align-items: stretch
+        gap: 0
+
+        &__left
+            order: 2
+
+        &__right
+            position: relative
+            top: 0

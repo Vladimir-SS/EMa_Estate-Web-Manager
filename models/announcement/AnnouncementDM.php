@@ -93,17 +93,17 @@ class AnnouncementDM
 
         if (isset($filter['priceMin'])) {
             $temp = $filter['priceMin'];
-            array_push($filters, " a.price > $temp");
+            array_push($filters, " a.price >= $temp");
         }
 
         if (isset($filter['priceMax'])) {
             $temp = $filter['priceMax'];
-            array_push($filters, " a.price < $temp");
+            array_push($filters, " a.price <= $temp");
         }
 
         if (isset($filter['priceMax'])) {
             $temp = $filter['priceMax'];
-            array_push($filters, " a.price < $temp");
+            array_push($filters, " a.price <= $temp");
         }
 
         if (isset($filter['transaction'])) {
@@ -113,32 +113,32 @@ class AnnouncementDM
 
         if (isset($filter['roomsMin'])) {
             $temp = $filter['roomsMin'];
-            array_push($filters, " b.rooms > $temp");
+            array_push($filters, " b.rooms >= $temp");
         }
 
         if (isset($filter['roomsMax'])) {
             $temp = $filter['roomsMax'];
-            array_push($filters, " b.rooms < $temp");
+            array_push($filters, " b.rooms <= $temp");
         }
 
         if (isset($filter['bathroomsMin'])) {
             $temp = $filter['bathroomsMin'];
-            array_push($filters, " b.bathrooms > $temp");
+            array_push($filters, " b.bathrooms >= $temp");
         }
 
         if (isset($filter['bathroomsMax'])) {
             $temp = $filter['bathroomsMax'];
-            array_push($filters, " b.bathrooms < $temp");
+            array_push($filters, " b.bathrooms <= $temp");
         }
 
         if (isset($filter['builtInMin'])) {
             $temp = $filter['builtInMin'];
-            array_push($filters, " b.built_in > $temp");
+            array_push($filters, " b.built_in >= $temp");
         }
 
         if (isset($filter['builtInMax'])) {
             $temp = $filter['builtInMax'];
-            array_push($filters, " b.built_in < $temp");
+            array_push($filters, " b.built_in <= $temp");
         }
 
         if (isset($filter['apType'])) {

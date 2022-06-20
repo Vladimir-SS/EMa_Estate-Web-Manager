@@ -73,7 +73,7 @@ DocumentHandler.whenReady(() => {
             item = JSON.parse(xmlHttpRequest.responseText);
             const itemInfo = ItemInfo.create(item);
             profileElement.appendChild(itemInfo);
-            const descriptionElement = createSimpleElement('p', '');
+            const descriptionElement = createSimpleElement('p', 'pre');
             descriptionElement.innerHTML = item.description;
             decriptionContainer.appendChild(descriptionElement);
             Slideshow.create(item.imagesURLs);

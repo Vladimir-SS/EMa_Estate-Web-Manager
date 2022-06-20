@@ -31,8 +31,8 @@ $unit: $unit/2
         width: 100%
         color: var(--background-primary)
 
-        >.icon
-            font-size: 1.15em
+        // >.icon
+        //     font-size: 1.15em
 
         &--google
             background-color: #BB001B
@@ -40,8 +40,8 @@ $unit: $unit/2
         &--facebook
             background-color: #45619D
 
-    > .icon
-        margin-right: -0.1em
+    // > .icon
+    //     margin-right: -0.1em
 
 .filter-option
     position: relative
@@ -54,6 +54,7 @@ $unit: $unit/2
         display: none
         position: absolute
         //width: 100%
+        margin: 0
         bottom: -$unit/2
         left: 0
         transform: translateY(100%)
@@ -102,12 +103,17 @@ $unit: $unit/2
             > .show-container
                 display: flex
                 justify-content: space-between
-                margin-top: $unit/2
+                margin: $unit/2 0
+                position: relative
 
-                // &::before
-                //     content: "<-__->"
-                //     order: 2
-                //     padding: 0 $unit
+                > .icon-left-right-arrow
+                    position: absolute
+                    right: 50%
+                    bottom: 50%
+                    transform: translate(50%, 50%)
+
+                > p
+                    margin: 0
 
                 > p::after
                     content: var(--unit)

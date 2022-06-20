@@ -24,18 +24,18 @@ body
     color: var(--text-normal)
 
 h2
-    //font-weight: 800
+    font-weight: 600
     font-size: $font-size * 1.2
-    margin-bottom: $unit/2
+    // margin-bottom: $unit/2
 
-p
-    margin-bottom: $unit/4
+// p
+//     // margin-bottom: $unit/4
 
-    &.secondary
-        color: var(--text-faint)
-        font-size: $font-size - 2px
-    &:last-child
-        margin-bottom: 0
+//     &.secondary
+//         color: var(--text-faint)
+//         font-size: $font-size - 2px
+//     &:last-child
+//         margin-bottom: 0
 
 .accent
     color: var(--interactive-accent)
@@ -64,11 +64,14 @@ p
     border-radius: $border-radius
     margin-bottom: $unit
 
-    *:last-child
-        margin-bottom: 0
+.pre
+    white-space: pre-wrap
 
-    &:last-child
-        margin-bottom: 0
+.surface
+    &::after
+        content: '2'
+        vertical-align: super
+        font-size: smaller
 
 .image-container
     overflow: hidden
@@ -107,10 +110,6 @@ p
 
 .clickable
     cursor: pointer
-
-.image-container--animated:hover
-    .image
-        transform: scale(1.2)
 
 .---nothing---
 @import "menu"

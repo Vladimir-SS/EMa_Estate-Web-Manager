@@ -27,6 +27,13 @@ class ProfileContainer {
         joinedElement.textContent = `Pe Estence din ${createdAt}`;
 
         const phoneContainer = createSimpleElement('div', 'label label--flex label--important');
+        phoneContainer.setAttribute("onclick", "");
+        phoneContainer.onclick = () => {
+            const callTo = "tel:" + phone
+            console.log(callTo);
+
+            window.open(callTo);
+        }
         phoneContainer.appendChild(createSimpleElement('span', 'icon icon-phone'));
         phoneContainer.appendChild(document.createTextNode(phone));
 
