@@ -8,7 +8,6 @@
     C4 Diagram: https://drive.google.com/file/d/1rgzeKE8oLMw3d9o57hZfLW9svb4mI4m4/view?usp=sharing
     C4 Diagram SVG: https://drive.google.com/file/d/1Cbz6OK1aGAnhhoCDQAUHgx9eqIh_58nO/view?usp=sharing
     DB-Diagram: https://drive.google.com/file/d/1PkayucyTL7Cpm0jkeUCr5ysG6UDfpLbO/view?usp=sharing
-    Video: https://drive.google.com/file/d/13_dDVL2RQ56E4WFRpmhdV__JwOK_i1C3/view?usp=sharing
   </p>
   
   
@@ -33,22 +32,8 @@
    
 </div>
 
-
 Start server:
 ```bash
 cd public
 php -c ../php.ini -S localhost:8000
-```
-
-
-Compile typescript:
-```bash
-npx tsc -w
-```
-
-Compile for public;
-
-```bash
-cd ../ema-compiler
-npx gulp development
 ```
