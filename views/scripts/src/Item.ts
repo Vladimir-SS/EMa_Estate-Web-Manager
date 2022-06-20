@@ -58,34 +58,44 @@ class Item {
 
     public static createInfoContainer(data: BaseData, iconsElement: HTMLElement) {
 
-        const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
+
         const { price, title, address, id } = data;
 
-        const priceElement = createSimpleElement('h2', 'accent');
+        const priceElement = createSimpleElement('h2', 'price');
         priceElement.textContent = parseMoney(price) + Item.PRICE_TYPE;
 
-        const titleElement = createSimpleElement('a', 'hlink text-wrap') as HTMLAnchorElement;
-        titleElement.href = `/item?id=${id}`;
+        const titleElement = createSimpleElement('p', 'title text-wrap');
         titleElement.textContent = title;
 
-        const addressElement = createSimpleElement('div', 'secondary icon-text');
+        const addressElement = createSimpleElement('div', 'address icon-text');
         addressElement.appendChild(createSimpleElement('span', 'icon icon-pin'));
         const addressParagraph = createSimpleElement('p', 'text-wrap');
         addressParagraph.textContent = address;
         addressElement.appendChild(addressParagraph);
 
-        infoContainer.append(priceElement, titleElement, addressElement, iconsElement);
+        const anchorElement = createSimpleElement('a', "important-info");
+        anchorElement.href = `/item?id=${id}`;
+        anchorElement.ariaLabel = 'item';
+        anchorElement.append(priceElement, titleElement, addressElement);
+
+        const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
+        infoContainer.append(anchorElement, iconsElement);
 
         return infoContainer;
     }
 
     public static createInfoIconsElement(data: IconsData) {
-        const infoIconsElement = createSimpleElement('div', 'content__box--item__info__icons');
-        const basicIconsContainer = createSimpleElement('div', 'content__box--item__info__icons__basic');
         const { surface, bathrooms, rooms, parkingLots } = data;
 
+        const spaceElementInfo = createSimpleElement("p", "surface");
+        spaceElementInfo.innerHTML += surface + " m";
+        const spaceElement = createSimpleElement('div', 'icon-text icon-text--surface');
+        spaceElement.append(createIcon("space"), spaceElementInfo)
+
+        const basicIconsContainer = createSimpleElement('div', 'content__box--item__info__icons__basic');
+        basicIconsContainer.appendChild(spaceElement);
+
         const aux: [number, string][] = [
-            [surface, 'space'],
             [bathrooms, 'bath'],
             [rooms, 'room'],
             [parkingLots, 'garage']
@@ -101,20 +111,26 @@ class Item {
             basicIconsContainer.appendChild(el);
         });
 
+
         const saveButton = createSimpleElement('div', 'save-button');
         saveButton.onclick = () => saveButtonClickHandler(saveButton);
         saveButton.appendChild(createSimpleElement('span', 'icon icon-save'));
-        infoIconsElement.append(basicIconsContainer, saveButton);
 
+
+        const infoIconsElement = createSimpleElement('div', 'content__box--item__info__icons');
+        infoIconsElement.append(basicIconsContainer, saveButton);
         return infoIconsElement;
     }
 
     public static create(data: ItemData) {
         const container = createSimpleElement('div', 'content__box content__box--item');
-        const imageContainer = createSimpleElement('div', 'image-container image-container--animated');
-        const imageElement = createSimpleElement('div', 'image');
 
-        const { imageURL } = data;
+
+        const { imageURL, id } = data;
+        const imageContainer = createSimpleElement('a', 'image-container');
+        imageContainer.href = `/item?id=${id}`
+        imageContainer.ariaLabel = 'item';
+        const imageElement = createSimpleElement('div', 'image');
         imageElement.style.backgroundImage = `url("${imageURL}")`;
         imageContainer.appendChild(imageElement);
 
@@ -122,48 +138,18 @@ class Item {
         return container;
     }
 
-    public static createDeletableInfoContainer(data: BaseData, iconsElement: HTMLElement, deleteEl: HTMLSpanElement) {
 
-        const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
-        const { price, title, address, id } = data;
-
-        const priceContainer = createSimpleElement('div', 'deletable-item');
-
-        const priceElement = createSimpleElement('h2', 'accent');
-        priceElement.textContent = parseMoney(price) + Item.PRICE_TYPE;
-
-        priceContainer.append(priceElement, deleteEl);
-
-        const titleElement = createSimpleElement('a', 'hlink text-wrap') as HTMLAnchorElement;
-        titleElement.href = `/item?id=${id}`;
-        titleElement.textContent = title;
-
-        const addressElement = createSimpleElement('div', 'secondary icon-text');
-        addressElement.appendChild(createSimpleElement('span', 'icon icon-pin'));
-        const addressParagraph = createSimpleElement('p', 'text-wrap');
-        addressParagraph.textContent = address;
-        addressElement.appendChild(addressParagraph);
-
-        infoContainer.append(priceContainer, titleElement, addressElement, iconsElement);
-
-        return infoContainer;
-    }
-
-    public static createDeletable(data: ItemData, handler) {
-        const container = createSimpleElement('div', 'content__box content__box--item');
-        container.id = 'item' + data.id;
-        const imageContainer = createSimpleElement('div', 'image-container image-container--animated');
-        const imageElement = createSimpleElement('div', 'image');
-
-        const { imageURL } = data;
-        imageElement.style.backgroundImage = `url("${imageURL}")`;
-        imageContainer.appendChild(imageElement);
+    public static createDeletable(data: ItemData, handler: () => void) {
+        const container = Item.create(data);
 
         const deleteEl = createSimpleElement('span', 'icon icon-delete');
-        deleteEl.onclick = handler;
+        deleteEl.setAttribute("onclick", "");
+        deleteEl.onclick = () => {
+            handler();
+            container.remove();
+        };
 
-
-        container.append(imageContainer, Item.createDeletableInfoContainer(data, Item.createInfoIconsElement(data), deleteEl));
+        container.appendChild(deleteEl);
         return container;
     }
 }

@@ -31,7 +31,6 @@ $unit: $unit/2
     width: 500px
     //z-index: -1
 
-
 .filter-alignment
     display: flex
     flex-wrap: wrap
@@ -51,10 +50,9 @@ $unit: $unit/2
         height: 40px
         width: 40px
         border-radius: 100%
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px
+        @include box-shadow-small
         opacity: 0
         transition: right 0.2s, opacity 0.2s
-        // box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px
 
         &::before
             position: absolute

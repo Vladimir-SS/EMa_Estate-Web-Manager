@@ -14,11 +14,6 @@ class ProfileItemsHandler {
         xmlHttpRequest.open('DELETE', '/profile', true);
         xmlHttpRequest.onreadystatechange = () => {
             if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-                const obj = JSON.parse(xmlHttpRequest.responseText);
-                if (obj) {
-                    const item = document.getElementById('item' + announcementID);
-                    item.remove();
-                }
             }
         }
         xmlHttpRequest.send(`announcement_id=${announcementID}`);

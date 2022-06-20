@@ -20,11 +20,15 @@
         position: sticky
         top: $unit
 
+.content__box--form
+    padding: 0
+
 .content__box--profile
-    display: grid
+    display: inline-grid
     grid-template-rows: auto auto
     grid-template-columns: auto auto
     column-gap: $unit/2
+    margin-bottom: $unit/2
 
     &__avatar
         grid-row: span 3
@@ -57,11 +61,16 @@
     display: flex
     gap: 10px
 
-.deletable-item
-    display: flex
-    justify-content: space-between
-    .icon
-        color: red
-        cursor: pointer
-        &:hover
-            color: #8B0000
+.icon-delete
+    color: red
+    cursor: pointer
+    position: absolute
+    top: $unit/2
+    right: $unit/2
+
+    &:hover
+        color: #8B0000
+
+.chubby-items
+    .icon-delete
+        top: 50%

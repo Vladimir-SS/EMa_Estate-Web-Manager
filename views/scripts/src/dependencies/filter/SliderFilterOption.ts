@@ -133,12 +133,13 @@ class SliderFilterOption extends FilterOption {
 
 
     private createShowContainer = () => {
-        let showContainerElement = document.createElement("div");
-        showContainerElement.className = "show-container";
-
         this.showSmaller = document.createElement("p");
         this.showBigger = this.showSmaller.cloneNode() as HTMLParagraphElement;
-        showContainerElement.append(this.showSmaller, this.showBigger);
+        const iconElement = createIcon("left-right-arrow");
+
+        let showContainerElement = createSimpleElement("div", "show-container");
+        showContainerElement.append(this.showSmaller, iconElement, this.showBigger);
+
 
         return showContainerElement;
     }
