@@ -75,6 +75,7 @@ class Item {
 
         const anchorElement = createSimpleElement('a', "important-info");
         anchorElement.href = `/item?id=${id}`;
+        anchorElement.ariaLabel = 'item';
         anchorElement.append(priceElement, titleElement, addressElement);
 
         const infoContainer = createSimpleElement('div', 'content__box--item__info flex-1');
@@ -128,6 +129,7 @@ class Item {
         const { imageURL, id } = data;
         const imageContainer = createSimpleElement('a', 'image-container');
         imageContainer.href = `/item?id=${id}`
+        imageContainer.ariaLabel = 'item';
         const imageElement = createSimpleElement('div', 'image');
         imageElement.style.backgroundImage = `url("${imageURL}")`;
         imageContainer.appendChild(imageElement);

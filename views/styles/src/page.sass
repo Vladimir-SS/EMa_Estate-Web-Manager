@@ -11,7 +11,18 @@
     --background-secondary-alt: #e3e5e8
     --interactive-accent: #086788
     --text-normal: #000000
-    --text-faint: #000000 //TODO: rmv pls :))
+    --text-faint: #999999
+
+@media (prefers-color-scheme: dark)
+    \:root
+        --background-primary: #202020
+        --background-primary-alt: #1a1a1a
+        --background-secondary: #161616
+        --background-secondary-alt: #000000
+        //--interactive-accent: #39A2AE
+        --interactive-accent: #65C3CD
+        --text-normal: #ffffff
+        --text-faint: #666
 
 html
     font-family: 'Inter', sans-serif
@@ -26,16 +37,6 @@ body
 h2
     font-weight: 600
     font-size: $font-size * 1.2
-    // margin-bottom: $unit/2
-
-// p
-//     // margin-bottom: $unit/4
-
-//     &.secondary
-//         color: var(--text-faint)
-//         font-size: $font-size - 2px
-//     &:last-child
-//         margin-bottom: 0
 
 .accent
     color: var(--interactive-accent)
