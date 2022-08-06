@@ -1,0 +1,72 @@
+@use 'sass:math'
+
+@import base
+@import home/footer
+
+.content-container
+    padding-top: 0 !important
+
+.content.responsive-container
+    margin: 0
+    max-width: 100%
+
+.site-nav
+    z-index: 10
+    position: relative
+
+.filter-parallax
+    overflow: hidden
+
+    > .responsive-container
+        display: flex
+        gap: $unit
+        padding-top: $unit
+
+        #parallax-container //.parallax
+            position: relative
+
+            > .parallax //.parallax__group
+                position: absolute
+                width: 100%
+
+                &:nth-child(1)
+                    top: -140px
+
+                &:nth-child(2)
+                    top: 20px
+                    left: 320px
+
+                &:nth-child(3)
+                    top: -40px
+                    left: 690px
+
+                &:nth-child(4)
+                    top: 180px
+                    left: 1000px
+
+        > .filter-container
+            display: inline-block
+
+            > h2
+                margin-bottom: math.div($unit, 4)
+
+            > .filter-alignment
+                display: grid
+                gap: math.div($unit, 2)
+                justify-items: start
+                grid-template-columns: auto auto
+
+                > .icon-field:last-child
+                    grid-column: span 2
+
+                > .filter-option--submit
+                    grid-column: span 2
+                    width: 100%
+
+.icon-field--important[type="search"]
+    width: 100%
+
+.items-container
+    z-index: 5
+    position: relative
+    border-radius: 0

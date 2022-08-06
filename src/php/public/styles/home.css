@@ -1,0 +1,79 @@
+/* src/styles/home.sass */
+.footer {
+  display: grid;
+  position: relative;
+  z-index: 10;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column dense;
+  gap: 10px;
+  bottom: -20px;
+}
+.content-container {
+  padding-top: 0 !important;
+}
+.content.responsive-container {
+  margin: 0;
+  max-width: 100%;
+}
+.site-nav {
+  z-index: 10;
+  position: relative;
+}
+.filter-parallax {
+  overflow: hidden;
+}
+.filter-parallax > .responsive-container {
+  display: flex;
+  gap: 40px;
+  padding-top: 40px;
+}
+.filter-parallax > .responsive-container #parallax-container {
+  position: relative;
+}
+.filter-parallax > .responsive-container #parallax-container > .parallax {
+  position: absolute;
+  width: 100%;
+}
+.filter-parallax > .responsive-container #parallax-container > .parallax:nth-child(1) {
+  top: -140px;
+}
+.filter-parallax > .responsive-container #parallax-container > .parallax:nth-child(2) {
+  top: 20px;
+  left: 320px;
+}
+.filter-parallax > .responsive-container #parallax-container > .parallax:nth-child(3) {
+  top: -40px;
+  left: 690px;
+}
+.filter-parallax > .responsive-container #parallax-container > .parallax:nth-child(4) {
+  top: 180px;
+  left: 1000px;
+}
+.filter-parallax > .responsive-container > .filter-container {
+  display: inline-block;
+}
+.filter-parallax > .responsive-container > .filter-container > h2 {
+  margin-bottom: 10px;
+}
+.filter-parallax > .responsive-container > .filter-container > .filter-alignment {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+  grid-template-columns: auto auto;
+}
+.filter-parallax > .responsive-container > .filter-container > .filter-alignment > .icon-field:last-child {
+  grid-column: span 2;
+}
+.filter-parallax > .responsive-container > .filter-container > .filter-alignment > .filter-option--submit {
+  grid-column: span 2;
+  width: 100%;
+}
+.icon-field--important[type=search] {
+  width: 100%;
+}
+.items-container {
+  z-index: 5;
+  position: relative;
+  border-radius: 0;
+}
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vLi4vc3R5bGVzL0Q6L2FhL0VNYV9Fc3RhdGUtV2ViLU1hbmFnZXIvc3JjL3N0eWxlcy9ob21lL2Zvb3Rlci5zYXNzIiwgIi4uLy4uLy4uL3N0eWxlcy8lM0NpbnB1dCUyMGNzcyUyMG81bHIxOSUzRSIsICIuLi8uLi8uLi9zdHlsZXMvRDovYWEvRU1hX0VzdGF0ZS1XZWItTWFuYWdlci9zcmMvc3R5bGVzL2hvbWUuc2FzcyIsICIuLi8uLi8uLi9zdHlsZXMvRDovYWEvRU1hX0VzdGF0ZS1XZWItTWFuYWdlci9zcmMvc3R5bGVzL2Jhc2UvdmFyaWFibGVzLnNhc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbbnVsbCwgbnVsbCwgbnVsbCwgbnVsbF0sCiAgIm1hcHBpbmdzIjogIjtBQUlBO0FBQ0k7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FFTko7QUFDSTs7QUFFSjtBQUNJO0FBQ0E7O0FBRUo7QUFDSTtBQUNBOztBQUVKO0FBQ0k7O0FBRUE7QUFDSTtBQUNBO0FBQ0E7O0FBRUE7QUFDSTs7QUFFQTtBQUNJO0FBQ0E7O0FBRUE7QUFDSTs7QUFFSjtBQUNJO0FBQ0E7O0FBRUo7QUFDSTtBQUNBOztBQUVKO0FBQ0k7QUFDQTs7QUFFWjtBQUNJOztBQUVBO0FBQ0k7O0FBRUo7QUFDSTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNJOztBQUVKO0FBQ0k7QUFDQTs7QUFFcEI7QUFDSTs7QUFFSjtBQUNJO0FBQ0E7QUFDQTs7IiwKICAibmFtZXMiOiBbXQp9Cg== */

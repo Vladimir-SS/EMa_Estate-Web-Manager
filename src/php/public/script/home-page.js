@@ -1,0 +1,3 @@
+// src/script/home-page.ts
+console.log(123);
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vLi4vc2NyaXB0L2hvbWUtcGFnZS50cyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiY29uc29sZS5sb2coMTIzKTtcclxuXHJcbmV4cG9ydCB7fTtcclxuIl0sCiAgIm1hcHBpbmdzIjogIjtBQUFBLFFBQVEsSUFBSSxHQUFHOyIsCiAgIm5hbWVzIjogW10KfQo=

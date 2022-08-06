@@ -1,0 +1,50 @@
+@use 'sass:math'
+
+@import "../base"
+
+$unit: math.div($unit, 2)
+
+.pin-container
+    $unit: math.div($unit, 2.5)
+
+    text-decoration: none
+    padding: $unit 0
+    position: relative
+    border-radius: 4px
+    text-align: center
+    background-color: var(--interactive-accent)
+    color: var(--background-primary)
+
+    .price, .type
+        padding: 0 $unit
+
+    .image-container
+        height: 100px
+        margin-bottom: $unit
+
+    .extra-info
+        max-height: 0
+        overflow: hidden
+        transition: max-height 0.6s
+
+    &:before
+        $size: $unit*3
+        content: ''
+        position: absolute
+        width: $size
+        height: $size
+        border-radius: 4px
+        background: var(--interactive-accent)
+        z-index: -1
+        bottom: math.div(4px - $size, 2)
+        left: 0
+        right: 0
+        margin: 0 auto
+        transform: rotate(45deg)
+
+    &:hover
+        .extra-info
+            max-height: 200px
+
+.ol-overlay-container:hover
+    z-index: 10

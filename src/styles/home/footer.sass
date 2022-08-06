@@ -1,0 +1,12 @@
+@use 'sass:math'
+
+@import ../base
+
+.footer
+    display: grid
+    position: relative
+    z-index: 10
+    grid-template-rows: repeat(3, auto)
+    grid-auto-flow: column dense
+    gap: 10px
+    bottom: math.div(-$unit, 2)
