@@ -27,6 +27,9 @@ class CreateAdController extends Controller
         if ($request->is_post()) {
 
             $temp = $request->get_body();
+            echo "<pre>";
+            print_r($temp);
+            echo "</pre>";
             $temp['ACCOUNT_ID'] = $request->get_body()['ACCOUNT_ID'] = json_decode(JWT::get_jwt_payload($_COOKIE['user']))->id; // adds account_id value to the array before creating the AnnouncementModel
 
             $temp['TRANSACTION_TYPE'] = $this->transaction_types[$temp['TRANSACTION_TYPE']];
@@ -38,7 +41,7 @@ class CreateAdController extends Controller
 
             $no_errors_building = true;
 
-            if ($announcement_model->get_data()['TYPE']['value'] === $this->types[1]) {
+            if ($announcement_model->get_data()['TYPE'] === $this->types[1]) {
                 $temp = $request->get_body();
                 $temp['TYPE'] = $this->types[$temp['TYPE']];
                 if (isset($temp['AP_TYPE'])) {
@@ -59,12 +62,11 @@ class CreateAdController extends Controller
                     $announcement_model->errors['ADDRESS'] = "Adresă invalidă";
                 } else {
                     $data_mapper = new AnnouncementDM();
-                    if ($data_mapper->check_existence_title($announcement_model->get_data()['TITLE']['value'],      $announcement_model->get_data()['ACCOUNT_ID']['value']) != 0) {
+                    if ($data_mapper->check_existence_title($announcement_model->get_data()['TITLE'],      $announcement_model->get_data()['ACCOUNT_ID']) != 0) {
                         $announcement_model->errors['TITLE'] = "Titlu deja folosit";
                     } else {
                         $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
                         $announcement_id = $data_mapper->create_announcement($announcement_model->get_data());
-                        $id = $data_mapper->find_id_by_account_id_and_title($account_data->id, $request->get_body()['TITLE']);
 
                         if (!empty($_FILES)) {
                             foreach ($_FILES as $key => $value) {
@@ -74,20 +76,20 @@ class CreateAdController extends Controller
                                         $name = $value["name"];
                                         $type = $value["type"];
                                         $blob = file_get_contents($value["tmp_name"]);
-
-                                        $blob = base64_encode($blob);
-                                        $data_mapper->add_image($id, $blob, $name, $type);
+                                        
+                                        //$blob = base64_encode($blob);
+                                        $data_mapper->add_image($announcement_id, $blob, $name, $type);
                                     }
                                 }
                             }
                         }
-                        if ($announcement_model->get_data()['TYPE']['value'] !== $this->types[4]) {
+                        if ($announcement_model->get_data()['TYPE'] !== $this->types[4]) {
                             $temp['ANNOUNCEMENT_ID'] = $announcement_id;
                             $building_model->load($temp);
                             $data_mapper = new BuildingDM();
                             $data_mapper->create_building($building_model->get_data());
                         }
-                        header("Location: /item?id=$id");
+                        header("Location: /item?id=$announcement_id");
                         die();
                     }
                 }
@@ -97,10 +99,8 @@ class CreateAdController extends Controller
         return $this->render(
             "Creare anunț",
             Renderer::render_template("create-ad/create-ad", ['announcement_model' => $announcement_model, 'building_model' => $building_model, 'image_error' => $image_error]),
-            Renderer::render_styles("form", "icon", "create-ad") .
-                '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">',
-            '<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>' .
-                Renderer::render_scripts("filter", "createAdPage")
+            Renderer::render_styles("form", "icon", "create-ad", "ol"),
+            Renderer::render_scripts("create-ad-page")
         );
     }
 }

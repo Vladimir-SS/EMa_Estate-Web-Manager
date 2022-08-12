@@ -51,6 +51,6 @@ class AccountService
      */
     public function password_check(string $password, string $salt, string $passwordSP): bool
     {
-        return password_verify($this->add_salt_and_pepper($password, $salt), $passwordSP);;
+        return password_verify($this->add_salt_and_pepper($password, $salt), $passwordSP);
     }
 }

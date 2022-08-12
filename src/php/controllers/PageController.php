@@ -15,6 +15,15 @@ class PageController extends Controller
         );
     }
 
+    //TODO: delete this
+    public function handle_test(){
+        return $this->render(
+            "Testing",
+            Renderer::render_content("testing"),
+            '', ''
+        );
+    }
+
     public function handle_search()
     {
         return $this->render(

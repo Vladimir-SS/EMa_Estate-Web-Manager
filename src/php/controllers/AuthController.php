@@ -33,11 +33,11 @@ class AuthController extends Controller
             if ($no_errors) {
                 $data_mapper = new AccountDM();
 
-                if ($data_mapper->check_existence_email($model->get_data()['email']['value']) > 0) {
+                if ($data_mapper->check_existence_email($model->get_data()['email'])) {
                     $no_errors = false;
                     $model->errors['email'] = "Email deja înregistrat";
                 }
-                if ($data_mapper->check_existence_phone($model->get_data()['phone']['value']) > 0) {
+                if ($data_mapper->check_existence_phone($model->get_data()['phone'])) {
                     $no_errors = false;
                     $model->errors['phone'] = "Număr de telefon deja înregistrat";
                 }
@@ -46,9 +46,8 @@ class AuthController extends Controller
 
                     $data = $model->get_data();
                     unset($data["confirm-password"]);
-                    $data["password_salt"]['type'] = 1;
-                    $data["password_salt"]['value'] = $services->generate_salt();
-                    $data["password"]['value'] = $services->generate_hash($services->add_salt_and_pepper($data["password"]['value'], $data["password_salt"]['value']));
+                    $data["password_salt"] = $services->generate_salt();
+                    $data["password"] = $services->generate_hash($services->add_salt_and_pepper($data["password"], $data["password_salt"]));
                     $data_mapper->register_save($data);
 
                     header("Location: /login");

@@ -1,7 +1,6 @@
 import fs from "fs";
 
 import esbuild from "esbuild";
-import builtins from "builtin-modules";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { sassPlugin } from "esbuild-sass-plugin";
 import autoprefixer from "autoprefixer";
@@ -9,8 +8,18 @@ import postcss from "postcss";
 
 const prod = process.argv[2] === "production";
 
-const entryTS = ["home-page"];
-const entrySASS = ["page", "home", "item", "icon"];
+const entryTS = ["home-page", "form", "create-ad-page"];
+const entrySASS = [
+  "page",
+  "home",
+  "item",
+  "icon",
+  "form",
+  "login-register",
+  "create-ad",
+  "ol",
+  "item-page",
+];
 
 //TODO: uglify mangle
 esbuild
@@ -20,7 +29,7 @@ esbuild
       ...entrySASS.map((file) => `src/styles/${file}.sass`),
     ],
     bundle: true,
-    external: [...builtins],
+    external: ["/fonts/*", "/images/*"],
     format: "esm",
     watch: !prod,
     target: browserslistToEsbuild(["cover 95%", "not dead"]),
@@ -29,7 +38,6 @@ esbuild
     minify: prod,
     treeShaking: true,
     outdir: "src/php/public",
-    external: ["/fonts/*"],
     plugins: [
       sassPlugin({
         transform: async (source) => {

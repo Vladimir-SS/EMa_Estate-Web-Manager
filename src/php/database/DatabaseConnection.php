@@ -8,11 +8,12 @@ class DatabaseConnection
     public static function get_connection()
     {
         if (is_null(DatabaseConnection::$conn)) {
-            DatabaseConnection::$conn = oci_connect(DB_USER, DB_PASS);
-            if (!DatabaseConnection::$conn) {
-                $e = oci_error();
-                trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-            }
+            DatabaseConnection::$conn = pg_connect(
+                "host=". DB_ADDRESS .
+                " port=5432 dbname=" . DB_NAME .
+                " user=" . DB_USER .
+                " password=" . DB_PASS
+            ) or trigger_error(htmlentities("Could not connect to the database!", ENT_QUOTES), E_USER_ERROR);
         }
         return DatabaseConnection::$conn;
     }

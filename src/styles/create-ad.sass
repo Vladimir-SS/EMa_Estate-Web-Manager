@@ -1,7 +1,8 @@
-@import "config"
-@import "mixins"
+@use 'sass:math'
 
-$unit: $unit /2
+@import ./base
+
+$unit: math.div($unit, 2)
 
 .content
     display: flex

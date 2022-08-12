@@ -1,6 +1,8 @@
-@import "config"
+@use 'sass:math'
 
-$unit: $unit/2
+@import base
+
+$unit: math.div($unit, 2)
 
 .content__box
 

@@ -36,7 +36,7 @@ class Field
                 </div>',
                 $this->type,
                 $this->placeholder,
-                $this->model->get_data()[$this->attribute]['value'],
+                $this->model->get_data()[$this->attribute],
                 $this->attribute,
                 $this->error_message()
             );
@@ -47,7 +47,7 @@ class Field
             </div>',
             $this->type,
             $this->placeholder,
-            $this->model->get_data()[$this->attribute]['value'],
+            $this->model->get_data()[$this->attribute],
             $this->attribute
         );
     }
@@ -62,7 +62,7 @@ class Field
             </div>',
                 $this->placeholder,
                 $this->attribute,
-                $this->model->get_data()[$this->attribute]['value'],
+                $this->model->get_data()[$this->attribute],
                 $this->error_message()
             );
 
@@ -70,7 +70,7 @@ class Field
             '<textarea class="label desc" maxlength="3000" placeholder="%s" name="%s" >%s</textarea>',
             $this->placeholder,
             $this->attribute,
-            $this->model->get_data()[$this->attribute]['value'],
+            $this->model->get_data()[$this->attribute],
         );
     }
 
@@ -87,7 +87,7 @@ class Field
                 </div>',
                 $this->type,
                 $this->placeholder,
-                $this->model->get_data()[$this->attribute]['value'],
+                $this->model->get_data()[$this->attribute],
                 $this->attribute,
                 $this->error_message()
             );
@@ -100,7 +100,7 @@ class Field
             $this->icon,
             $this->type,
             $this->placeholder,
-            $this->model->get_data()[$this->attribute]['value'],
+            $this->model->get_data()[$this->attribute],
             $this->attribute
         );
     }

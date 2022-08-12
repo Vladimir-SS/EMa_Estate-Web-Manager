@@ -10,7 +10,7 @@ create table accounts
     image         bytea,
     image_type    varchar(32),
     password      varchar(255)            not null,
-    password_salt varchar(20)             not null,
+    password_salt bytea             not null,
     business_name varchar(32),
     created_at    timestamp default now() not null,
     updated_at    timestamp default now() not null
@@ -22,102 +22,99 @@ create unique index accounts_email_uindex
 create unique index accounts_phone_uindex
     on accounts (phone);
 
+/
+
+create table announcements
+(
+    id               serial
+        constraint announcements_pk
+            primary key,
+    account_id       int                        not null
+        constraint fk_announcements_account_id
+            references accounts
+            on update cascade on delete cascade,
+    title            varchar(128)               not null,
+    type             varchar(32) default 'land' not null,
+    price            int                        not null,
+    surface          int                        not null,
+    address          varchar(255)               not null,
+    lat              real                       not null,
+    lon              real                       not null,
+    transaction_type varchar(64)                not null,
+    description      varchar(4000),
+    created_at       timestamp   default now()  not null,
+    updated_at       timestamp   default now()  not null
+);
+
 
 /
---create table for announcements
-CREATE TABLE announcements (
-  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
-  account_id INT NOT NULL,
-  title VARCHAR2(128) NOT NULL, 
-  type VARCHAR2(32) DEFAULT 'land',
-  price INT NOT NULL,
-  surface INT NOT NULL,
-  address VARCHAR2(255) NOT NULL,
-  lat FLOAT NOT NULL,
-  lon FLOAT NOT NULL,
-  transaction_type VARCHAR2(64) NOT NULL,
-  description VARCHAR2(4000),
-  created_at DATE,
-  updated_at DATE,
-  CONSTRAINT fk_announcements_account_id FOREIGN KEY (account_id) REFERENCES accounts(id)
-);
-/
-ALTER TABLE announcements
-ADD CONSTRAINT announcements_unique_account_id_title UNIQUE (account_id, title);
-/
---create table for saves
-CREATE TABLE saves (
-  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
-  account_id INT NOT NULL,
-  announcement_id INT NOT NULL
-);
-/
-ALTER TABLE saves
-ADD CONSTRAINT saves_unique_account_id_announcement_id UNIQUE (account_id, announcement_id);
-/
---create table for images
-CREATE TABLE images (
-  id INT GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) PRIMARY KEY,
-  announcement_id INT NOT NULL,
-  name VARCHAR2(255) NOT NULL,
-  type VARCHAR2(32) NOT NULL,
-  image BLOB NOT NULL,
-  CONSTRAINT fk_images_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
-);
-/
---create table for buildings
-CREATE TABLE buildings (
-  announcement_id INT PRIMARY KEY,
-  floor INT,
-  bathrooms INT DEFAULT 1,
-  parking_lots INT DEFAULT 1,
-  built_in INT,
-  ap_type VARCHAR2(32),
-  rooms INT,
-  basement NUMBER(1),
-  CONSTRAINT fk_buildings_announcement_id FOREIGN KEY (announcement_id) REFERENCES announcements(id)
-);
-/
-CREATE OR REPLACE TRIGGER accounts_trigger BEFORE
-    INSERT OR UPDATE OR DELETE ON accounts
-    FOR EACH ROW
-BEGIN
-    IF inserting THEN
-        :new.created_at := sysdate();
-        :new.updated_at := sysdate();
-    END IF;
 
-    IF updating THEN
-        :new.updated_at := sysdate();
-    END IF;
-    
-    IF deleting THEN
-        DELETE FROM announcements WHERE account_id = :OLD.id;
-    END IF;
-END;
-/
-CREATE OR REPLACE TRIGGER announcements_trigger BEFORE
-    INSERT OR DELETE ON announcements
-    FOR EACH ROW
-BEGIN
-    IF inserting THEN
-        :new.created_at := sysdate();
-        :new.updated_at := sysdate();
-    END IF;
-    
-    IF deleting THEN
-        DELETE FROM saves WHERE announcement_id = :OLD.id;
-        DELETE FROM images WHERE announcement_id = :OLD.id;
-        DELETE FROM buildings WHERE announcement_id = :OLD.id;
-    END IF;
-END;
-/
---select * from USER_TRIGGERS;
---select * from accounts;
---select * from buildings;
---select * from announcements;
---commit;
---select * from images;
---desc accounts;
+create table saves
+(
+    account_id      int not null,
+    announcement_id int not null,
+    constraint saves_pk
+        primary key (account_id, announcement_id)
+);
 
---SELECT * FROM announcements a left join buildings b on a.id = b.announcement_id; 
+
+/
+
+create table images
+(
+    id              serial
+        constraint images_pk
+            primary key,
+    announcement_id int          not null
+        constraint images_announcements_id_fk
+            references announcements
+            on update cascade on delete cascade,
+    name            varchar(255) not null,
+    type            varchar(32)  not null,
+    image           bytea        not null
+);
+
+/
+
+create table buildings
+(
+    announcement_id int
+        constraint buildings_pk
+            primary key
+        constraint buildings_announcements_id_fk
+            references announcements
+            on update cascade on delete cascade,
+    floor           int,
+    bathrooms       int default 1,
+    parking_lots    int default 1,
+    build_in        int,
+    ap_type         varchar(32),
+    rooms           int,
+    basement        boolean
+);
+
+/
+
+create function set_timestamp_function()
+    RETURNS TRIGGER AS
+$$
+begin
+    new.updated_at = now();
+    return new;
+end ;
+$$ LANGUAGE plpgsql;
+
+
+create trigger set_timestamp_trigger
+    before update
+    on accounts
+    for each row
+execute procedure set_timestamp_function();
+
+create trigger set_timestamp_trigger
+    before update
+    on announcements
+    for each row
+execute procedure set_timestamp_function();
+
+/

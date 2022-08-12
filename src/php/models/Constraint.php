@@ -1,4 +1,6 @@
 <?php
+
+
 enum Constrain
 {
     case MinValue;
@@ -65,23 +67,26 @@ enum Constrain
 class Constraint
 {
     private array $constraints;
-    private int $type;
+    //private int $type;
 
     public function __construct()
     {
         $this->constraints = [];
-        $this->type = SQLT_CHR;
+        
+        //TODO: constraint depending on type
+        //$this->type = SQLT_CHR;
+        $this->type = 1;
     }
 
-    public function setType(int $type)
-    {
-        $this->type = $type;
-    }
+    // public function setType(int $type)
+    // {
+    //     $this->type = $type;
+    // }
 
-    public function getType(): int
-    {
-        return $this->type;
-    }
+    // public function getType(): int
+    // {
+    //     return $this->type;
+    // }
 
     public function add(Constrain $c, ...$params): Constraint
     {

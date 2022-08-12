@@ -2,6 +2,7 @@
 include_once DIR_MODELS . "Model.php";
 include_once DIR_CORE . "exceptions/InternalException.php";
 
+//TODO: this can be static
 class AccountDM
 {
 
@@ -120,30 +121,26 @@ class AccountDM
     /**
      * Finds id by email or phone
      *
-     * @param  mixed $email_or_phone
+     * @param string $email_or_phone
      * @return int|bool $id | false
      */
     public function find_id_by_email_or_phone(string $email_or_phone): int|bool
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT id FROM accounts WHERE email LIKE '$email_or_phone' OR phone LIKE '$email_or_phone'";
+        $dbconn = DatabaseConnection::get_connection();
+        $result = pg_query_params($dbconn,  "SELECT id FROM accounts WHERE email = $1 OR phone = $1", array($email_or_phone));
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $row = pg_fetch_row($result);
 
-        if ($errors) {
-            throw new InternalException($errors);
-        }
+        if($row) return $row[0];
 
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
-        }
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $row;
+        return false;
     }
+
+    //TODO: I think u can get all the information by email or phone, you don't need 20 functions
 
     /**
      * Finds password salt by id
@@ -153,24 +150,21 @@ class AccountDM
      */
     public function get_salt_by_id($id): string|bool
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT password_salt FROM accounts WHERE id=$id";
+        $dbconn = DatabaseConnection::get_connection();
+        $result = pg_query_params($dbconn,   "SELECT password_salt FROM accounts WHERE id = $1", array($id));
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $row = pg_fetch_row($result);
 
-        if ($errors) {
-            throw new InternalException($errors);
+        if($row){
+            echo $row[0] . "</br>";
+            return pg_unescape_bytea($row[0]);
         }
 
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
-        }
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $row;
+        return false;
     }
     /**
      * Finds password by id
@@ -180,81 +174,72 @@ class AccountDM
      */
     public function get_password_by_id($id): string|bool
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT password FROM accounts WHERE id=$id";
+        $dbconn = DatabaseConnection::get_connection();
+        $result = pg_query_params($dbconn,   "SELECT password FROM accounts WHERE id = $1", array($id));
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $row = pg_fetch_row($result);
 
-        if ($errors) {
-            throw new InternalException($errors);
-        }
+        if($row) return $row[0];
 
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
-        }
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $row;
+        return false;
     }
-
+ 
     /**
      * Checks if the email exists in the database and the id is different if it exists
-     * 
-     * @param mixed $email
-     * @param $id
-     * @return int|bool 1 if exists 0 if not | false in case of error
+     *
+     * @param  string $email
+     * @param  int $id
+     * @return bool true if exists and false otherwise
      */
-    public function check_existence_email($email, $id = -1): int|bool
+    public function check_existence_email(string $email, int $id = null): bool
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT count(*) FROM accounts WHERE email='$email'" . (($id != -1) ? " AND id!= $id" : '');;
+        $dbconn = DatabaseConnection::get_connection();
+        $result = pg_query_params($dbconn,  "SELECT id FROM accounts WHERE email = $1", array($email));
+        
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $row = pg_fetch_row($result);
+        if($row){
+            if($id)
+                return $id === (int) $row[0];
 
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
+            return true;
         }
 
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
-        }
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $row;
+        return false;
     }
 
     /**
      * Checks if the phone number exists in the database and the id is different if it exists
      * 
-     * @param mixed $phone
-     * @param $id
-     * @return int|bool 1 if exists 0 if not | false in case of error
+     * @param string $phone
+     * @param int $id
+     * @return bool true if exists and false otherwise
      */
-    public function check_existence_phone($phone, $id = -1): int|bool
+    public function check_existence_phone(string $phone, int $id = null): bool
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT count(*) FROM accounts WHERE phone='$phone'" . (($id != -1) ? " AND id!= $id" : '');
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $dbconn = DatabaseConnection::get_connection();
+        $result = pg_query_params($dbconn,  "SELECT id FROM accounts WHERE phone = $1", array($phone));
+        
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $row = pg_fetch_row($result);
+        if($row){
+            if($id)
+                return $id === (int) $row[0];
 
-        if ($errors) {
-            throw new InternalException($errors);
+            return true;
         }
 
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
-        }
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $row;
+        return false;
     }
 
     /**
@@ -265,34 +250,9 @@ class AccountDM
      */
     public function register_save(array $data)
     {
-        DatabaseConnection::get_connection();
+        $dbconn = DatabaseConnection::get_connection();
+        $data["password_salt"] = pg_escape_bytea($dbconn, $data["password_salt"]);
 
-        foreach ($data as $key => &$value) {
-            $value["tag"] = ":$key" . "_bv";
-        }
-
-        $columns = [];
-        $tags = [];
-
-        foreach ($data as $key => &$value) {
-            array_push($columns, $key);
-            array_push($tags, $value["tag"]);
-        }
-
-        $sql = "INSERT INTO accounts (" . implode(",", $columns) . ") VALUES (" . implode(",", $tags) . ")";
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-
-        foreach ($data as $key => &$value) {
-            oci_bind_by_name($stid, $value["tag"], $value["value"], -1, $value["type"]);
-        }
-        oci_execute($stid);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-        oci_free_statement($stid);
-        DatabaseConnection::close();
+        Model::save_data('accounts', $data);
     }
 }

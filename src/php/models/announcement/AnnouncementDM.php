@@ -407,120 +407,49 @@ class AnnouncementDM
         return $count;
     }
 
-    public function find_id_by_account_id_and_title($account_id, $title): int
-    {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT id FROM announcements WHERE account_id = $account_id AND title LIKE '$title'";
-
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        if (($row = oci_fetch($stid)) != false) {
-            $row = oci_result($stid, 1);
-        }
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $row;
-    }
-
+    //TODO: name and type are useless, remove them
     public function add_image($announcement_id, $blob, $name, $type)
     {
-        DatabaseConnection::get_connection();
-        $sql = "INSERT INTO images (announcement_id, name, type, image) VALUES ($announcement_id, '$name','$type',EMPTY_BLOB()) RETURNING image INTO :image";
-        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
-        $newlob = oci_new_descriptor(DatabaseConnection::$conn, OCI_D_LOB);
-        oci_bind_by_name($stmt, ":image", $newlob, -1, OCI_B_BLOB);
+        $data = [
+            'announcement_id' => $announcement_id,
+            'name' => $name,
+            'type' => $type,
+            'image' => pg_escape_bytea(DatabaseConnection::get_connection(), $blob)
+        ];
 
-        oci_execute($stmt, OCI_NO_AUTO_COMMIT);
 
-        if ($newlob->save($blob)) {
-            oci_commit(DatabaseConnection::$conn);
-        } else {
-            oci_rollback(DatabaseConnection::$conn);
-        }
-
-        $newlob->free();
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-        oci_free_statement($stmt);
-        DatabaseConnection::close();
+        Model::save_data('images', $data);
     }
+
+
+    //TODO: delete this "no id with same title thing"
 
     /**
      * Checks if the title already exists in the database
      * 
      * @param $title
      * @param $id
-     * @return int|bool 1 if exists 0 if not | false in case of error
+     * @return bool true if exists, false otherwise
      */
-    public function check_existence_title($title, $id): int|bool
+    public function check_existence_title($title, $id): bool
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT count(*) FROM announcements WHERE title='$title' AND account_id=$id";
+        $dbconn = DatabaseConnection::get_connection();
+        $result = pg_query_params($dbconn,  "SELECT id FROM announcements WHERE title = $1 AND account_id = $2", array($title, $id));
 
-        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stmt);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $row = pg_fetch_row($result);
 
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        if (($row = oci_fetch($stmt)) != false) {
-            $row = oci_result($stmt, 1);
-        }
-        oci_free_statement($stmt);
-        DatabaseConnection::close();
-        return $row;
+        return !!$row;
     }
 
     public function create_announcement(array $data)
     {
-        DatabaseConnection::get_connection();
+        $result = Model::save_data('announcements', $data, ['id']);
 
-        foreach ($data as $key => &$value) {
-            $value["tag"] = ":$key" . "_bv";
-        }
-
-        $columns = [];
-        $tags = [];
-
-        foreach ($data as $key => &$value) {
-            array_push($columns, $key);
-            array_push($tags, $value["tag"]);
-        }
-
-        $sql = "INSERT INTO announcements (" . implode(",", $columns) . ") VALUES (" . implode(",", $tags) . ") RETURNING id INTO :id";
-        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
-
-        foreach ($data as $key => &$value) {
-            oci_bind_by_name($stmt, $value["tag"], $value["value"], -1, $value["type"]);
-        }
-
-        oci_bind_by_name($stmt, ":id", $id, -1, OCI_B_INT);
-
-        oci_execute($stmt);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-        oci_free_statement($stmt);
-        DatabaseConnection::close();
-
-        return $id;
+        return $result['id'];
     }
 
     public function get_close_located_items($latMin, $latMax, $lonMin, $lonMax)

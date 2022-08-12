@@ -36,6 +36,9 @@ $app->router
     ->get("/api/profile/items", [ProfileDataController::class, 'get_profile_items'])
     ->get("/api/profile", [ProfileDataController::class, 'get_profile_data'])
     ->get("/api/weather", [WeatherApiController::class, 'get_weather_data'])
-    ->delete("/profile", [ProfileController::class, 'delete_item']);
+    ->delete("/profile", [ProfileController::class, 'delete_item'])
+    
+    //TODO: delete this
+    ->get("/testing", [PageController::class, 'handle_test']);
 
 $app->run();
