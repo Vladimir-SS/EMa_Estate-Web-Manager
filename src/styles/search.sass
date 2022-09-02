@@ -1,7 +1,8 @@
-@import "config"
-@import "mixins"
+@use 'sass:math'
 
-$unit: $unit/2
+@import ./base
+
+$unit: math.div($unit, 2)
 
 .splited
     display: flex
@@ -35,8 +36,6 @@ $unit: $unit/2
     display: flex
     flex-wrap: wrap
     gap: $unit
-
-    > .filter-option > .label
 
 .content__box--item
     position: relative

@@ -3,11 +3,6 @@
 
 FROM php:8.1.9RC1-cli-buster
 
-# Oracle for php
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions oci8-3.2.1
-
 # Node for building (removed in production)
 # The code was taken from here (https://stackoverflow.com/questions/36399848/install-node-in-dockerfile)
 ENV NODE_VERSION=16.16.0

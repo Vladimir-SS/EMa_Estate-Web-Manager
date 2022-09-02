@@ -20,10 +20,8 @@ class ItemPageController extends Controller
         return $this->render(
             "Item view",
             Renderer::render_template("item_page/item_page",  ['announcement_model' => $announcement_model, 'building_model' => $building_model]),
-            Renderer::render_styles("form", "icon", "item-page") .
-                '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">',
-            '<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>' .
-                Renderer::render_scripts("ItemInfo", "itemPage", "ProximityMapHandler")
+            Renderer::render_styles("form", "icon", "item-page", "ol"),
+            Renderer::render_scripts("item-page")
         );
     }
 }

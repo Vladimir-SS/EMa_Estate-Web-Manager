@@ -1,6 +1,7 @@
+import "./shared/page";
 import Options from "./filter/Options";
-import Item from "./Item";
 import DocumentHandler from "./shared/DocumentHandler";
+import Item from "./Item/Item";
 
 const ParallaxController = {
   ticking: false,
@@ -32,23 +33,17 @@ document.addEventListener("scroll", (__e) => {
 });
 
 DocumentHandler.whenReady(() => {
-  //TODO: do it with fetch :)
-  // var xmlHttpRequest = new XMLHttpRequest();
-  // let obj: ItemData[];
-  // xmlHttpRequest.open("GET", "/api/items?count=10&index=0", true);
-  // xmlHttpRequest.onreadystatechange = () => {
-  //   if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-  //     obj = JSON.parse(xmlHttpRequest.responseText);
-  //     let items = document.getElementById("items");
-  //     if (items == null) return;
-  //     for (const key in obj) {
-  //       if (Object.prototype.hasOwnProperty.call(obj, key)) {
-  //         items.appendChild(Item.create(obj[key]));
-  //       }
-  //     }
-  //   }
-  // };
-  // xmlHttpRequest.send();
+  fetch("/api/items?count=10&index=0")
+    .then((rep) => rep.json())
+    .then((obj: ItemData[]) => {
+      const itemsElement = document.getElementById("items");
+      if (itemsElement == null) return;
+      for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          itemsElement.appendChild(Item.create(obj[key]));
+        }
+      }
+    });
 });
 
 DocumentHandler.whenReady(Options.createFilter);

@@ -1,9 +1,64 @@
 <?php
 include_once DIR_MODELS . "Model.php";
 include_once DIR_CORE . "exceptions/InternalException.php";
+include_once DIR_SHARED . "BidirectionalMap.php";
+
+//TODO: add this under AnnouncementDM namespace and transform the class AnnouncementDM into namespace
+// OR make a data structure that contains typed constraints and api key transition and queries
+//TODO: add "by" here
+
 
 class AnnouncementDM
 {
+    static private BidirectionalMap $apiKeyMap;
+
+    static public function init(){
+        AnnouncementDM::$apiKeyMap = (new BidirectionalMap())
+        ->setAll([
+            ['type'],
+            ['basement'],
+            ['built_in', 'builtIn'],
+            ['ap_type', 'apartmentType'],
+            ['parking_lots', 'parkingLots'],
+            ['rooms'],
+            ['floor'],
+            ['transaction_type', 'transaction'],
+            ['announcement_id', 'announcementId'],
+            ['bathrooms'], ['title'], ['description'], ['lat'], ['lon'], ['address'], ['surface'], ['price'],
+            ['type', 'by'] //TODO: needs to be ignored by now
+        ]);
+    }
+
+    static public function clearData(&$data){
+        foreach ($data as $key => $value)
+            if($value == null)
+                unset($data[$key]);
+    }
+
+    static public function API2SQL($data){
+        $rv = [];
+        foreach ($data as $key => $value) {
+            if(!AnnouncementDM::$apiKeyMap->backwardExists($key))
+                throw new InternalException("field '$key' can't be handled");
+
+            $convertedKey = AnnouncementDM::$apiKeyMap->backwards($key);
+            $rv[$convertedKey] = $data[$key];
+        }
+        return $rv;
+    }
+
+    static public function SQL2API($data){
+        $rv = [];
+        foreach ($data as $key => $value) {
+            if(!AnnouncementDM::$apiKeyMap->forwardExists($key))
+                throw new InternalException("field '$key' can't be handled");
+
+            $convertedKey = AnnouncementDM::$apiKeyMap->forward($key);
+            $rv[$convertedKey] = $data[$key];
+        }
+        return $rv;
+    }
+
     /**
      * Checks if the title already exists in the database
      * 
@@ -11,71 +66,47 @@ class AnnouncementDM
      * @param $count   - maximum number of announcements to be returned
      * @return array
      */
-    public function get_filtered_announcements($filter, $count)
+    static public function get_filtered_announcements($filter, $count)
     {
-        DatabaseConnection::get_connection();
+        AnnouncementDM::init();
+        if ($filter['type'] === "house")
+            AnnouncementDM::$apiKeyMap->set('floor', 'floors');
+        $filterQuery = AnnouncementDM::get_announcements_filters_string($filter);
 
-        $sql = "SELECT a.id,a.title,a.price,a.surface,a.address,a.lon,a.lat,a.transaction_type,a.description,a.type, b.floor,b.bathrooms,b.basement,b.built_in,b.parking_lots,b.ap_type,b.rooms FROM announcements a LEFT JOIN buildings b ON a.id = b.announcement_id WHERE" . $this->get_announcements_filters_string($filter);
 
-        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stmt);
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT * from announcements LEFT JOIN buildings b on announcements.id = b.announcement_id WHERE " . $filterQuery['where'] . "LIMIT $count";
+        $result = pg_query_params($dbconn,  $sql, $filterQuery['values']) or throw new InternalException("Database Problem");
+    
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $rv = [];
 
-        if ($errors) {
-            throw new InternalException($errors);
-        }
+        while ($row = pg_fetch_assoc($result)) {
 
-        $data = [];
+            $itemId = $row['id'];
 
-        for ($i = 0; $i <= $count; $i++) {
-            if (($row = oci_fetch_assoc($stmt)) != false) {
-                $row = array_change_key_case($row, CASE_LOWER);
-                if ($row['type'] === "land") {
-                    unset($row['ap_type']);
-                    unset($row['basement']);
-                    unset($row['parking_lots']);
-                    unset($row['bathrooms']);
-                    unset($row['rooms']);
-                    unset($row['floor']);
-                    unset($row['built_in']);
-                } else {
-                    $row['builtIn'] = $row['built_in'];
-                    unset($row['built_in']);
-                    $row['parkingLots'] = $row['parking_lots'];
-                    unset($row['parking_lots']);
-
-                    if ($row['type'] === "house") {
-                        $row['floors'] = $row['floor'];
-                        unset($row['floor']);
-                        unset($row['ap_type']);
-                    } elseif ($row['type'] === "apartment") {
-                        $row['apartmentType'] = $row['ap_type'];
-                        unset($row['ap_type']);
-                        unset($row['basement']);
-                    } elseif ($row['type'] === "office") {
-                        unset($row['rooms']);
-                        unset($row['basement']);
-                        unset($row['ap_type']);
-                        unset($row['floor']);
-                    }
+            foreach ($row as $key => $value) {
+                if($value === null || !AnnouncementDM::$apiKeyMap->forwardExists($key))
+                    unset($row[$key]);
+                else{
+                    unset($row[$key]);
+                    $row[AnnouncementDM::$apiKeyMap->forward($key)] = $value;
                 }
-
-                $row['transactionType'] = $row['transaction_type'];
-                unset($row['transaction_type']);
-
-                $row['imageURL'] = "api/items/image?announcement_id=" . $row['id'];
-                $data[$i] = $row;
-            } else {
-                break;
             }
+
+            $row['imageURL'] = "api/items/image?announcement_id=" . $itemId;
+            $row['id'] = $itemId;
+            array_push($rv, $row);
         }
 
-        oci_free_statement($stmt);
-        DatabaseConnection::close();
-
-        return $data;
+        return $rv;
     }
+
+
+
 
     /**
      * Creates a string for the filter array ( <column_name> <comparator> <filter_value> AND ...)
@@ -83,107 +114,81 @@ class AnnouncementDM
      * @param $filter  - filter URLparams array
      * @return string
      */
-    public function get_announcements_filters_string($filter): string
+    static public function get_announcements_filters_string($filter): array
     {
-        $filters = [];
-        if (isset($filter['type'])) {
-            $temp = $filter['type'];
-            array_push($filters, " a.type = '$temp'");
+        $conjuctionData = [
+            'where' => [],
+            'values' => []
+        ];
+        $i = 1;
+
+        foreach ($filter as $key => $value) {
+            if($value === "*")
+                continue;
+            $constrain = null;
+            if(str_ends_with($key, 'Min')){
+                $backwardKey = substr_replace($key ,"", -3);
+                if(AnnouncementDM::$apiKeyMap->backwardExists($backwardKey))
+                    $constrain = AnnouncementDM::$apiKeyMap->backward($backwardKey) . " >= $" . $i++;
+                else throw new InternalException("Unrecognized key '$key'");
+            }
+            elseif(str_ends_with($key, 'Max')){
+                $backwardKey = substr_replace($key ,"", -3);
+                if(AnnouncementDM::$apiKeyMap->backwardExists($backwardKey))
+                    $constrain = AnnouncementDM::$apiKeyMap->backward($backwardKey) . " <= $" . $i++;
+                else throw new InternalException("Unrecognized key '$key'");
+            }
+            else {
+                if(AnnouncementDM::$apiKeyMap->backwardExists($key))
+                    $constrain = AnnouncementDM::$apiKeyMap->backward($key) . " = $" . $i++;
+                else throw new InternalException("Unrecognized key '$key'");
+            }
+
+            if(empty($constrain)) continue;
+
+            array_push($conjuctionData['values'], $value);
+            array_push($conjuctionData['where'], $constrain);
         }
 
-        if (isset($filter['priceMin'])) {
-            $temp = $filter['priceMin'];
-            array_push($filters, " a.price >= $temp");
-        }
+        $conjuctionData['where'] = implode(' AND ', $conjuctionData['where']);
 
-        if (isset($filter['priceMax'])) {
-            $temp = $filter['priceMax'];
-            array_push($filters, " a.price <= $temp");
-        }
-
-        if (isset($filter['priceMax'])) {
-            $temp = $filter['priceMax'];
-            array_push($filters, " a.price <= $temp");
-        }
-
-        if (isset($filter['transaction'])) {
-            $temp = $filter['transaction'];
-            array_push($filters, " a.transaction_type = '$temp'");
-        }
-
-        if (isset($filter['roomsMin'])) {
-            $temp = $filter['roomsMin'];
-            array_push($filters, " b.rooms >= $temp");
-        }
-
-        if (isset($filter['roomsMax'])) {
-            $temp = $filter['roomsMax'];
-            array_push($filters, " b.rooms <= $temp");
-        }
-
-        if (isset($filter['bathroomsMin'])) {
-            $temp = $filter['bathroomsMin'];
-            array_push($filters, " b.bathrooms >= $temp");
-        }
-
-        if (isset($filter['bathroomsMax'])) {
-            $temp = $filter['bathroomsMax'];
-            array_push($filters, " b.bathrooms <= $temp");
-        }
-
-        if (isset($filter['builtInMin'])) {
-            $temp = $filter['builtInMin'];
-            array_push($filters, " b.built_in >= $temp");
-        }
-
-        if (isset($filter['builtInMax'])) {
-            $temp = $filter['builtInMax'];
-            array_push($filters, " b.built_in <= $temp");
-        }
-
-        if (isset($filter['apType'])) {
-            $temp = $filter['apType'];
-            array_push($filters, " b.ap_type = '$temp'");
-        }
-
-        $filters = implode(" AND ", $filters);
-        return $filters;
+        return $conjuctionData;
     }
 
+
+    //TODO: automatic var name change
     /**
      * Get an announcement by id
      * 
      * @param $id
      * @return array
      */
-    public function get_announcement_by_id($id)
+    static public function get_announcement_by_id($id)
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT id,account_id,title,price,surface,address,lon,lat,transaction_type,description,type FROM announcements WHERE id= $id";
+        
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT id,account_id,title,price,surface,address,lon,lat,transaction_type,description,type FROM announcements WHERE id = $1";
+        $result = pg_query_params($dbconn,  $sql, array($id));
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $row = pg_fetch_assoc($result);
 
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-        $row = oci_fetch_assoc($stid);
+        if(!$row)
+            return false;
 
-        $row = array_change_key_case($row, CASE_LOWER);
         if ($row['type'] !== "land") {
-            $row = array_merge($row, $this->get_building($row['id'], $row['type']));
+            $row = array_merge($row, AnnouncementDM::get_building($row['id'], $row['type']));
         }
         $row['transactionType'] = $row['transaction_type'];
         unset($row['transaction_type']);
         $row['accountID'] = $row['account_id'];
         unset($row['account_id']);
 
-        $row['imagesURLs'] = $this->get_announcement_images_urls($row['id']);
+        $row['imagesURLs'] = AnnouncementDM::get_announcement_images_urls($row['id']);
 
-        oci_free_statement($stid);
-        DatabaseConnection::close();
         return $row;
     }
     /**
@@ -192,26 +197,23 @@ class AnnouncementDM
      * @param $account_id
      * @return array
      */
-    public function get_announcements_of_id($account_id)
+    static public function get_announcements_of_id($account_id)
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT id,title,price,surface,address,lon,lat,transaction_type,description,type FROM announcements WHERE account_id = $account_id";
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT * FROM announcements WHERE account_id = $1 LIMIT 10"; //pagination or auto on scroll
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $result = pg_query_params($dbconn,  $sql, array($account_id));
 
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
         $data = [];
 
-        while (($row = oci_fetch_assoc($stid)) != false) {
+        while ($row = pg_fetch_assoc($result)) {
             $row = array_change_key_case($row, CASE_LOWER);
             if ($row['type'] !== "land") {
-                $row = array_merge($row, $this->get_building($row['id'], $row['type']));
+                $row = array_merge($row, AnnouncementDM::get_building($row['id'], $row['type']));
             }
             $row['transactionType'] = $row['transaction_type'];
             unset($row['transaction_type']);
@@ -220,8 +222,6 @@ class AnnouncementDM
             array_push($data, $row);
         }
 
-        oci_free_statement($stid);
-        DatabaseConnection::close();
         return $data;
     }
 
@@ -232,27 +232,26 @@ class AnnouncementDM
      * @param $index   - the starting index
      * @return array
      */
-    public function get_announcements($count, $index = 0)
+    static public function get_announcements($count, $index = 0)
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT id,title,price,surface,address,lon,lat,transaction_type,description,type FROM (SELECT rownum AS rn, a.* FROM announcements a) WHERE rn > $index AND rn <= $index+$count";
+       
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT id,title,price,surface,address,lon,lat,transaction_type,description,type FROM announcements LIMIT $1 OFFSET $2";
+        $result = pg_query_params($dbconn,  $sql, array($count, $index));
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        if(!$result)
+            throw new InternalException("Database Problem");
 
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
         $data = [];
 
         for ($i = 0; $i <= $count; $i++) {
-            if (($row = oci_fetch_assoc($stid)) != false) {
-                $row = array_change_key_case($row, CASE_LOWER);
+            if ($row = pg_fetch_assoc($result)) {
                 if ($row['type'] !== "land") {
-                    $row = array_merge($row, $this->get_building($row['id'], $row['type']));
+                    $row = array_merge($row, AnnouncementDM::get_building($row['id'], $row['type']));
                 }
                 $row['transactionType'] = $row['transaction_type'];
                 unset($row['transaction_type']);
@@ -264,151 +263,110 @@ class AnnouncementDM
             }
         }
 
-        oci_free_statement($stid);
-        DatabaseConnection::close();
         return $data;
     }
 
-    public function get_building($id, $type)
+    //TODO: better way of doing it
+    static public function get_building($id, $type)
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT * FROM buildings WHERE announcement_id = $id";;
-        if ($type === "house") {
-            $sql = "SELECT floor,bathrooms,basement,built_in,parking_lots,rooms FROM buildings WHERE announcement_id = $id";
-        } elseif ($type === "office") {
-            $sql = "SELECT bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
-        } elseif ($type === "apartment") {
-            $sql = "SELECT ap_type,floor,bathrooms,parking_lots,built_in,rooms FROM buildings WHERE announcement_id = $id";
-        }
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT * FROM buildings WHERE announcement_id = $1";
+        // if ($type === "house") {
+        //     $sql = "SELECT floor,bathrooms,basement,built_in,parking_lots,rooms FROM buildings WHERE announcement_id = $id";
+        // } elseif ($type === "office") {
+        //     $sql = "SELECT bathrooms,parking_lots,built_in FROM buildings WHERE announcement_id = $id";
+        // } elseif ($type === "apartment") {
+        //     $sql = "SELECT ap_type,floor,bathrooms,parking_lots,built_in,rooms FROM buildings WHERE announcement_id = $id";
+        // }
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $result = pg_query_params($dbconn,  $sql, array($id));
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        if ($errors) {
-            throw new InternalException($errors);
-        }
+        $row = pg_fetch_assoc($result);
+    
+        // if ($type === "house" && $row['floor']) {
+        //     $row['floors'] = $row['floor'];
+        //     unset($row['floor']);
+        // }
+        //elseif ($type === "apartment") {
+        //     $row['apartmentType'] = $row['ap_type'];
+        //     unset($row['ap_type']);
+        // }
+        // $row['builtIn'] = $row['built_in'];
+        // unset($row['built_in']);
+        // $row['parkingLots'] = $row['parking_lots'];
+        // unset($row['parking_lots']);
 
-        $row = oci_fetch_assoc($stid);
-        $row = array_change_key_case($row, CASE_LOWER);
-        if ($type === "house") {
+        $rv = AnnouncementDM::SQL2API($row);
+        AnnouncementDM::clearData($rv);
+
+        if ($type === "house" && $rv['floor']) {
             $row['floors'] = $row['floor'];
             unset($row['floor']);
-        } elseif ($type === "apartment") {
-            $row['apartmentType'] = $row['ap_type'];
-            unset($row['ap_type']);
         }
-        $row['builtIn'] = $row['built_in'];
-        unset($row['built_in']);
-        $row['parkingLots'] = $row['parking_lots'];
-        unset($row['parking_lots']);
 
-        oci_free_statement($stid);
-        DatabaseConnection::close();
+        return $rv ;
+    }
+
+    static public function get_image($announcement_id)
+    {
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT name,type,image FROM images WHERE announcement_id = $1";
+        $result = pg_query_params($dbconn,  $sql, array($announcement_id));
+
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
+
+        $row = pg_fetch_assoc($result);
+        $row['image'] = pg_unescape_bytea($row['image']);
         return $row;
     }
 
-    public function get_image($announcement_id)
+    static public function get_image_by_id($id)
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT name,type,image FROM images WHERE announcement_id = $announcement_id";
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT name,type,image FROM images WHERE id = $1";
+        $result = pg_query_params($dbconn,  $sql, array($id));
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        $row = oci_fetch_assoc($stid);
-        if ($row != false) {
-            $row['IMAGE'] = $row['IMAGE']->load();
-        }
-
-        oci_free_statement($stid);
-        DatabaseConnection::close();
+        $row = pg_fetch_assoc($result);
+        $row['image'] = pg_unescape_bytea($row['image']);
         return $row;
     }
 
-    public function get_image_by_id($id)
+    static public function get_announcement_images_urls($announcement_id)
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT name,type,image FROM images WHERE id = $id";
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        $row = oci_fetch_assoc($stid);
-        if ($row != false) {
-            $row['IMAGE'] = $row['IMAGE']->load();
-        }
-
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $row;
-    }
-
-    public function get_announcement_images_urls($announcement_id)
-    {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT id FROM images WHERE announcement_id = $announcement_id";
-
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
+        $dbconn = DatabaseConnection::get_connection();
+        $result = pg_query_params($dbconn,  "SELECT id FROM images WHERE announcement_id = $1", array($announcement_id));
+        
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
         $imagesURLs = [];
         $index = 0;
 
-        while (($row = oci_fetch_assoc($stid)) != false) {
-            $imagesURLs[$index] = "api/items/image?id=" . $row['ID'];
+        while ($row = pg_fetch_assoc($result)) {
+            $imagesURLs[$index] = "api/items/image?id=" . $row['id'];
             $index++;
         }
 
-        oci_free_statement($stid);
-        DatabaseConnection::close();
         return $imagesURLs;
     }
 
-    public function get_announcements_count()
-    {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT count(*) FROM announcements";
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
 
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        if (($count = oci_fetch($stid)) != false) {
-            $count = oci_result($stid, 1);
-        }
-
-        oci_free_statement($stid);
-        DatabaseConnection::close();
-        return $count;
-    }
 
     //TODO: name and type are useless, remove them
-    public function add_image($announcement_id, $blob, $name, $type)
+    static public function add_image($announcement_id, $blob, $name, $type)
     {
         $data = [
             'announcement_id' => $announcement_id,
@@ -431,7 +389,7 @@ class AnnouncementDM
      * @param $id
      * @return bool true if exists, false otherwise
      */
-    public function check_existence_title($title, $id): bool
+    static public function check_existence_title($title, $id): bool
     {
         $dbconn = DatabaseConnection::get_connection();
         $result = pg_query_params($dbconn,  "SELECT id FROM announcements WHERE title = $1 AND account_id = $2", array($title, $id));
@@ -445,56 +403,43 @@ class AnnouncementDM
         return !!$row;
     }
 
-    public function create_announcement(array $data)
+    static public function create_announcement(array $data)
     {
         $result = Model::save_data('announcements', $data, ['id']);
 
         return $result['id'];
     }
 
-    public function get_close_located_items($latMin, $latMax, $lonMin, $lonMax)
+    static public function get_close_located_items($latMin, $latMax, $lonMin, $lonMax)
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT id, lat, lon, price, type FROM announcements WHERE lat <= $latMax AND lat >= $latMin AND lon <= $lonMax AND lon >= $lonMin";
-        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stmt);
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT id, lat, lon, price, type FROM announcements WHERE lat <= $1 AND lat >= $2 AND lon <= $3 AND lon >= $4";
+        $result = pg_query_params($dbconn,  $sql, array($latMax, $latMin, $lonMax, $lonMin));
 
-        $errors = oci_error(DatabaseConnection::$conn);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        if ($errors) {
-            throw new InternalException($errors);
-        }
+        $row = pg_fetch_assoc($result);
 
         $data = [];
 
-        while (($row = oci_fetch_assoc($stmt)) != false) {
-            $row = array_change_key_case($row, CASE_LOWER);
-
+        while ($row = pg_fetch_assoc($result)) {
             $row['imageURL'] = "api/items/image?announcement_id=" . $row['id'];
             array_push($data, $row);
         }
-        oci_free_statement($stmt);
-        DatabaseConnection::close();
         return $data;
     }
 
-    public function delete_announcement_of_id($account_id, $announcement_id)
+    static public function delete_announcement_of_id($account_id, $announcement_id)
     {
-        DatabaseConnection::get_connection();
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "DELETE FROM announcements WHERE account_id = $1 AND id = $2";
 
-        $sql = "DELETE FROM announcements WHERE account_id = $account_id AND id = $announcement_id";
-        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
-
-        $result = oci_execute($stmt);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-        oci_free_statement($stmt);
-        DatabaseConnection::close();
+        $result = pg_query_params($dbconn, $sql, [$account_id, $announcement_id]);
 
         return $result;
     }
 }
+
+AnnouncementDM::init();

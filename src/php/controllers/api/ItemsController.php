@@ -29,7 +29,7 @@ class ItemsController extends Controller
             if ($data) {
                 echo json_encode($data, JSON_PRETTY_PRINT);
             } else {
-                echo json_encode([]);
+                echo json_encode(["err" => "No announcement with this id"]);
             }
             die();
         }
@@ -44,8 +44,8 @@ class ItemsController extends Controller
             &&  is_numeric($request->get_body()['lat'])
             && is_numeric($request->get_body()['lon'])
         ) {
-            $latMin = $request->get_body()['lat'] - 0.015;
-            $latMax = $request->get_body()['lat'] + 0.015;
+            $latMin = $request->get_body()['lat'] - 0.003;
+            $latMax = $request->get_body()['lat'] + 0.003;
             $lonMin = $request->get_body()['lon'] - 0.005;
             $lonMax = $request->get_body()['lon'] + 0.005;
 

@@ -18,10 +18,11 @@ class DatabaseConnection
         return DatabaseConnection::$conn;
     }
 
-    public static function close(): bool
-    {
-        $closed = !self::$conn ? true : oci_close(self::$conn);
-        self::$conn = null;
-        return $closed;
-    }
+    //TODO: actually close connection? why?
+    // public static function close(): bool
+    // {
+    //     $closed = !self::$conn ? true : oci_close(self::$conn);
+    //     self::$conn = null;
+    //     return $closed;
+    // }
 }

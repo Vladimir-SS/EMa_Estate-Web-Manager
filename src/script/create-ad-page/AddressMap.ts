@@ -1,4 +1,3 @@
-import "ol/ol.css";
 import * as ol from "ol";
 import * as olProj from "ol/proj";
 import * as olGeom from "ol/geom";

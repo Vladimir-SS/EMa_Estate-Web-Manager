@@ -27,9 +27,7 @@ class CreateAdController extends Controller
         if ($request->is_post()) {
 
             $temp = $request->get_body();
-            echo "<pre>";
-            print_r($temp);
-            echo "</pre>";
+
             $temp['ACCOUNT_ID'] = $request->get_body()['ACCOUNT_ID'] = json_decode(JWT::get_jwt_payload($_COOKIE['user']))->id; // adds account_id value to the array before creating the AnnouncementModel
 
             $temp['TRANSACTION_TYPE'] = $this->transaction_types[$temp['TRANSACTION_TYPE']];

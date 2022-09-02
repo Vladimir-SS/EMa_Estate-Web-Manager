@@ -12,38 +12,38 @@
             <?php
             echo sprintf(
                 '<h2> %s %s (%s) </h2>',
-                $model->get_data()['LAST_NAME']['value'],
-                $model->get_data()['FIRST_NAME']['value'],
-                $model->get_data()['BUSINESS_NAME']['value']
+                $model->get_data()['last_name'],
+                $model->get_data()['first_name'],
+                $model->get_data()['business_name']
             );
-            if ($model->get_data()['BUSINESS_NAME']['value'] != null) {
+            if ($model->get_data()['business_name'] != null) {
                 echo '<p>Agent Imobiliar</p>';
             } else {
                 echo '<p>Persoană fizică</p>';
             }
             ?>
 
-            <p class="secondary"> Pe Estence din <?php echo date('d-m-Y', strtotime($model->get_data()['CREATED_AT']['value'])); ?></p>
+            <p class="secondary"> Pe Estence din <?php echo date('d-m-Y', strtotime($model->get_data()['created_at'])); ?></p>
         </div>
 
         <div class="content__box--form">
             <?php $form = Form::begin('content__box__form', '/profile', 'post', 'multipart/form-data') ?>
             <div class="double-input-row">
                 <?php
-                echo $form->field($model, 'LAST_NAME', $model->get_data()['LAST_NAME']['value'], 'icon-person');
-                echo $form->field($model, 'FIRST_NAME', $model->get_data()['FIRST_NAME']['value'], 'icon-person');
+                echo $form->field($model, 'last_name', $model->get_data()['last_name'], 'icon-person');
+                echo $form->field($model, 'first_name', $model->get_data()['first_name'], 'icon-person');
                 ?>
             </div>
             <?php
-            echo $form->field($model, 'PHONE', $model->get_data()['PHONE']['value'], 'icon-phone', 'tel');
-            echo $form->field($model, 'EMAIL', $model->get_data()['EMAIL']['value'], 'icon-mail');
-            echo $form->field($model, 'BUSINESS_NAME', $model->get_data()['BUSINESS_NAME']['value'] ?? 'Adauga business', 'icon-mail');
+            echo $form->field($model, 'phone', $model->get_data()['phone'], 'icon-phone', 'tel');
+            echo $form->field($model, 'email', $model->get_data()['email'], 'icon-mail');
+            echo $form->field($model, 'business_name', $model->get_data()['business_name'] ?? 'Adauga business', 'icon-mail');
             ?>
             <p>Schimbă parola</p>
             <?php
-            echo $form->field($model, 'OLD_PASSWORD', 'Introdu parola curentă', 'icon-pass', 'password');
-            echo $form->field($model, 'PASSWORD', 'Introdu parola nouă', 'icon-pass', 'password');
-            echo $form->field($model, 'CONFIRM_PASSWORD', 'Confirmă parola nouă', 'icon-pass', 'password');
+            echo $form->field($model, 'old_password', 'Introdu parola curentă', 'icon-pass', 'password');
+            echo $form->field($model, 'password', 'Introdu parola nouă', 'icon-pass', 'password');
+            echo $form->field($model, 'confirm_password', 'Confirmă parola nouă', 'icon-pass', 'password');
             ?>
 
             <button class="label label--flex label--important" type="submit" onclick>

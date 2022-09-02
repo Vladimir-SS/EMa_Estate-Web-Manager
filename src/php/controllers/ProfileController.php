@@ -35,40 +35,39 @@ class ProfileController extends Controller
             $no_errors = $model->validate();
             if ($no_errors) {
 
-                if ($data_mapper->check_existence_email($model->get_data()['EMAIL']['value'], $account_data->id) > 0) {
+                if ($data_mapper->check_existence_email($model->get_data()['email'], $account_data->id)) {
                     $no_errors = false;
-                    $model->errors['EMAIL'] = "Email deja folosit";
+                    $model->errors['email'] = "Email deja folosit";
                 }
-                if ($data_mapper->check_existence_phone($model->get_data()['PHONE']['value'], $account_data->id) > 0) {
+                if ($data_mapper->check_existence_phone($model->get_data()['phone'], $account_data->id)) {
                     $no_errors = false;
-                    $model->errors['PHONE'] = "Număr de telefon deja folosit";
+                    $model->errors['phone'] = "Număr de telefon deja folosit";
                 }
                 if ($no_errors) {
 
                     $data = $model->get_data();
                     $salt = $data_mapper->get_salt_by_id($account_data->id);
                     $passwordSP = $data_mapper->get_password_by_id($account_data->id);
-                    if ($services->password_check($model->data['OLD_PASSWORD'], $salt, $passwordSP)) {
-                        unset($data['CONFIRM_PASSWORD']);
-                        unset($data['OLD_PASSWORD']);
-                        unset($data['CREATED_AT']);
-                        if (!empty($data['PASSWORD']['value'])) {
-                            $data['PASSWORD']['value'] = $services->generate_hash($services->add_salt_and_pepper($data['PASSWORD']['value'], $salt));
+                    if ($services->password_check($model->data['old_password'], $salt, $passwordSP)) {
+                        unset($data['confirm_password']);
+                        unset($data['old_password']);
+                        unset($data['created_at']);
+                        if (!empty($data['password'])) {
+                            $data['password'] = $services->generate_hash($services->add_salt_and_pepper($data['password'], $salt));
                         } else {
-                            unset($data['PASSWORD']);
+                            unset($data['password']);
                         }
 
-                        $data_mapper->update_account_data($account_data->id, $data);
-                        if (!empty($_FILES)) {
+                        if (!empty($_FILES['image'])) {
 
                             if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
                                 $blob = file_get_contents($_FILES['image']["tmp_name"]);
-                                $blob = base64_encode($blob);
-                                $data_mapper->update_account_image($account_data->id, $blob);
+                                $data['image'] = pg_escape_bytea(DatabaseConnection::get_connection(), $blob);
                             }
                         }
+                        $data_mapper->update_account_data($account_data->id, $data);
                     } else {
-                        $model->errors['OLD_PASSWORD'] = "Parolă greșită";
+                        $model->errors['old_password'] = "Parolă greșită";
                     }
                 }
             }
@@ -86,7 +85,7 @@ class ProfileController extends Controller
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
-                Renderer::render_scripts("avatar-loader", "Item", "profilePage")
+                Renderer::render_scripts("profile-page")
             );
         } else {
             $data_mapper = new AccountDM();
@@ -100,7 +99,7 @@ class ProfileController extends Controller
                 "Profil",
                 Renderer::render_template("profile/profile", ['model' => $model, 'id' => $id]),
                 Renderer::render_styles("form", "icon", "item", "search", "profile"),
-                Renderer::render_scripts("avatar-loader", "Item", "profilePage")
+                Renderer::render_scripts("profile-page")
             );
         }
     }
@@ -112,8 +111,7 @@ class ProfileController extends Controller
             $account_data = json_decode(JWT::get_jwt_payload($_COOKIE['user']));
             if (isset($request->get_body()['announcement_id'])) {
                 $result = $data_mapper->delete_announcement_of_id($account_data->id, $request->get_body()['announcement_id']);
-                echo json_encode($result);
-                die();
+                die(json_encode($result));
             }
         }
         echo json_encode("false");

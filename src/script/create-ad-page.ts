@@ -1,3 +1,4 @@
+import "./shared/page";
 import DocumentHandler from "./shared/DocumentHandler";
 import CreateAd from "./create-ad-page/CreateAd";
 import FilterOptionHandler from "./filter/FilterOptionHandler";

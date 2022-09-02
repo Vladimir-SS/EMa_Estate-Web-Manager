@@ -11,112 +11,40 @@ class AccountDM
     }
     public function get_data_by_id($id): array| bool
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT last_name, first_name, email, phone, business_name, created_at FROM accounts WHERE id = $id";
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT last_name, first_name, email, phone, business_name, created_at FROM accounts WHERE id = $1";
+        $result = pg_query_params($dbconn,  $sql, array($id));
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        $row = oci_fetch_assoc($stid);
-        oci_free_statement($stid);
-        DatabaseConnection::close();
+        $row = pg_fetch_assoc($result);
         return $row;
     }
 
     public function get_image($id)
     {
-        DatabaseConnection::get_connection();
-        $sql = "SELECT image_type,image FROM accounts WHERE id = $id";
+        $dbconn = DatabaseConnection::get_connection();
+        $sql = "SELECT image_type,image FROM accounts WHERE id = $1";
+        $result = pg_query_params($dbconn,  $sql, array($id));
 
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-        oci_execute($stid);
+        $pg_error = pg_result_error($result);
+        if ($pg_error)
+            throw new InternalException($pg_error);
 
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        $row = oci_fetch_assoc($stid);
-        if ($row != false) {
-            $row['IMAGE'] = $row['IMAGE']->load();
-        }
-
-        oci_free_statement($stid);
-        DatabaseConnection::close();
+        $row = pg_fetch_assoc($result);
+        if(!$row) return false; 
+        $row['image'] = pg_unescape_bytea($row['image']);
         return $row;
     }
 
     public function update_account_data($id, array $data)
     {
-        DatabaseConnection::get_connection();
-
-        foreach ($data as $key => &$value) {
-            $value["tag"] = ":$key" . "_bv";
-        }
-
-        $sql = "UPDATE accounts SET " . implode(
-            ", ",
-            array_map(
-                function ($k, $v) {
-                    return $v["value"] ? ($k . "= " . $v["tag"]) : (($k === 'BUSINESS_NAME') ? ($k . "= NULL") : ($k . "= " . $k));
-                },
-                array_keys($data),
-                array_values($data)
-            )
-        ) . " WHERE id=$id";
-        $stid = oci_parse(DatabaseConnection::$conn, $sql);
-
-        foreach ($data as $key => &$value) {
-            if ($value['value']) {
-                oci_bind_by_name($stid, $value["tag"], $value["value"], -1, $value["type"]);
-            }
-        }
-
-        oci_execute($stid);
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-
-        oci_free_statement($stid);
-        DatabaseConnection::close();
+        Model::update_data_by_id('accounts', $id, $data);
     }
 
-    public function update_account_image($id, $image)
-    {
-        DatabaseConnection::get_connection();
-        $sql = "UPDATE accounts SET image = EMPTY_BLOB() WHERE id = $id RETURNING image INTO :image";
-        $stmt = oci_parse(DatabaseConnection::$conn, $sql);
-        $newlob = oci_new_descriptor(DatabaseConnection::$conn, OCI_D_LOB);
-        oci_bind_by_name($stmt, ":image", $newlob, -1, OCI_B_BLOB);
 
-        oci_execute($stmt, OCI_NO_AUTO_COMMIT);
-
-        if ($newlob->save($image)) {
-            oci_commit(DatabaseConnection::$conn);
-        } else {
-            oci_rollback(DatabaseConnection::$conn);
-        }
-
-        $newlob->free();
-
-        $errors = oci_error(DatabaseConnection::$conn);
-
-        if ($errors) {
-            throw new InternalException($errors);
-        }
-        oci_free_statement($stmt);
-        DatabaseConnection::close();
-    }
 
     /**
      * Finds id by email or phone
@@ -160,7 +88,6 @@ class AccountDM
         $row = pg_fetch_row($result);
 
         if($row){
-            echo $row[0] . "</br>";
             return pg_unescape_bytea($row[0]);
         }
 
@@ -207,7 +134,7 @@ class AccountDM
         $row = pg_fetch_row($result);
         if($row){
             if($id)
-                return $id === (int) $row[0];
+                return $id !== (int) $row[0];
 
             return true;
         }
@@ -234,7 +161,7 @@ class AccountDM
         $row = pg_fetch_row($result);
         if($row){
             if($id)
-                return $id === (int) $row[0];
+                return $id !== (int) $row[0];
 
             return true;
         }

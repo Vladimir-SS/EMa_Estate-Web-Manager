@@ -1,5 +1,6 @@
-@import "config"
-@import "mixins"
+@use 'sass:math'
+
+@import ./base
 
 .content
     display: flex
@@ -27,8 +28,8 @@
     display: inline-grid
     grid-template-rows: auto auto
     grid-template-columns: auto auto
-    column-gap: $unit/2
-    margin-bottom: $unit/2
+    column-gap: math.div($unit, 2)
+    margin-bottom: math.div($unit, 2)
 
     &__avatar
         grid-row: span 3
@@ -55,7 +56,7 @@
 
     .label--important
         grid-column: span 2
-        margin-top: $unit/2
+        margin-top: math.div($unit, 2)
 
 .horizontal-buttons
     display: flex
@@ -65,8 +66,8 @@
     color: red
     cursor: pointer
     position: absolute
-    top: $unit/2
-    right: $unit/2
+    top: math.div($unit, 2)
+    right: math.div($unit, 2)
 
     &:hover
         color: #8B0000

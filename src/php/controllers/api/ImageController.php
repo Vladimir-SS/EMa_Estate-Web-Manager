@@ -15,8 +15,8 @@ class ImageController extends Controller
             $row = $data_mapper->get_image($data['announcement_id']);
 
             if ($row) {
-                header('Content-Type: ' . $row['TYPE']);
-                die(base64_decode($row['IMAGE']));
+                header('Content-Type: ' . $row['type']);
+                die($row['image']);
             } else {
                 echo json_encode([]);
             }
@@ -25,8 +25,8 @@ class ImageController extends Controller
             $row = $data_mapper->get_image_by_id($data['id']);
 
             if ($row) {
-                header('Content-Type: ' . $row['TYPE']);
-                die(base64_decode($row['IMAGE']));
+                header('Content-Type: ' . $row['type']);
+                die($row['image']);
             } else {
                 echo json_encode([]);
             }
@@ -44,13 +44,16 @@ class ImageController extends Controller
             $data_mapper = new AccountDM();
             $row = $data_mapper->get_image($data['id']);
 
-            if ($row) {
-                header('Content-Type: ' . $row['IMAGE_TYPE']);
-                die(base64_decode($row['IMAGE']));
-            } else {
-                echo json_encode([]);
+            if (!$row || !$row['image']) {
+                $pic_name = DIR_CONTROLLERS . "api/blank-profile-picture.jpg";
+                $pic_file = fopen($pic_name, "rb");
+                $row = [
+                    'image' => fread($pic_file, filesize($pic_name)),
+                    'image_type' => 'image/jpeg'
+                ];
             }
-            die();
+            header('Content-Type: ' . $row['image_type']);
+            die($row['image']);
         }
         echo json_encode(["err" => "No id found in request body"]);
     }

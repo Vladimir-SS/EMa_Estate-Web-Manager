@@ -2,7 +2,7 @@ import {
   createSimpleElement,
   createIcon,
   parseMoney,
-} from "./shared/functions";
+} from "../shared/functions";
 
 declare global {
   interface BaseData {

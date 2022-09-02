@@ -7,29 +7,29 @@ class ProfileModel extends Model
     {
         parent::__construct(
             [
-                "LAST_NAME" => (new Constraint())
+                "last_name" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 3)
                     ->add(Constrain::MaxLength, 32),
-                "FIRST_NAME" => (new Constraint())
+                "first_name" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MinLength, 3)
                     ->add(Constrain::MaxLength, 32),
-                "PHONE" => (new Constraint())
+                "phone" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::MaxLength, 16)
                     ->add(Constrain::PhoneNumber),
-                "EMAIL" => (new Constraint())
+                "email" => (new Constraint())
                     ->add(Constrain::Required)
                     ->add(Constrain::Email)
                     ->add(Constrain::MaxLength, 64),
-                "BUSINESS_NAME" => (new Constraint()),
-                "CREATED_AT" => (new Constraint()),
-                "OLD_PASSWORD" => (new Constraint())
+                "business_name" => (new Constraint()),
+                "created_at" => (new Constraint()),
+                "old_password" => (new Constraint())
                     ->add(Constrain::Required),
-                "PASSWORD" => (new Constraint())
+                "password" => (new Constraint())
                     ->add(Constrain::MinLength, 8),
-                "CONFIRM_PASSWORD" => (new Constraint())
+                "confirm_password" => (new Constraint())
                     ->add(Constrain::MinLength, 8),
             ]
         );

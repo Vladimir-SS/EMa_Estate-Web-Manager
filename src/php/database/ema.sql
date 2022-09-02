@@ -41,7 +41,7 @@ create table announcements
     lat              real                       not null,
     lon              real                       not null,
     transaction_type varchar(64)                not null,
-    description      varchar(4000),
+    description      varchar(4000),             not null,
     created_at       timestamp   default now()  not null,
     updated_at       timestamp   default now()  not null
 );

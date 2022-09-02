@@ -8,7 +8,14 @@ import postcss from "postcss";
 
 const prod = process.argv[2] === "production";
 
-const entryTS = ["home-page", "form", "create-ad-page"];
+const entryTS = [
+  "home-page",
+  "form",
+  "create-ad-page",
+  "item-page",
+  "profile-page",
+  "search-page",
+];
 const entrySASS = [
   "page",
   "home",
@@ -19,6 +26,8 @@ const entrySASS = [
   "create-ad",
   "ol",
   "item-page",
+  "search",
+  "profile",
 ];
 
 //TODO: uglify mangle

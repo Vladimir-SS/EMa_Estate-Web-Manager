@@ -82,4 +82,36 @@ class Model
 
         return $rv;
     }
+
+
+    static public function update_data_by_id($table_name, $id, $data, $return_list = null): array{
+        $column_names = array_keys($data);
+        $values = [];
+        $set_array = [];
+        $i = 1;
+        
+        foreach ($data as $key => $value) {
+            array_push($values, $value);
+            array_push($set_array, "$key=$$i");
+            ++$i;
+        }
+
+        array_push($values, $id);
+
+        $sql = "UPDATE $table_name SET " . implode(",", $set_array) . " WHERE id = $$i";
+
+        if($return_list){
+            $return_string = implode(",", $return_list);
+            $sql .= " RETURNING $return_string";
+        }
+        
+        $dbconn = DatabaseConnection::get_connection();
+        $result = pg_query_params($dbconn, $sql, $values);
+
+        if(!$return_list) return array();
+        $row = pg_fetch_row($result);
+        $rv = array_combine($return_list, $row);
+
+        return $rv;
+    }
 }
